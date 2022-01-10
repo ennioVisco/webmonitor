@@ -1,6 +1,9 @@
 
 import com.tylerthrailkill.helpers.prettyprint.pp
+import mu.KotlinLogging
 import org.openqa.selenium.By
+
+private val logger = KotlinLogging.logger {}
 
 fun main() {
     val baseUrl = "https://www.tuwien.ac.at/"
@@ -12,8 +15,8 @@ fun main() {
 
         val wnd = it.driver.manage().window()
 //        wnd.setSize(Dimension(800, 600));
-        println("Window Size: ${wnd.size}")
-        println("Window Position: ${wnd.position}")
+        logger.info("Window Size: ${wnd.size}")
+        logger.info("Window Position: ${wnd.position}")
 
         val h1 = it.driver.findElement(By.cssSelector("h1"))
         val res = h1.rect
@@ -22,16 +25,19 @@ fun main() {
 
         //it.driver.devTools.createSession();
         val viewport = it.driver.executeScript("return [window.innerWidth, window.innerHeight];")
-        println("Viewport $viewport")
+        logger.info("Viewport $viewport")
+
+        val h12 = it.driver.executeScript("return window.getComputedStyle(document.querySelector('h1')).getPropertyValue('font-size');")
+        logger.info("<h1>'s font-size: $h12")
 
 //        it.driver.findElements(By.xpath("//*")).forEach { elem ->
 //            elem.rect.pp()
 //        }
 
         if (actualTitle!!.contentEquals(expectedTitle)){
-            println("Test Passed!")
+            logger.info("Test Passed!")
         } else {
-            println("Test Failed")
+            logger.info("Test Failed")
         }
     }
 }

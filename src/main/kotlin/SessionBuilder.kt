@@ -3,18 +3,24 @@ import org.openqa.selenium.chrome.ChromeDriver
 import org.openqa.selenium.firefox.FirefoxDriver
 import org.openqa.selenium.remote.RemoteWebDriver
 import java.io.Closeable
+import java.nio.file.Path
 
-private const val CHROME_DRIVER = "C:\\Users\\Ennio\\source\\repos\\webmonitor\\libs\\chromedriver_96.exe"
-private const val FIREFOX_DRIVER = "C:\\Users\\Ennio\\source\\repos\\webmonitor\\libs\\geckodriver.exe"
+private val DRIVERS_DIR = Path.of("libs").toAbsolutePath()
+private const val CHROME_DRIVER = "chromedriver_96.exe"
+private const val FIREFOX_DRIVER = "geckodriver.exe"
 
 class SessionBuilder(url: String, engine: String = "chrome") : Closeable {
     var driver: RemoteWebDriver = when (engine) {
             "chrome" -> run {
-                System.setProperty("webdriver.chrome.driver", CHROME_DRIVER)
+                System.setProperty(
+                    "webdriver.chrome.driver",
+                    "$DRIVERS_DIR\\$CHROME_DRIVER")
                 ChromeDriver()
             }
             "firefox" -> run {
-                System.setProperty("webdriver.gecko.driver", FIREFOX_DRIVER)
+                System.setProperty(
+                    "webdriver.gecko.driver",
+                    "$DRIVERS_DIR\\$FIREFOX_DRIVER")
                 FirefoxDriver()
             }
             else -> throw IllegalArgumentException("Invalid driver selected!")
