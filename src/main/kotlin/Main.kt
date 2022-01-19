@@ -2,11 +2,23 @@
 import com.tylerthrailkill.helpers.prettyprint.pp
 import mu.KotlinLogging
 import org.openqa.selenium.By
+import java.net.URL
 
 private val logger = KotlinLogging.logger {}
 
 fun main() {
-    val baseUrl = "https://www.tuwien.ac.at/"
+    val baseUrl = URL("https://www.tuwien.ac.at/")
+
+   val tracker = PageTracker(baseUrl)
+    tracker.select("h1")
+    tracker.select("h2")
+
+    val data = tracker.track()
+    data.pp()
+}
+
+fun main_old() {
+    val baseUrl = URL("https://www.tuwien.ac.at/")
 
     SessionBuilder(baseUrl).use {
         // get the actual value of the title
@@ -34,7 +46,7 @@ fun main() {
 //            elem.rect.pp()
 //        }
 
-        if (actualTitle!!.contentEquals(expectedTitle)){
+        if (actualTitle!!.contentEquals(expectedTitle)) {
             logger.info("Test Passed!")
         } else {
             logger.info("Test Failed")

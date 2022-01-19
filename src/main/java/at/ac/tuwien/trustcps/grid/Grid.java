@@ -1,8 +1,12 @@
 package at.ac.tuwien.trustcps.grid;
 
+import eu.quanticol.moonlight.formula.DoubleDistance;
 import eu.quanticol.moonlight.signal.DistanceStructure;
 import eu.quanticol.moonlight.signal.GraphModel;
 import eu.quanticol.moonlight.signal.SpatialModel;
+import eu.quanticol.moonlight.util.Pair;
+import eu.quanticol.moonlight.util.TestUtils;
+import kotlin.collections.ArrayDeque;
 
 import java.util.*;
 import java.util.function.BiFunction;
@@ -15,8 +19,9 @@ import java.util.function.Function;
 public class Grid {
     private Grid() {}
 
-    public static SpatialModel<Integer> getModel(int rows, int columns) {
-        return generateGrid(rows, columns);
+    public static GraphModel<Integer> getModel(int rows, int columns) {
+        int totalSize = rows * columns;
+        return createSpatialModel(totalSize, columns);
     }
 
     /**
@@ -25,33 +30,70 @@ public class Grid {
      * @param m the N dimension of the N x M Grid
      * @return an N-M-Grid spatial model
      */
-    public static SpatialModel<Integer> generateGrid(int n, int m) {
-        Map<Pair, Integer> gridMap = new HashMap<>();
-
-        for(int i = 0; i < n; i++)
-            for(int j = 0; j < m; j++) {
-                List<Integer> ns = getNeighbours(i, j, m);
-                for(int node : ns)
-                    gridMap.put(new Pair(toArray(i,j, m) , node), 1);
-            }
-
-        return createSpatialModel(n * m, gridMap);
+    public static GraphModel<Integer> generateGrid(int n, int m) {
+        int totalSize = n * m;
+//        Map<Pair<Integer, Integer>, Integer> gridMap = new HashMap<>();
+//        List<List<Integer>> grid = new ArrayList<>();
+//        // the weight is constant and is 1
+//
+//        for(int i = 0; i < n; i++) {
+//            for (int j = 0; j < m; j++) {
+//                List<Integer> ns = getNeighbours(i, j, m);
+//                grid.add(toArray(i, j, m), ns);
+//                for (int neighbour : ns) {
+//                    gridMap.put(new Pair<>(toArray(i, j, m), neighbour), 1);
+//                }
+//            }
+//        }
+        return createSpatialModel(totalSize, m);
     }
 
-    public static <T> SpatialModel<T> createSpatialModel(int size, BiFunction<Integer, Integer, T> edges) {
-        GraphModel<T> model = new GraphModel<>(size);
 
-        for(int i = 0; i < size; ++i) {
-            for(int j = 0; j < size; ++j) {
-                T value = edges.apply(i, j);
-                if (value != null) {
-                    model.add(i, value, j);
-                }
+    public static GraphModel<Integer> createSpatialModel(int size, int cols) {
+        GraphModel<Integer> model = new GraphModel<>(size);
+
+        for(int i = 0; i < size; i++) {
+            List<Integer> ns = getNeighbours2(i, size, cols);
+            for(Integer neighbour : ns) {
+                model.add(i, 1, neighbour);
             }
         }
 
         return model;
     }
+
+    private static List<Integer> getNeighboursArray(int node, int m) {
+        Pair<Integer, Integer> coords = fromArray(node, m);
+        return getNeighbours(coords.getFirst(), coords.getSecond(), m);
+    }
+
+    public static List<Integer> getNeighbours2(int node, int size, int cols) {
+        List<Integer> neighbours = new ArrayDeque<>(4);
+
+        // bot boundary
+        if(node + cols < size)
+            neighbours.add(node + cols);
+
+        // top boundary
+        if(node - cols >= 0)
+            neighbours.add(node - cols);
+
+        // left border
+        if(node % cols == 0) {
+            neighbours.add(node + 1);
+        // right border
+        } else if(node % cols == cols - 1) {
+            neighbours.add(node - 1);
+        // others
+        } else {
+            neighbours.add(node - 1);
+            neighbours.add(node + 1);
+        }
+
+        return neighbours;
+    }
+
+
 
     /**
      * Surroundings of the current node
@@ -63,7 +105,7 @@ public class Grid {
      * @see #toArray for details on the serialization technique
      */
     public static List<Integer> getNeighbours(int i, int j, int m) {
-        List<Integer> neighbours = new ArrayList<>(4);
+        List<Integer> neighbours = new ArrayList<>(8);
 
 
         // left boundary
@@ -118,10 +160,10 @@ public class Grid {
      * @param m the number of columns of the matrix
      * @return the pair (i,j) of coordinates in the matrix.
      */
-    private static Pair fromArray(int a, int m) {
+    private static Pair<Integer, Integer> fromArray(int a, int m) {
         int i = a % m;
         int j = a / m;
-        return new Pair(i, j);
+        return new Pair<>(i, j);
     }
 
     /**

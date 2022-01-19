@@ -10,16 +10,21 @@ version = "1.0-SNAPSHOT"
 
 repositories {
     mavenCentral()
+    githubPackages("MoonlightSuite", "Moonlight")
 }
 
 dependencies {
-    implementation(fileTree(mapOf("dir" to "libs", "include" to "moonlight.jar")))
-    implementation(fileTree(mapOf("dir" to "libs/selenium-java-4.1.0", "include" to "*.jar")))
-    implementation(fileTree(mapOf("dir" to "libs/selenium-java-4.1.0/lib", "include" to "*.jar")))
-    implementation("io.github.microutils:kotlin-logging:2.1.21")
+    implementation("eu.quanticol.moonlight:core:1.0-SNAPSHOT")
+    implementation("org.seleniumhq.selenium:selenium-java:4.1.1")
+
+
     implementation("org.slf4j:slf4j-simple:1.7.32")
+    implementation("io.github.microutils:kotlin-logging:2.1.21")
     implementation("com.tylerthrailkill.helpers:pretty-print:2.0.2")
-    testImplementation(kotlin("test"))
+
+    // Tests
+    testImplementation("org.junit.jupiter:junit-jupiter:5.8.2")
+    implementation(kotlin("test"))
 }
 
 tasks.test {
@@ -32,4 +37,16 @@ tasks.withType<KotlinCompile> {
 
 application {
     mainClass.set("MainKt")
+}
+
+fun RepositoryHandler.githubPackages(user: String, repo: String):
+        MavenArtifactRepository
+{
+    return maven {
+        url = uri("https://maven.pkg.github.com/$user/$repo")
+        credentials {
+            username = project.findProperty("gpr.user") as String? ?: System.getenv("USERNAME")
+            password = project.findProperty("gpr.key") as String? ?: System.getenv("TOKEN")
+        }
+    }
 }
