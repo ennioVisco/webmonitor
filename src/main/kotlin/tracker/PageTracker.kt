@@ -1,3 +1,5 @@
+package tracker
+
 import mu.KotlinLogging
 import org.openqa.selenium.By
 import org.openqa.selenium.Dimension

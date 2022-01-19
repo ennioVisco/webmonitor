@@ -2,6 +2,8 @@
 import com.tylerthrailkill.helpers.prettyprint.pp
 import mu.KotlinLogging
 import org.openqa.selenium.By
+import tracker.PageTracker
+import tracker.SessionBuilder
 import java.net.URL
 
 private val logger = KotlinLogging.logger {}

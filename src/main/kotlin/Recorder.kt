@@ -21,7 +21,7 @@ fun main() {
         "webdriver.chrome.driver",
         "$DRIVERS_DIR\\$CHROME_DRIVER")
 
-//    SessionBuilder("https://www.google.com").use {
+//    tracker.SessionBuilder("https://www.google.com").use {
 //        val seen = AtomicReference<DomMutationEvent>()
 //        val latch = CountDownLatch(1)
 //        (it.driver as ChromeDriver).onLogEvent(domMutation{ mutation ->

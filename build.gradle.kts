@@ -23,8 +23,9 @@ dependencies {
     implementation("com.tylerthrailkill.helpers:pretty-print:2.0.2")
 
     // Tests
-    testImplementation("org.junit.jupiter:junit-jupiter:5.8.2")
     implementation(kotlin("test"))
+    testImplementation(kotlin("test-junit5"))
+    testImplementation("org.junit.jupiter:junit-jupiter:5.8.2")
 }
 
 tasks.test {
