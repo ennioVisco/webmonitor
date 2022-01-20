@@ -1,17 +1,28 @@
 import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 
+group = "at.ac.tuwien.trustcps"
+version = "1.0-SNAPSHOT"
+
 plugins {
     application
     jacoco
+    id("org.sonarqube") version "3.3"
     kotlin("jvm") version "1.6.10"
 }
 
-group = "at.ac.tuwien.trustcps"
-version = "1.0-SNAPSHOT"
+
 
 repositories {
     mavenCentral()
     githubPackages("MoonlightSuite", "Moonlight")
+}
+
+sonarqube {
+    properties {
+        property("sonar.projectKey", "ennioVisco_webmonitor")
+        property("sonar.organization", "enniovisco")
+        property("sonar.host.url", "https://sonarcloud.io")
+    }
 }
 
 dependencies {
