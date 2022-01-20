@@ -1,4 +1,4 @@
-package space
+package at.ac.tuwien.trustcps.space
 
 import eu.quanticol.moonlight.formula.DistanceDomain
 

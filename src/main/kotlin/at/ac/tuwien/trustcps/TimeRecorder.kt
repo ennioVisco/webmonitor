@@ -1,3 +1,4 @@
+package at.ac.tuwien.trustcps
 
 import org.openqa.selenium.By
 import org.openqa.selenium.chrome.ChromeDriver
@@ -21,7 +22,7 @@ fun main() {
         "webdriver.chrome.driver",
         "$DRIVERS_DIR\\$CHROME_DRIVER")
 
-//    tracker.SessionBuilder("https://www.google.com").use {
+//    at.ac.tuwien.trustcps.tracker.SessionBuilder("https://www.google.com").use {
 //        val seen = AtomicReference<DomMutationEvent>()
 //        val latch = CountDownLatch(1)
 //        (it.driver as ChromeDriver).onLogEvent(domMutation{ mutation ->

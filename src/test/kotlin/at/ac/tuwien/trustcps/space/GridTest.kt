@@ -1,22 +1,51 @@
+package at.ac.tuwien.trustcps.space
 
 import eu.quanticol.moonlight.signal.GraphModel
 import org.junit.jupiter.api.Test
-import space.Grid
 import kotlin.test.assertEquals
 
 class GridTest {
 
     @Test
+    fun rightCoordsFetch() {
+        val grid = Grid(2, 3)
+        val coords = Pair(2, 1)
+        assertEquals(5, grid.toNode(coords))
+    }
+
+    @Test
+    fun rightNodeFetch() {
+        val grid = Grid(2, 3)
+        val node = 5
+        assertEquals(Pair(2, 1), grid.toXY(node))
+    }
+
+    @Test
+    fun conversionIdempotence() {
+        val grid = Grid(2, 3)
+        val coords = Pair(2, 1)
+        val node = 5
+        assertEquals(coords, grid.toXY(grid.toNode(coords)))
+        assertEquals(node, grid.toNode(grid.toXY(node)))
+    }
+
+    @Test
+    fun correctSize() {
+        val grid = Grid(2, 3)
+        assertEquals(2, grid.rows)
+        assertEquals(3, grid.columns)
+        assertEquals(6, grid.size)
+    }
+
+    @Test
     fun test3() {
-        val grid = Grid.getModel(3, 3)
+        val model = Grid(3, 3).model
         val stub = stubGrid()
-        assertEquals(grid.size(), stub.size())
-        for (i in 0..8) {
-            for (j in 0..8) {
-                //System.out.println("("+ i + ", " + j + ")");
-                val left = grid[i, j]
-                val right = stub[i, j]
-                assertEquals(left, right)
+        assertEquals(model.size(), stub.size())
+        for (i in 0 until model.size()) {
+            for (j in 0 until model.size()) {
+                // println("($i, $j)");
+                assertEquals(stub[i, j], model[i, j])
             }
         }
     }

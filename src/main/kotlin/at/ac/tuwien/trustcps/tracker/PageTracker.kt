@@ -1,15 +1,15 @@
-package tracker
+package at.ac.tuwien.trustcps.tracker
 
-import mu.KotlinLogging
+import at.ac.tuwien.trustcps.logger
 import org.openqa.selenium.By
 import org.openqa.selenium.Dimension
 import org.openqa.selenium.remote.RemoteWebDriver
 import java.net.URL
 
 class PageTracker(private val targetPage: URL,
-                  private val dimension: Dimension? = null)
+                  private val dimension: Dimension? = null,
+                  private val browser: Browser? = null)
 {
-    private val logger = KotlinLogging.logger {}
     val data = HashMap<String, String>()
     private val selectors = ArrayList<String>()
 
@@ -17,24 +17,37 @@ class PageTracker(private val targetPage: URL,
      *
      */
     fun track(): Map<String, String> {
-        SessionBuilder(targetPage).use {
+        SessionBuilder(targetPage, dimension, browser ?: Browser.CHROME)
+            .use {
             val wnd = it.driver.manage().window()
+//
+//            if(dimension != null)
+//                wnd.size = dimension
 
-            if(dimension != null)
-                wnd.size = dimension
+            println("Window Size: ${wnd.size}")
+            println("Window Position: ${wnd.position}")
 
-            logger.info("Window Size: ${wnd.size}")
-            logger.info("Window Position: ${wnd.position}")
+            // Viewport
+            val vpWidth = it.driver.executeScript("return window.innerWidth;")
+            val vpHeight = it.driver.executeScript("return window.innerHeight;")
+            data["vp_width"] = vpWidth.toString()
+            data["vp_height"] = vpHeight.toString()
+            println("Viewport: ${vpWidth}x${vpHeight}")
 
-            val wpWidth = it.driver.executeScript("return window.innerWidth;")
-            val wpHeight = it.driver.executeScript("return window.innerHeight;")
-            data["wnd_width"] = wpWidth.toString()
-            data["wnd_height"] = wpHeight.toString()
-            logger.info("Viewport: ${wpWidth}x${wpHeight}")
+            // Browser frame
+            val wndWidth = it.driver.executeScript("return screen.availWidth;")
+            val wndHeight = it.driver.executeScript("return screen.availHeight;")
+            data["wnd_width"] = vpWidth.toString()
+            data["wnd_height"] = vpHeight.toString()
+            println("Window: ${vpWidth}x${vpHeight}")
+
+            Thread.sleep(5_000)
 
             for(selector in selectors) {
                 doSelect(selector, it.driver)
             }
+
+            Thread.sleep(5_000)
         }
         return data
     }
@@ -47,6 +60,9 @@ class PageTracker(private val targetPage: URL,
         data["${queryString}::y"] = elem.rect.y.toString()
         data["${queryString}::width"] = elem.rect.width.toString()
         data["${queryString}::height"] = elem.rect.height.toString()
+//        val rect = driver.executeScript(
+//            "return document.querySelector('${queryString}').getBoundingClientRect()")
+//        data["${queryString}::rect"] = rect.toString()
     }
 
     /**

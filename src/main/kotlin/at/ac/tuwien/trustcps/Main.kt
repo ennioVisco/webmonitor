@@ -1,12 +1,10 @@
+package at.ac.tuwien.trustcps
 
 import com.tylerthrailkill.helpers.prettyprint.pp
-import mu.KotlinLogging
 import org.openqa.selenium.By
-import tracker.PageTracker
-import tracker.SessionBuilder
+import at.ac.tuwien.trustcps.tracker.PageTracker
+import at.ac.tuwien.trustcps.tracker.SessionBuilder
 import java.net.URL
-
-private val logger = KotlinLogging.logger {}
 
 fun main() {
     val baseUrl = URL("https://www.tuwien.ac.at/")
