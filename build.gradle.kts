@@ -65,8 +65,8 @@ fun RepositoryHandler.githubPackages(user: String, repo: String):
     return maven {
         url = uri("https://maven.pkg.github.com/$user/$repo")
         credentials {
-            username = project.findProperty("gpr.user") as String? ?: System.getenv("USERNAME")
-            password = project.findProperty("gpr.key") as String? ?: System.getenv("GH_PKG_KEY")
+            username = project.findProperty("gpr.user") as String? ?: System.getenv("GITHUB_USER")
+            password = project.findProperty("gpr.key") as String? ?: System.getenv("GITHUB_TOKEN")
         }
     }
 }
