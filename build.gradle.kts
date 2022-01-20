@@ -1,8 +1,9 @@
 import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 
 plugins {
-    kotlin("jvm") version "1.6.10"
     application
+    jacoco
+    kotlin("jvm") version "1.6.10"
 }
 
 group = "at.ac.tuwien.trustcps"
@@ -30,7 +31,14 @@ dependencies {
 
 tasks.test {
     useJUnitPlatform()
+    finalizedBy(tasks.jacocoTestReport) // report is always generated after tests run
+
 }
+
+tasks.jacocoTestReport {
+    dependsOn(tasks.test) // tests are required to run before generating the report
+}
+
 
 tasks.withType<KotlinCompile> {
     kotlinOptions.jvmTarget = "11"
