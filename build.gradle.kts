@@ -28,8 +28,8 @@ dependencies {
     implementation("org.seleniumhq.selenium:selenium-java:4.1.1")
 
 
-    implementation("org.slf4j:slf4j-simple:1.7.32")
-    implementation("io.github.microutils:kotlin-logging:2.1.21")
+//    implementation("org.slf4j:slf4j-simple:1.7.32")
+//    implementation("io.github.microutils:kotlin-logging:2.1.21")
     implementation("com.tylerthrailkill.helpers:pretty-print:2.0.2")
 
     // Tests

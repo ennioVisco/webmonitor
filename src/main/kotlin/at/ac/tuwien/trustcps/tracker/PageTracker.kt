@@ -1,6 +1,5 @@
 package at.ac.tuwien.trustcps.tracker
 
-import at.ac.tuwien.trustcps.logger
 import org.openqa.selenium.By
 import org.openqa.selenium.Dimension
 import org.openqa.selenium.remote.RemoteWebDriver
@@ -74,7 +73,7 @@ class PageTracker(private val targetPage: URL,
 
     fun selectAll(driver: RemoteWebDriver) {
         driver.findElements(By.xpath("//*")).forEach { elem ->
-            logger.debug(elem.rect.toString())
+            println(elem.rect.toString())
         }
     }
 
@@ -82,7 +81,7 @@ class PageTracker(private val targetPage: URL,
         //val viewport = driver.executeScript("return [window.innerWidth, window.innerHeight];")
         val h12 = driver.executeScript(
             "return window.getComputedStyle(document.querySelector('h1')).getPropertyValue('font-size');")
-        logger.info("<h1>'s font-size: $h12")
+        println("<h1>'s font-size: $h12")
     }
 
 }

@@ -4,7 +4,7 @@ import eu.quanticol.moonlight.signal.GraphModel
 import org.junit.jupiter.api.Test
 import kotlin.test.assertEquals
 
-class GridTest {
+internal class GridTest {
 
     @Test
     fun rightCoordsFetch() {
@@ -38,7 +38,14 @@ class GridTest {
     }
 
     @Test
-    fun test3() {
+    fun rightDistance() {
+        val dist = Grid(3, 3).distance()
+        assertEquals(2, dist.getDistance(0, 4))
+        assertEquals(4, dist.getDistance(0, 8))
+    }
+
+    @Test
+    fun `3x3grid`() {
         val model = Grid(3, 3).model
         val stub = stubGrid()
         assertEquals(model.size(), stub.size())
