@@ -11,6 +11,7 @@ import at.ac.tuwien.trustcps.tracker.Browser
 import at.ac.tuwien.trustcps.tracker.PageTracker
 import eu.quanticol.moonlight.formula.*
 import java.net.URL
+import java.util.*
 
 
 private const val WIDTH = 320
@@ -18,10 +19,17 @@ private const val HEIGHT = 280
 private const val URL = "https://tuwien.ac.at/"
 
 fun main() {
-    logger.info{"Starting process..."}
+    print("Starting tracking...")
+    println(Calendar.getInstance().time)
     val data = tracking()
     data.pp()
-    monitoring(data, spec())
+
+    print("Starting checking...")
+    println(Calendar.getInstance().time)
+    checking(data, spec())
+
+    print("Ending...")
+    println(Calendar.getInstance().time)
 }
 
 private fun spec(): Formula {
@@ -50,8 +58,9 @@ private fun tracking(): Map<String, String> {
 //    "#cookieman-modal p::width" -> "421"
 //}
 
-private fun monitoring(data: Map<String, String>, spec: Formula) {
-    Checker(WIDTH, HEIGHT, data, spec)
+private fun checking(data: Map<String, String>, spec: Formula) {
+    val checker = Checker(WIDTH, HEIGHT, data)
+    checker.check(spec).pp()
     println("Finished executing")
     // if Grid.toArray($query::x, $query::y) then #cookieman-modal p = true
 }

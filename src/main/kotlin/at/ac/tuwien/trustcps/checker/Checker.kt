@@ -5,31 +5,36 @@ import eu.quanticol.moonlight.formula.BooleanDomain
 import eu.quanticol.moonlight.formula.Formula
 import eu.quanticol.moonlight.formula.Parameters
 import eu.quanticol.moonlight.monitoring.SpatialTemporalMonitoring
+import eu.quanticol.moonlight.monitoring.spatialtemporal.SpatialTemporalMonitor
 import eu.quanticol.moonlight.signal.DistanceStructure
 import eu.quanticol.moonlight.signal.SpatialModel
+import eu.quanticol.moonlight.signal.SpatialTemporalSignal
 import eu.quanticol.moonlight.signal.StaticLocationService
 import java.util.function.Function
 
 class Checker(width: Int, height: Int,
-              data: Map<String, String>,
-              spec: Formula
+              data: Map<String, String>
 )
 {
     val grid = Grid(width, height)
     val locationService = StaticLocationService(grid.model)
     val signal = SignalBuilder(grid, 1, data).signal //TODO: change signal
 
-    val atoms = HashMap<String,
-            Function<Parameters,
+    private val atoms = HashMap<String,
+            Function<Parameters?,
                     Function<Pair<Boolean, Boolean>, Boolean>>>()
+
+    private val dist = mutableMapOf<String, Function<SpatialModel<Int>, DistanceStructure<Int, *>>>(Pair("base", Function {  grid.distance2() }))
+
 
     init {
         setAtomicFormulas()
-        val dist = mutableMapOf<String, Function<SpatialModel<Int>, DistanceStructure<Int, *>>>()
-        dist["base"] = Function {  grid.distance2() }
         //val dist = mutableMapOf<String, Function<SpatialModel<Int>, DistanceStructure<Int, Int>>>(Pair("base", Function {  grid.distance2() }))
+    }
+
+    fun check(spec: Formula): SpatialTemporalSignal<Boolean>? {
         val monitor = SpatialTemporalMonitoring(atoms, dist, BooleanDomain(), true)
-        monitor.monitor(spec, null)
+        return monitor.monitor(spec, null).monitor(locationService, signal)
     }
 
     private fun setAtomicFormulas() {
