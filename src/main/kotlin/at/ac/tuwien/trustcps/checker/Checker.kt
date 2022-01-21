@@ -1,30 +1,42 @@
 package at.ac.tuwien.trustcps.checker
 
 import at.ac.tuwien.trustcps.space.Grid
+import eu.quanticol.moonlight.formula.BooleanDomain
+import eu.quanticol.moonlight.formula.Formula
 import eu.quanticol.moonlight.formula.Parameters
+import eu.quanticol.moonlight.monitoring.SpatialTemporalMonitoring
+import eu.quanticol.moonlight.signal.DistanceStructure
+import eu.quanticol.moonlight.signal.SpatialModel
 import eu.quanticol.moonlight.signal.StaticLocationService
-import eu.quanticol.moonlight.util.Pair
 import java.util.function.Function
 
-class Checker(width: Int, height: Int, private val data: Map<String, String>)
+class Checker(width: Int, height: Int,
+              data: Map<String, String>,
+              spec: Formula
+)
 {
     val grid = Grid(width, height)
     val locationService = StaticLocationService(grid.model)
     val signal = SignalBuilder(grid, 1, data).signal //TODO: change signal
 
-    val atomicFormulas = HashMap<String,
+    val atoms = HashMap<String,
             Function<Parameters,
                     Function<Pair<Boolean, Boolean>, Boolean>>>()
 
     init {
         setAtomicFormulas()
+        val dist = mutableMapOf<String, Function<SpatialModel<Int>, DistanceStructure<Int, *>>>()
+        dist["base"] = Function {  grid.distance2() }
+        //val dist = mutableMapOf<String, Function<SpatialModel<Int>, DistanceStructure<Int, Int>>>(Pair("base", Function {  grid.distance2() }))
+        val monitor = SpatialTemporalMonitoring(atoms, dist, BooleanDomain(), true)
+        monitor.monitor(spec, null)
     }
 
     private fun setAtomicFormulas() {
-        atomicFormulas["#cookieman-modal p"] = Function {
+        atoms["#cookieman-modal p"] = Function {
             Function { pair: Pair<Boolean, Boolean> -> pair.second }
         }
-        atomicFormulas["screen"] = Function {
+        atoms["screen"] = Function {
             Function { pair: Pair<Boolean, Boolean> -> pair.first }
         }
 

@@ -95,20 +95,29 @@ class Grid(val rows: Int, val columns: Int) {
     /**
      * It calculates the proper distance, given a spatial model
      *
-     * @param lowerBound double representing the starting position
-     * @param upperBound double representing the ending position
      * @return a DoubleDistance object, meaningful in the given Spatial Model
      */
-    fun distance(lowerBound: Int, upperBound: Int):
+    fun distance():
             Function<SpatialModel<Int>, DistanceStructure<Int, *>>
     {
         return Function { graph: SpatialModel<Int> ->
             DistanceStructure(
                 { x: Int -> x },
                 IntegerDistance(),
-                lowerBound, upperBound,
+                0, size,
                 graph
             )
         }
+    }
+
+    fun distance2():
+            DistanceStructure<Int, *>
+    {
+        return  DistanceStructure(
+                { x: Int -> x },
+                IntegerDistance(),
+                0, size,
+                model
+            )
     }
 }
