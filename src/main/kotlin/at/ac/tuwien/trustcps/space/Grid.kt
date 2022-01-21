@@ -3,7 +3,6 @@ package at.ac.tuwien.trustcps.space
 import eu.quanticol.moonlight.signal.DistanceStructure
 import eu.quanticol.moonlight.signal.GraphModel
 import eu.quanticol.moonlight.signal.SpatialModel
-import java.util.function.Function
 
 class Grid(val rows: Int, val columns: Int) {
     /**
@@ -97,22 +96,7 @@ class Grid(val rows: Int, val columns: Int) {
      *
      * @return a DoubleDistance object, meaningful in the given Spatial Model
      */
-    fun distance():
-            Function<SpatialModel<Int>, DistanceStructure<Int, *>>
-    {
-        return Function { graph: SpatialModel<Int> ->
-            DistanceStructure(
-                { x: Int -> x },
-                IntegerDistance(),
-                0, size,
-                graph
-            )
-        }
-    }
-
-    fun distance2():
-            DistanceStructure<Int, *>
-    {
+    fun distance(): DistanceStructure<Int, *> {
         return  DistanceStructure(
                 { x: Int -> x },
                 IntegerDistance(),

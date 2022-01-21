@@ -5,7 +5,6 @@ import eu.quanticol.moonlight.formula.BooleanDomain
 import eu.quanticol.moonlight.formula.Formula
 import eu.quanticol.moonlight.formula.Parameters
 import eu.quanticol.moonlight.monitoring.SpatialTemporalMonitoring
-import eu.quanticol.moonlight.monitoring.spatialtemporal.SpatialTemporalMonitor
 import eu.quanticol.moonlight.signal.DistanceStructure
 import eu.quanticol.moonlight.signal.SpatialModel
 import eu.quanticol.moonlight.signal.SpatialTemporalSignal
@@ -24,7 +23,7 @@ class Checker(width: Int, height: Int,
             Function<Parameters?,
                     Function<Pair<Boolean, Boolean>, Boolean>>>()
 
-    private val dist = mutableMapOf<String, Function<SpatialModel<Int>, DistanceStructure<Int, *>>>(Pair("base", Function {  grid.distance2() }))
+    private val dist = mutableMapOf<String, Function<SpatialModel<Int>, DistanceStructure<Int, *>>>(Pair("base", Function {  grid.distance() }))
 
 
     init {

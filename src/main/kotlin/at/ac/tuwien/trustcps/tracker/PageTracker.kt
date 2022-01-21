@@ -37,9 +37,9 @@ class PageTracker(private val targetPage: URL,
             // Browser frame
             val wndWidth = it.driver.executeScript("return screen.availWidth;")
             val wndHeight = it.driver.executeScript("return screen.availHeight;")
-            data["wnd_width"] = vpWidth.toString()
-            data["wnd_height"] = vpHeight.toString()
-            println("Window: ${vpWidth}x${vpHeight}")
+            data["wnd_width"] = wndWidth.toString()
+            data["wnd_height"] = wndHeight.toString()
+            println("Window: ${wndWidth}x${vpHeight}")
 
             Thread.sleep(5_000)
 
@@ -72,13 +72,13 @@ class PageTracker(private val targetPage: URL,
         selectors.add(queryString)
     }
 
-    private fun selectAll(driver: RemoteWebDriver) {
+    fun selectAll(driver: RemoteWebDriver) {
         driver.findElements(By.xpath("//*")).forEach { elem ->
             logger.debug(elem.rect.toString())
         }
     }
 
-    private fun execScript(driver: RemoteWebDriver) {
+    fun execScript(driver: RemoteWebDriver) {
         //val viewport = driver.executeScript("return [window.innerWidth, window.innerHeight];")
         val h12 = driver.executeScript(
             "return window.getComputedStyle(document.querySelector('h1')).getPropertyValue('font-size');")
