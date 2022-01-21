@@ -10,8 +10,6 @@ plugins {
     kotlin("jvm") version "1.6.10"
 }
 
-
-
 repositories {
     mavenCentral()
     githubPackages("MoonlightSuite", "Moonlight")
@@ -52,7 +50,6 @@ tasks.jacocoTestReport {
         xml.required.set(true)
     }
 }
-
 
 tasks.withType<KotlinCompile> {
     kotlinOptions.jvmTarget = "11"
