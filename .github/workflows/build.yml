@@ -32,8 +32,14 @@ jobs:
           restore-keys: ${{ runner.os }}-gradle
       - name: Change wrapper permissions
         run: chmod +x gradlew
+      # Build & test
       - name: Build and analyze
+        run: ./gradlew build
+      - name: Run tests
+        run: ./gradlew check
+        # Upload report
+      - name: Sonarcloud update
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}  # Needed to get PR information, if any
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
-        run: ./gradlew build sonarqube --info
+        run: ./gradlew sonarqube
