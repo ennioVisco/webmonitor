@@ -34,6 +34,8 @@ jobs:
         run: chmod +x gradlew
       # Build & test
       - name: Build and analyze
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}  # Needed to get PR information, if any
         run: ./gradlew build
       - name: Run tests
         run: ./gradlew check
