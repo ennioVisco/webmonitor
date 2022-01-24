@@ -2,12 +2,13 @@ package at.ac.tuwien.trustcps
 
 import at.ac.tuwien.trustcps.checker.Checker
 import at.ac.tuwien.trustcps.tracker.Browser
-import com.tylerthrailkill.helpers.prettyprint.pp
 import at.ac.tuwien.trustcps.tracker.PageTracker
-import eu.quanticol.moonlight.formula.AtomicFormula
-import eu.quanticol.moonlight.formula.Formula
+import com.tylerthrailkill.helpers.prettyprint.pp
+import eu.quanticol.moonlight.formula.*
 import eu.quanticol.moonlight.signal.SpatialTemporalSignal
 import org.openqa.selenium.Dimension
+import org.slf4j.Logger
+import org.slf4j.LoggerFactory
 import java.net.URL
 import java.util.*
 
@@ -15,43 +16,59 @@ private const val WIDTH = 320
 private const val HEIGHT = 280
 private const val URL = "https://tuwien.ac.at/"
 
-fun main() {
-    print("Starting tracking...")
-    println(Calendar.getInstance().time)
-    val data = tracking()
-    data.pp()
+object Main {
+    @JvmStatic
+    fun main(args: Array<String>) {
+        val logger = LoggerFactory.getLogger(Main::class.java)
+        logger.info("Hello World !!")
+        println("normal console message")
+    }
 
-    print("Starting checking...")
-    println(Calendar.getInstance().time)
-    checking(data, spec())
+    fun main2() {
+        print("Starting tracking...")
+        println(Calendar.getInstance().time)
+        val data = tracking()
+        data.pp()
+
+        print("Starting checking...")
+        println(Calendar.getInstance().time)
+        checking(data, spec())
 
 //    val output = Reporter()
 //    output.report(result, "fromJava Quantitative")
 
-    print("Ending...")
-    println(Calendar.getInstance().time)
+        print("Ending...")
+        println(Calendar.getInstance().time)
+    }
+
+    private fun spec(): Formula {
+        val screen = AtomicFormula("screen")
+        val cookieInfo = AtomicFormula("#cookieman-modal p")
+        val infoOnScreen = impliesFormula(cookieInfo, screen)
+        //return EverywhereFormula("base", infoOnScreen)
+        return GloballyFormula(infoOnScreen)
+    }
+
+    private fun impliesFormula(left: Formula, right: Formula): Formula {
+        return OrFormula(NegationFormula(left), right)
+    }
+
+    private fun tracking(): Map<String, String> {
+        val baseUrl = URL(URL)
+
+        val tracker = PageTracker(baseUrl, Dimension(WIDTH, HEIGHT), Browser.CHROME)
+        tracker.select("#cookieman-modal p")
+
+        return tracker.track()
+    }
+
+    private fun checking(data: Map<String, String>, spec: Formula)
+            : SpatialTemporalSignal<Boolean>? {
+        val checker = Checker(WIDTH, HEIGHT, data)
+        return checker.check(spec)
+    }
+
 }
-
-private fun spec(): Formula {
-    return AtomicFormula("#cookieman-modal p")
-}
-
-private fun tracking(): Map<String, String> {
-    val baseUrl = URL(URL)
-
-    val tracker = PageTracker(baseUrl, Dimension(WIDTH, HEIGHT), Browser.CHROME)
-    tracker.select("#cookieman-modal p")
-
-    return tracker.track()
-}
-
-private fun checking(data: Map<String, String>, spec: Formula)
-        : SpatialTemporalSignal<Boolean>?
-{
-    val checker = Checker(WIDTH, HEIGHT, data)
-    return checker.check(spec)
-}
-
 //{
 //    "wnd_height" -> "1032",
 //    "#cookieman-modal p::y" -> "122",

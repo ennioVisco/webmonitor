@@ -27,13 +27,18 @@ dependencies {
     implementation("eu.quanticol.moonlight:core:1.0-SNAPSHOT")
     implementation("org.seleniumhq.selenium:selenium-java:4.1.1")
 
+    // Logging
+    implementation("io.github.microutils:kotlin-logging-jvm:2.1.21")
+    implementation("org.slf4j:slf4j-api:1.7.33")
+    implementation("org.apache.logging.log4j:log4j-api:2.17.1")
+    implementation("org.apache.logging.log4j:log4j-core:2.17.1")
+    implementation("org.apache.logging.log4j:log4j-slf4j-impl:2.17.1")
+    //implementation("ch.qos.logback:logback-classic:1.2.10")
 
-//    implementation("org.slf4j:slf4j-simple:1.7.32")
-//    implementation("io.github.microutils:kotlin-logging:2.1.21")
     implementation("com.tylerthrailkill.helpers:pretty-print:2.0.2")
 
     // Tests
-    implementation(kotlin("test"))
+    testImplementation(kotlin("test"))
     testImplementation(kotlin("test-junit5"))
     testImplementation("org.junit.jupiter:junit-jupiter:5.8.2")
 }
