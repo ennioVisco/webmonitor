@@ -31,7 +31,7 @@ class Checker(width: Int, height: Int,
         //val dist = mutableMapOf<String, Function<SpatialModel<Int>, DistanceStructure<Int, Int>>>(Pair("base", Function {  grid.distance2() }))
     }
 
-    fun check(spec: Formula): SpatialTemporalSignal<Boolean>? {
+    fun check(spec: Formula): SpatialTemporalSignal<Boolean> {
         val monitor = SpatialTemporalMonitoring(atoms, dist, BooleanDomain(), true)
         return monitor.monitor(spec, null).monitor(locationService, signal)
     }

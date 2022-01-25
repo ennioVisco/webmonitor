@@ -1,11 +1,13 @@
 package at.ac.tuwien.trustcps
 
 import at.ac.tuwien.trustcps.checker.Checker
+import at.ac.tuwien.trustcps.reporter.Reporter
 import at.ac.tuwien.trustcps.tracker.Browser
 import at.ac.tuwien.trustcps.tracker.PageTracker
 import com.tylerthrailkill.helpers.prettyprint.pp
 import eu.quanticol.moonlight.formula.*
 import eu.quanticol.moonlight.signal.SpatialTemporalSignal
+import javafx.application.Platform
 import org.openqa.selenium.Dimension
 import org.slf4j.Logger
 import org.slf4j.LoggerFactory
@@ -16,15 +18,15 @@ private const val WIDTH = 320
 private const val HEIGHT = 280
 private const val URL = "https://tuwien.ac.at/"
 
-object Main {
-    @JvmStatic
-    fun main(args: Array<String>) {
-        val logger = LoggerFactory.getLogger(Main::class.java)
-        logger.info("Hello World !!")
-        println("normal console message")
-    }
+//object Main {
+//    @JvmStatic
+//    fun main(args: Array<String>) {
+//        val logger = LoggerFactory.getLogger(Main::class.java)
+//        logger.info("Hello World !!")
+//        println("normal console message")
+//    }
 
-    fun main2() {
+    fun main() {
         print("Starting tracking...")
         println(Calendar.getInstance().time)
         val data = tracking()
@@ -32,10 +34,10 @@ object Main {
 
         print("Starting checking...")
         println(Calendar.getInstance().time)
-        checking(data, spec())
+        val result: SpatialTemporalSignal<Boolean> = checking(data, spec())
 
-//    val output = Reporter()
-//    output.report(result, "fromJava Quantitative")
+        val output = Reporter(HEIGHT, WIDTH)
+        output.plot(result, "fromJava Quantitative")
 
         print("Ending...")
         println(Calendar.getInstance().time)
@@ -63,12 +65,12 @@ object Main {
     }
 
     private fun checking(data: Map<String, String>, spec: Formula)
-            : SpatialTemporalSignal<Boolean>? {
+            : SpatialTemporalSignal<Boolean> {
         val checker = Checker(WIDTH, HEIGHT, data)
         return checker.check(spec)
     }
 
-}
+//}
 //{
 //    "wnd_height" -> "1032",
 //    "#cookieman-modal p::y" -> "122",
