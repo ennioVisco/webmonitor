@@ -46,7 +46,7 @@ class PageTracker(private val targetPage: URL,
                 doSelect(selector, it.driver)
             }
 
-            Thread.sleep(5_000)
+            //Thread.sleep(5_000)
         }
         return data
     }

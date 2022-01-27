@@ -1,6 +1,5 @@
 package at.ac.tuwien.trustcps.reporter
 
-import at.ac.tuwien.trustcps.Plotter
 import at.ac.tuwien.trustcps.space.Grid
 import eu.quanticol.moonlight.signal.Signal
 import eu.quanticol.moonlight.signal.SpatialTemporalSignal
@@ -49,9 +48,9 @@ class Reporter(val rows: Int, val columns: Int) {
                 else -> throw UnsupportedOperationException("Signal type is not supported")
             }
         }
-        for(v in values) {
-            val xy = grid.toXY(v)
-            output[xy.first][xy.second] = v.toDouble()
+        for((index, value) in values.withIndex()) {
+            val (x, y) = grid.toXY(index)
+            output[x][y] = value.toDouble()
         }
         return output
     }

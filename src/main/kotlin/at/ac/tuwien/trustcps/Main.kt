@@ -56,7 +56,7 @@ private fun tracking(): Map<String, String> {
 
 private fun checking(data: Map<String, String>, spec: Formula)
         : SpatialTemporalSignal<Boolean> {
-    val checker = Checker(WIDTH, HEIGHT, data)
+    val checker = Checker(WIDTH, HEIGHT, listOf(data))
     return checker.check(spec)
 }
 
