@@ -19,8 +19,6 @@ inline fun <reified T> SpatialTemporalSignal<T>.get2dSnapshot(grid: Grid, time: 
     return output
 }
 
-
-
 fun impliesFormula(left: Formula, right: Formula): Formula {
     return OrFormula(NegationFormula(left), right)
 }
