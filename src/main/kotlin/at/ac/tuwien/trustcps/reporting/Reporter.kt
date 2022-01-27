@@ -1,4 +1,4 @@
-package at.ac.tuwien.trustcps.reporter
+package at.ac.tuwien.trustcps.reporting
 
 import at.ac.tuwien.trustcps.GridSignal
 import at.ac.tuwien.trustcps.space.Grid
@@ -33,8 +33,8 @@ class Reporter(private val grid: Grid) {
         }
     }
 
-    private inline fun <reified T>
-            signalToGrid(signal: SpatialTemporalSignal<T>) : Array<DoubleArray>
+    private fun <T> signalToGrid(signal: SpatialTemporalSignal<T>):
+            Array<DoubleArray>
     {
         val values = signal.signals.map{ doubleOf(it.valueAt(0.0)) }
         return arrayToMatrix(values)
@@ -51,7 +51,7 @@ class Reporter(private val grid: Grid) {
     }
 
     fun <T> report(result: SpatialTemporalSignal<T>, title: String) {
-        val monitorValuesB = result.signals.map {it.arrayOf(::doubleOf)}
+        val monitorValuesB = result.signals.map { it.arrayOf(::doubleOf) }
 
         println(title)
         printSTSignal(monitorValuesB)
@@ -63,8 +63,8 @@ class Reporter(private val grid: Grid) {
      * Structure:
      * `values[l][t][0/1]`, where
      * - l location index
-     * - t timepoint index
-     * - 0/1 denoting the exact time of the timepoint (0) or its value (1)
+     * - t time-point index
+     * - 0/1 denoting the exact time of the time-point (0) or its value (1)
      */
     private fun printSTSignal(values: List<Array<DoubleArray>>) {
         for(l in values.indices) {
@@ -74,11 +74,11 @@ class Reporter(private val grid: Grid) {
 
     /**
      * Prints a sequence of values for all the time points of the signal.
-     * The sequence is indexed on timepoint ids
+     * The sequence is indexed on time-point ids
      * Structure:
      * `values[t][0/1]`, where
-     * - t timepoint index
-     * - 0/1 denoting the exact time of the timepoint (0) or its value (1)
+     * - t time-point index
+     * - 0/1 denoting the exact time of the time-point (0) or its value (1)
      */
     private fun printTSignal(values: Array<DoubleArray>) {
         for (i in values.indices) {

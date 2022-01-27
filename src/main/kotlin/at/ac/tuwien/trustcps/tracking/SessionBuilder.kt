@@ -1,4 +1,4 @@
-package at.ac.tuwien.trustcps.tracker
+package at.ac.tuwien.trustcps.tracking
 
 import org.openqa.selenium.Dimension
 import org.openqa.selenium.chrome.ChromeDriver

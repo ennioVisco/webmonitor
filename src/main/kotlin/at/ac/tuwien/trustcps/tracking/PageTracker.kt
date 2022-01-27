@@ -1,4 +1,4 @@
-package at.ac.tuwien.trustcps.tracker
+package at.ac.tuwien.trustcps.tracking
 
 import org.openqa.selenium.By
 import org.openqa.selenium.Dimension
@@ -40,7 +40,7 @@ class PageTracker(private val targetPage: URL,
             data["wnd_height"] = wndHeight.toString()
             println("Window: ${wndWidth}x${vpHeight}")
 
-            Thread.sleep(5_000)
+            Thread.sleep(10_000)
 
             for(selector in selectors) {
                 doSelect(selector, it.driver)

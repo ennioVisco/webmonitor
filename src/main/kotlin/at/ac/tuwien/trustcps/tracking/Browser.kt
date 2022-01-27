@@ -1,4 +1,4 @@
-package at.ac.tuwien.trustcps.tracker
+package at.ac.tuwien.trustcps.tracking
 
 enum class Browser {
     FIREFOX,

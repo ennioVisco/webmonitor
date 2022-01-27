@@ -1,11 +1,9 @@
-package at.ac.tuwien.trustcps.checker
+package at.ac.tuwien.trustcps.checking
 
 import at.ac.tuwien.trustcps.space.Grid
-import eu.quanticol.moonlight.formula.AtomicFormula
 import eu.quanticol.moonlight.signal.SpatialTemporalSignal
 import org.junit.jupiter.api.Disabled
 import org.junit.jupiter.api.Test
-import org.junit.jupiter.api.assertThrows
 import java.util.function.BiFunction
 import kotlin.test.assertEquals
 

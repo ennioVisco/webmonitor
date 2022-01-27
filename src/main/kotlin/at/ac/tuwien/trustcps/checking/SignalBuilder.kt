@@ -1,4 +1,4 @@
-package at.ac.tuwien.trustcps.checker
+package at.ac.tuwien.trustcps.checking
 
 import at.ac.tuwien.trustcps.space.Grid
 import eu.quanticol.moonlight.signal.SpatialTemporalSignal
@@ -27,8 +27,9 @@ class SignalBuilder(grid: Grid,
         IntStream.range(0, data.size).forEach { time: Int ->
             val screen = screenToBox(data[time])
             for(p in props) {   //TODO: only works with single element in list
-                val elem = dataToBox(p, data[time])
+
                 stSignal.add(time.toDouble()) { location: Int ->
+                    val elem = dataToBox(p, data[time])
                     Pair(screen.contains(grid.toXY(location)),
                         elem.contains(grid.toXY(location))
                     )

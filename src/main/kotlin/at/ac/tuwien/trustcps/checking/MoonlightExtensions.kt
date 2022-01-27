@@ -1,4 +1,4 @@
-package at.ac.tuwien.trustcps.checker
+package at.ac.tuwien.trustcps.checking
 
 import at.ac.tuwien.trustcps.space.Grid
 import eu.quanticol.moonlight.formula.Formula

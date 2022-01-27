@@ -1,4 +1,4 @@
-package at.ac.tuwien.trustcps.reporter
+package at.ac.tuwien.trustcps.reporting
 
 import eu.hansolo.fx.charts.ChartType
 import eu.hansolo.fx.charts.MatrixPane

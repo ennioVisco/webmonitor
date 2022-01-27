@@ -1,5 +1,6 @@
-package at.ac.tuwien.trustcps.checker
+package at.ac.tuwien.trustcps.checking
 
+import at.ac.tuwien.trustcps.ELEMENT
 import at.ac.tuwien.trustcps.space.Grid
 import eu.quanticol.moonlight.formula.BooleanDomain
 import eu.quanticol.moonlight.formula.Formula
@@ -12,10 +13,9 @@ import eu.quanticol.moonlight.signal.StaticLocationService
 import java.util.function.Function
 
 
-
 class Checker(private val grid: Grid, data: List<Map<String, String>>)
 {
-    private val element = "#cookieman-modal p"
+    private val element = ELEMENT
     private val locationService = StaticLocationService(grid.model)
     val signal = SignalBuilder(grid, listOf(element), data).signal
 
