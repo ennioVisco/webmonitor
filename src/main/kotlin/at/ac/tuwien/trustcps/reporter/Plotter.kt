@@ -10,7 +10,6 @@ import javafx.geometry.Insets
 import javafx.scene.Scene
 import javafx.scene.layout.VBox
 import javafx.scene.paint.Color
-import javafx.scene.paint.LinearGradient
 import javafx.stage.Stage
 
 /**
@@ -18,35 +17,38 @@ import javafx.stage.Stage
  * Instead of being run in classical JavaFX environment, it is being
  * executed as a Runnable
  */
-class Plotter(private val title: String, private val data: Array<DoubleArray>)
+class Plotter(private val title: String, data: Array<DoubleArray>)
     : Application(), Runnable
 {
-    private val rows = data.size
-    private val columns = data[0].size
-    private var series: MatrixItemSeries<MatrixChartItem>? = null
-    private var heatMap: MatrixPane<MatrixChartItem>? = null
+    private val columns = data.size
+    private val rows = data[0].size
+    private val heatMap = addData(data)
 
-    init {
-        val color: LinearGradient = Helper.createColorVariationGradient(Color.BLUE, 5)
-        val data: MutableList<MatrixChartItem> = ArrayList()
-        for (y in 0 until rows) {
-            for (x in 0 until columns) {
-                data.add(MatrixChartItem(x, y, this.data[y][x]))
+    private fun addData(data: Array<DoubleArray>): MatrixPane<MatrixChartItem> {
+        val plotData: MutableList<MatrixChartItem> = ArrayList()
+        for (x in 0 until columns) {
+            for (y in 0 until rows) {
+                plotData.add(MatrixChartItem(x, y, data[x][y]))
             }
         }
-        series = MatrixItemSeries(data, ChartType.MATRIX_HEATMAP)
-        heatMap = MatrixPane(series)
-        //matrixHeatMap2.setColorMapping(ColorMapping.BLUE_TRANSPARENT_RED);
-        heatMap!!.matrixGradient = color
-        heatMap!!.matrix.setUseSpacer(true)
-        heatMap!!.matrix.setColsAndRows(columns, rows)
-        heatMap!!.setPrefSize(800.0, 600.0)
+        val series = MatrixItemSeries(plotData, ChartType.MATRIX_HEATMAP)
+        return MatrixPane(series)
+    }
+
+    private fun configPlot() {
+        //matrixHeatMap2.setColorMapping(ColorMapping.BLUE_TRANSPARENT_RED)
+        val color = Helper.createColorVariationGradient(Color.BLUE, 5)
+        heatMap.matrixGradient = color
+        heatMap.matrix.setUseSpacer(true)
+        heatMap.matrix.setColsAndRows(columns, rows)
+        heatMap.setPrefSize(900.0, 900.0)
     }
 
     /**
      * Method to run when executing as a Runnable
      */
     override fun run() {
+        configPlot()
         val stage = Stage()
         val pane = VBox(10.0, heatMap)
         pane.padding = Insets(10.0)

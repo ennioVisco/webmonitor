@@ -29,12 +29,12 @@ class Grid(val rows: Int, val columns: Int) {
         return model
     }
 
-    private fun getNeighboursArray(node: Int, size: Int)
+    private fun getNeighboursArray(node: Int, arraySize: Int)
     : List<Int>
     {
         val neighbours: MutableList<Int> = ArrayDeque(4)
 
-        if (node + columns < size)                 // bot boundary
+        if (node + columns < arraySize)                 // bot boundary
             neighbours.add(node + columns)
 
         if (node - columns >= 0)                   // top boundary

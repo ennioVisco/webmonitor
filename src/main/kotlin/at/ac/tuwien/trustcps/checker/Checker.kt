@@ -13,10 +13,9 @@ import java.util.function.Function
 
 
 
-class Checker(width: Int, height: Int, data: List<Map<String, String>>)
+class Checker(private val grid: Grid, data: List<Map<String, String>>)
 {
     private val element = "#cookieman-modal p"
-    val grid = Grid(height, width)
     private val locationService = StaticLocationService(grid.model)
     val signal = SignalBuilder(grid, listOf(element), data).signal
 

@@ -9,7 +9,7 @@ class PageTracker(private val targetPage: URL,
                   private val dimension: Dimension? = null,
                   private val browser: Browser? = null)
 {
-    val data = HashMap<String, String>()
+    private val data = HashMap<String, String>()
     private val selectors = ArrayList<String>()
 
     /**

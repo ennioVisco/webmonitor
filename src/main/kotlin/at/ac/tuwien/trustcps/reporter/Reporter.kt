@@ -1,33 +1,31 @@
 package at.ac.tuwien.trustcps.reporter
 
+import at.ac.tuwien.trustcps.GridSignal
 import at.ac.tuwien.trustcps.space.Grid
 import eu.quanticol.moonlight.signal.Signal
 import eu.quanticol.moonlight.signal.SpatialTemporalSignal
 import javafx.application.Platform
+import java.util.*
 
-class Reporter(val rows: Int, val columns: Int) {
-    fun <T> report(result: SpatialTemporalSignal<T>, title: String) {
-        val monitorValuesB: List<Array<DoubleArray>> = result.signals.map {it.arrayOf(::doubleOf)}
-        // Print results
-        println(title)
-        printResults(monitorValuesB)
+/**
+ *  Class to handle the reporting of the output
+ */
+class Reporter(private val grid: Grid) {
+    /**
+     * Function to record a string with current time
+     */
+    fun mark(text: String) {
+        println("${text}...${Calendar.getInstance().time}")
     }
 
-    private fun printResults(monitorValues: List<Array<DoubleArray>>) {
-        for(l in monitorValues.indices) {
-            for (i in monitorValues[l].indices) {
-                for (j in monitorValues[l][i].indices) {
-                    print(monitorValues[l][i][j])
-                    print(" ")
-                }
-                println("")
-            }
-        }
-    }
-
-    inline fun <reified T> plot(result: SpatialTemporalSignal<T>, title: String)
-    {
+    /**
+     * Function to plot the provided signal
+     * @param result signal to be plotted
+     * @param title title of the plot window
+     */
+    fun plot(result: GridSignal, title: String) {
         val gridValues = signalToGrid(result)
+
         val plotter = Plotter(title, gridValues)
 
         Platform.startup {
@@ -35,49 +33,83 @@ class Reporter(val rows: Int, val columns: Int) {
         }
     }
 
-    inline fun <reified T> signalToGrid(signal: SpatialTemporalSignal<T>)
-    : Array<DoubleArray>
+    private inline fun <reified T>
+            signalToGrid(signal: SpatialTemporalSignal<T>) : Array<DoubleArray>
     {
-        val grid = Grid(rows, columns)
-        val output: Array<DoubleArray> = Array(grid.rows) {
-            DoubleArray(grid.columns) { 0.0 }
-        }
-        val values = signal.signals.map{
-            when(val v = it.valueAt(0.0)) {
-                is Boolean -> if (v) 1 else 0
-                else -> throw UnsupportedOperationException("Signal type is not supported")
-            }
-        }
+        val values = signal.signals.map{ doubleOf(it.valueAt(0.0)) }
+        return arrayToMatrix(values)
+    }
+
+    private fun arrayToMatrix(values: List<Double>): Array<DoubleArray> {
+        val output = Array(grid.columns) { DoubleArray(grid.rows) { 0.0 } }
+
         for((index, value) in values.withIndex()) {
             val (x, y) = grid.toXY(index)
-            output[x][y] = value.toDouble()
+            output[x][y] = value
         }
         return output
     }
 
-    fun <T> report(result: Signal<T>, title: String) {
-        val monitorValuesB: Array<DoubleArray> = result.arrayOf(::doubleOf)
-        // Print results
+    fun <T> report(result: SpatialTemporalSignal<T>, title: String) {
+        val monitorValuesB = result.signals.map {it.arrayOf(::doubleOf)}
+
         println(title)
-        printResults(monitorValuesB)
+        printSTSignal(monitorValuesB)
     }
 
-    private fun printResults(monitorValues: Array<DoubleArray>) {
-        for (i in monitorValues.indices) {
-            for (j in monitorValues[i].indices) {
-                print(monitorValues[i][j])
-                print(" ")
-            }
-            println("")
+    /**
+     * Prints a sequence of values at time 0.
+     * The sequence is indexed on location ids
+     * Structure:
+     * `values[l][t][0/1]`, where
+     * - l location index
+     * - t timepoint index
+     * - 0/1 denoting the exact time of the timepoint (0) or its value (1)
+     */
+    private fun printSTSignal(values: List<Array<DoubleArray>>) {
+        for(l in values.indices) {
+            println("${values[l][0][1]} ")
         }
     }
 
+    /**
+     * Prints a sequence of values for all the time points of the signal.
+     * The sequence is indexed on timepoint ids
+     * Structure:
+     * `values[t][0/1]`, where
+     * - t timepoint index
+     * - 0/1 denoting the exact time of the timepoint (0) or its value (1)
+     */
+    private fun printTSignal(values: Array<DoubleArray>) {
+        for (i in values.indices) {
+            println("${values[i][1]} ")
+        }
+    }
+
+    fun <T> report(result: Signal<T>, title: String) {
+        val monitorValuesB = result.arrayOf(::doubleOf)
+
+        println(title)
+        printTSignal(monitorValuesB)
+    }
+
+    /**
+     * Converts a value of some type to a Double
+     * @param T value to convert to Double
+     * @throws invalidType when the provided type cannot be handled
+     */
     private fun <T> doubleOf(aValue: T): Double {
         return when (aValue) {
             is Double -> aValue
             is Boolean -> if (aValue) 1.0 else -1.0
-            else -> Double.NaN
-
+            else -> invalidType()
         }
+    }
+
+    /**
+     * Default exception to throw when the type cannot be handled
+     */
+    private fun invalidType(): Double {
+        throw IllegalArgumentException("The provided type is not supported")
     }
 }
