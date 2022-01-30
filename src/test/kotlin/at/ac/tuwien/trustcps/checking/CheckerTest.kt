@@ -2,23 +2,36 @@ package at.ac.tuwien.trustcps.checking
 
 import at.ac.tuwien.trustcps.space.Grid
 import eu.quanticol.moonlight.signal.SpatialTemporalSignal
-import org.junit.jupiter.api.Disabled
 import org.junit.jupiter.api.Test
 import java.util.function.BiFunction
 import kotlin.test.assertEquals
 
 internal class CheckerTest {
 
-    @Disabled
-    @Test fun `grid conforms to parameters`() {
-        val width = 10
-        val height = 20
-        val mockData: List<Map<String, String>> = emptyList()
-        val grid = Grid(height, width)
-        val checker = Checker(grid, mockData)
-        assertEquals(grid.rows, height)
-        assertEquals(grid.columns, width)
-    }
+//    @Disabled
+//    @Test fun `grid conforms to parameters`() {
+//        val width = 10
+//        val height = 20
+//        val mockData: List<Map<String, String>> = emptyList()
+//        val grid = Grid(height, width)
+//        val checker = Checker(grid, mockData, listOf(""))
+//        //checker.pp()
+//        assertEquals(grid.rows, height)
+//        assertEquals(grid.columns, width)
+//    }
+
+//    @Test
+//    fun calculateAddsValues() {
+//        val mockData = mockk<Map<String, String>>()
+//        val doc1 = listOf(mockData)
+//
+//        every { mockData } returns "test"
+//        every { doc2.value2 } returns "6"
+//
+//        val sut = Checker(doc1, doc2)
+//
+//        assertEquals(11, sut.calculate())
+//    }
 
 //    @Test fun `checking empty data fails`() {
 //        val checker = Checker(2, 2, emptyList())

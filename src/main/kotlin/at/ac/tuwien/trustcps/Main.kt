@@ -18,7 +18,7 @@ private const val URL = "https://tuwien.ac.at/"
 const val ELEMENT = "#cookieman-modal p"
 
 /**
- * ## Example of output
+ * ### Example of output
  * ```
  * {
  *   "wnd_height" -> "1032",
@@ -67,7 +67,7 @@ private fun spec(): Formula {
 private fun checking(grid: Grid, data: Map<String, String>, spec: Formula)
 : GridSignal
 {
-    val checker = Checker(grid, listOf(data))
+    val checker = Checker(grid, listOf(data), listOf(ELEMENT))
     return checker.check(spec)
 }
 
