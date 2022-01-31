@@ -6,7 +6,13 @@ import eu.quanticol.moonlight.formula.NegationFormula
 import eu.quanticol.moonlight.formula.OrFormula
 import eu.quanticol.moonlight.signal.SpatialTemporalSignal
 
-inline fun <reified T> SpatialTemporalSignal<T>.get2dSnapshot(grid: Grid, time: Double)
+/**
+ * Requires a signal based on the provided grid
+ * @return a spatial snapshot given a grid on which the signal is based,
+ *         and a time point
+ */
+inline fun <reified T> SpatialTemporalSignal<T>.get2dSnapshot(grid: Grid,
+                                                              time: Double)
 : Array<Array<T>>
 {
     val values: List<T> = this.signals.map { it.valueAt(time) }
@@ -19,6 +25,9 @@ inline fun <reified T> SpatialTemporalSignal<T>.get2dSnapshot(grid: Grid, time: 
     return output
 }
 
+/**
+ * Helper method to generate a formula based on an implication
+ */
 fun impliesFormula(left: Formula, right: Formula): Formula {
     return OrFormula(NegationFormula(left), right)
 }

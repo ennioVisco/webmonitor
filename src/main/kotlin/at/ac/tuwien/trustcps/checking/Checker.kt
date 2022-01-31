@@ -26,12 +26,12 @@ class Checker(private val grid: Grid,
                                          .useElements(elements)
                                          .build()
 
-    private val dist = mapOf<String, Function<SpatialModel<Int>,
+    val dist = mapOf<String, Function<SpatialModel<Int>,
             DistanceStructure<Int, *>>>(
         Pair("base", Function { grid.distance() })
     )
 
-    private val atoms = elems(elements)
+    val atoms = elems(elements)
 
     private fun elems(elems: List<String>):
             Map<String, Interpretation<List<Boolean>>> {
