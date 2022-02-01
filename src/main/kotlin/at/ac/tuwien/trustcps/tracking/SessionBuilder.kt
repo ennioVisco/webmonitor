@@ -11,13 +11,12 @@ import java.nio.file.Path
 class SessionBuilder(url: URL,
                      dims: Dimension? = null,
                      engine: Browser = Browser.CHROME)
-    : Closeable
-{
+    : Closeable {
     private val driversDir = Path.of("libs").toAbsolutePath()
     private val chromeDriver = "chromedriver_97.exe"
     private val firefoxDriver = "geckodriver.exe"
 
-    var driver: RemoteWebDriver = when (engine) {
+    val driver: RemoteWebDriver = when (engine) {
             Browser.CHROME -> run {
                 System.setProperty(
                     "webdriver.chrome.driver",

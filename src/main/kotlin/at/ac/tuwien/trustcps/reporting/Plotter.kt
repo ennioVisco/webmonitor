@@ -18,12 +18,14 @@ import javafx.stage.Stage
  * executed as a Runnable
  */
 class Plotter(private val title: String, data: Array<DoubleArray>)
-    : Application(), Runnable
-{
+    : Application(), Runnable {
     private val columns = data.size
     private val rows = data[0].size
     private val heatMap = addData(data)
 
+    /**
+     * Initializes the data to plot a heatmap
+     */
     private fun addData(data: Array<DoubleArray>): MatrixPane<MatrixChartItem> {
         val plotData: MutableList<MatrixChartItem> = ArrayList()
         for (x in 0 until columns) {
@@ -33,15 +35,6 @@ class Plotter(private val title: String, data: Array<DoubleArray>)
         }
         val series = MatrixItemSeries(plotData, ChartType.MATRIX_HEATMAP)
         return MatrixPane(series)
-    }
-
-    private fun configPlot() {
-        //matrixHeatMap2.setColorMapping(ColorMapping.BLUE_TRANSPARENT_RED)
-        val color = Helper.createColorVariationGradient(Color.BLUE, 5)
-        heatMap.matrixGradient = color
-        heatMap.matrix.setUseSpacer(true)
-        heatMap.matrix.setColsAndRows(columns, rows)
-        heatMap.setPrefSize(900.0, 900.0)
     }
 
     /**
@@ -56,6 +49,15 @@ class Plotter(private val title: String, data: Array<DoubleArray>)
         stage.title = title
         stage.scene = scene
         stage.show()
+    }
+
+    private fun configPlot() {
+        //matrixHeatMap2.setColorMapping(ColorMapping.BLUE_TRANSPARENT_RED)
+        val color = Helper.createColorVariationGradient(Color.BLUE, 5)
+        heatMap.matrixGradient = color
+        heatMap.matrix.setUseSpacer(true)
+        heatMap.matrix.setColsAndRows(columns, rows)
+        heatMap.setPrefSize(900.0, 900.0)
     }
 
     /**

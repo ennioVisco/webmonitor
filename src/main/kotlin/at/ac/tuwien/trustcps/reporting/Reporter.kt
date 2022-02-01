@@ -14,9 +14,7 @@ class Reporter(private val grid: Grid) {
     /**
      * Function to record a string with current time
      */
-    fun mark(text: String) {
-        println("${text}...${Calendar.getInstance().time}")
-    }
+    fun mark(text: String) = println("${text}...${Calendar.getInstance().time}")
 
     /**
      * Function to plot the provided signal
@@ -33,12 +31,9 @@ class Reporter(private val grid: Grid) {
         }
     }
 
-    private fun <T> signalToGrid(signal: SpatialTemporalSignal<T>):
-            Array<DoubleArray>
-    {
-        val values = signal.signals.map{ doubleOf(it.valueAt(0.0)) }
-        return arrayToMatrix(values)
-    }
+    private fun <T> signalToGrid(signal: SpatialTemporalSignal<T>) =
+        arrayToMatrix(signal.signals.map{ doubleOf(it.valueAt(0.0)) })
+
 
     private fun arrayToMatrix(values: List<Double>): Array<DoubleArray> {
         val output = Array(grid.columns) { DoubleArray(grid.rows) { 0.0 } }
@@ -52,7 +47,6 @@ class Reporter(private val grid: Grid) {
 
     fun <T> report(result: SpatialTemporalSignal<T>, title: String) {
         val monitorValuesB = result.signals.map { it.arrayOf(::doubleOf) }
-
         println(title)
         printSTSignal(monitorValuesB)
     }
@@ -75,8 +69,7 @@ class Reporter(private val grid: Grid) {
     /**
      * Prints a sequence of values for all the time points of the signal.
      * The sequence is indexed on time-point ids
-     * Structure:
-     * `values[t][0/1]`, where
+     * Structure: `values[t][0/1]`, where
      * - t time-point index
      * - 0/1 denoting the exact time of the time-point (0) or its value (1)
      */
@@ -88,7 +81,6 @@ class Reporter(private val grid: Grid) {
 
     fun <T> report(result: Signal<T>, title: String) {
         val monitorValuesB = result.arrayOf(::doubleOf)
-
         println(title)
         printTSignal(monitorValuesB)
     }
@@ -98,12 +90,10 @@ class Reporter(private val grid: Grid) {
      * @param T value to convert to Double
      * @throws invalidType when the provided type cannot be handled
      */
-    private fun <T> doubleOf(aValue: T): Double {
-        return when (aValue) {
+    private fun <T> doubleOf(aValue: T) = when (aValue) {
             is Double -> aValue
             is Boolean -> if (aValue) 1.0 else -1.0
             else -> invalidType()
-        }
     }
 
     /**
