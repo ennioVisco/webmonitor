@@ -3,35 +3,29 @@ package at.ac.tuwien.trustcps.checking
 import at.ac.tuwien.trustcps.space.Grid
 import eu.quanticol.moonlight.formula.AtomicFormula
 import eu.quanticol.moonlight.signal.SpatialTemporalSignal
-import io.mockk.every
-import io.mockk.mockk
-import io.mockk.slot
-import org.junit.jupiter.api.Disabled
 import org.junit.jupiter.api.Test
 import java.util.function.BiFunction
 import kotlin.test.assertEquals
 import kotlin.test.assertFailsWith
+import kotlin.test.assertTrue
 
 internal class CheckerTest {
+    private val grid = Grid(rows = 2, columns = 3)
 
-//    @Test fun calculateAddsValues() {
-//        val mockData = mockk<List<Map<String, String>>>()
-//
-//        val slot = slot<SpatialTemporalSignal<List<Boolean>>>()
-//        val mock = mockk<Checker>()
-//        every { mockData[0] } returns 1
-//
-//        every { mockData } returns "test"
-//        every { doc2.value2 } returns "6"
-//
-//        val sut = Checker(doc1, doc2)
-//
-//        assertEquals(11, checker.check(AtomicFormula("true")))
-//    }
+    @Test fun `simple checking gives correct results`() {
+        val data = mapOf("wnd_width" to "3", "wnd_height" to "2")
+        val checker = Checker(grid, listOf(data), emptyList())
 
-    @Disabled
+        val result = checker.check(AtomicFormula("screen"))
+
+        assertEquals(6, result.signals.size)
+        result.signals.forEach {
+            assertEquals(1, it.size())
+            assertTrue(it.valueAt(0.0))
+        }
+    }
+
     @Test fun `checking empty data fails`() {
-        val grid = Grid(2, 2)
         val checker = Checker(grid, emptyList(), emptyList())
         assertFailsWith<IllegalArgumentException>(
             "Empty data in input should not be allowed") {
@@ -40,14 +34,21 @@ internal class CheckerTest {
     }
 
     @Test fun `2d snapshot from signal`() {
-        val grid = Grid(3, 3)
         val s = evenLocationsAreTrueSignal(grid.size)
-        val snapshot = s.get2dSnapshot(grid, 0.0)
+        val snapshot = s.as2dSnapshot(grid, 0.0)
 
         for(i in 0 until s.size()) {
             val (x, y) = grid.toXY(i)
             assertEquals(s.signals[i].valueAt(0.0), snapshot[y][x])
         }
+    }
+
+    @Test fun `atoms are right`() {
+        val checker = Checker(grid, emptyList(), listOf("elem"))
+        val elem = checker.atoms["elem"]!!
+
+        assertEquals(true,
+                     elem.apply(null).apply(listOf(false, true)))
     }
 
     private fun evenLocationsAreTrueSignal(size: Int) =

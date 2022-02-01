@@ -11,8 +11,8 @@ import eu.quanticol.moonlight.signal.SpatialTemporalSignal
  * @return a spatial snapshot given a grid on which the signal is based,
  *         and a time point
  */
-inline fun <reified T> SpatialTemporalSignal<T>.get2dSnapshot(grid: Grid,
-                                                              time: Double)
+inline fun <reified T> SpatialTemporalSignal<T>.as2dSnapshot(grid: Grid,
+                                                             time: Double)
 : Array<Array<T>>
 {
     val values: List<T> = this.signals.map { it.valueAt(time) }

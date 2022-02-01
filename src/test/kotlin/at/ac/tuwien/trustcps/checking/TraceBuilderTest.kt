@@ -59,16 +59,12 @@ internal class TraceBuilderTest {
                 listOf(false)
             }
         }
-
         return signal
     }
 
     private fun alwaysTrueSignal(): SpatialTemporalSignal<List<Boolean>> {
         val signal = SpatialTemporalSignal<List<Boolean>>(9)
-        signal.add(0.0) {
-            listOf(true)
-        }
-
+        signal.add(0.0) { listOf(true) }
         return signal
     }
 

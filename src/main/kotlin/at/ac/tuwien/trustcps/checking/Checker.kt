@@ -22,27 +22,32 @@ class Checker(private val grid: Grid,
               elements: List<String>) {
     private val locationService = StaticLocationService(grid.model)
 
-    val signal = TraceBuilder(grid, data).useMetadata()
+    private val signal = TraceBuilder(grid, data).useMetadata()
                                          .useElements(elements)
                                          .build()
 
-    val dist = mapOf<String, Function<SpatialModel<Int>,
-            DistanceStructure<Int, *>>>(
+    private val dist = mapOf<String, Function<SpatialModel<Int>,
+                                              DistanceStructure<Int, *>>>(
         Pair("base", Function { grid.distance() })
     )
 
     val atoms = elems(elements)
 
-    private fun elems(elems: List<String>):
-            Map<String, Interpretation<List<Boolean>>> {
-        return mapOf(   // TODO: fix
-            elems[0] to Function { Function { (_, s) -> s } },
-            "screen" to Function { Function { (f, _) -> f } }
-        )
-    }
-
     fun check(spec: Formula): SpatialTemporalSignal<Boolean> {
         val m = Monitor(atoms, dist, BooleanDomain(), true)
         return m.monitor(spec, null).monitor(locationService, signal)
     }
+
+    private fun elems(elems: List<String>):
+            Map<String, Interpretation<List<Boolean>>> {
+        val atoms = mutableMapOf<String, Interpretation<List<Boolean>>>(
+            "screen" to Function { Function { it[0] } }
+        )
+        for(i in elems.indices) {
+            atoms[elems[i]] = Function { Function { it[i + 1] } }
+        }
+        return atoms
+    }
+
+
 }
