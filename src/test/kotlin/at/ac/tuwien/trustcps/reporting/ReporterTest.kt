@@ -7,6 +7,7 @@ import eu.quanticol.moonlight.signal.SpatialTemporalSignal
 import io.mockk.every
 import io.mockk.mockk
 import org.junit.jupiter.api.Assertions.*
+import org.junit.jupiter.api.Disabled
 import org.junit.jupiter.api.Test
 import java.util.*
 
@@ -22,6 +23,7 @@ internal class ReporterTest {
                      output.trim())
     }
 
+    @Disabled
     @Test fun `plotting somehow plots`() {
         val grid = Grid(2, 2)
         val reporter = Reporter(grid)
