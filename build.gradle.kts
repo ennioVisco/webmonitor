@@ -55,6 +55,7 @@ dependencies {
     testImplementation(kotlin("test-junit5"))
     testImplementation("org.junit.jupiter:junit-jupiter:5.8.2")
     testImplementation("io.mockk:mockk:1.12.2")
+    testImplementation ("com.github.stefanbirkner:system-lambda:1.2.1")
 }
 
 tasks.test {

@@ -14,7 +14,8 @@ class Reporter(private val grid: Grid) {
     /**
      * Function to record a string with current time
      */
-    fun mark(text: String) = println("${text}...${Calendar.getInstance().time}")
+    fun mark(text: String) =
+        println("${text}...${Calendar.getInstance().time.seconds}")
 
     /**
      * Function to plot the provided signal
@@ -47,7 +48,7 @@ class Reporter(private val grid: Grid) {
 
     fun <T> report(result: SpatialTemporalSignal<T>, title: String) {
         val monitorValuesB = result.signals.map { it.arrayOf(::doubleOf) }
-        println(title)
+        mark(title)
         printSTSignal(monitorValuesB)
     }
 
@@ -62,7 +63,7 @@ class Reporter(private val grid: Grid) {
      */
     private fun printSTSignal(values: List<Array<DoubleArray>>) {
         for(l in values.indices) {
-            println("${values[l][0][1]} ")
+            mark("${values[l][0][1]} ")
         }
     }
 
@@ -75,13 +76,13 @@ class Reporter(private val grid: Grid) {
      */
     private fun printTSignal(values: Array<DoubleArray>) {
         for (i in values.indices) {
-            println("${values[i][1]} ")
+            mark("${values[i][1]} ")
         }
     }
 
     fun <T> report(result: Signal<T>, title: String) {
         val monitorValuesB = result.arrayOf(::doubleOf)
-        println(title)
+        mark(title)
         printTSignal(monitorValuesB)
     }
 
