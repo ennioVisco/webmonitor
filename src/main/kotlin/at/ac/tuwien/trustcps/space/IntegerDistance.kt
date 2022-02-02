@@ -12,7 +12,7 @@ class IntegerDistance : DistanceDomain<Int> {
 
     override fun less(x: Int, y: Int) = x < y
 
-    override fun lessOrEqual(x: Int, y: Int) =  x < y || equalTo(x, y)
+    override fun lessOrEqual(x: Int, y: Int) =  less( x, y) || equalTo(x, y)
 
     override fun equalTo(x: Int, y: Int) = abs(x - y) < 1.0E-12
 }
