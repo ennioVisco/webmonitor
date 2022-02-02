@@ -68,17 +68,17 @@ class PageTracker(private val targetPage: URL,
         selectors.add(queryString)
     }
 
-    fun selectAll(driver: RemoteWebDriver) {
-        driver.findElements(By.xpath("//*")).forEach { elem ->
-            println(elem.rect.toString())
-        }
-    }
-
-    fun execScript(driver: RemoteWebDriver) {
-        //val viewport = driver.executeScript("return [window.innerWidth, window.innerHeight];")
-        val h12 = driver.executeScript(
-            "return window.getComputedStyle(document.querySelector('h1')).getPropertyValue('font-size');")
-        println("<h1>'s font-size: $h12")
-    }
+//    fun selectAll(driver: RemoteWebDriver) {
+//        driver.findElements(By.xpath("//*")).forEach { elem ->
+//            println(elem.rect.toString())
+//        }
+//    }
+//
+//    fun execScript(driver: RemoteWebDriver) {
+//        //val viewport = driver.executeScript("return [window.innerWidth, window.innerHeight];")
+//        val h12 = driver.executeScript(
+//            "return window.getComputedStyle(document.querySelector('h1')).getPropertyValue('font-size');")
+//        println("<h1>'s font-size: $h12")
+//    }
 
 }
