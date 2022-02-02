@@ -6,27 +6,19 @@ import org.openqa.selenium.firefox.FirefoxDriver
 import org.openqa.selenium.remote.RemoteWebDriver
 import java.io.Closeable
 import java.net.URL
-import java.nio.file.Path
+import io.github.bonigarcia.wdm.WebDriverManager
 
 class SessionBuilder(url: URL,
                      dims: Dimension? = null,
                      engine: Browser = Browser.CHROME)
     : Closeable {
-    private val driversDir = Path.of("libs").toAbsolutePath()
-    private val chromeDriver = "chromedriver_97.exe"
-    private val firefoxDriver = "geckodriver.exe"
-
     val driver: RemoteWebDriver = when (engine) {
             Browser.CHROME -> run {
-                System.setProperty(
-                    "webdriver.chrome.driver",
-                    "$driversDir\\$chromeDriver")
+                WebDriverManager.chromedriver().setup()
                 ChromeDriver()
             }
             Browser.FIREFOX -> run {
-                System.setProperty(
-                    "webdriver.gecko.driver",
-                    "$driversDir\\$firefoxDriver")
+                WebDriverManager.firefoxdriver().setup()
                 FirefoxDriver()
             }
         }
