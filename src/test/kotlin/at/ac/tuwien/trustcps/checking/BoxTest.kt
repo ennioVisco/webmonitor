@@ -5,6 +5,14 @@ import org.junit.jupiter.api.Test
 import kotlin.test.assertFailsWith
 
 internal class BoxTest {
+    @Test fun `box success`() {
+        val box = Box(0, 0, 10, 10)
+        assertEquals(0, box.minX)
+        assertEquals(0, box.minY)
+        assertEquals(10, box.maxX)
+        assertEquals(10, box.maxY)
+    }
+
     @Test fun `box from illegal strings throws exception`() {
         assertFailsWith<IllegalArgumentException>(
             "Non-numeric strings should not be allowed") {

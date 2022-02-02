@@ -5,8 +5,23 @@ import eu.quanticol.moonlight.signal.SpatialTemporalSignal
 import org.junit.jupiter.api.Assertions.*
 import org.junit.jupiter.api.Nested
 import org.junit.jupiter.api.Test
+import kotlin.test.assertFailsWith
 
 internal class TraceBuilderTest {
+    @Test fun `malformed data makes building fail`() {
+        val builder = builderMalformedData()
+        builder.useElement("elem")
+
+        assertFailsWith<IllegalArgumentException> { builder.build() }
+    }
+
+    @Test fun `malformed metadata makes building fail`() {
+        val builder = builderMalformedData()
+        builder.useMetadata()
+
+        assertFailsWith<IllegalArgumentException> { builder.build() }
+    }
+
     @Test fun `simple builder test`() {
         val stub = toArray(signalStub())
 
@@ -75,6 +90,15 @@ internal class TraceBuilderTest {
                 else -> 0.0
             }
         }
+
+    private fun builderMalformedData(): TraceBuilder {
+        val grid = Grid(3, 3)
+        val data = listOf(mapOf("wnd_width" to "2",
+                                "elem::y" to "2"))
+        val builder = TraceBuilder(grid, data)
+        builder.useMetadata()
+        return builder
+    }
 
     private fun builderScreenInit(): TraceBuilder {
         val grid = Grid(3, 3)

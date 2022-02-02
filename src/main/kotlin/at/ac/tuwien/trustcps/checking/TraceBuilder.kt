@@ -68,7 +68,7 @@ class TraceBuilder (private val grid: Grid,
     }
 
     private fun screenToBox(time: Int): Box {
-        try{
+        try {
             val maxX = data[time]["wnd_width"]!!
             val maxY = data[time]["wnd_height"]!!
             return Box.from(minX = "0", minY = "0", maxX = maxX, maxY = maxY)
@@ -79,7 +79,7 @@ class TraceBuilder (private val grid: Grid,
     }
 
     private fun dataToBox(id: String, index: Int): Box {
-        try{
+        try {
             val minX = data[index]["$id::x"]!!
             val minY = data[index]["$id::y"]!!
             val maxX = minX + data[index]["$id::width"]!!
