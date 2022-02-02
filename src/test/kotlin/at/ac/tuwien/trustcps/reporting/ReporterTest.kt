@@ -5,9 +5,7 @@ import at.ac.tuwien.trustcps.space.Grid
 import com.github.stefanbirkner.systemlambda.SystemLambda.tapSystemOut
 import eu.quanticol.moonlight.signal.Signal
 import eu.quanticol.moonlight.signal.SpatialTemporalSignal
-import io.mockk.every
-import io.mockk.mockk
-import io.mockk.mockkConstructor
+import io.mockk.*
 import org.junit.jupiter.api.Assertions.assertDoesNotThrow
 import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.Disabled
@@ -15,22 +13,23 @@ import org.junit.jupiter.api.Nested
 import org.junit.jupiter.api.Test
 import java.time.LocalDateTime
 import java.time.temporal.ChronoUnit
+import kotlin.test.assertFailsWith
 
 internal class ReporterTest {
-    @Disabled("Needs way to mock display request")
     @Test fun `plotting somehow plots`() {
+        val title = "fake signal"
         val grid = Grid(2, 2)
-        val reporter = Reporter(grid)
+        val reporter = spyk(Reporter(grid), recordPrivateCalls = true)
         val ss = mockk<SpatialTemporalSignal<Boolean>>()
         val ts = mockk<Signal<Boolean>>()
-        every { ts.valueAt(0.0) } returns true
+        every { ts.valueAt(any()) } returns true
         every { ss.signals } returns listOf(ts)
 
-        mockkConstructor(Plotter::class)
-        every { anyConstructed<Plotter>().run() } returns Unit
+        justRun { reporter invoke "spawnPlotter" withArguments
+                    listOf(title, (any<Array<DoubleArray>>())) }
 
         assertDoesNotThrow {
-            reporter.plot(ss, "fake signal")
+            reporter.plot(ss, title)
         }
     }
 
@@ -94,5 +93,20 @@ internal class ReporterTest {
 
         private fun <T> timeBox(time: LocalDateTime, content: T) =
             "[$time] - ${content.toString()}${System.lineSeparator()}"
+
+        @Test fun `illegal types in signals throw illegalArgumentException`() {
+            val reporter = Reporter(Grid(2, 2))
+            val s = stringSignal()
+
+            assertFailsWith<IllegalArgumentException> {
+                reporter.report(s, "any")
+            }
+        }
+
+        private fun stringSignal(): Signal<String> {
+            val signal = Signal<String>()
+            signal.add(0.0, "test")
+            return signal
+        }
     }
 }

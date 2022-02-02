@@ -27,10 +27,12 @@ class Reporter(private val grid: Grid) {
     fun plot(result: GridSignal, title: String) {
         val gridValues = signalToGrid(result)
 
-        val plotter = Plotter(title, gridValues)
+        spawnPlotter(title, gridValues)
+    }
 
+    private fun spawnPlotter(title: String, values: Array<DoubleArray>) {
         Platform.startup {
-            plotter.run()
+            Plotter(title, values).run()
         }
     }
 
