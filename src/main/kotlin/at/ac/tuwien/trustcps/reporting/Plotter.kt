@@ -42,18 +42,21 @@ class Plotter(private val title: String, data: Array<DoubleArray>)
      */
     override fun run() {
         configPlot()
-        val stage = configStage()
+        val stage = spawnStage()
+        configStage(stage)
         showStage(stage)
     }
 
-    private fun configStage(): Stage {
-        val stage = Stage()
+    private fun spawnStage(): Stage {
+        return Stage()
+    }
+
+    private fun configStage(stage: Stage) {
         val pane = VBox(10.0, heatMap)
         pane.padding = Insets(10.0)
         val scene = Scene(pane)
         stage.title = title
         stage.scene = scene
-        return stage
     }
 
     private fun configPlot() {
