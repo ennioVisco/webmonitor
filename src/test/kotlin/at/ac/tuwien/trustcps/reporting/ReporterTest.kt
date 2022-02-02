@@ -54,6 +54,7 @@ internal class ReporterTest {
     private fun booleanSignal(): Signal<Boolean> {
         val signal = Signal<Boolean>()
         signal.add(0.0, true)
+        signal.add(1.0, false)
         return signal
     }
 

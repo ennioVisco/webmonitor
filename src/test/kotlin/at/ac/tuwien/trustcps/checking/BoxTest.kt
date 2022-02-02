@@ -54,4 +54,14 @@ internal class BoxTest {
         val box = Box(0, 0, 10, 10)
         assertFalse(box.contains(11, 9))
     }
+
+    @Test fun `what should not be contained is not contained3`() {
+        val box = Box(0, 0, 10, 10)
+        assertFalse(box.contains(-1, 9))
+    }
+
+    @Test fun `what should not be contained is not contained4`() {
+        val box = Box(0, 0, 10, 10)
+        assertFalse(box.contains(0, -1))
+    }
 }
