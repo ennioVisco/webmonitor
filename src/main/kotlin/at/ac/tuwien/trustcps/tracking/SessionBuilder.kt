@@ -10,7 +10,7 @@ import io.github.bonigarcia.wdm.WebDriverManager
 
 class SessionBuilder(url: URL,
                      dims: Dimension? = null,
-                     engine: Browser = Browser.CHROME)
+                     engine: Browser? = Browser.CHROME)
     : Closeable {
     val driver: RemoteWebDriver = when (engine) {
             Browser.CHROME -> run {
@@ -21,7 +21,8 @@ class SessionBuilder(url: URL,
                 WebDriverManager.firefoxdriver().setup()
                 FirefoxDriver()
             }
-        }
+        else -> unsupportedBrowser()
+    }
 
     init {
         driver.manage().window().size = dims?: Dimension(1920, 1080)
@@ -31,5 +32,9 @@ class SessionBuilder(url: URL,
     override fun close() {
         //close all webdriver sessions
         driver.quit()
+    }
+
+    private fun unsupportedBrowser(): RemoteWebDriver {
+        throw UnsupportedOperationException("The provided browser is not supported")
     }
 }

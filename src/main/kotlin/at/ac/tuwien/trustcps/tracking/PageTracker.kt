@@ -16,15 +16,8 @@ class PageTracker(private val targetPage: URL,
      *
      */
     fun track(): Map<String, String> {
-        SessionBuilder(targetPage, dimension, browser ?: Browser.CHROME)
-            .use {
-            val wnd = it.driver.manage().window()
-//
-//            if(dimension != null)
-//                wnd.size = dimension
-
-            println("Window Size: ${wnd.size}")
-            println("Window Position: ${wnd.position}")
+        spawnBrowserSession().use {
+            //val wnd = it.driver.manage().window()
 
             // Viewport
             val vpWidth = it.driver.executeScript("return window.innerWidth;")
@@ -40,7 +33,7 @@ class PageTracker(private val targetPage: URL,
             data["wnd_height"] = wndHeight.toString()
             println("Window: ${wndWidth}x${vpHeight}")
 
-            Thread.sleep(10_000)
+            Thread.sleep(5_000)
 
             for(selector in selectors) {
                 doSelect(selector, it.driver)
@@ -50,6 +43,10 @@ class PageTracker(private val targetPage: URL,
         }
         return data
     }
+
+    private fun spawnBrowserSession() = SessionBuilder(targetPage,
+                                                       dimension,
+                                                       browser)
 
     private fun doSelect(queryString: String, driver: RemoteWebDriver) {
         val elem = driver.findElement(By.cssSelector(queryString))
