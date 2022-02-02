@@ -6,6 +6,7 @@ import eu.quanticol.moonlight.signal.Signal
 import eu.quanticol.moonlight.signal.SpatialTemporalSignal
 import io.mockk.every
 import io.mockk.mockk
+import io.mockk.mockkConstructor
 import org.junit.jupiter.api.Assertions.*
 import org.junit.jupiter.api.Disabled
 import org.junit.jupiter.api.Test
@@ -23,7 +24,6 @@ internal class ReporterTest {
                      output.trim())
     }
 
-    @Disabled
     @Test fun `plotting somehow plots`() {
         val grid = Grid(2, 2)
         val reporter = Reporter(grid)
@@ -31,6 +31,9 @@ internal class ReporterTest {
         val ts = mockk<Signal<Boolean>>()
         every { ts.valueAt(0.0) } returns true
         every { ss.signals } returns listOf(ts)
+
+        mockkConstructor(Plotter::class)
+        every { anyConstructed<Plotter>().run() } returns Unit
 
         assertDoesNotThrow {
             reporter.plot(ss, "fake signal")
