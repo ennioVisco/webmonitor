@@ -32,16 +32,6 @@ internal class CheckerTest {
         }
     }
 
-    @Test fun `2d snapshot from signal`() {
-        val s = evenLocationsAreTrueSignal(grid.size)
-        val snapshot = s.as2dSnapshot(grid, 0.0)
-
-        for(i in 0 until s.size()) {
-            val (x, y) = grid.toXY(i)
-            assertEquals(s.signals[i].valueAt(0.0), snapshot[y][x])
-        }
-    }
-
     @Test fun `atoms are right`() {
         val checker = Checker(grid, emptyList(), listOf("elem"))
         val elem = checker.atoms["elem"]!!
