@@ -47,9 +47,7 @@ class Plotter(private val title: String, data: Array<DoubleArray>)
         showStage(stage)
     }
 
-    private fun spawnStage(): Stage {
-        return Stage()
-    }
+    private fun spawnStage(): Stage  = Stage()
 
     private fun configStage(stage: Stage) {
         val pane = VBox(10.0, heatMap)

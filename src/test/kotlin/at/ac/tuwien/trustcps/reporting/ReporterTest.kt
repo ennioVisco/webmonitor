@@ -33,6 +33,51 @@ internal class ReporterTest {
         }
     }
 
+    @Test fun `illegal types in signals throw illegalArgumentException`() {
+        val reporter = Reporter(Grid(2, 2))
+        val s = stringSignal()
+
+        assertFailsWith<IllegalArgumentException> {
+            reporter.report(s, "any")
+        }
+    }
+
+    @Test fun `boolean types in signals are supported`() {
+        val reporter = Reporter(Grid(2, 2))
+        val s = booleanSignal()
+
+        assertDoesNotThrow {
+            reporter.report(s, "any")
+        }
+    }
+
+    private fun booleanSignal(): Signal<Boolean> {
+        val signal = Signal<Boolean>()
+        signal.add(0.0, true)
+        return signal
+    }
+
+    @Test fun `double types in signals are supported`() {
+        val reporter = Reporter(Grid(2, 2))
+        val s = doubleSignal()
+
+        assertDoesNotThrow {
+            reporter.report(s, "any")
+        }
+    }
+
+    private fun doubleSignal(): Signal<Double> {
+        val signal = Signal<Double>()
+        signal.add(0.0, 1.0)
+        return signal
+    }
+
+    private fun stringSignal(): Signal<String> {
+        val signal = Signal<String>()
+        signal.add(0.0, "test")
+        return signal
+    }
+
     @Nested inner class StandardOutput {
         @Test fun `marking prints the right text`() {
             val text = "test"
@@ -93,20 +138,5 @@ internal class ReporterTest {
 
         private fun <T> timeBox(time: LocalDateTime, content: T) =
             "[$time] - ${content.toString()}${System.lineSeparator()}"
-
-        @Test fun `illegal types in signals throw illegalArgumentException`() {
-            val reporter = Reporter(Grid(2, 2))
-            val s = stringSignal()
-
-            assertFailsWith<IllegalArgumentException> {
-                reporter.report(s, "any")
-            }
-        }
-
-        private fun stringSignal(): Signal<String> {
-            val signal = Signal<String>()
-            signal.add(0.0, "test")
-            return signal
-        }
     }
 }

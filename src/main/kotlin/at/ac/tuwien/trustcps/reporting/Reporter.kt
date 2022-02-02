@@ -30,11 +30,10 @@ class Reporter(private val grid: Grid) {
         spawnPlotter(title, gridValues)
     }
 
-    private fun spawnPlotter(title: String, values: Array<DoubleArray>) {
+    private fun spawnPlotter(title: String, values: Array<DoubleArray>) =
         Platform.startup {
             Plotter(title, values).run()
         }
-    }
 
     private fun <T> signalToGrid(signal: SpatialTemporalSignal<T>) =
         arrayToMatrix(signal.signals.map{ doubleOf(it.valueAt(0.0)) })

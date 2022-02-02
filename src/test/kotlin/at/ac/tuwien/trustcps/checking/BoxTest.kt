@@ -20,10 +20,17 @@ internal class BoxTest {
         }
     }
 
-    @Test fun `box from non-interval parameters fails the requirements`() {
+    @Test fun `box from non-interval parameters fails the requirements1`() {
         assertFailsWith<IllegalArgumentException>(
             "Non-interval parameters should brake the box contract") {
             Box(10, 0, 0, 10)
+        }
+    }
+
+    @Test fun `box from non-interval parameters fails the requirements2`() {
+        assertFailsWith<IllegalArgumentException>(
+            "Non-interval parameters should brake the box contract") {
+            Box(0, 10, 10, 0)
         }
     }
 
@@ -38,8 +45,13 @@ internal class BoxTest {
         assertTrue(box.contains(5, 5))
     }
 
-    @Test fun `what should not be contained is not contained`() {
+    @Test fun `what should not be contained is not contained1`() {
         val box = Box(0, 0, 10, 10)
-        assertFalse(box.contains(11, 11))
+        assertFalse(box.contains(9, 11))
+    }
+
+    @Test fun `what should not be contained is not contained2`() {
+        val box = Box(0, 0, 10, 10)
+        assertFalse(box.contains(11, 9))
     }
 }
