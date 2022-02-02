@@ -1,11 +1,9 @@
 package at.ac.tuwien.trustcps.tracking
 
-import com.tylerthrailkill.helpers.prettyprint.pp
 import io.mockk.*
 import org.junit.jupiter.api.Assertions.*
 import org.junit.jupiter.api.Test
 import org.openqa.selenium.Dimension
-import org.openqa.selenium.chrome.ChromeDriver
 import java.net.URL
 import kotlin.test.assertContains
 
@@ -13,7 +11,7 @@ internal class PageTrackerTest {
     private val url = URL("https://google.com")
     private val dims = Dimension(100, 200)
 
-    @Test fun test() {
+    @Test fun `page tracker can track basic page metadata`() {
         val sessionMock = mockk<SessionBuilder>()
         every { sessionMock.driver.executeScript(any<String>()) } returns "1"
         justRun { sessionMock.close() }

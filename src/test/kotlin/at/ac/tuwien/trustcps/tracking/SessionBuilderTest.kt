@@ -8,7 +8,6 @@ import org.openqa.selenium.chrome.ChromeDriver
 import java.net.URL
 
 internal class SessionBuilderTest {
-    @Disabled("Needs way to mock driver execution")
     @Test fun `browser session is initialized correctly`() {
         val url = URL("https://google.com")
         val dims = Dimension(800, 600)

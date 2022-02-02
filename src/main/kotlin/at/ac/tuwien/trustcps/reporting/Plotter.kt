@@ -42,13 +42,18 @@ class Plotter(private val title: String, data: Array<DoubleArray>)
      */
     override fun run() {
         configPlot()
+        val stage = configStage()
+        showStage(stage)
+    }
+
+    private fun configStage(): Stage {
         val stage = Stage()
         val pane = VBox(10.0, heatMap)
         pane.padding = Insets(10.0)
         val scene = Scene(pane)
         stage.title = title
         stage.scene = scene
-        stage.show()
+        return stage
     }
 
     private fun configPlot() {
@@ -58,6 +63,10 @@ class Plotter(private val title: String, data: Array<DoubleArray>)
         heatMap.matrix.setUseSpacer(true)
         heatMap.matrix.setColsAndRows(columns, rows)
         heatMap.setPrefSize(900.0, 900.0)
+    }
+
+    private fun showStage(stage: Stage) {
+        stage.show()
     }
 
     /**
