@@ -1,10 +1,9 @@
 package at.ac.tuwien.trustcps.checking
 
+import at.ac.tuwien.trustcps.evenLocationsAreTrueSignal
 import at.ac.tuwien.trustcps.space.Grid
 import eu.quanticol.moonlight.formula.AtomicFormula
-import eu.quanticol.moonlight.signal.SpatialTemporalSignal
 import org.junit.jupiter.api.Test
-import java.util.function.BiFunction
 import kotlin.test.assertEquals
 import kotlin.test.assertFailsWith
 import kotlin.test.assertTrue
@@ -49,21 +48,5 @@ internal class CheckerTest {
 
         assertEquals(true,
                      elem.apply(null).apply(listOf(false, true)))
-    }
-
-    private fun evenLocationsAreTrueSignal(size: Int) =
-        createStubSignal(size) { _, location ->
-        location % 2 == 0
-    }
-
-    private fun <T> createStubSignal(locations: Int,
-                                     f: BiFunction<Double, Int, T>)
-    : SpatialTemporalSignal<T> {
-        val s = SpatialTemporalSignal<T>(locations)
-        for(time in 0 .. 1) {
-            val dTime = time.toDouble()
-            s.add(dTime) { f.apply(dTime, it) }
-        }
-        return s
     }
 }

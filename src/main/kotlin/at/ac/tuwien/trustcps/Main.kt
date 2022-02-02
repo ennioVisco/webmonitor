@@ -22,13 +22,13 @@ const val ELEMENT = "#cookieman-modal p"
  * ```
  * {
  *   "wnd_height" -> "1032",
- *   "#cookieman-modal p::y" -> "122",
- *   "#cookieman-modal p::x" -> "31",
  *   "vp_height" -> "147",
- *   "#cookieman-modal p::height" -> "161",
  *   "vp_width" -> "500",
  *   "wnd_width" -> "1920",
+ *   "#cookieman-modal p::x" -> "31",
+ *   "#cookieman-modal p::y" -> "122",
  *   "#cookieman-modal p::width" -> "421"
+ *   "#cookieman-modal p::height" -> "161",
  * }
  * ```
  */

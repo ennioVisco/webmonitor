@@ -1,27 +1,30 @@
 package at.ac.tuwien.trustcps.reporting
 
+import at.ac.tuwien.trustcps.evenLocationsAreTrueSignal
 import at.ac.tuwien.trustcps.space.Grid
-import com.github.stefanbirkner.systemlambda.SystemLambda.*
+import com.github.stefanbirkner.systemlambda.SystemLambda.tapSystemOut
 import eu.quanticol.moonlight.signal.Signal
 import eu.quanticol.moonlight.signal.SpatialTemporalSignal
 import io.mockk.every
 import io.mockk.mockk
 import io.mockk.mockkConstructor
-import org.junit.jupiter.api.Assertions.*
-import org.junit.jupiter.api.Disabled
+import org.junit.jupiter.api.Assertions.assertDoesNotThrow
+import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.Test
-import java.util.*
+import java.time.LocalDateTime
+import java.time.temporal.ChronoUnit
 
 internal class ReporterTest {
     @Test fun `marking prints the right text`() {
         val text = "test"
+        val reporter = Reporter(mockk())
+
         val output = tapSystemOut {
-            val reporter = Reporter(mockk())
             reporter.mark(text)
         }
 
-        assertEquals("${text}...${Calendar.getInstance().time.seconds}",
-                     output.trim())
+        val currentTime = LocalDateTime.now().truncatedTo(ChronoUnit.SECONDS)
+        assertEquals("[$currentTime] - $text", output.trim())
     }
 
     @Test fun `plotting somehow plots`() {
@@ -39,4 +42,51 @@ internal class ReporterTest {
             reporter.plot(ss, "fake signal")
         }
     }
+
+    @Test fun `dumping spatio-temporal signals prints right output`() {
+        val title = "test space-time trace"
+        val grid = Grid(2, 2)
+        val reporter = Reporter(grid)
+        val ss = evenLocationsAreTrueSignal(4)
+
+        val output = tapSystemOut {
+            reporter.report(ss, title)
+        }
+
+        val currentTime = LocalDateTime.now().truncatedTo(ChronoUnit.SECONDS)
+        assertEquals(signalDump1(currentTime), output)
+    }
+
+    private fun signalDump1(time: LocalDateTime): String {
+        var text = timeBox(time, "test space-time trace")
+        text += timeBox(time, 1.0)
+        text += timeBox(time, -1.0)
+        text += timeBox(time, 1.0)
+        text += timeBox(time, -1.0)
+        return text
+    }
+
+    @Test fun `dumping temporal signals prints right output`() {
+        val title = "test time trace"
+        val grid = Grid(2, 2)
+        val reporter = Reporter(grid)
+        val ss = evenLocationsAreTrueSignal(4)
+
+        val output = tapSystemOut {
+            reporter.report(ss.signals[0], title)
+        }
+
+        val currentTime = LocalDateTime.now().truncatedTo(ChronoUnit.SECONDS)
+        assertEquals(signalDump2(currentTime), output)
+    }
+
+    private fun signalDump2(time: LocalDateTime): String {
+        var text = timeBox(time, "test time trace")
+        text += timeBox(time, 1.0)
+        text += timeBox(time, 1.0)
+        return text
+    }
+
+    private fun <T> timeBox(time: LocalDateTime, content: T) =
+        "[$time] - ${content.toString()}${System.lineSeparator()}"
 }

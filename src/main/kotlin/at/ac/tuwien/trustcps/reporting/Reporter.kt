@@ -5,7 +5,8 @@ import at.ac.tuwien.trustcps.space.Grid
 import eu.quanticol.moonlight.signal.Signal
 import eu.quanticol.moonlight.signal.SpatialTemporalSignal
 import javafx.application.Platform
-import java.util.*
+import java.time.LocalDateTime
+import java.time.temporal.ChronoUnit
 
 /**
  *  Class to handle the reporting of the output
@@ -15,7 +16,8 @@ class Reporter(private val grid: Grid) {
      * Function to record a string with current time
      */
     fun mark(text: String) =
-        println("${text}...${Calendar.getInstance().time.seconds}")
+        println("[${LocalDateTime.now().truncatedTo(ChronoUnit.SECONDS)}] - " +
+                text)
 
     /**
      * Function to plot the provided signal
@@ -63,7 +65,7 @@ class Reporter(private val grid: Grid) {
      */
     private fun printSTSignal(values: List<Array<DoubleArray>>) {
         for(l in values.indices) {
-            mark("${values[l][0][1]} ")
+            mark("${values[l][0][1]}")
         }
     }
 
@@ -76,7 +78,7 @@ class Reporter(private val grid: Grid) {
      */
     private fun printTSignal(values: Array<DoubleArray>) {
         for (i in values.indices) {
-            mark("${values[i][1]} ")
+            mark("${values[i][1]}")
         }
     }
 
