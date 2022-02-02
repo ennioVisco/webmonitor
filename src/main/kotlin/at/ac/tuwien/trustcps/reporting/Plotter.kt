@@ -68,30 +68,22 @@ class Plotter(private val title: String, data: Array<DoubleArray>)
         heatMap.setPrefSize(900.0, 900.0)
     }
 
-    private fun showStage(stage: Stage) {
-        stage.show()
-    }
+    private fun showStage(stage: Stage)  = stage.show()
 
     /**
      * Default JavaFX initialization methods. Not supported.
      */
-    override fun init() {
-        unsupported()
-    }
+    override fun init() = unsupported()
 
     /**
-     * Default JavaFX initialization methods. Not supported.
+     * Default JavaFX starting methods. Not supported.
      */
-    override fun start(stage: Stage) {
-        unsupported()
-    }
+    override fun start(stage: Stage) = unsupported()
 
     /**
-     * Default JavaFX initialization methods. Not supported.
+     * Default JavaFX stopping methods. Not supported.
      */
-    override fun stop() {
-        unsupported()
-    }
+    override fun stop() = unsupported()
 
     private fun unsupported() {
         throw UnsupportedOperationException(

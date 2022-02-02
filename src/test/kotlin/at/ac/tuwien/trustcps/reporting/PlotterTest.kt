@@ -4,7 +4,6 @@ import io.mockk.every
 import io.mockk.justRun
 import io.mockk.mockk
 import io.mockk.spyk
-import javafx.application.Platform
 import javafx.stage.Stage
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.assertDoesNotThrow
