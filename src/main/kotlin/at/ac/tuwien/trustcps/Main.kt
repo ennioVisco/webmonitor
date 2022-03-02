@@ -11,11 +11,18 @@ import org.openqa.selenium.Dimension
 import java.net.URL
 
 typealias GridSignal = SpatialTemporalSignal<Boolean>
+private const val BROWSER_VERTICAL_FRAME = 133
+private const val BROWSER_HORIZONTAL_FRAME = 16
 
-private const val WIDTH = 320
-private const val HEIGHT = 280
+//private const val WIDTH = 320
+//private const val HEIGHT = 280
+//private const val WIDTH = 800 + BROWSER_HORIZONTAL_FRAME
+//private const val HEIGHT = 600 + BROWSER_VERTICAL_FRAME
+private const val WIDTH = 80
+private const val HEIGHT = 80
 private const val URL = "https://tuwien.ac.at/"
-const val ELEMENT = "#cookieman-modal p"
+//const val ELEMENT = "#cookieman-modal p"
+const val ELEMENT = ".modal-content"
 
 /**
  * ### Example of output
@@ -61,7 +68,8 @@ private fun tracking(): Map<String, String> {
 private fun spec(): Formula {
     val screen = AtomicFormula("screen")
     val cookieInfo = AtomicFormula(ELEMENT)
-    return AndFormula(cookieInfo, screen)
+    return EverywhereFormula("base", AndFormula(cookieInfo, screen))
+    //return AndFormula(cookieInfo, screen)
 }
 
 private fun checking(grid: Grid, data: Map<String, String>, spec: Formula)

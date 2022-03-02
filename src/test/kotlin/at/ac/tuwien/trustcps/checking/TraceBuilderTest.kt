@@ -102,8 +102,8 @@ internal class TraceBuilderTest {
 
     private fun builderScreenInit(): TraceBuilder {
         val grid = Grid(3, 3)
-        val data = listOf(mapOf("wnd_width" to "2",
-                                "wnd_height" to "2"))
+        val data = listOf(mapOf("vp_width" to "2",
+                                "vp_height" to "2"))
         val builder = TraceBuilder(grid, data)
         builder.useMetadata()
         return builder

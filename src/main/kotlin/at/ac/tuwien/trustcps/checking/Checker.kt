@@ -28,7 +28,8 @@ class Checker(private val grid: Grid,
 
     private val dist = mapOf<String, Function<SpatialModel<Int>,
                                               DistanceStructure<Int, *>>>(
-        Pair("base", Function { grid.distance() })
+        Pair("all", Function { grid.distance() }),
+        Pair("base", Function { grid.distance(1) })
     )
 
     val atoms = elems(elements)

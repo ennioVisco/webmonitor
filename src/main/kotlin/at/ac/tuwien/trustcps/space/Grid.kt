@@ -96,11 +96,11 @@ class Grid(val rows: Int, val columns: Int) {
      *
      * @return a DoubleDistance object, meaningful in the given Spatial Model
      */
-    fun distance(): DistanceStructure<Int, *> {
+    fun distance(max: Int = size): DistanceStructure<Int, *> {
         return  DistanceStructure(
                 { x: Int -> x },
                 IntegerDistance(),
-                0, size,
+                0, max,
                 model
             )
     }

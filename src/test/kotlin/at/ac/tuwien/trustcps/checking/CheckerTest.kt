@@ -12,7 +12,7 @@ internal class CheckerTest {
     private val grid = Grid(rows = 2, columns = 3)
 
     @Test fun `simple checking gives correct results`() {
-        val data = mapOf("wnd_width" to "3", "wnd_height" to "2")
+        val data = mapOf("vp_width" to "3", "vp_height" to "2")
         val checker = Checker(grid, listOf(data), emptyList())
 
         val result = checker.check(AtomicFormula("screen"))

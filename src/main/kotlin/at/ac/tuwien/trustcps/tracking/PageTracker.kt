@@ -30,7 +30,7 @@ class PageTracker(private val page: URL,
     fun track(): Map<String, String> {
         spawnBrowserSession().use {
             fetchMetadata(it.driver)
-            Thread.sleep(5_000)
+            Thread.sleep(8_000)
 
             for(selector in selectors) {
                 doSelect(selector, it.driver)
@@ -51,7 +51,7 @@ class PageTracker(private val page: URL,
         data["vp_height"] = vpHeight.toString()
         println("Viewport: ${vpWidth}x${vpHeight}")
 
-        // Browser frame
+        // Browser frame    //TODO: screen.avail relates to the absolute space of the screen, not the window
         val wndWidth = driver.executeScript("return screen.availWidth;")
         val wndHeight = driver.executeScript("return screen.availHeight;")
         data["wnd_width"] = wndWidth.toString()
