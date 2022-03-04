@@ -1,58 +1,22 @@
 package at.ac.tuwien.trustcps.space
 
-import eu.quanticol.moonlight.signal.DistanceStructure
-import eu.quanticol.moonlight.signal.GraphModel
-import eu.quanticol.moonlight.signal.SpatialModel
+import eu.quanticol.moonlight.core.space.DistanceStructure
+import eu.quanticol.moonlight.core.space.DefaultDistanceStructure
+import eu.quanticol.moonlight.space.RegularGridModel
 
 class Grid(val rows: Int, val columns: Int) {
     /**
      * The spatial model built for the current grid
-     * @return a [GraphModel]
-     * @see SpatialModel
      */
     val model = generateModel(rows, columns)
     /**
      * The 1-d size of the grid
      * @return [rows] x [columns]
      */
-    val size = rows * columns
+    val size = model.size()
 
-    private fun generateModel(rows: Int, columns: Int): GraphModel<Int> {
-        val size = rows * columns
-        val model = GraphModel<Int>(size)
-        for (i in 0 until size) {
-            val ns = getNeighboursArray(i, size)
-            for (neighbour in ns) {
-                model.add(i, 1, neighbour)
-            }
-        }
-        return model
-    }
-
-    private fun getNeighboursArray(node: Int, arraySize: Int)
-    : List<Int>
-    {
-        val neighbours: MutableList<Int> = ArrayDeque(4)
-
-        if (node + columns < arraySize)                 // bot boundary
-            neighbours.add(node + columns)
-
-        if (node - columns >= 0)                   // top boundary
-            neighbours.add(node - columns)
-
-        if (node % columns == 0) {                 // left border
-            neighbours.add(node + 1)
-
-        } else if (node % columns == columns - 1) {   // right border
-            neighbours.add(node - 1)
-
-        } else {                                // others
-            neighbours.add(node - 1)
-            neighbours.add(node + 1)
-        }
-
-        return neighbours
-    }
+    private fun generateModel(rows: Int, columns: Int)
+        = RegularGridModel(rows, columns, 1)
 
     /**
      * from 1-d location to (X,Y) pairs
@@ -97,7 +61,7 @@ class Grid(val rows: Int, val columns: Int) {
      * @return a DoubleDistance object, meaningful in the given Spatial Model
      */
     fun distance(max: Int = size): DistanceStructure<Int, *> {
-        return  DistanceStructure(
+        return  DefaultDistanceStructure(
                 { x: Int -> x },
                 IntegerDistance(),
                 0, max,

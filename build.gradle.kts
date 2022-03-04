@@ -32,7 +32,8 @@ javafx {
 
 dependencies {
     // Moonlight
-    implementation("eu.quanticol.moonlight:core:1.0-SNAPSHOT")
+    //implementation("eu.quanticol.moonlight:core:1.0-SNAPSHOT")
+    implementation(files("lib/moonlight.jar"))
 
     // Selenium
     implementation("org.seleniumhq.selenium:selenium-java:4.1.1")

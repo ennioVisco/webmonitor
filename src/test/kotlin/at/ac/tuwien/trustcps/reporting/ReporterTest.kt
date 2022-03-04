@@ -8,7 +8,6 @@ import eu.quanticol.moonlight.signal.SpatialTemporalSignal
 import io.mockk.*
 import org.junit.jupiter.api.Assertions.assertDoesNotThrow
 import org.junit.jupiter.api.Assertions.assertEquals
-import org.junit.jupiter.api.Disabled
 import org.junit.jupiter.api.Nested
 import org.junit.jupiter.api.Test
 import java.time.LocalDateTime
@@ -22,7 +21,7 @@ internal class ReporterTest {
         val reporter = spyk(Reporter(grid), recordPrivateCalls = true)
         val ss = mockk<SpatialTemporalSignal<Boolean>>()
         val ts = mockk<Signal<Boolean>>()
-        every { ts.valueAt(any()) } returns true
+        every { ts.getValueAt(any()) } returns true
         every { ss.signals } returns listOf(ts)
 
         justRun { reporter invoke "spawnPlotter" withArguments

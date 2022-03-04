@@ -1,14 +1,14 @@
 package at.ac.tuwien.trustcps.checking
 
 import at.ac.tuwien.trustcps.space.Grid
-import eu.quanticol.moonlight.formula.BooleanDomain
+import eu.quanticol.moonlight.core.space.DistanceStructure
+import eu.quanticol.moonlight.core.space.SpatialModel
+import eu.quanticol.moonlight.domain.BooleanDomain
 import eu.quanticol.moonlight.formula.Formula
 import eu.quanticol.moonlight.formula.Parameters
 import eu.quanticol.moonlight.monitoring.SpatialTemporalMonitoring
-import eu.quanticol.moonlight.signal.DistanceStructure
-import eu.quanticol.moonlight.signal.SpatialModel
 import eu.quanticol.moonlight.signal.SpatialTemporalSignal
-import eu.quanticol.moonlight.signal.StaticLocationService
+import eu.quanticol.moonlight.space.StaticLocationService
 import java.util.function.Function
 
 typealias Monitor<V, T, R> = SpatialTemporalMonitoring<V, T, R>
@@ -27,7 +27,7 @@ class Checker(private val grid: Grid,
                                          .build()
 
     private val dist = mapOf<String, Function<SpatialModel<Int>,
-                                              DistanceStructure<Int, *>>>(
+            DistanceStructure<Int, *>>>(
         Pair("all", Function { grid.distance() }),
         Pair("base", Function { grid.distance(1) })
     )

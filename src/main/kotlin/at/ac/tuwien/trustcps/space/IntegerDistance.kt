@@ -1,6 +1,6 @@
 package at.ac.tuwien.trustcps.space
 
-import eu.quanticol.moonlight.formula.DistanceDomain
+import eu.quanticol.moonlight.core.space.DistanceDomain
 import kotlin.math.abs
 
 class IntegerDistance : DistanceDomain<Int> {

@@ -1,6 +1,5 @@
 package at.ac.tuwien.trustcps.checking
 
-import at.ac.tuwien.trustcps.evenLocationsAreTrueSignal
 import at.ac.tuwien.trustcps.space.Grid
 import eu.quanticol.moonlight.formula.AtomicFormula
 import org.junit.jupiter.api.Test
@@ -20,7 +19,7 @@ internal class CheckerTest {
         assertEquals(6, result.signals.size)
         result.signals.forEach {
             assertEquals(1, it.size())
-            assertTrue(it.valueAt(0.0))
+            assertTrue(it.getValueAt(0.0))
         }
     }
 

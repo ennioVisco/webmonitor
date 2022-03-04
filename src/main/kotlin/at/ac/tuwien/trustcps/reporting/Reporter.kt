@@ -36,7 +36,7 @@ class Reporter(private val grid: Grid) {
         }
 
     private fun <T> signalToGrid(signal: SpatialTemporalSignal<T>) =
-        arrayToMatrix(signal.signals.map{ doubleOf(it.valueAt(0.0)) })
+        arrayToMatrix(signal.signals.map{ doubleOf(it.getValueAt(0.0)) })
 
 
     private fun arrayToMatrix(values: List<Double>): Array<DoubleArray> {

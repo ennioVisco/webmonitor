@@ -1,6 +1,6 @@
 package at.ac.tuwien.trustcps.space
 
-import eu.quanticol.moonlight.signal.GraphModel
+import eu.quanticol.moonlight.space.GraphModel
 import org.junit.jupiter.api.Nested
 import org.junit.jupiter.api.Test
 import kotlin.test.assertEquals
