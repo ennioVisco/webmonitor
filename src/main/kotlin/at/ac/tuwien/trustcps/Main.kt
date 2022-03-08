@@ -5,7 +5,10 @@ import at.ac.tuwien.trustcps.reporting.Reporter
 import at.ac.tuwien.trustcps.space.Grid
 import at.ac.tuwien.trustcps.tracking.Browser
 import at.ac.tuwien.trustcps.tracking.PageTracker
+import eu.quanticol.moonlight.core.formula.Formula
 import eu.quanticol.moonlight.formula.*
+import eu.quanticol.moonlight.formula.classic.AndFormula
+import eu.quanticol.moonlight.formula.spatial.EverywhereFormula
 import eu.quanticol.moonlight.signal.SpatialTemporalSignal
 import org.openqa.selenium.Dimension
 import java.net.URL
@@ -18,11 +21,11 @@ private const val BROWSER_HORIZONTAL_FRAME = 16
 //private const val HEIGHT = 280
 //private const val WIDTH = 800 + BROWSER_HORIZONTAL_FRAME
 //private const val HEIGHT = 600 + BROWSER_VERTICAL_FRAME
-private const val WIDTH = 80
-private const val HEIGHT = 80
+private const val WIDTH = 320
+private const val HEIGHT = 320
 private const val URL = "https://tuwien.ac.at/"
-//const val ELEMENT = "#cookieman-modal p"
-const val ELEMENT = ".modal-content"
+const val ELEMENT = "#cookieman-modal p"
+//const val ELEMENT = ".modal-content"
 
 /**
  * ### Example of output
