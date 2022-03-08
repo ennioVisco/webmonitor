@@ -2,6 +2,7 @@ package at.ac.tuwien.trustcps.space
 
 import eu.quanticol.moonlight.core.space.DistanceStructure
 import eu.quanticol.moonlight.core.space.DefaultDistanceStructure
+import eu.quanticol.moonlight.domain.IntegerDomain
 import eu.quanticol.moonlight.space.GraphModel
 
 class InefficientGrid(val rows: Int, val columns: Int) {
@@ -96,7 +97,7 @@ class InefficientGrid(val rows: Int, val columns: Int) {
     fun distance(max: Int = size): DistanceStructure<Int, *> {
         return  DefaultDistanceStructure(
                 { x: Int -> x },
-                IntegerDistance(),
+                IntegerDomain(),
                 0, max,
                 model
             )

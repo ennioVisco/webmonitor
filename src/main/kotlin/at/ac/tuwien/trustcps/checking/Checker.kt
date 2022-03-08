@@ -1,10 +1,10 @@
 package at.ac.tuwien.trustcps.checking
 
 import at.ac.tuwien.trustcps.space.Grid
+import eu.quanticol.moonlight.core.formula.Formula
 import eu.quanticol.moonlight.core.space.DistanceStructure
 import eu.quanticol.moonlight.core.space.SpatialModel
 import eu.quanticol.moonlight.domain.BooleanDomain
-import eu.quanticol.moonlight.formula.Formula
 import eu.quanticol.moonlight.formula.Parameters
 import eu.quanticol.moonlight.monitoring.SpatialTemporalMonitoring
 import eu.quanticol.moonlight.signal.SpatialTemporalSignal
