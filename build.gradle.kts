@@ -26,7 +26,7 @@ sonarqube {
 }
 
 javafx {
-    version = "11"
+    version = "17"
     modules = listOf("javafx.base", "javafx.controls")
 }
 
