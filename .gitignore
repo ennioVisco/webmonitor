@@ -26,5 +26,5 @@ hs_err_pid*
 # output dir
 out/
 
-# TODO: temp
-gradle.properties
+# JetBrains Stuff
+.idea

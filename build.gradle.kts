@@ -7,7 +7,7 @@ plugins {
     application
     jacoco
     id("org.sonarqube") version "3.3"
-    kotlin("jvm") version "1.6.10"
+    kotlin("jvm") version "1.6.20"
     id("org.openjfx.javafxplugin") version "0.0.11"
     id("org.javamodularity.moduleplugin") version ("1.8.10") apply false
 }
@@ -57,7 +57,7 @@ dependencies {
     testImplementation(kotlin("test-junit5"))
     testImplementation("org.junit.jupiter:junit-jupiter:5.8.2")
     testImplementation("io.mockk:mockk:1.12.2")
-    testImplementation ("com.github.stefanbirkner:system-lambda:1.2.1")
+    testImplementation("com.github.stefanbirkner:system-lambda:1.2.1")
 }
 
 tasks.test {
@@ -83,8 +83,7 @@ application {
 }
 
 fun RepositoryHandler.githubPackages(user: String, repo: String):
-        MavenArtifactRepository
-{
+        MavenArtifactRepository {
     return maven {
         url = uri("https://maven.pkg.github.com/$user/$repo")
         credentials {
