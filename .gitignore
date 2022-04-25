@@ -2,8 +2,7 @@
 .gradle
 
 # JetBrains project user-specific files
-.idea/sonarlint
-.idea/jarRepositories.xml
+.idea
 
 # build directory
 build
@@ -26,5 +25,5 @@ hs_err_pid*
 # output dir
 out/
 
-# JetBrains Stuff
-.idea
+# Mac
+.DS_Store
