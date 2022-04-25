@@ -11,9 +11,11 @@ import java.net.URL
  * @param dimension sets the dimensions of the browser window
  * @param browser selects the browser to run the tracking session
  */
-class PageTracker(private val page: URL,
-                  private val dimension: Dimension? = null,
-                  private val browser: Browser? = null) {
+class PageTracker(
+    private val page: URL,
+    private val dimension: Dimension? = null,
+    private val browser: Browser? = null
+) {
     private val data = HashMap<String, String>()
     private val selectors = ArrayList<String>()
 
@@ -30,9 +32,9 @@ class PageTracker(private val page: URL,
     fun track(): Map<String, String> {
         spawnBrowserSession().use {
             fetchMetadata(it.driver)
-            Thread.sleep(8_000)
+            //Thread.sleep(200_000)
 
-            for(selector in selectors) {
+            for (selector in selectors) {
                 doSelect(selector, it.driver)
             }
             //Thread.sleep(5_000)
@@ -68,8 +70,15 @@ class PageTracker(private val page: URL,
         data["${queryString}::width"] = elem.rect.width.toString()
         data["${queryString}::height"] = elem.rect.height.toString()
 //        val rect = driver.executeScript(
-//            "return document.querySelector('${queryString}').getBoundingClientRect()")
+//            "return document.querySelector('${queryString}').getBoundingClientRect()"
+//        )
 //        data["${queryString}::rect"] = rect.toString()
+        println(
+            "Element <${queryString}> = " +
+                    "(${data["${queryString}::x"]}, ${data["${queryString}::y"]})" +
+                    " -> " +
+                    "(${data["${queryString}::width"]}, ${data["${queryString}::height"]})"
+        )
     }
 
 //    fun selectAll(driver: RemoteWebDriver) {

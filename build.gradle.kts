@@ -37,7 +37,7 @@ dependencies {
 
     // Selenium
     implementation("org.seleniumhq.selenium:selenium-java:4.1.1")
-    implementation("io.github.bonigarcia:webdrivermanager:5.0.3")
+    implementation("io.github.bonigarcia:webdrivermanager:5.1.1")
 
     // Charts
     implementation("eu.hansolo.fx:charts:11.7")
