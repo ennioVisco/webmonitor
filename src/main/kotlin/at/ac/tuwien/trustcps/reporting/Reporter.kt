@@ -5,19 +5,44 @@ import at.ac.tuwien.trustcps.space.Grid
 import eu.quanticol.moonlight.signal.Signal
 import eu.quanticol.moonlight.signal.SpatialTemporalSignal
 import javafx.application.Platform
+import java.io.File
+import java.io.PrintWriter
 import java.time.LocalDateTime
 import java.time.temporal.ChronoUnit
+
 
 /**
  *  Class to handle the reporting of the output
  */
-class Reporter(private val grid: Grid) {
+class Reporter(
+    private val grid: Grid,
+    private val toConsole: Boolean = false,
+    private val toFile: Boolean = false
+) {
+    private val logTimeGranularity = LocalDateTime.now().truncatedTo(ChronoUnit.SECONDS)
+
+    private val buffer = mutableListOf<String>()
+
+    private fun outputLine(text: String) = "[$logTimeGranularity] - $text\n"
+
+    fun mark(text: String) {
+        val data = outputLine(text)
+        if (toConsole) {
+            print(data)
+        }
+        buffer.add(data)
+    }
+
     /**
      * Function to record a string with current time
      */
-    fun mark(text: String) =
-        println("[${LocalDateTime.now().truncatedTo(ChronoUnit.SECONDS)}] - " +
-                text)
+    private fun sendOutput(text: String, out: PrintWriter) {
+        val data = outputLine(text)
+        if (toConsole) {
+            print(data)
+        }
+        out.write(data)
+    }
 
     /**
      * Function to plot the provided signal
@@ -36,13 +61,13 @@ class Reporter(private val grid: Grid) {
         }
 
     private fun <T> signalToGrid(signal: SpatialTemporalSignal<T>) =
-        arrayToMatrix(signal.signals.map{ doubleOf(it.getValueAt(0.0)) })
+        arrayToMatrix(signal.signals.map { doubleOf(it.getValueAt(0.0)) })
 
 
     private fun arrayToMatrix(values: List<Double>): Array<DoubleArray> {
         val output = Array(grid.columns) { DoubleArray(grid.rows) { 0.0 } }
 
-        for((index, value) in values.withIndex()) {
+        for ((index, value) in values.withIndex()) {
             val (x, y) = grid.toXY(index)
             output[x][y] = value
         }
@@ -51,8 +76,27 @@ class Reporter(private val grid: Grid) {
 
     fun <T> report(result: SpatialTemporalSignal<T>, title: String) {
         val monitorValuesB = result.signals.map { it.arrayOf(::doubleOf) }
-        mark(title)
-        printSTSignal(monitorValuesB)
+
+        generateOutput("st_output") {
+            sendOutput(title, it)
+            printSTSignal(monitorValuesB, it)
+        }
+    }
+
+    private fun generateOutput(name: String, block: (output: PrintWriter) -> Unit) {
+        val now = logTimeGranularity.toString()
+            .replace("-", "")
+            .replace(":", "")
+
+        File("${name}_${now}.txt").printWriter().use {
+            buffer.forEach { line -> sendOutput(line, it) }
+            block(it)
+        }
+
+        // TODO: Workaround, needs refactoring
+        if (!toFile) {
+            File("${name}_${now}.txt").delete()
+        }
     }
 
     /**
@@ -64,9 +108,12 @@ class Reporter(private val grid: Grid) {
      * - t time-point index
      * - 0/1 denoting the exact time of the time-point (0) or its value (1)
      */
-    private fun printSTSignal(values: List<Array<DoubleArray>>) {
-        for(l in values.indices) {
-            mark("${values[l][0][1]}")
+    private fun printSTSignal(
+        values: List<Array<DoubleArray>>,
+        outputFile: PrintWriter
+    ) {
+        for (l in values.indices) {
+            sendOutput("${values[l][0][1]}", outputFile)
         }
     }
 
@@ -77,16 +124,21 @@ class Reporter(private val grid: Grid) {
      * - t time-point index
      * - 0/1 denoting the exact time of the time-point (0) or its value (1)
      */
-    private fun printTSignal(values: Array<DoubleArray>) {
+    private fun printTSignal(
+        values: Array<DoubleArray>,
+        outputFile: PrintWriter
+    ) {
         for (i in values.indices) {
-            mark("${values[i][1]}")
+            sendOutput("${values[i][1]}", outputFile)
         }
     }
 
     fun <T> report(result: Signal<T>, title: String) {
         val monitorValuesB = result.arrayOf(::doubleOf)
-        mark(title)
-        printTSignal(monitorValuesB)
+        generateOutput("t_output") {
+            sendOutput(title, it)
+            printTSignal(monitorValuesB, it)
+        }
     }
 
     /**
@@ -95,9 +147,9 @@ class Reporter(private val grid: Grid) {
      * @throws invalidType when the provided type cannot be handled
      */
     private fun <T> doubleOf(aValue: T) = when (aValue) {
-            is Double -> aValue
-            is Boolean -> if (aValue) 1.0 else -1.0
-            else -> invalidType()
+        is Double -> aValue
+        is Boolean -> if (aValue) 1.0 else -1.0
+        else -> invalidType()
     }
 
     /**

@@ -7,12 +7,14 @@ package at.ac.tuwien.trustcps.checking
  * @param maxX = maximum coordinate over the X axis
  * @param maxY = maximum coordinate over the Y axis
  */
-data class Box(val minX: Int, val minY: Int,
-               val maxX: Int, val maxY: Int) {
+data class Box(
+    val minX: Int, val minY: Int,
+    val maxX: Int, val maxY: Int
+) {
     init {
         require(minX < maxX && minY < maxY) {
             "Box borders must be proper intervals, they were x: " +
-            "[${minX}, ${maxX}], and y: [${minY}, ${maxY}]"
+                    "[${minX}, ${maxX}], and y: [${minY}, ${maxY}]"
         }
     }
 
@@ -38,6 +40,7 @@ data class Box(val minX: Int, val minY: Int,
 
     companion object {
         /**
+         * TODO: remove, too dangerous: if people sum string it doesn't get caught
          * Factory method that generates a [Box], given strings representing
          * the coordinates of the box.
          * @param minX = minimum coordinate over the X axis

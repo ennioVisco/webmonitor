@@ -5,7 +5,10 @@ import at.ac.tuwien.trustcps.space.Grid
 import com.github.stefanbirkner.systemlambda.SystemLambda.tapSystemOut
 import eu.quanticol.moonlight.signal.Signal
 import eu.quanticol.moonlight.signal.SpatialTemporalSignal
-import io.mockk.*
+import io.mockk.every
+import io.mockk.justRun
+import io.mockk.mockk
+import io.mockk.spyk
 import org.junit.jupiter.api.Assertions.assertDoesNotThrow
 import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.Nested
@@ -15,7 +18,8 @@ import java.time.temporal.ChronoUnit
 import kotlin.test.assertFailsWith
 
 internal class ReporterTest {
-    @Test fun `plotting somehow plots`() {
+    @Test
+    fun `plotting somehow plots`() {
         val title = "fake signal"
         val grid = Grid(2, 2)
         val reporter = spyk(Reporter(grid), recordPrivateCalls = true)
@@ -24,15 +28,18 @@ internal class ReporterTest {
         every { ts.getValueAt(any()) } returns true
         every { ss.signals } returns listOf(ts)
 
-        justRun { reporter invoke "spawnPlotter" withArguments
-                    listOf(title, (any<Array<DoubleArray>>())) }
+        justRun {
+            reporter invoke "spawnPlotter" withArguments
+                    listOf(title, (any<Array<DoubleArray>>()))
+        }
 
         assertDoesNotThrow {
             reporter.plot(ss, title)
         }
     }
 
-    @Test fun `illegal types in signals throw illegalArgumentException`() {
+    @Test
+    fun `illegal types in signals throw illegalArgumentException`() {
         val reporter = Reporter(Grid(2, 2))
         val s = stringSignal()
 
@@ -41,7 +48,8 @@ internal class ReporterTest {
         }
     }
 
-    @Test fun `boolean types in signals are supported`() {
+    @Test
+    fun `boolean types in signals are supported`() {
         val reporter = Reporter(Grid(2, 2))
         val s = booleanSignal()
 
@@ -57,7 +65,8 @@ internal class ReporterTest {
         return signal
     }
 
-    @Test fun `double types in signals are supported`() {
+    @Test
+    fun `double types in signals are supported`() {
         val reporter = Reporter(Grid(2, 2))
         val s = doubleSignal()
 
@@ -78,10 +87,12 @@ internal class ReporterTest {
         return signal
     }
 
-    @Nested inner class StandardOutput {
-        @Test fun `marking prints the right text`() {
+    @Nested
+    inner class StandardOutput {
+        @Test
+        fun `marking prints the right text`() {
             val text = "test"
-            val reporter = Reporter(mockk())
+            val reporter = Reporter(mockk(), true)
 
             val output = tapSystemOut {
                 reporter.mark(text)
@@ -92,10 +103,11 @@ internal class ReporterTest {
         }
 
 
-        @Test fun `dumping spatio-temporal signals prints right output`() {
+        @Test
+        fun `dumping spatio-temporal signals prints right output`() {
             val title = "test space-time trace"
             val grid = Grid(2, 2)
-            val reporter = Reporter(grid)
+            val reporter = Reporter(grid, true)
             val ss = evenLocationsAreTrueSignal(4)
 
             val output = tapSystemOut {
@@ -115,10 +127,11 @@ internal class ReporterTest {
             return text
         }
 
-        @Test fun `dumping temporal signals prints right output`() {
+        @Test
+        fun `dumping temporal signals prints right output`() {
             val title = "test time trace"
             val grid = Grid(2, 2)
-            val reporter = Reporter(grid)
+            val reporter = Reporter(grid, true)
             val ss = evenLocationsAreTrueSignal(4)
 
             val output = tapSystemOut {

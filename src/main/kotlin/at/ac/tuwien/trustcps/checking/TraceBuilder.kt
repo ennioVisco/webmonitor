@@ -8,8 +8,10 @@ import eu.quanticol.moonlight.signal.SpatialTemporalSignal
  *  @param grid spatial model to consider for building the signal
  *  @param data data source from which the signal will be extracted
  */
-class TraceBuilder (private val grid: Grid,
-                    private val data: List<Map<String, String>>) {
+class TraceBuilder(
+    private val grid: Grid,
+    private val data: List<Map<String, String>>
+) {
     private var metadata: Boolean = false
     private val elements: MutableList<String> = ArrayList()
 
@@ -73,21 +75,25 @@ class TraceBuilder (private val grid: Grid,
             val maxY = data[time]["vp_height"]!!
             return Box.from(minX = "0", minY = "0", maxX = maxX, maxY = maxY)
         } catch (e: NullPointerException) {
-            throw IllegalArgumentException("Unable to find box coordinates " +
-                                           "for the window.")
+            throw IllegalArgumentException(
+                "Unable to find box coordinates " +
+                        "for the window."
+            )
         }
     }
 
     private fun dataToBox(id: String, index: Int): Box {
         try {
-            val minX = data[index]["$id::x"]!!
-            val minY = data[index]["$id::y"]!!
-            val maxX = minX + data[index]["$id::width"]!!
-            val maxY = minY + data[index]["$id::height"]!!
-            return Box.from(minX = minX, minY = minY, maxX = maxX, maxY = maxY)
+            val minX: Int = data[index]["$id::x"]!!.toInt()
+            val minY: Int = data[index]["$id::y"]!!.toInt()
+            val maxX: Int = minX + data[index]["$id::width"]!!.toInt()
+            val maxY: Int = minY + data[index]["$id::height"]!!.toInt()
+            return Box(minX = minX, minY = minY, maxX = maxX, maxY = maxY)
         } catch (e: NullPointerException) {
-            throw IllegalArgumentException("Unable to find box coordinates " +
-                                           "for id: $id.")
+            throw IllegalArgumentException(
+                "Unable to find box coordinates " +
+                        "for id: $id."
+            )
         }
 
     }

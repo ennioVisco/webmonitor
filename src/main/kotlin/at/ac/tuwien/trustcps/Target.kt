@@ -1,11 +1,12 @@
 package at.ac.tuwien.trustcps
 
 object Target {
-    private const val BROWSER_VERTICAL_FRAME = 133
-    private const val BROWSER_HORIZONTAL_FRAME = 16
+    //private const val HORIZONTAL_BROWSER_FRAME = 16
+    private const val HORIZONTAL_BROWSER_FRAME = 0
+    private const val VERTICAL_BROWSER_FRAME = 133
 
-    const val screenWidth = 968 + BROWSER_HORIZONTAL_FRAME
-    const val screenHeight = 371 + BROWSER_VERTICAL_FRAME
+    const val screenWidth = 100 + HORIZONTAL_BROWSER_FRAME
+    const val screenHeight = 100 + VERTICAL_BROWSER_FRAME
 
     const val targetUrl = "https://enniovisco.github.io/webmonitor/"
 }

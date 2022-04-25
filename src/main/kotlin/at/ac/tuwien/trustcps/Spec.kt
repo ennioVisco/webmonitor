@@ -4,12 +4,13 @@ import eu.quanticol.moonlight.formula.AtomicFormula
 import eu.quanticol.moonlight.formula.classic.AndFormula
 import eu.quanticol.moonlight.formula.spatial.EverywhereFormula
 
-const val distance = "base"
-
 object Spec {
+    private const val distance = "base"
+
     // atomic propositions
     val atoms = listOf(
-        ".dialog"
+        //".dialog"
+        "h1"
     )
 
     // helper formulae
@@ -19,7 +20,7 @@ object Spec {
     private val allCookieOnScreen = EverywhereFormula(distance, cookieOnScreen)
 
     // final spec to monitor
-    val formula = cookieOnScreen
+    val formula = cookieInfo
 
 //    private fun spec(): Formula {
 //        val screen = AtomicFormula("screen")

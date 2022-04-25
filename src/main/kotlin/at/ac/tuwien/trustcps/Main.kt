@@ -29,14 +29,14 @@ typealias GridSignal = SpatialTemporalSignal<Boolean>
  */
 fun main() {
     val grid = Grid(Target.screenHeight, Target.screenWidth)
-    val report = Reporter(grid)
+    val report = Reporter(grid, toFile = true)
 
     report.mark("Tracking")
     val data = tracking()
 
     report.mark("Checking")
     val result = checking(grid, data, Spec.formula)
-    //report.report(result, "output dump")
+    report.report(result, "output dump")
 
     report.mark("Plotting results")
     report.plot(result, "Grid plot")
