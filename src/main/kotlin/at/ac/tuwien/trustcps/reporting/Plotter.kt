@@ -5,15 +5,15 @@ import eu.hansolo.fx.charts.ChartType
 import eu.hansolo.fx.charts.MatrixPane
 import eu.hansolo.fx.charts.data.MatrixChartItem
 import eu.hansolo.fx.charts.series.MatrixItemSeries
-import eu.hansolo.fx.charts.tools.Helper
 import javafx.application.Application
 import javafx.embed.swing.SwingFXUtils
-import javafx.geometry.Insets
-import javafx.geometry.Side
 import javafx.scene.Scene
 import javafx.scene.image.Image
 import javafx.scene.layout.*
 import javafx.scene.paint.Color
+import javafx.scene.paint.CycleMethod
+import javafx.scene.paint.LinearGradient
+import javafx.scene.paint.Stop
 import javafx.stage.Stage
 import java.io.File
 import javax.imageio.ImageIO
@@ -22,13 +22,15 @@ import javax.imageio.ImageIO
  * Plotting class based on JavaFX and Han Solo's Charts library.
  * Instead of being run in classical JavaFX environment, it is being
  * executed as a Runnable
+ * TODO: Warning - the desktop environment must be able to
+ *                 open windows of the submitted size
  */
 class Plotter(
     private val title: String,
     data: Array<DoubleArray>,
     private val grid: Grid
 ) : Application(), Runnable {
-    private val columns = data.size
+    private val columns = data.size //TODO: should compare to grid
     private val rows = data[0].size
     private val heatMap = addData(data)
 
@@ -61,14 +63,9 @@ class Plotter(
 
     private fun configStage(stage: Stage) {
         val pane = StackPane(heatMap)
-        pane.padding = Insets(6.0, 0.0, 0.0, 0.0)
+        //pane.padding = Insets(6.0, 0.0, 0.0, 0.0)
         val scene = Scene(pane)
-
         pane.background = setBackground("image.png")
-//        pane.width = grid.columns.toDouble()
-//        pane.height = grid.rows.toDouble()
-
-        println("Panel size ${pane.width}x${pane.height}")
         stage.title = title
         stage.scene = scene
         takeSnapshot(scene, "image2.png")
@@ -84,28 +81,33 @@ class Plotter(
     private fun setBackground(fileName: String): Background {
         val backgroundURL = File(fileName).canonicalFile.toURI().toURL().toString()
         val image = Image(backgroundURL)
-        val position = BackgroundPosition(
-            Side.LEFT, 0.0, true,
-            Side.TOP, -6.0, false
-        )
         val backgroundImage = BackgroundImage(
             image,
             BackgroundRepeat.NO_REPEAT,
             BackgroundRepeat.NO_REPEAT,
             BackgroundPosition.DEFAULT,
             BackgroundSize.DEFAULT
-            //BackgroundSize(500.0, 860.0, false, false, false, false)
         )
         return Background(backgroundImage)
     }
 
     private fun configPlot() {
         //matrixHeatMap2.setColorMapping(ColorMapping.BLUE_TRANSPARENT_RED)
-        val color = Helper.createColorVariationGradient(Color.BLUE, 5)
-        heatMap.matrixGradient = color
+        //val color = Helper.createColorVariationGradient(Color.BLUE, 5)
+        heatMap.matrixGradient = setColorGradient()
         heatMap.matrix.setUseSpacer(false)
         heatMap.matrix.setColsAndRows(columns, rows)
         heatMap.setPrefSize(grid.columns.toDouble(), grid.rows.toDouble())
+    }
+
+    private fun setColorGradient(): LinearGradient {
+        val red = Color.color(0.831, 0.275, 0.275, 0.5)
+        val green = Color.color(0.0, 0.831, 0.275, 0.5)
+        val stops = listOf(Stop(0.0, red), Stop(1.0, green))
+        return LinearGradient(
+            0.0, 0.0, 1.0, 0.0,
+            true, CycleMethod.NO_CYCLE, stops
+        )
     }
 
     private fun showStage(stage: Stage) = stage.show()
