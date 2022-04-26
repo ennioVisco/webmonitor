@@ -8,6 +8,7 @@ import eu.hansolo.fx.charts.series.MatrixItemSeries
 import eu.hansolo.fx.charts.tools.Helper
 import javafx.application.Application
 import javafx.embed.swing.SwingFXUtils
+import javafx.geometry.Insets
 import javafx.geometry.Side
 import javafx.scene.Scene
 import javafx.scene.image.Image
@@ -42,7 +43,8 @@ class Plotter(
             }
         }
         val series = MatrixItemSeries(plotData, ChartType.MATRIX_HEATMAP)
-        return MatrixPane(series)
+        val color = Color(1.0, 1.0, 1.0, 0.4)
+        return MatrixPane(color, series)
     }
 
     /**
@@ -58,11 +60,15 @@ class Plotter(
     private fun spawnStage(): Stage = Stage()
 
     private fun configStage(stage: Stage) {
-        val pane = VBox(0.0, heatMap)
-        //pane.padding = Insets(6.0, 0.0, 0.0, 0.0)
+        val pane = StackPane(heatMap)
+        pane.padding = Insets(6.0, 0.0, 0.0, 0.0)
         val scene = Scene(pane)
 
         pane.background = setBackground("image.png")
+//        pane.width = grid.columns.toDouble()
+//        pane.height = grid.rows.toDouble()
+
+        println("Panel size ${pane.width}x${pane.height}")
         stage.title = title
         stage.scene = scene
         takeSnapshot(scene, "image2.png")
@@ -86,8 +92,9 @@ class Plotter(
             image,
             BackgroundRepeat.NO_REPEAT,
             BackgroundRepeat.NO_REPEAT,
-            position,
+            BackgroundPosition.DEFAULT,
             BackgroundSize.DEFAULT
+            //BackgroundSize(500.0, 860.0, false, false, false, false)
         )
         return Background(backgroundImage)
     }

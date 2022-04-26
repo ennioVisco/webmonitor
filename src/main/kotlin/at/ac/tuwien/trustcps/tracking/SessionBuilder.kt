@@ -17,7 +17,7 @@ class SessionBuilder(
 ) : Closeable {
     val driver: RemoteWebDriver = when (engine) {
         Browser.CHROME -> run {
-            if (dims?.width!! < 500 && dims.height < 400) {
+            if (dims?.width!! < 500 || dims.height < 400) {
                 WebDriverManager.chromedriver().browserInDockerAndroid().setup()
                 ChromeDriver()
             } else {
