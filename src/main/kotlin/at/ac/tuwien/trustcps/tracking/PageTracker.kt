@@ -1,9 +1,14 @@
 package at.ac.tuwien.trustcps.tracking
 
+import org.apache.commons.io.FileUtils
 import org.openqa.selenium.By
 import org.openqa.selenium.Dimension
+import org.openqa.selenium.OutputType
+import org.openqa.selenium.TakesScreenshot
 import org.openqa.selenium.remote.RemoteWebDriver
+import java.io.File
 import java.net.URL
+
 
 /**
  * Tracks key elements of the target page.
@@ -59,6 +64,10 @@ class PageTracker(
         data["wnd_width"] = wndWidth.toString()
         data["wnd_height"] = wndHeight.toString()
         println("Window: ${wndWidth}x${vpHeight}")
+
+        val scrFile = (driver as TakesScreenshot).getScreenshotAs(OutputType.FILE)
+        FileUtils.copyFile(scrFile, File("./image.png"))
+
     }
 
     private fun doSelect(queryString: String, driver: RemoteWebDriver) {

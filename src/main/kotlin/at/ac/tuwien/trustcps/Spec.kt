@@ -20,7 +20,7 @@ object Spec {
     private val allCookieOnScreen = EverywhereFormula(distance, cookieOnScreen)
 
     // final spec to monitor
-    val formula = cookieInfo
+    val formula = screen
 
 //    private fun spec(): Formula {
 //        val screen = AtomicFormula("screen")

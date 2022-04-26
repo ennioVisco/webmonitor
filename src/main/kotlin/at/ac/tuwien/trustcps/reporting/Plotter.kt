@@ -6,19 +6,25 @@ import eu.hansolo.fx.charts.data.MatrixChartItem
 import eu.hansolo.fx.charts.series.MatrixItemSeries
 import eu.hansolo.fx.charts.tools.Helper
 import javafx.application.Application
-import javafx.geometry.Insets
+import javafx.embed.swing.SwingFXUtils
+import javafx.geometry.Side
 import javafx.scene.Scene
-import javafx.scene.layout.VBox
+import javafx.scene.image.Image
+import javafx.scene.layout.*
 import javafx.scene.paint.Color
 import javafx.stage.Stage
+import java.io.File
+import javax.imageio.ImageIO
+
+private const val GRID_WIDTH = 500.0
+private const val GRID_HEIGHT = 851.0
 
 /**
  * Plotting class based on JavaFX and Han Solo's Charts library.
  * Instead of being run in classical JavaFX environment, it is being
  * executed as a Runnable
  */
-class Plotter(private val title: String, data: Array<DoubleArray>)
-    : Application(), Runnable {
+class Plotter(private val title: String, data: Array<DoubleArray>) : Application(), Runnable {
     private val columns = data.size
     private val rows = data[0].size
     private val heatMap = addData(data)
@@ -47,26 +53,53 @@ class Plotter(private val title: String, data: Array<DoubleArray>)
         showStage(stage)
     }
 
-    private fun spawnStage(): Stage  = Stage()
+    private fun spawnStage(): Stage = Stage()
 
     private fun configStage(stage: Stage) {
-        val pane = VBox(10.0, heatMap)
-        pane.padding = Insets(10.0)
+        val pane = VBox(0.0, heatMap)
+        //pane.padding = Insets(6.0, 0.0, 0.0, 0.0)
         val scene = Scene(pane)
+
+        pane.background = setBackground("image.png")
         stage.title = title
         stage.scene = scene
+        takeSnapshot(scene, "image2.png")
+    }
+
+    private fun takeSnapshot(scene: Scene, fileName: String) {
+        val image = scene.snapshot(null)
+        val file = File("./$fileName")
+        val buffer = SwingFXUtils.fromFXImage(image, null)
+        ImageIO.write(buffer, "PNG", file)
+    }
+
+    private fun setBackground(fileName: String): Background {
+        val backgroundURL = File(fileName).canonicalFile.toURI().toURL().toString()
+        val image = Image(backgroundURL)
+        val position = BackgroundPosition(
+            Side.LEFT, 0.0, true,
+            Side.TOP, -6.0, false
+        )
+        val backgroundImage = BackgroundImage(
+            image,
+            BackgroundRepeat.NO_REPEAT,
+            BackgroundRepeat.NO_REPEAT,
+            position,
+            BackgroundSize.DEFAULT
+        )
+        return Background(backgroundImage)
     }
 
     private fun configPlot() {
         //matrixHeatMap2.setColorMapping(ColorMapping.BLUE_TRANSPARENT_RED)
         val color = Helper.createColorVariationGradient(Color.BLUE, 5)
         heatMap.matrixGradient = color
-        heatMap.matrix.setUseSpacer(true)
+        heatMap.matrix.setUseSpacer(false)
         heatMap.matrix.setColsAndRows(columns, rows)
-        heatMap.setPrefSize(900.0, 900.0)
+        heatMap.setPrefSize(GRID_WIDTH, GRID_HEIGHT)
     }
 
-    private fun showStage(stage: Stage)  = stage.show()
+    private fun showStage(stage: Stage) = stage.show()
 
     /**
      * Default JavaFX initialization methods. Not supported.
@@ -85,6 +118,7 @@ class Plotter(private val title: String, data: Array<DoubleArray>)
 
     private fun unsupported() {
         throw UnsupportedOperationException(
-            "Classical execution is not supported. Run the class as a Runnable!")
+            "Classical execution is not supported. Run the class as a Runnable!"
+        )
     }
 }
