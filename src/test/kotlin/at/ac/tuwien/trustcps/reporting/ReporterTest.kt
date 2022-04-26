@@ -22,7 +22,7 @@ internal class ReporterTest {
     fun `plotting somehow plots`() {
         val title = "fake signal"
         val grid = Grid(2, 2)
-        val reporter = spyk(Reporter(grid), recordPrivateCalls = true)
+        val reporter = spyk(Reporter(), recordPrivateCalls = true)
         val ss = mockk<SpatialTemporalSignal<Boolean>>()
         val ts = mockk<Signal<Boolean>>()
         every { ts.getValueAt(any()) } returns true
@@ -30,17 +30,17 @@ internal class ReporterTest {
 
         justRun {
             reporter invoke "spawnPlotter" withArguments
-                    listOf(title, (any<Array<DoubleArray>>()))
+                    listOf(title, (any<Array<DoubleArray>>()), grid)
         }
 
         assertDoesNotThrow {
-            reporter.plot(ss, title)
+            reporter.plot(ss, grid, title)
         }
     }
 
     @Test
     fun `illegal types in signals throw illegalArgumentException`() {
-        val reporter = Reporter(Grid(2, 2))
+        val reporter = Reporter()
         val s = stringSignal()
 
         assertFailsWith<IllegalArgumentException> {
@@ -50,7 +50,7 @@ internal class ReporterTest {
 
     @Test
     fun `boolean types in signals are supported`() {
-        val reporter = Reporter(Grid(2, 2))
+        val reporter = Reporter()
         val s = booleanSignal()
 
         assertDoesNotThrow {
@@ -67,7 +67,7 @@ internal class ReporterTest {
 
     @Test
     fun `double types in signals are supported`() {
-        val reporter = Reporter(Grid(2, 2))
+        val reporter = Reporter()
         val s = doubleSignal()
 
         assertDoesNotThrow {
@@ -92,30 +92,29 @@ internal class ReporterTest {
         @Test
         fun `marking prints the right text`() {
             val text = "test"
-            val reporter = Reporter(mockk(), true)
+            val reporter = Reporter(toConsole = true)
 
             val output = tapSystemOut {
                 reporter.mark(text)
             }
 
-            val currentTime = LocalDateTime.now().truncatedTo(ChronoUnit.SECONDS)
-            assertEquals("[$currentTime] - $text", output.trim())
+            val currTime = LocalDateTime.now().truncatedTo(ChronoUnit.SECONDS)
+            assertEquals("[$currTime] - $text", output.trim())
         }
 
 
         @Test
         fun `dumping spatio-temporal signals prints right output`() {
             val title = "test space-time trace"
-            val grid = Grid(2, 2)
-            val reporter = Reporter(grid, true)
+            val reporter = Reporter(toConsole = true)
             val ss = evenLocationsAreTrueSignal(4)
 
             val output = tapSystemOut {
                 reporter.report(ss, title)
             }
 
-            val currentTime = LocalDateTime.now().truncatedTo(ChronoUnit.SECONDS)
-            assertEquals(signalDump1(currentTime), output)
+            val currTime = LocalDateTime.now().truncatedTo(ChronoUnit.SECONDS)
+            assertEquals(signalDump1(currTime), output)
         }
 
         private fun signalDump1(time: LocalDateTime): String {
@@ -130,16 +129,15 @@ internal class ReporterTest {
         @Test
         fun `dumping temporal signals prints right output`() {
             val title = "test time trace"
-            val grid = Grid(2, 2)
-            val reporter = Reporter(grid, true)
+            val reporter = Reporter(toConsole = true)
             val ss = evenLocationsAreTrueSignal(4)
 
             val output = tapSystemOut {
                 reporter.report(ss.signals[0], title)
             }
 
-            val currentTime = LocalDateTime.now().truncatedTo(ChronoUnit.SECONDS)
-            assertEquals(signalDump2(currentTime), output)
+            val currTime = LocalDateTime.now().truncatedTo(ChronoUnit.SECONDS)
+            assertEquals(signalDump2(currTime), output)
         }
 
         private fun signalDump2(time: LocalDateTime): String {

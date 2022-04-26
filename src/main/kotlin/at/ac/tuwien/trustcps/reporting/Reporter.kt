@@ -15,7 +15,6 @@ import java.time.temporal.ChronoUnit
  *  Class to handle the reporting of the output
  */
 class Reporter(
-    private val grid: Grid,
     private val toConsole: Boolean = false,
     private val toFile: Boolean = false
 ) {
@@ -49,22 +48,30 @@ class Reporter(
      * @param result signal to be plotted
      * @param title title of the plot window
      */
-    fun plot(result: GridSignal, title: String) {
-        val gridValues = signalToGrid(result)
+    fun plot(result: GridSignal, grid: Grid, title: String) {
+        val gridValues = signalToGrid(result, grid)
 
-        spawnPlotter(title, gridValues)
+        spawnPlotter(title, gridValues, grid)
     }
 
-    private fun spawnPlotter(title: String, values: Array<DoubleArray>) =
+    private fun spawnPlotter(
+        title: String,
+        values: Array<DoubleArray>,
+        grid: Grid
+    ) {
         Platform.startup {
             Plotter(title, values, grid).run()
         }
+    }
 
-    private fun <T> signalToGrid(signal: SpatialTemporalSignal<T>) =
-        arrayToMatrix(signal.signals.map { doubleOf(it.getValueAt(0.0)) })
+    private fun <T> signalToGrid(signal: SpatialTemporalSignal<T>, grid: Grid) =
+        arrayToMatrix(signal.signals.map {
+            doubleOf(it.getValueAt(0.0))
+        }, grid)
 
 
-    private fun arrayToMatrix(values: List<Double>): Array<DoubleArray> {
+    private fun arrayToMatrix(values: List<Double>, grid: Grid):
+            Array<DoubleArray> {
         val output = Array(grid.columns) { DoubleArray(grid.rows) { 0.0 } }
 
         for ((index, value) in values.withIndex()) {
