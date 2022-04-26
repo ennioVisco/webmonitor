@@ -71,8 +71,8 @@ class TraceBuilder(
 
     private fun screenToBox(time: Int): Box {
         try {
-            val maxX = data[time]["vp_width"]!!
-            val maxY = data[time]["vp_height"]!!
+            val maxX = data[time]["vvp_width"]!!
+            val maxY = data[time]["vvp_height"]!!
             return Box.from(minX = "0", minY = "0", maxX = maxX, maxY = maxY)
         } catch (e: NullPointerException) {
             throw IllegalArgumentException(

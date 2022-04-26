@@ -1,7 +1,10 @@
 package at.ac.tuwien.trustcps.tracking
 
-import io.mockk.*
-import org.junit.jupiter.api.Assertions.*
+import io.mockk.every
+import io.mockk.justRun
+import io.mockk.mockk
+import io.mockk.spyk
+import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.Test
 import org.openqa.selenium.Dimension
 import org.openqa.selenium.Rectangle
@@ -13,22 +16,24 @@ internal class PageTrackerTest {
     private val url = URL("https://google.com")
     private val dims = Dimension(100, 200)
 
-    @Test fun `page tracker can track basic page metadata`() {
+    @Test
+    fun `page tracker can track basic page metadata`() {
         val tracker = trackerInit()
 
         val data = tracker.track()
 
-        assertContains(data, "wnd_height")
-        assertContains(data, "wnd_width")
-        assertContains(data, "vp_height")
-        assertContains(data, "vp_width")
-        assertEquals(data["wnd_height"], "1")
-        assertEquals(data["wnd_width"], "1")
-        assertEquals(data["vp_height"], "1")
-        assertEquals(data["vp_width"], "1")
+        assertContains(data, "lvp_height")
+        assertContains(data, "lvp_width")
+        assertContains(data, "vvp_height")
+        assertContains(data, "vvp_width")
+        assertEquals(data["lvp_height"], "1")
+        assertEquals(data["lvp_width"], "1")
+        assertEquals(data["vvp_height"], "1")
+        assertEquals(data["vvp_width"], "1")
     }
 
-    @Test fun `page tracker can track sample element metadata`() {
+    @Test
+    fun `page tracker can track sample element metadata`() {
         val tracker = trackerInit()
 
         tracker.select("elem")
@@ -52,10 +57,14 @@ internal class PageTrackerTest {
         every { sessionMock.driver.findElement(any()) } returns elem
         every { elem.rect } returns rectangle
         justRun { sessionMock.close() }
-        val tracker = spyk(PageTracker(url, dims, Browser.CHROME),
-                           recordPrivateCalls = true)
-        every { tracker invoke "spawnBrowserSession" withArguments
-                listOf() } returns sessionMock
+        val tracker = spyk(
+            PageTracker(url, dims, Browser.CHROME),
+            recordPrivateCalls = true
+        )
+        every {
+            tracker invoke "spawnBrowserSession" withArguments
+                    listOf()
+        } returns sessionMock
 
         return tracker
     }

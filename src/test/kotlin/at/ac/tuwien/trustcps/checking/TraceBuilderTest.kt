@@ -2,27 +2,31 @@ package at.ac.tuwien.trustcps.checking
 
 import at.ac.tuwien.trustcps.space.Grid
 import eu.quanticol.moonlight.signal.SpatialTemporalSignal
-import org.junit.jupiter.api.Assertions.*
+import org.junit.jupiter.api.Assertions.assertArrayEquals
+import org.junit.jupiter.api.Assertions.assertTrue
 import org.junit.jupiter.api.Nested
 import org.junit.jupiter.api.Test
 import kotlin.test.assertFailsWith
 
 internal class TraceBuilderTest {
-    @Test fun `malformed data makes building fail`() {
+    @Test
+    fun `malformed data makes building fail`() {
         val builder = builderMalformedData()
         builder.useElement("elem")
 
         assertFailsWith<IllegalArgumentException> { builder.build() }
     }
 
-    @Test fun `malformed metadata makes building fail`() {
+    @Test
+    fun `malformed metadata makes building fail`() {
         val builder = builderMalformedData()
         builder.useMetadata()
 
         assertFailsWith<IllegalArgumentException> { builder.build() }
     }
 
-    @Test fun `simple builder test`() {
+    @Test
+    fun `simple builder test`() {
         val stub = toArray(signalStub())
 
         val built = toArray(builderOneElementInit().build())
@@ -30,7 +34,8 @@ internal class TraceBuilderTest {
         assertArrayEquals(stub, built)
     }
 
-    @Test fun `simple builder metadata test`() {
+    @Test
+    fun `simple builder metadata test`() {
         val stub = toArray(alwaysTrueSignal())
 
         val built = toArray(builderScreenInit().build())
@@ -38,8 +43,10 @@ internal class TraceBuilderTest {
         assertArrayEquals(stub, built)
     }
 
-    @Nested inner class Modifiers {
-        @Test fun `metadata modifier actually enables metadata`() {
+    @Nested
+    inner class Modifiers {
+        @Test
+        fun `metadata modifier actually enables metadata`() {
             val builder = builderScreenInit()
 
             builder.useMetadata()
@@ -47,7 +54,8 @@ internal class TraceBuilderTest {
             assertTrue(builder.hasMetadata())
         }
 
-        @Test fun `elements modifier actually adds elements`() {
+        @Test
+        fun `elements modifier actually adds elements`() {
             val builder = builderScreenInit()
 
             builder.useElements(listOf("element1", "element2"))
@@ -56,7 +64,8 @@ internal class TraceBuilderTest {
             assertTrue(builder.hasElement("element2"))
         }
 
-        @Test fun `element modifier actually adds an element`() {
+        @Test
+        fun `element modifier actually adds an element`() {
             val builder = builderScreenInit()
 
             builder.useElement("element1")
@@ -68,7 +77,7 @@ internal class TraceBuilderTest {
     private fun signalStub(): SpatialTemporalSignal<List<Boolean>> {
         val signal = SpatialTemporalSignal<List<Boolean>>(9)
         signal.add(0.0) {
-            if(it in listOf(0 , 1, 3, 4)) {     //  1 1 0
+            if (it in listOf(0, 1, 3, 4)) {     //  1 1 0
                 listOf(true)                    //  1 1 0
             } else {                            //  0 0 0
                 listOf(false)
@@ -93,8 +102,12 @@ internal class TraceBuilderTest {
 
     private fun builderMalformedData(): TraceBuilder {
         val grid = Grid(3, 3)
-        val data = listOf(mapOf("wnd_width" to "2",
-                                "elem::y" to "2"))
+        val data = listOf(
+            mapOf(
+                "vvp_width" to "2",
+                "elem::y" to "2"
+            )
+        )
         val builder = TraceBuilder(grid, data)
         builder.useMetadata()
         return builder
@@ -102,8 +115,12 @@ internal class TraceBuilderTest {
 
     private fun builderScreenInit(): TraceBuilder {
         val grid = Grid(3, 3)
-        val data = listOf(mapOf("vp_width" to "2",
-                                "vp_height" to "2"))
+        val data = listOf(
+            mapOf(
+                "vvp_width" to "2",
+                "vvp_height" to "2"
+            )
+        )
         val builder = TraceBuilder(grid, data)
         builder.useMetadata()
         return builder
@@ -111,10 +128,14 @@ internal class TraceBuilderTest {
 
     private fun builderOneElementInit(): TraceBuilder {
         val grid = Grid(3, 3)
-        val data = listOf(mapOf("elem::x" to "0",
-                                "elem::y" to "0",
-                                "elem::width" to "1",
-                                "elem::height" to "1"))
+        val data = listOf(
+            mapOf(
+                "elem::x" to "0",
+                "elem::y" to "0",
+                "elem::width" to "1",
+                "elem::height" to "1"
+            )
+        )
         val builder = TraceBuilder(grid, data)
         builder.useElement("elem")
         return builder

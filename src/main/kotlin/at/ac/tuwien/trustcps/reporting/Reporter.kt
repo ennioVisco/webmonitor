@@ -57,7 +57,7 @@ class Reporter(
 
     private fun spawnPlotter(title: String, values: Array<DoubleArray>) =
         Platform.startup {
-            Plotter(title, values).run()
+            Plotter(title, values, grid).run()
         }
 
     private fun <T> signalToGrid(signal: SpatialTemporalSignal<T>) =

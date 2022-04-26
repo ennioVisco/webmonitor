@@ -10,8 +10,9 @@ import kotlin.test.assertTrue
 internal class CheckerTest {
     private val grid = Grid(rows = 2, columns = 3)
 
-    @Test fun `simple checking gives correct results`() {
-        val data = mapOf("vp_width" to "3", "vp_height" to "2")
+    @Test
+    fun `simple checking gives correct results`() {
+        val data = mapOf("vvp_width" to "3", "vvp_height" to "2")
         val checker = Checker(grid, listOf(data), emptyList())
 
         val result = checker.check(AtomicFormula("screen"))
@@ -23,19 +24,24 @@ internal class CheckerTest {
         }
     }
 
-    @Test fun `checking empty data fails`() {
+    @Test
+    fun `checking empty data fails`() {
         val checker = Checker(grid, emptyList(), emptyList())
         assertFailsWith<IllegalArgumentException>(
-            "Empty data in input should not be allowed") {
+            "Empty data in input should not be allowed"
+        ) {
             checker.check(AtomicFormula("screen"))
         }
     }
 
-    @Test fun `atoms are right`() {
+    @Test
+    fun `atoms are right`() {
         val checker = Checker(grid, emptyList(), listOf("elem"))
         val elem = checker.atoms["elem"]!!
 
-        assertEquals(true,
-                     elem.apply(null).apply(listOf(false, true)))
+        assertEquals(
+            true,
+            elem.apply(null).apply(listOf(false, true))
+        )
     }
 }

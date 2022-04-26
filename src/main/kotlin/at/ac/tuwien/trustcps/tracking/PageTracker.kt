@@ -19,7 +19,8 @@ import java.net.URL
 class PageTracker(
     private val page: URL,
     private val dimension: Dimension? = null,
-    private val browser: Browser? = null
+    private val browser: Browser? = null,
+    private val toFile: Boolean = false
 ) {
     private val data = HashMap<String, String>()
     private val selectors = ArrayList<String>()
@@ -50,23 +51,29 @@ class PageTracker(
     private fun spawnBrowserSession() = SessionBuilder(page, dimension, browser)
 
     private fun fetchMetadata(driver: RemoteWebDriver) {
-        //val wnd = it.driver.manage().window()
-        // Viewport
-        val vpWidth = driver.executeScript("return window.innerWidth;")
-        val vpHeight = driver.executeScript("return window.innerHeight;")
-        data["vp_width"] = vpWidth.toString()
-        data["vp_height"] = vpHeight.toString()
-        println("Viewport: ${vpWidth}x${vpHeight}")
+        // Document: areas considered by the page, including unreachable ones.
+        // They are not tracked at all
+        //
+        // Layout Viewport: Scrollable area
+        val layoutVp = "return document.documentElement"
+        val layoutVpWidth = exec(driver, "${layoutVp}.scrollWidth")
+        val layoutVpHeight = exec(driver, "${layoutVp}.scrollHeight")
+        data["lvp_width"] = layoutVpWidth.toString()
+        data["lvp_height"] = layoutVpHeight.toString()
+        println("Layout Viewport: ${layoutVpWidth}x${layoutVpHeight}")
 
-        // Browser frame    //TODO: screen.avail relates to the absolute space of the screen, not the window
-        val wndWidth = driver.executeScript("return screen.availWidth;")
-        val wndHeight = driver.executeScript("return screen.availHeight;")
-        data["wnd_width"] = wndWidth.toString()
-        data["wnd_height"] = wndHeight.toString()
-        println("Window: ${wndWidth}x${vpHeight}")
+        // Visual Viewport: physical screen
+        val visualVpWidth = exec(driver, "return window.innerWidth;")
+        val visualVpHeight = exec(driver, "return window.innerHeight;")
+        data["vvp_width"] = visualVpWidth.toString()
+        data["vvp_height"] = visualVpHeight.toString()
+        println("Visual Viewport: ${visualVpWidth}x${visualVpHeight}")
 
-        val scrFile = (driver as TakesScreenshot).getScreenshotAs(OutputType.FILE)
-        FileUtils.copyFile(scrFile, File("./image.png"))
+        if (toFile) {
+            val screenshot = driver as TakesScreenshot
+            val scrFile = screenshot.getScreenshotAs(OutputType.FILE)
+            FileUtils.copyFile(scrFile, File("./image.png"))
+        }
 
     }
 
@@ -88,6 +95,10 @@ class PageTracker(
                     " -> " +
                     "(${data["${queryString}::width"]}, ${data["${queryString}::height"]})"
         )
+    }
+
+    private fun exec(driver: RemoteWebDriver, command: String): Any? {
+        return driver.executeScript(command)
     }
 
 //    fun selectAll(driver: RemoteWebDriver) {

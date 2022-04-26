@@ -1,11 +1,13 @@
 package at.ac.tuwien.trustcps
 
 object Target {
-    //private const val HORIZONTAL_BROWSER_FRAME = 16
-    private const val HORIZONTAL_BROWSER_FRAME = 0
-    private const val VERTICAL_BROWSER_FRAME = 133
+    // Unfortunately, the frame-size is browser-specific.
+    // Typically, all browsers have only a vertical frame,
+    // but it would be nice to set a window size based on the inner dimensions,
+    // not the external ones.
+    private const val VERTICAL_BROWSER_FRAME = 133 // Chrome browser offset
 
-    const val screenWidth = 393 + HORIZONTAL_BROWSER_FRAME
+    const val screenWidth = 393
     const val screenHeight = 851 + VERTICAL_BROWSER_FRAME
 
     const val targetUrl = "https://enniovisco.github.io/webmonitor/"

@@ -1,5 +1,6 @@
 package at.ac.tuwien.trustcps.reporting
 
+import at.ac.tuwien.trustcps.space.Grid
 import io.mockk.every
 import io.mockk.justRun
 import io.mockk.mockk
@@ -11,16 +12,18 @@ import org.junit.jupiter.api.assertDoesNotThrow
 import kotlin.test.assertFailsWith
 
 internal class PlotterTest {
+    private val grid = Grid(3, 3)
+
     @Test
     fun `classic JavaFX init is not allowed`() {
-        val plotter = Plotter("test", arrayOf(doubleArrayOf(0.0)))
+        val plotter = Plotter("test", arrayOf(doubleArrayOf(0.0)), grid)
 
         assertFailsWith<UnsupportedOperationException> { plotter.init() }
     }
 
     @Test
     fun `classic JavaFX start is not allowed`() {
-        val plotter = Plotter("test", arrayOf(doubleArrayOf(0.0)))
+        val plotter = Plotter("test", arrayOf(doubleArrayOf(0.0)), grid)
 
         assertFailsWith<UnsupportedOperationException> {
             plotter.start(mockk())
@@ -30,7 +33,7 @@ internal class PlotterTest {
 
     @Test
     fun `classic JavaFX stop is not allowed`() {
-        val plotter = Plotter("test", arrayOf(doubleArrayOf(0.0)))
+        val plotter = Plotter("test", arrayOf(doubleArrayOf(0.0)), grid)
 
         assertFailsWith<UnsupportedOperationException> { plotter.stop() }
     }
@@ -43,7 +46,7 @@ internal class PlotterTest {
         justRun { mockStage.title = any() }
         justRun { mockStage.scene = any() }
 
-        val plotter = spyk(Plotter("test", data), recordPrivateCalls = true)
+        val plotter = spyk(Plotter("test", data, grid), recordPrivateCalls = true)
         every {
             plotter invoke "spawnStage" withArguments
                     listOf()

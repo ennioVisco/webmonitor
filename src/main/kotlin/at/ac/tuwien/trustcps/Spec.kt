@@ -2,6 +2,7 @@ package at.ac.tuwien.trustcps
 
 import eu.quanticol.moonlight.formula.AtomicFormula
 import eu.quanticol.moonlight.formula.classic.AndFormula
+import eu.quanticol.moonlight.formula.classic.NegationFormula
 import eu.quanticol.moonlight.formula.spatial.EverywhereFormula
 
 object Spec {
@@ -9,7 +10,7 @@ object Spec {
 
     // atomic propositions
     val atoms = listOf(
-        //".dialog"
+        ".dialog",
         "h1"
     )
 
@@ -20,7 +21,7 @@ object Spec {
     private val allCookieOnScreen = EverywhereFormula(distance, cookieOnScreen)
 
     // final spec to monitor
-    val formula = screen
+    val formula = AndFormula(cookieInfo, NegationFormula(screen))
 
 //    private fun spec(): Formula {
 //        val screen = AtomicFormula("screen")

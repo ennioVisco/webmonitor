@@ -12,21 +12,6 @@ import java.net.URL
 
 typealias GridSignal = SpatialTemporalSignal<Boolean>
 
-/**
- * ### Example of output
- * ```
- * {
- *   "wnd_height" -> "1032",
- *   "vp_height" -> "147",
- *   "vp_width" -> "500",
- *   "wnd_width" -> "1920",
- *   "#cookieman-modal p::x" -> "31",
- *   "#cookieman-modal p::y" -> "122",
- *   "#cookieman-modal p::width" -> "421"
- *   "#cookieman-modal p::height" -> "161",
- * }
- * ```
- */
 fun main() {
     val grid = Grid(Target.screenHeight, Target.screenWidth)
     val report = Reporter(grid, toFile = true)
@@ -47,7 +32,7 @@ fun main() {
 private fun tracking(): Map<String, String> {
     val baseUrl = URL(Target.targetUrl)
     val dimensions = Dimension(Target.screenWidth, Target.screenHeight)
-    val tracker = PageTracker(baseUrl, dimensions, Browser.CHROME)
+    val tracker = PageTracker(baseUrl, dimensions, Browser.CHROME, toFile = true)
 
     Spec.atoms.forEach { tracker.select(it) }
 

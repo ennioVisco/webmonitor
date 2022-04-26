@@ -1,5 +1,6 @@
 package at.ac.tuwien.trustcps.reporting
 
+import at.ac.tuwien.trustcps.space.Grid
 import eu.hansolo.fx.charts.ChartType
 import eu.hansolo.fx.charts.MatrixPane
 import eu.hansolo.fx.charts.data.MatrixChartItem
@@ -16,15 +17,16 @@ import javafx.stage.Stage
 import java.io.File
 import javax.imageio.ImageIO
 
-private const val GRID_WIDTH = 500.0
-private const val GRID_HEIGHT = 851.0
-
 /**
  * Plotting class based on JavaFX and Han Solo's Charts library.
  * Instead of being run in classical JavaFX environment, it is being
  * executed as a Runnable
  */
-class Plotter(private val title: String, data: Array<DoubleArray>) : Application(), Runnable {
+class Plotter(
+    private val title: String,
+    data: Array<DoubleArray>,
+    private val grid: Grid //= Grid(columns = GRID_WIDTH, rows = GRID_HEIGHT)
+) : Application(), Runnable {
     private val columns = data.size
     private val rows = data[0].size
     private val heatMap = addData(data)
@@ -96,7 +98,7 @@ class Plotter(private val title: String, data: Array<DoubleArray>) : Application
         heatMap.matrixGradient = color
         heatMap.matrix.setUseSpacer(false)
         heatMap.matrix.setColsAndRows(columns, rows)
-        heatMap.setPrefSize(GRID_WIDTH, GRID_HEIGHT)
+        heatMap.setPrefSize(grid.columns.toDouble(), grid.rows.toDouble())
     }
 
     private fun showStage(stage: Stage) = stage.show()
