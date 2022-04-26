@@ -13,11 +13,12 @@ import java.net.URL
 typealias GridSignal = SpatialTemporalSignal<Boolean>
 
 fun main() {
-    val grid = Grid(Target.screenHeight, Target.screenWidth)
     val report = Reporter(toFile = true)
 
     report.mark("Tracking")
     val data = tracking()
+
+    val grid = generateSpatialModel(data)
 
     report.mark("Checking")
     val result = checking(grid, data, Spec.formula)
@@ -45,3 +46,16 @@ private fun checking(grid: Grid, data: Map<String, String>, spec: Formula)
     return checker.check(spec)
 }
 
+
+private fun generateSpatialModel(data: Map<String, String>): Grid {
+    return if (data.containsKey("lvp_width")
+        && data.containsKey("lvp_height")
+    ) {
+        Grid(
+            rows = data["lvp_height"]!!.toInt(),
+            columns = data["lvp_width"]!!.toInt()
+        )
+    } else {
+        Grid(rows = Target.screenHeight, columns = Target.screenWidth)
+    }
+}

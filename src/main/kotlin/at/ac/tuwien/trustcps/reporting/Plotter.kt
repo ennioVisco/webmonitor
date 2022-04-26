@@ -25,7 +25,7 @@ import javax.imageio.ImageIO
 class Plotter(
     private val title: String,
     data: Array<DoubleArray>,
-    private val grid: Grid //= Grid(columns = GRID_WIDTH, rows = GRID_HEIGHT)
+    private val grid: Grid
 ) : Application(), Runnable {
     private val columns = data.size
     private val rows = data[0].size
