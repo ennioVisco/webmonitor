@@ -36,7 +36,7 @@ dependencies {
     implementation(files("lib/moonlight.jar"))
 
     // Selenium
-    implementation("org.seleniumhq.selenium:selenium-java:4.1.1")
+    implementation("org.seleniumhq.selenium:selenium-java:4.1.3")
     implementation("io.github.bonigarcia:webdrivermanager:5.1.1")
 
     // Charts
@@ -44,10 +44,10 @@ dependencies {
 
     // Logging
     implementation("io.github.microutils:kotlin-logging-jvm:2.1.21")
-    implementation("org.slf4j:slf4j-api:1.7.33")
-    implementation("org.apache.logging.log4j:log4j-api:2.17.1")
-    implementation("org.apache.logging.log4j:log4j-core:2.17.1")
-    implementation("org.apache.logging.log4j:log4j-slf4j-impl:2.17.1")
+    implementation("org.slf4j:slf4j-api:1.7.36")
+    implementation("org.apache.logging.log4j:log4j-api:2.17.2")
+    implementation("org.apache.logging.log4j:log4j-core:2.17.2")
+    implementation("org.apache.logging.log4j:log4j-slf4j-impl:2.17.2")
 //    implementation("ch.qos.logback:logback-classic:1.2.10")
 
     implementation("com.tylerthrailkill.helpers:pretty-print:2.0.2")
@@ -56,7 +56,7 @@ dependencies {
     testImplementation(kotlin("test"))
     testImplementation(kotlin("test-junit5"))
     testImplementation("org.junit.jupiter:junit-jupiter:5.8.2")
-    testImplementation("io.mockk:mockk:1.12.2")
+    testImplementation("io.mockk:mockk:1.12.3")
     testImplementation("com.github.stefanbirkner:system-lambda:1.2.1")
 }
 
