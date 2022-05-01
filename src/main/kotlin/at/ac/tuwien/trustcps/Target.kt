@@ -7,6 +7,8 @@ object Target {
     // not the external ones.
     private const val VERTICAL_BROWSER_FRAME = 133 // Chrome browser offset
 
+    const val MAX_SESSION_DURATION = 5_000L
+
     const val screenWidth = 393
     const val screenHeight = 851 + VERTICAL_BROWSER_FRAME
 

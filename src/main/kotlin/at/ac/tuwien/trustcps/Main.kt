@@ -33,11 +33,14 @@ fun main() {
 private fun tracking(): Map<String, String> {
     val baseUrl = URL(Target.targetUrl)
     val dimensions = Dimension(Target.screenWidth, Target.screenHeight)
-    val tracker = PageTracker(baseUrl, dimensions, Browser.CHROME, toFile = true)
+    val tracker = PageTracker(
+        baseUrl, dimensions, Browser.CHROME,
+        maxSessionDuration = Target.MAX_SESSION_DURATION, toFile = true
+    )
 
     Spec.atoms.forEach { tracker.select(it) }
 
-    return tracker.track()
+    return tracker.track()[0]
 }
 
 private fun checking(grid: Grid, data: Map<String, String>, spec: Formula)
