@@ -16,21 +16,24 @@ fun main() {
     val report = Reporter(toFile = true)
 
     report.mark("Tracking")
-    val data = tracking()
+    val snapshots = tracking()
 
-    val grid = generateSpatialModel(data)
+
 
     report.mark("Checking")
-    val result = checking(grid, data, Spec.formula)
-    report.report(result, "output dump")
+    for ((pos, data) in snapshots.withIndex()) {
+        val grid = generateSpatialModel(data)
+        val result = checking(grid, data, Spec.formula)
+        report.report(result, "output dump")
 
-    report.mark("Plotting results")
-    report.plot(result, grid, "Grid plot")
+        report.mark("Plotting results")
+        report.plot(pos, result, grid, "Grid plot")
+    }
 
     report.mark("Ending")
 }
 
-private fun tracking(): Map<String, String> {
+private fun tracking(): List<Map<String, String>> {
     val baseUrl = URL(Target.targetUrl)
     val dimensions = Dimension(Target.screenWidth, Target.screenHeight)
     val tracker = PageTracker(
@@ -40,7 +43,7 @@ private fun tracking(): Map<String, String> {
 
     Spec.atoms.forEach { tracker.select(it) }
 
-    return tracker.track()[0]
+    return tracker.track()
 }
 
 private fun checking(grid: Grid, data: Map<String, String>, spec: Formula)

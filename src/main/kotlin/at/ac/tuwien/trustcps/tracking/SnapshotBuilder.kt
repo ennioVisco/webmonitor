@@ -10,6 +10,7 @@ import java.io.File
 class SnapshotBuilder(
     private val driver: RemoteWebDriver,
     private val selectors: List<String>,
+    private val id: Int,
     private val toFile: Boolean = false
 ) {
     fun collect(): Map<String, String> {
@@ -26,7 +27,7 @@ class SnapshotBuilder(
         if (toFile) {
             val screenshot = driver as TakesScreenshot
             val scrFile = screenshot.getScreenshotAs(OutputType.FILE)
-            FileUtils.copyFile(scrFile, File("./image.png"))
+            FileUtils.copyFile(scrFile, File("./output/snap_${id}.png"))
         }
     }
 

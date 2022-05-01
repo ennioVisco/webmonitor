@@ -26,6 +26,7 @@ import javax.imageio.ImageIO
  *                 open windows of the submitted size
  */
 class Plotter(
+    private val id: Int,
     private val title: String,
     data: Array<DoubleArray>,
     private val grid: Grid
@@ -65,10 +66,10 @@ class Plotter(
         val pane = StackPane(heatMap)
         //pane.padding = Insets(6.0, 0.0, 0.0, 0.0)
         val scene = Scene(pane)
-        pane.background = setBackground("image.png")
+        pane.background = setBackground("output/snap_${id}.png")
         stage.title = title
         stage.scene = scene
-        takeSnapshot(scene, "image2.png")
+        takeSnapshot(scene, "output/eval_${id}.png")
     }
 
     private fun takeSnapshot(scene: Scene, fileName: String) {

@@ -16,14 +16,14 @@ internal class PlotterTest {
 
     @Test
     fun `classic JavaFX init is not allowed`() {
-        val plotter = Plotter("test", arrayOf(doubleArrayOf(0.0)), grid)
+        val plotter = Plotter(0, "test", arrayOf(doubleArrayOf(0.0)), grid)
 
         assertFailsWith<UnsupportedOperationException> { plotter.init() }
     }
 
     @Test
     fun `classic JavaFX start is not allowed`() {
-        val plotter = Plotter("test", arrayOf(doubleArrayOf(0.0)), grid)
+        val plotter = Plotter(0, "test", arrayOf(doubleArrayOf(0.0)), grid)
 
         assertFailsWith<UnsupportedOperationException> {
             plotter.start(mockk())
@@ -33,7 +33,7 @@ internal class PlotterTest {
 
     @Test
     fun `classic JavaFX stop is not allowed`() {
-        val plotter = Plotter("test", arrayOf(doubleArrayOf(0.0)), grid)
+        val plotter = Plotter(0, "test", arrayOf(doubleArrayOf(0.0)), grid)
 
         assertFailsWith<UnsupportedOperationException> { plotter.stop() }
     }
@@ -46,7 +46,7 @@ internal class PlotterTest {
         justRun { mockStage.title = any() }
         justRun { mockStage.scene = any() }
 
-        val plotter = spyk(Plotter("test", data, grid), recordPrivateCalls = true)
+        val plotter = spyk(Plotter(0, "test", data, grid), recordPrivateCalls = true)
         every {
             plotter invoke "spawnStage" withArguments
                     listOf()

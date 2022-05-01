@@ -12,5 +12,6 @@ object Target {
     const val screenWidth = 393
     const val screenHeight = 851 + VERTICAL_BROWSER_FRAME
 
-    const val targetUrl = "https://enniovisco.github.io/webmonitor/"
+    //const val targetUrl = "https://enniovisco.github.io/webmonitor/"
+    const val targetUrl = "https://conf.researchr.org/home/ase-2022"
 }

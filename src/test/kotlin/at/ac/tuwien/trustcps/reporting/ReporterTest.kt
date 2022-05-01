@@ -20,6 +20,7 @@ import kotlin.test.assertFailsWith
 internal class ReporterTest {
     @Test
     fun `plotting somehow plots`() {
+        val id = 0
         val title = "fake signal"
         val grid = Grid(2, 2)
         val reporter = spyk(Reporter(), recordPrivateCalls = true)
@@ -30,11 +31,11 @@ internal class ReporterTest {
 
         justRun {
             reporter invoke "spawnPlotter" withArguments
-                    listOf(title, (any<Array<DoubleArray>>()), grid)
+                    listOf(id, title, (any<Array<DoubleArray>>()), grid)
         }
 
         assertDoesNotThrow {
-            reporter.plot(ss, grid, title)
+            reporter.plot(id, ss, grid, title)
         }
     }
 

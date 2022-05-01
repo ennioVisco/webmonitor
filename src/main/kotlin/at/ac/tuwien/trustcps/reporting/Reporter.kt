@@ -48,19 +48,20 @@ class Reporter(
      * @param result signal to be plotted
      * @param title title of the plot window
      */
-    fun plot(result: GridSignal, grid: Grid, title: String) {
+    fun plot(id: Int, result: GridSignal, grid: Grid, title: String) {
         val gridValues = signalToGrid(result, grid)
 
-        spawnPlotter(title, gridValues, grid)
+        spawnPlotter(id, title, gridValues, grid)
     }
 
     private fun spawnPlotter(
+        id: Int,
         title: String,
         values: Array<DoubleArray>,
         grid: Grid
     ) {
         Platform.startup {
-            Plotter(title, values, grid).run()
+            Plotter(id, title, values, grid).run()
         }
     }
 
@@ -84,7 +85,7 @@ class Reporter(
     fun <T> report(result: SpatialTemporalSignal<T>, title: String) {
         val monitorValuesB = result.signals.map { it.arrayOf(::doubleOf) }
 
-        generateOutput("st_output") {
+        generateOutput("st_dump") {
             sendOutput(title, it)
             printSTSignal(monitorValuesB, it)
         }
@@ -95,14 +96,16 @@ class Reporter(
             .replace("-", "")
             .replace(":", "")
 
-        File("${name}_${now}.txt").printWriter().use {
+        val pathName = "output/${name}_${now}.txt"
+
+        File(pathName).printWriter().use {
             buffer.forEach { line -> sendOutput(line, it) }
             block(it)
         }
 
         // TODO: Workaround, needs refactoring
         if (!toFile) {
-            File("${name}_${now}.txt").delete()
+            File(pathName).delete()
         }
     }
 

@@ -34,8 +34,7 @@ class PageTracker(
      */
     fun track(): List<Map<String, String>> {
         spawnBrowserSession().use {
-            snapshotBuilder = SnapshotBuilder(it.driver, selectors)
-            //snapshots.add(.collect())
+            snapshotBuilder = SnapshotBuilder(it.driver, selectors, snapshots.size, toFile)
 
             Thread.sleep(maxSessionDuration)
         }
