@@ -35,6 +35,10 @@ class Plotter(
     private val rows = data[0].size
     private val heatMap = addData(data)
 
+    companion object {
+        var running = false
+    }
+
     /**
      * Initializes the data to plot a heatmap
      */

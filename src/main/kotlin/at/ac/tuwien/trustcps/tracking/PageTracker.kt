@@ -2,6 +2,7 @@ package at.ac.tuwien.trustcps.tracking
 
 import org.openqa.selenium.Dimension
 import org.openqa.selenium.devtools.events.ConsoleEvent
+import org.openqa.selenium.remote.RemoteWebDriver
 import java.net.URL
 
 
@@ -34,17 +35,39 @@ class PageTracker(
      */
     fun track(): List<Map<String, String>> {
         spawnBrowserSession().use {
-            snapshotBuilder = SnapshotBuilder(it.driver, selectors, snapshots.size, toFile)
-
+            snapshotBuilder = SnapshotBuilder(it.driver, selectors, toFile)
+            recordEvents(it.driver)
             Thread.sleep(maxSessionDuration)
         }
         return snapshots
     }
 
+    private fun recordEvents(driver: RemoteWebDriver) {
+        capturePageLoaded(driver)
+        driver.executeScript("\$('div[data-ride=\"carousel\"').on('slide.bs.carousel', function () { console.log(\"carousel-slide\")})")
+    }
+
+    private fun capturePageLoaded(driver: RemoteWebDriver) {
+        driver.executeScript(
+            "if(document.readyState === \"complete\") {" +
+                    "console.log('page is fully loaded');" +
+                    "} else {" +
+                    "window.addEventListener('load', () => { console.log('page is fully loaded'); " +
+                    "})} "
+        )
+    }
+
     private fun capture(event: ConsoleEvent) {
         Thread.sleep(1_000L)
         println("Console log message is ${event.messages}")
-        snapshotBuilder?.collect()?.let { snapshots.add(it) }
+        if (snapshotBuilder != null) {
+            snapshotBuilder?.collect(snapshots.size)?.let { snapshots.add(it) }
+        } else {
+            throw UnsupportedOperationException(
+                "Trying to capture event before instantiation is complete"
+            )
+        }
+
     }
 
     private fun spawnBrowserSession() = SessionBuilder(page, ::capture, dimension, browser)

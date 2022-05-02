@@ -10,23 +10,23 @@ import java.io.File
 class SnapshotBuilder(
     private val driver: RemoteWebDriver,
     private val selectors: List<String>,
-    private val id: Int,
     private val toFile: Boolean = false
 ) {
-    fun collect(): Map<String, String> {
+    fun collect(id: Int): Map<String, String> {
         val data = HashMap<String, String>()
         fetchMetadata(driver, data)
         for (selector in selectors) {
             doSelect(selector, driver, data)
         }
-        takeScreenshot()
+        takeScreenshot(id)
         return data
     }
 
-    private fun takeScreenshot() {
+    private fun takeScreenshot(id: Int) {
         if (toFile) {
             val screenshot = driver as TakesScreenshot
             val scrFile = screenshot.getScreenshotAs(OutputType.FILE)
+
             FileUtils.copyFile(scrFile, File("./output/snap_${id}.png"))
         }
     }

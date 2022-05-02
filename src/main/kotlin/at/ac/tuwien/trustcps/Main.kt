@@ -18,14 +18,12 @@ fun main() {
     report.mark("Tracking")
     val snapshots = tracking()
 
-
-
     report.mark("Checking")
-    for ((pos, data) in snapshots.withIndex()) {
-        val grid = generateSpatialModel(data)
-        val result = checking(grid, data, Spec.formula)
-        report.report(result, "output dump")
+    val grid = generateSpatialModel(snapshots[0])
+    val result = checking(grid, snapshots, Spec.formula)
+    report.report(result, "output dump")
 
+    for ((pos, _) in snapshots.withIndex()) {
         report.mark("Plotting results")
         report.plot(pos, result, grid, "Grid plot")
     }
@@ -46,9 +44,9 @@ private fun tracking(): List<Map<String, String>> {
     return tracker.track()
 }
 
-private fun checking(grid: Grid, data: Map<String, String>, spec: Formula)
+private fun checking(grid: Grid, data: List<Map<String, String>>, spec: Formula)
         : GridSignal {
-    val checker = Checker(grid, listOf(data), Spec.atoms)
+    val checker = Checker(grid, data, Spec.atoms)
     return checker.check(spec)
 }
 

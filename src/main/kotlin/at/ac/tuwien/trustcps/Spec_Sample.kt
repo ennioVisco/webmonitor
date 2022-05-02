@@ -2,26 +2,28 @@ package at.ac.tuwien.trustcps
 
 import eu.quanticol.moonlight.formula.AtomicFormula
 import eu.quanticol.moonlight.formula.classic.AndFormula
+import eu.quanticol.moonlight.formula.classic.NegationFormula
+import eu.quanticol.moonlight.formula.classic.OrFormula
 import eu.quanticol.moonlight.formula.spatial.EverywhereFormula
 
-object Spec {
+object Spec_Sample {
     private const val distance = "base"
 
     // atomic propositions
     val atoms = listOf(
-        ".carousel",
+        ".dialog",
         "h1"
     )
 
     // helper formulae
     private val screen = AtomicFormula("screen")
-    private val slider = AtomicFormula(atoms[0])
+    private val cookieInfo = AtomicFormula(atoms[0])
     private val h1 = AtomicFormula(atoms[1])
-    private val cookieOnScreen = AndFormula(slider, screen)
+    private val cookieOnScreen = AndFormula(cookieInfo, screen)
     private val allCookieOnScreen = EverywhereFormula(distance, cookieOnScreen)
 
     // final spec to monitor
-    val formula = slider
+    val formula = OrFormula(h1, AndFormula(cookieInfo, NegationFormula(screen)))
 
 //    private fun spec(): Formula {
 //        val screen = AtomicFormula("screen")

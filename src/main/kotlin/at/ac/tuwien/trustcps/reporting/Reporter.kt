@@ -60,8 +60,11 @@ class Reporter(
         values: Array<DoubleArray>,
         grid: Grid
     ) {
-        Platform.startup {
-            Plotter(id, title, values, grid).run()
+        try {
+            Platform.startup(Plotter(id, title, values, grid))
+        } catch (e: IllegalStateException) {
+            println("JavaFX platform already instantiated. Skipping.")
+            Platform.runLater(Plotter(id, title, values, grid))
         }
     }
 

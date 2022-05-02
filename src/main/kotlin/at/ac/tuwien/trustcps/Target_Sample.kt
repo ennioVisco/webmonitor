@@ -1,6 +1,6 @@
 package at.ac.tuwien.trustcps
 
-object Target {
+object Target_Sample {
     // Unfortunately, the frame-size is browser-specific.
     // Typically, all browsers have only a vertical frame,
     // but it would be nice to set a window size based on the inner dimensions,
