@@ -3,16 +3,18 @@ package at.ac.tuwien.trustcps
 import at.ac.tuwien.trustcps.checking.Checker
 import at.ac.tuwien.trustcps.reporting.Reporter
 import at.ac.tuwien.trustcps.space.Grid
-import at.ac.tuwien.trustcps.tracking.Browser
 import at.ac.tuwien.trustcps.tracking.PageTracker
 import eu.quanticol.moonlight.core.formula.Formula
 import eu.quanticol.moonlight.signal.SpatialTemporalSignal
 import org.openqa.selenium.Dimension
 import java.net.URL
+import javax.script.ScriptEngineManager
 
 typealias GridSignal = SpatialTemporalSignal<Boolean>
 
-fun main() {
+fun main(args: Array<String>) {
+    validateArgs(args)
+
     val report = Reporter(toFile = true)
 
     report.mark("Tracking")
@@ -31,12 +33,38 @@ fun main() {
     report.mark("Ending")
 }
 
+private fun validateArgs(args: Array<String>) {
+    try {
+        val (source, spec) = args
+        loadScripts(source, spec)
+    } catch (e: ArrayIndexOutOfBoundsException) {
+        try {
+            val (source) = args
+            loadScripts(source, source)
+        } catch (e: ArrayIndexOutOfBoundsException) {
+            throw IllegalArgumentException("No source or spec provided.")
+        }
+    }
+}
+
+private fun loadScripts(source: String, spec: String) {
+
+    println("Path: ${loadResource("source.$source.kts")}")
+    with(ScriptEngineManager().getEngineByExtension("kts")) {
+        eval(loadResource("source.$source.kts"))
+        eval(loadResource("spec.$spec.kts"))
+    }
+}
+
+private fun loadResource(name: String) =
+    object {}.javaClass.classLoader.getResourceAsStream(name)?.bufferedReader()
+
 private fun tracking(): List<Map<String, String>> {
-    val baseUrl = URL(Target.targetUrl)
-    val dimensions = Dimension(Target.screenWidth, Target.screenHeight)
+    val baseUrl = URL(WebSource.targetUrl)
+    val dimensions = Dimension(WebSource.screenWidth, WebSource.screenHeight)
     val tracker = PageTracker(
-        baseUrl, dimensions, Browser.CHROME,
-        maxSessionDuration = Target.MAX_SESSION_DURATION, toFile = true
+        baseUrl, dimensions, WebSource.browser,
+        maxSessionDuration = WebSource.maxSessionDuration, toFile = true
     )
 
     Spec.atoms.forEach { tracker.select(it) }
@@ -60,6 +88,6 @@ private fun generateSpatialModel(data: Map<String, String>): Grid {
             columns = data["lvp_width"]!!.toInt()
         )
     } else {
-        Grid(rows = Target.screenHeight, columns = Target.screenWidth)
+        Grid(rows = WebSource.screenHeight, columns = WebSource.screenWidth)
     }
 }

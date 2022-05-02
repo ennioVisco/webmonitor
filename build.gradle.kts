@@ -31,6 +31,10 @@ javafx {
 }
 
 dependencies {
+    // Configuration files
+    implementation(kotlin("script-runtime"))
+    runtimeOnly("org.jetbrains.kotlin:kotlin-scripting-jsr223:1.6.21")
+
     // Moonlight
     //implementation("eu.quanticol.moonlight:core:1.0-SNAPSHOT")
     implementation(files("lib/moonlight.jar"))
@@ -40,7 +44,7 @@ dependencies {
     implementation("io.github.bonigarcia:webdrivermanager:5.1.1")
 
     // Charts
-    implementation("eu.hansolo.fx:charts:11.7")
+    implementation("eu.hansolo.fx:charts:17.1.7")
 
     // Logging
     implementation("io.github.microutils:kotlin-logging-jvm:2.1.21")
@@ -78,8 +82,11 @@ tasks.withType<KotlinCompile> {
 }
 
 application {
+    //executableDir = "$buildDir/../src/main/kotlin/at/ac/tuwien/trustcps"
+    println("Current exec dir: ${executableDir}")
     fun pkg(name: String) = "${group}.${name}Kt"
     mainClass.set(pkg("Main"))
+    //println("Current sources dir: ${buildDir}")
 }
 
 fun RepositoryHandler.githubPackages(user: String, repo: String):

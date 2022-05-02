@@ -14,6 +14,7 @@ import javafx.scene.paint.Color
 import javafx.scene.paint.CycleMethod
 import javafx.scene.paint.LinearGradient
 import javafx.scene.paint.Stop
+import javafx.scene.transform.Scale
 import javafx.stage.Stage
 import java.io.File
 import javax.imageio.ImageIO
@@ -103,6 +104,14 @@ class Plotter(
         heatMap.matrix.setUseSpacer(false)
         heatMap.matrix.setColsAndRows(columns, rows)
         heatMap.setPrefSize(grid.columns.toDouble(), grid.rows.toDouble())
+        heatMap.transforms.add(rescale())
+    }
+
+    private fun rescale(): Scale {
+        val scale = Scale()
+        //scale.x = 0.8
+        //scale.y = 0.8
+        return scale
     }
 
     private fun setColorGradient(): LinearGradient {
