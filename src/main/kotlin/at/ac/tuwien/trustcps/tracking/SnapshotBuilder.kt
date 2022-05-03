@@ -1,5 +1,6 @@
 package at.ac.tuwien.trustcps.tracking
 
+import at.ac.tuwien.trustcps.parseSelector
 import org.apache.commons.io.FileUtils
 import org.openqa.selenium.By
 import org.openqa.selenium.OutputType
@@ -26,12 +27,15 @@ class SnapshotBuilder(
         if (toFile) {
             val screenshot = driver as TakesScreenshot
             val scrFile = screenshot.getScreenshotAs(OutputType.FILE)
-
-            FileUtils.copyFile(scrFile, File("./output/snap_${id}.png"))
+            val outputFile = File("./output/snap_${id}.png")
+            FileUtils.copyFile(scrFile, outputFile)
         }
     }
 
-    private fun fetchMetadata(driver: RemoteWebDriver, data: HashMap<String, String>) {
+    private fun fetchMetadata(
+        driver: RemoteWebDriver,
+        data: HashMap<String, String>
+    ) {
         // Document: areas considered by the page, including unreachable ones.
         // They are not tracked at all at the moment
         //
@@ -53,25 +57,33 @@ class SnapshotBuilder(
 
     }
 
-    private fun doSelect(queryString: String, driver: RemoteWebDriver, data: HashMap<String, String>) {
-        val elem = driver.findElement(By.cssSelector(queryString))
+    private fun doSelect(
+        queryString: String,
+        driver: RemoteWebDriver,
+        data: HashMap<String, String>
+    ) {
+        val (cssQuery, cssProperty, _) = parseSelector(queryString)
+        val elem = driver.findElement(By.cssSelector(cssQuery))
 
         // Rectangle class provides getX,getY, getWidth, getHeight methods
-        data["${queryString}::x"] = elem.rect.x.toString()
-        data["${queryString}::y"] = elem.rect.y.toString()
-        data["${queryString}::width"] = elem.rect.width.toString()
-        data["${queryString}::height"] = elem.rect.height.toString()
-//        val rect = driver.executeScript(
-//            "return document.querySelector('${queryString}').getBoundingClientRect()"
-//        )
-//        data["${queryString}::rect"] = rect.toString()
+        data["${cssQuery}::x"] = elem.rect.x.toString()
+        data["${cssQuery}::y"] = elem.rect.y.toString()
+        data["${cssQuery}::width"] = elem.rect.width.toString()
+        data["${cssQuery}::height"] = elem.rect.height.toString()
+
         println(
-            "Element <${queryString}> = " +
-                    "(${data["${queryString}::x"]}, ${data["${queryString}::y"]})" +
+            "Element <${cssQuery}> = " +
+                    "(${data["${cssQuery}::x"]}, ${data["${cssQuery}::y"]})" +
                     " -> " +
-                    "(${data["${queryString}::width"]}, ${data["${queryString}::height"]})"
+                    "(${data["${cssQuery}::width"]}, ${data["${cssQuery}::height"]})"
         )
+
+        if (cssProperty != "") {
+            data["${cssQuery}::${cssProperty}"] = elem.getCssValue(cssProperty)
+            println("property value: ${data["${cssQuery}::${cssProperty}"]}")
+        }
     }
+
 
     private fun exec(driver: RemoteWebDriver, command: String): Any? {
         return driver.executeScript(command)

@@ -1,5 +1,6 @@
 package at.ac.tuwien.trustcps.checking
 
+import at.ac.tuwien.trustcps.parseSelector
 import at.ac.tuwien.trustcps.space.Grid
 import eu.quanticol.moonlight.signal.SpatialTemporalSignal
 
@@ -58,11 +59,55 @@ class TraceBuilder(
     }
 
     private fun activeElements(t: Int, location: Int): List<Boolean> {
-        val boxes = elements.map { dataToBox(it, t).has(location) }
+        val boxes = elements.map { checkAtom(it, t = t, location = location) }
         return if (metadata)
             listOf(screenToBox(t).has(location)) + boxes
         else
             boxes
+    }
+
+    private fun checkAtom(atom: String, t: Int, location: Int): Boolean {
+        val (selector, property, comparator) = parseSelector(atom)
+        val isPresent = dataToBox(selector, t).has(location)
+        val op = getOperator(atom)
+        val eval = select(op, selector, property, comparator, t)
+        return isPresent && eval
+    }
+
+    private fun getOperator(atom: String): String {
+        return if (atom.contains(">=")) {
+            ">="
+        } else if (atom.contains('>')) {
+            ">"
+        } else if (atom.contains("<=")) {
+            "<="
+        } else if (atom.contains('<')) {
+            "<"
+        } else if (atom.contains('=')) {
+            "="
+        } else {
+            ""
+        }
+    }
+
+    private fun select(
+        op: String,
+        selector: String, property: String, comparator: String,
+        t: Int
+    ): Boolean {
+        if (property != "") {
+            val value = data[t]["$selector::${property}"]!!
+            return when (op) {
+                ">" -> value.toDouble() > comparator.toDouble()
+                ">=" -> value.toDouble() >= comparator.toDouble()
+                "<" -> value.toDouble() < comparator.toDouble()
+                "<=" -> value.toDouble() <= comparator.toDouble()
+                "=" -> value == comparator
+                "" -> data[t]["$selector::${property}"] == value
+                else -> error("Unsupported operator in atom definition")
+            }
+        }
+        return true
     }
 
     private fun Box.has(location: Int): Boolean {

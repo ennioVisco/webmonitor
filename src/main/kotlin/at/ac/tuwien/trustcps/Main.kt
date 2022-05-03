@@ -48,8 +48,6 @@ private fun validateArgs(args: Array<String>) {
 }
 
 private fun loadScripts(source: String, spec: String) {
-
-    println("Path: ${loadResource("source.$source.kts")}")
     with(ScriptEngineManager().getEngineByExtension("kts")) {
         eval(loadResource("source.$source.kts"))
         eval(loadResource("spec.$spec.kts"))
