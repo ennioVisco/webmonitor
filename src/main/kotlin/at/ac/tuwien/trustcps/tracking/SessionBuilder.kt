@@ -30,7 +30,7 @@ class SessionBuilder(
             startDevTools(driver, eventsHandler)
             driver
         }
-        else -> unsupportedBrowser()
+        else -> error("The provided browser is not supported")
     }
 
     private fun initChromeSettings(dims: Dimension?) {
@@ -55,10 +55,6 @@ class SessionBuilder(
     override fun close() {
         //close all webdriver sessions
         driver.quit()
-    }
-
-    private fun unsupportedBrowser(): RemoteWebDriver {
-        throw UnsupportedOperationException("The provided browser is not supported")
     }
 
 //    private fun something() {
