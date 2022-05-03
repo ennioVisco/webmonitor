@@ -3,6 +3,7 @@ package at.ac.tuwien.trustcps.tracking
 import io.github.bonigarcia.wdm.WebDriverManager
 import org.openqa.selenium.Dimension
 import org.openqa.selenium.chrome.ChromeDriver
+import org.openqa.selenium.devtools.HasDevTools
 import org.openqa.selenium.devtools.events.ConsoleEvent
 import org.openqa.selenium.firefox.FirefoxDriver
 import org.openqa.selenium.remote.RemoteWebDriver
@@ -19,11 +20,15 @@ class SessionBuilder(
     val driver: RemoteWebDriver = when (engine) {
         Browser.CHROME -> run {
             initChromeSettings(dims)
-            startChromeDriver(eventsHandler)
+            val driver = ChromeDriver()
+            startDevTools(driver, eventsHandler)
+            driver
         }
         Browser.FIREFOX -> run {
             WebDriverManager.firefoxdriver().setup()
-            FirefoxDriver()
+            val driver = FirefoxDriver()
+            startDevTools(driver, eventsHandler)
+            driver
         }
         else -> unsupportedBrowser()
     }
@@ -36,12 +41,10 @@ class SessionBuilder(
         }
     }
 
-    private fun startChromeDriver(handler: (ConsoleEvent) -> Unit): RemoteWebDriver {
-        val driver = ChromeDriver()
+    private fun startDevTools(driver: HasDevTools, handler: (ConsoleEvent) -> Unit) {
         val devTools = driver.devTools
         devTools.createSession()
         devTools.domains.events().addConsoleListener(handler)
-        return driver
     }
 
     init {
