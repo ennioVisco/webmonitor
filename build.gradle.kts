@@ -8,7 +8,7 @@ plugins {
     jacoco
     id("org.sonarqube") version "3.3"
     kotlin("jvm") version "1.6.20"
-    id("org.openjfx.javafxplugin") version "0.0.11"
+    id("org.openjfx.javafxplugin") version "0.0.13"
     id("org.javamodularity.moduleplugin") version ("1.8.10") apply false
 }
 
@@ -44,7 +44,7 @@ dependencies {
     implementation("io.github.bonigarcia:webdrivermanager:5.1.1")
 
     // Charts
-    implementation("eu.hansolo.fx:charts:17.1.7")
+    implementation("eu.hansolo.fx:charts:11.1")
 
     // Logging
     implementation("io.github.microutils:kotlin-logging-jvm:2.1.21")
@@ -78,7 +78,7 @@ tasks.jacocoTestReport {
 }
 
 tasks.withType<KotlinCompile> {
-    kotlinOptions.jvmTarget = "17"
+    kotlinOptions.jvmTarget = "11"
 }
 
 application {
