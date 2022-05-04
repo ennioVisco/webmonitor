@@ -104,7 +104,7 @@ class Plotter(
         heatMap.matrix.setUseSpacer(false)
         heatMap.matrix.setColsAndRows(columns, rows)
         heatMap.setPrefSize(grid.columns.toDouble(), grid.rows.toDouble())
-        heatMap.transforms.add(rescale())
+        //heatMap.transforms.add(rescale())
     }
 
     private fun rescale(): Scale {
