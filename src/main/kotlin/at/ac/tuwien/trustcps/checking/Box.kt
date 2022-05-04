@@ -12,7 +12,7 @@ data class Box(
     val maxX: Int, val maxY: Int
 ) {
     init {
-        require(minX < maxX && minY < maxY) {
+        require(minX <= maxX && minY <= maxY) {
             "Box borders must be proper intervals, they were x: " +
                     "[${minX}, ${maxX}], and y: [${minY}, ${maxY}]"
         }

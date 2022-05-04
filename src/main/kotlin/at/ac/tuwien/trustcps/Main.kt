@@ -5,12 +5,10 @@ import at.ac.tuwien.trustcps.reporting.Reporter
 import at.ac.tuwien.trustcps.space.Grid
 import at.ac.tuwien.trustcps.tracking.PageTracker
 import eu.quanticol.moonlight.core.formula.Formula
-import eu.quanticol.moonlight.signal.SpatialTemporalSignal
 import org.openqa.selenium.Dimension
 import java.net.URL
 import javax.script.ScriptEngineManager
 
-typealias GridSignal = SpatialTemporalSignal<Boolean>
 
 fun main(args: Array<String>) {
     validateArgs(args)

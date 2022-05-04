@@ -14,7 +14,7 @@ WebSource.screenHeight = 851 + verticalBrowserFrame // px
 // To date Google Chrome is the browser with the most stable APIs
 WebSource.browser = Browser.CHROME
 
-WebSource.maxSessionDuration = 15_000L // 15 secs
+WebSource.maxSessionDuration = 55_000L // 15 secs
 
 WebSource.targetUrl = "https://conf.researchr.org/home/ase-2022"
 

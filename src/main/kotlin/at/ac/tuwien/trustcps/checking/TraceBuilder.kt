@@ -3,6 +3,7 @@ package at.ac.tuwien.trustcps.checking
 import at.ac.tuwien.trustcps.parseSelector
 import at.ac.tuwien.trustcps.space.Grid
 import eu.quanticol.moonlight.signal.SpatialTemporalSignal
+import kotlin.math.roundToInt
 
 /**
  *  Builder class that generates a signal based on the data
@@ -98,10 +99,10 @@ class TraceBuilder(
         if (property != "") {
             val value = data[t]["$selector::${property}"]!!
             return when (op) {
-                ">" -> value.toDouble() > comparator.toDouble()
-                ">=" -> value.toDouble() >= comparator.toDouble()
-                "<" -> value.toDouble() < comparator.toDouble()
-                "<=" -> value.toDouble() <= comparator.toDouble()
+                ">" -> parsePixels(value) > parsePixels(comparator)
+                ">=" -> parsePixels(value) >= parsePixels(comparator)
+                "<" -> parsePixels(value) < parsePixels(comparator)
+                "<=" -> parsePixels(value) <= parsePixels(comparator)
                 "=" -> value == comparator
                 "" -> data[t]["$selector::${property}"] == value
                 else -> error("Unsupported operator in atom definition")
@@ -129,10 +130,10 @@ class TraceBuilder(
 
     private fun dataToBox(id: String, index: Int): Box {
         try {
-            val minX: Int = data[index]["$id::x"]!!.toInt()
-            val minY: Int = data[index]["$id::y"]!!.toInt()
-            val maxX: Int = minX + data[index]["$id::width"]!!.toInt()
-            val maxY: Int = minY + data[index]["$id::height"]!!.toInt()
+            val minX: Int = parsePixels(data[index]["$id::x"]!!)
+            val minY: Int = parsePixels(data[index]["$id::y"]!!)
+            val maxX: Int = minX + parsePixels(data[index]["$id::width"]!!)
+            val maxY: Int = minY + parsePixels(data[index]["$id::height"]!!)
             return Box(minX = minX, minY = minY, maxX = maxX, maxY = maxY)
         } catch (e: NullPointerException) {
             throw IllegalArgumentException(
@@ -141,5 +142,13 @@ class TraceBuilder(
             )
         }
 
+    }
+
+    private fun parsePixels(value: String): Int {
+//        return if (value == "auto") {
+//            0
+//        } else {
+        return value.replace("px", "").toDouble().roundToInt()
+//        }
     }
 }

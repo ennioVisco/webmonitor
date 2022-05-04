@@ -3,7 +3,14 @@ package at.ac.tuwien.trustcps
 import at.ac.tuwien.trustcps.tracking.Browser
 import eu.quanticol.moonlight.core.formula.Formula
 import eu.quanticol.moonlight.formula.classic.NegationFormula
+import eu.quanticol.moonlight.formula.classic.OrFormula
+import eu.quanticol.moonlight.signal.SpatialTemporalSignal
 
+typealias GridSignal = SpatialTemporalSignal<Boolean>
+typealias NotFormula = NegationFormula
+
+fun impliesFormula(left: Formula, right: Formula): Formula =
+    OrFormula(NotFormula(left), right)
 
 /**
  * Singleton object used to define the general settings of the browser session.
