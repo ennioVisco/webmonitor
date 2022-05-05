@@ -1,18 +1,28 @@
-import org.researchr.conf.ase2022.Spec
 import eu.quanticol.moonlight.formula.AtomicFormula
 import eu.quanticol.moonlight.formula.classic.AndFormula
+import eu.quanticol.moonlight.formula.temporal.EventuallyFormula
+import eu.quanticol.moonlight.formula.temporal.GloballyFormula
 import org.researchr.conf.ase2022.NotFormula
+import org.researchr.conf.ase2022.Spec
+import org.researchr.conf.ase2022.impliesFormula
 
 Spec.atoms = listOf(
-    ".dropdown\$visibility = visible",
+    ".dropdown:hover",
+    ".dropdown-menu\$visibility = visible",
+    ".dropdown-menu:hover"
+)
 
 // helper formulae
 val screen = AtomicFormula("screen")
-val slider = AtomicFormula(Spec.atoms[0])
-val pWidth = AtomicFormula(Spec.atoms[1])
-val pHeight = AtomicFormula(Spec.atoms[2])
-val cCaption = AtomicFormula(Spec.atoms[3])
-val isActive = AtomicFormula(Spec.atoms[4])
+val divIsHover = AtomicFormula(Spec.atoms[0])
+val tooltipVisible = AtomicFormula(Spec.atoms[1])
+val tooltipIsHover = AtomicFormula(Spec.atoms[2])
 
 // Final formula
-Spec.formula = NotFormula(AndFormula(pWidth, pHeight))
+Spec.formula = impliesFormula(
+    AndFormula(divIsHover, NotFormula(tooltipVisible)),
+    AndFormula(
+        GloballyFormula(tooltipVisible),
+        impliesFormula(EventuallyFormula(tooltipIsHover), divIsHover)
+    )
+)

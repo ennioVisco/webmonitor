@@ -1,10 +1,10 @@
 package org.researchr.conf.ase2022
 
-import org.researchr.conf.ase2022.tracking.Browser
 import eu.quanticol.moonlight.core.formula.Formula
 import eu.quanticol.moonlight.formula.classic.NegationFormula
 import eu.quanticol.moonlight.formula.classic.OrFormula
 import eu.quanticol.moonlight.signal.SpatialTemporalSignal
+import org.researchr.conf.ase2022.tracking.Browser
 
 typealias GridSignal = SpatialTemporalSignal<Boolean>
 typealias NotFormula = NegationFormula
@@ -67,7 +67,10 @@ fun parseSelector(queryString: String): List<String> {
     val sanitized = queryString
         .replace("\\s+".toRegex(), " ")
         .split('$', '<', '>', '=', limit = 3)
-        .map { it.trim() }
+        .map { it.trim() }.toMutableList()
+    if (sanitized[0].contains(":")) {
+        sanitized[0] = sanitized[0].split(":")[0]
+    }
     return if (sanitized.size < 2) {
         listOf(sanitized[0], "", "")
     } else {

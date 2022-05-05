@@ -1,11 +1,11 @@
 package org.researchr.conf.ase2022.tracking
 
-import org.researchr.conf.ase2022.parseSelector
 import org.apache.commons.io.FileUtils
 import org.openqa.selenium.By
 import org.openqa.selenium.OutputType
 import org.openqa.selenium.TakesScreenshot
 import org.openqa.selenium.remote.RemoteWebDriver
+import org.researchr.conf.ase2022.parseSelector
 import java.io.File
 
 class SnapshotBuilder(
@@ -62,8 +62,9 @@ class SnapshotBuilder(
         driver: RemoteWebDriver,
         data: HashMap<String, String>
     ) {
-        val (cssQuery, cssProperty, _) = parseSelector(queryString)
+        var (cssQuery, cssProperty, _) = parseSelector(queryString)
         val elem = driver.findElement(By.cssSelector(cssQuery))
+
 
         // Rectangle class provides getX,getY, getWidth, getHeight methods
         data["${cssQuery}::x"] = elem.rect.x.toString()
