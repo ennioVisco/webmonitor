@@ -71,20 +71,6 @@ For desktop evaluation of "Flashes"
 ./gradlew run --args="ase-desktop flashes" 
 ```
 
-### Flashes property
-
-For mobile evaluation of "Flashes"
-
-```sh
-./gradlew run --args="ase-mobile flashes" 
-```
-
-For desktop evaluation of "Flashes"
-
-```sh
-./gradlew run --args="ase-desktop flashes" 
-```
-
 ### Focus property
 
 For mobile evaluation of "Focus"
@@ -97,4 +83,10 @@ For desktop evaluation of "Focus"
 
 ```sh
 ./gradlew run --args="ase-desktop focus" 
+```
+
+#### Focus (extended session)
+
+```sh
+./gradlew run --args="ase-desktop1 focus" 
 ```
