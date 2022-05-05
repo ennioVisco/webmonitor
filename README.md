@@ -10,16 +10,18 @@ Please remember that to execute this tool, the following condition must be met:
 ## Executing the experiments
 Run the following commands.
 
-For mobile evaluation of "Reflow-slide"
+### Reflow property
+For mobile evaluation of "Reflow"
 ```sh
-./gradlew run --args="ase-mobile reflow-slide" 
+./gradlew run --args="ase-mobile reflow" 
 ```
 
-For desktop evaluation of "Reflow-slide"
+For desktop evaluation of "Reflow"
 ```sh
-./gradlew run --args="ase-desktop reflow-slide" 
+./gradlew run --args="ase-desktop reflow" 
 ```
 
+### Reflow-slide property
 For mobile evaluation of "Reflow-slide" 
 ```sh
 ./gradlew run --args="ase-mobile reflow-slide" 
@@ -28,4 +30,15 @@ For mobile evaluation of "Reflow-slide"
 For desktop evaluation of "Reflow-slide"
 ```sh
 ./gradlew run --args="ase-desktop reflow-slide" 
+```
+
+### Hover property
+For mobile evaluation of "Hover"
+```sh
+./gradlew run --args="ase-mobile hover" 
+```
+
+For desktop evaluation of "Hover"
+```sh
+./gradlew run --args="ase-desktop hover" 
 ```
