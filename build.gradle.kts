@@ -1,6 +1,6 @@
 import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 
-group = "at.ac.tuwien.trustcps"
+group = "org.researchr.conf.ase2022"
 version = "1.0-SNAPSHOT"
 
 plugins {
@@ -15,14 +15,6 @@ plugins {
 repositories {
     mavenCentral()
     githubPackages("MoonlightSuite", "Moonlight")
-}
-
-sonarqube {
-    properties {
-        property("sonar.projectKey", "ennioVisco_webmonitor")
-        property("sonar.organization", "enniovisco")
-        property("sonar.host.url", "https://sonarcloud.io")
-    }
 }
 
 javafx {
@@ -82,7 +74,6 @@ tasks.withType<KotlinCompile> {
 }
 
 application {
-    //executableDir = "$buildDir/../src/main/kotlin/at/ac/tuwien/trustcps"
     println("Current exec dir: ${executableDir}")
     fun pkg(name: String) = "${group}.${name}Kt"
     mainClass.set(pkg("Main"))

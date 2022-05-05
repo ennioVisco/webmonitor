@@ -1,3 +1,3 @@
 
-rootProject.name = "webmonitor"
+rootProject.name = "hiddenname"
 
