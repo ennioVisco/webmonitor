@@ -3,6 +3,7 @@ package at.ac.tuwien.trustcps.tracking
 import io.github.bonigarcia.wdm.WebDriverManager
 import org.openqa.selenium.Dimension
 import org.openqa.selenium.chrome.ChromeDriver
+import org.openqa.selenium.chrome.ChromeOptions
 import org.openqa.selenium.devtools.HasDevTools
 import org.openqa.selenium.devtools.events.ConsoleEvent
 import org.openqa.selenium.firefox.FirefoxDriver
@@ -19,8 +20,8 @@ class SessionBuilder(
 ) : Closeable {
     val driver: RemoteWebDriver = when (engine) {
         Browser.CHROME -> run {
-            initChromeSettings(dims)
-            val driver = ChromeDriver()
+
+            val driver = initChromeSettings(dims)
             startDevTools(driver, eventsHandler)
             driver
         }
@@ -33,11 +34,20 @@ class SessionBuilder(
         else -> error("The provided browser is not supported")
     }
 
-    private fun initChromeSettings(dims: Dimension?) {
+    private fun initChromeSettings(dims: Dimension?): ChromeDriver {
         if (dims?.width!! < 500 || dims.height < 400) {
-            WebDriverManager.chromedriver().browserInDockerAndroid().setup()
+//            val wdm = WebDriverManager.chromedriver().browserInDockerAndroid()
+//            return wdm.create() as ChromeDriver
+            WebDriverManager.chromedriver().setup()
+            val mobileEmulation: MutableMap<String, String> = HashMap()
+            mobileEmulation["deviceName"] = "iPhone 5/SE"
+            val chromeOptions = ChromeOptions()
+            chromeOptions.setExperimentalOption("mobileEmulation", mobileEmulation)
+            return ChromeDriver(chromeOptions)
+
         } else {
             WebDriverManager.chromedriver().setup()
+            return ChromeDriver()
         }
     }
 

@@ -4,11 +4,9 @@ import at.ac.tuwien.trustcps.checking.Checker
 import at.ac.tuwien.trustcps.reporting.Reporter
 import at.ac.tuwien.trustcps.space.Grid
 import at.ac.tuwien.trustcps.tracking.PageTracker
-import eu.quanticol.moonlight.core.formula.Formula
 import org.openqa.selenium.Dimension
 import java.net.URL
 import javax.script.ScriptEngineManager
-
 
 fun main(args: Array<String>) {
     validateArgs(args)
@@ -20,7 +18,7 @@ fun main(args: Array<String>) {
 
     report.mark("Checking")
     val grid = generateSpatialModel(snapshots[0])
-    val result = checking(grid, snapshots, Spec.formula)
+    val result = checking(grid, snapshots)
     report.report(result, "output dump")
 
     for ((pos, _) in snapshots.withIndex()) {
@@ -68,10 +66,9 @@ private fun tracking(): List<Map<String, String>> {
     return tracker.track()
 }
 
-private fun checking(grid: Grid, data: List<Map<String, String>>, spec: Formula)
-        : GridSignal {
+private fun checking(grid: Grid, data: List<Map<String, String>>): GridSignal {
     val checker = Checker(grid, data, Spec.atoms)
-    return checker.check(spec)
+    return checker.check(Spec.formula)
 }
 
 

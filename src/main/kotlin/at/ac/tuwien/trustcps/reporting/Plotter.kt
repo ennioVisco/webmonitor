@@ -30,7 +30,8 @@ class Plotter(
     private val id: Int,
     private val title: String,
     data: Array<DoubleArray>,
-    private val grid: Grid
+    private val grid: Grid,
+    private val withBackground: Boolean = false
 ) : Application(), Runnable {
     private val columns = data.size //TODO: should compare to grid
     private val rows = data[0].size
@@ -71,7 +72,9 @@ class Plotter(
         val pane = StackPane(heatMap)
         //pane.padding = Insets(6.0, 0.0, 0.0, 0.0)
         val scene = Scene(pane)
-        pane.background = setBackground("output/snap_${id}.png")
+        if (withBackground) {
+            pane.background = setBackground("output/snap_${id}.png")
+        }
         stage.title = title
         stage.scene = scene
         takeSnapshot(scene, "output/eval_${id}.png")
