@@ -3,7 +3,7 @@ import eu.quanticol.moonlight.formula.classic.AndFormula
 import org.researchr.conf.ase2022.Spec
 
 Spec.atoms = listOf(
-    ".cookieInfo\$visibility = visible",
+    ".dialog\$visibility = visible",
 )
 
 // helper formulae

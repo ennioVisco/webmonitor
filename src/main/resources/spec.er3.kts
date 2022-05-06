@@ -7,9 +7,9 @@ import org.researchr.conf.ase2022.Spec
 import org.researchr.conf.ase2022.impliesFormula
 
 Spec.atoms = listOf(
-    ".cookieInfo\$visibility = visible",
-    ".close",
-    ".close:active"
+    ".dialog\$visibility = visible",
+    "#close",
+    "#close:active"
 )
 
 // helper formulae
