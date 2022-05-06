@@ -44,7 +44,7 @@ class PageTracker(
 
     private fun recordEvents(driver: RemoteWebDriver) {
         capturePageLoaded(driver)
-        driver.executeScript("\$('div[data-ride=\"carousel\"').on('slide.bs.carousel', function () { console.log(\"carousel-slide\")})")
+        driver.executeScript("if(window.jQuery) {\$('div[data-ride=\"carousel\"').on('slide.bs.carousel', function () { console.log(\"carousel-slide\")})}")
     }
 
     private fun capturePageLoaded(driver: RemoteWebDriver) {
