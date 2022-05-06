@@ -1,4 +1,4 @@
-# hiddenname
+# Tool Instructions
 
 For optimal reading of this guide and easier reproduction, we recommend opening this folder in IntelliJ Idea 2022.
 
@@ -11,7 +11,53 @@ Please remember that to execute this tool, the following condition must be met:
 - A desktop environment must be available, with a resolution greater or equal than the ones addressed by the
   experiments (i.e. a screen bigger than 800x600, ideally bigger than 1920x1200 )
 
-## Executing the experiments
+## Executing the Sample page properties
+
+Run the following commands.
+
+### ER1
+
+For mobile evaluation of "ER1"
+
+```sh
+./gradlew run --args="sample-mobile er1" 
+```
+
+For desktop evaluation of "ER1"
+
+```sh
+./gradlew run --args="sample-desktop er1" 
+```
+
+### ER2
+
+For mobile evaluation of "ER2"
+
+```sh
+./gradlew run --args="sample-mobile er2" 
+```
+
+For desktop evaluation of "ER2"
+
+```sh
+./gradlew run --args="sample-desktop er2"  
+```
+
+### ER3
+
+For mobile evaluation of "ER3"
+
+```sh
+./gradlew run --args="sample-mobile er3" 
+```
+
+For desktop evaluation of "ER3"
+
+```sh
+./gradlew run --args="sample-desktop er3"  
+```
+
+## Executing the WCAG2.1 properties
 
 Run the following commands.
 
