@@ -73,9 +73,12 @@
 </main>
 <script>
     //document.getElementsByTagName("dialog")[0].showModal();
-//     window.addEventListener("load", function () {
-//         console.log("Page ready")
-//     });
+    // window.addEventListener("load", function () {
+    //     console.log("Page ready")
+    // });
+    document.getElementById("close").onclick = function hide() {
+        document.querySelector(".dialog").style.visibility = "hidden";
+    }
 </script>
 </body>
 </html>
