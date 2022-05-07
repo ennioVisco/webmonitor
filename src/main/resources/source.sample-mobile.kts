@@ -16,4 +16,4 @@ WebSource.browser = Browser.CHROME
 
 WebSource.maxSessionDuration = 5_000L // 5 secs
 
-WebSource.targetUrl = "https://enniovisco.github.io/webmonitor/"
+WebSource.targetUrl = "https://wwwmonitor.000webhostapp.com/"
