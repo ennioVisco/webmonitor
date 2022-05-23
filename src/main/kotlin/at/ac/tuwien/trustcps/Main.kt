@@ -62,6 +62,7 @@ private fun tracking(): List<Map<String, String>> {
     )
 
     Spec.atomsAsIds().forEach { tracker.select(it) }
+    Spec.record.forEach { tracker.record(it.asPair()) }
 
     return tracker.run()
 }

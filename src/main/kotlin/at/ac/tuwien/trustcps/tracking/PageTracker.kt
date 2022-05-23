@@ -1,9 +1,9 @@
 package at.ac.tuwien.trustcps.tracking
 
-import org.openqa.selenium.Dimension
-import org.openqa.selenium.devtools.events.ConsoleEvent
-import org.openqa.selenium.remote.RemoteWebDriver
-import java.net.URL
+import org.openqa.selenium.*
+import org.openqa.selenium.devtools.events.*
+import org.openqa.selenium.remote.*
+import java.net.*
 
 
 /**
@@ -21,7 +21,7 @@ class PageTracker(
 ) {
     private val snapshots = mutableListOf<Map<String, String>>()
     private val selectors = ArrayList<String>()
-    private val events = ArrayList<String>()
+    private val events = ArrayList<Pair<String, String>>()
     private var snapshotBuilder: SnapshotBuilder? = null
 
     /**
@@ -34,7 +34,7 @@ class PageTracker(
     /**
      * selects some elements to track from the page
      */
-    fun record(event: String) {
+    fun record(event: Pair<String, String>) {
         events.add(event)
     }
 
@@ -52,7 +52,12 @@ class PageTracker(
 
     private fun recordEvents(driver: RemoteWebDriver) {
         capturePageLoaded(driver)
-        driver.executeScript("\$('div[data-ride=\"carousel\"').on('slide.bs.carousel', function () { console.log(\"carousel-slide\")})")
+        events.forEach { captureEvent(driver, it.first, it.second) }
+        //driver.executeScript("\$('div[data-ride=\"carousel\"').on('slide.bs.carousel', function () { console.log(\"carousel-slide\")})")
+    }
+
+    private fun captureEvent(driver: RemoteWebDriver, selector: String, event: String) {
+        driver.executeScript("$selector.addEventListener('$event', () => { console.log('page is fully loaded'); });")
     }
 
     private fun capturePageLoaded(driver: RemoteWebDriver) {

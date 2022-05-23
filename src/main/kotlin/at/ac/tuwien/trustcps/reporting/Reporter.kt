@@ -1,14 +1,12 @@
 package at.ac.tuwien.trustcps.reporting
 
-import at.ac.tuwien.trustcps.GridSignal
-import at.ac.tuwien.trustcps.space.Grid
-import eu.quanticol.moonlight.signal.Signal
-import eu.quanticol.moonlight.signal.SpatialTemporalSignal
-import javafx.application.Platform
-import java.io.File
-import java.io.PrintWriter
-import java.time.LocalDateTime
-import java.time.temporal.ChronoUnit
+import at.ac.tuwien.trustcps.*
+import at.ac.tuwien.trustcps.space.*
+import eu.quanticol.moonlight.signal.*
+import javafx.application.*
+import java.io.*
+import java.time.*
+import java.time.temporal.*
 
 
 /**
@@ -61,10 +59,10 @@ class Reporter(
         grid: Grid
     ) {
         try {
-            Platform.startup(Plotter(id, title, values, grid))
+            Platform.startup(Plotter(id, title, values, grid, withBackground = true))
         } catch (e: IllegalStateException) {
             println("JavaFX platform already instantiated. Skipping.")
-            Platform.runLater(Plotter(id, title, values, grid))
+            Platform.runLater(Plotter(id, title, values, grid, withBackground = true))
         }
     }
 

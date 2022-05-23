@@ -7,6 +7,10 @@ Spec.atoms = listOf(
     select { "h1" }
 )
 
+Spec.record = listOf(
+    after { "click" }
+)
+
 // helper formulae
 val screen = Spec.screen
 val cookieInfo = Spec.atoms[0]
