@@ -1,12 +1,12 @@
 package at.ac.tuwien.trustcps
 
-import at.ac.tuwien.trustcps.checking.Checker
-import at.ac.tuwien.trustcps.reporting.Reporter
-import at.ac.tuwien.trustcps.space.Grid
-import at.ac.tuwien.trustcps.tracking.PageTracker
-import org.openqa.selenium.Dimension
-import java.net.URL
-import javax.script.ScriptEngineManager
+import at.ac.tuwien.trustcps.checking.*
+import at.ac.tuwien.trustcps.reporting.*
+import at.ac.tuwien.trustcps.space.*
+import at.ac.tuwien.trustcps.tracking.*
+import org.openqa.selenium.*
+import java.net.*
+import javax.script.*
 
 fun main(args: Array<String>) {
     validateArgs(args)
@@ -36,7 +36,7 @@ private fun validateArgs(args: Array<String>) {
     } catch (e: ArrayIndexOutOfBoundsException) {
         try {
             val (source) = args
-            loadScripts(source, source)
+            loadScripts(source, spec = source)
         } catch (e: ArrayIndexOutOfBoundsException) {
             throw IllegalArgumentException("No source or spec provided.")
         }
@@ -61,13 +61,13 @@ private fun tracking(): List<Map<String, String>> {
         maxSessionDuration = WebSource.maxSessionDuration, toFile = true
     )
 
-    Spec.atoms.forEach { tracker.select(it) }
+    Spec.atomsAsIds().forEach { tracker.select(it) }
 
-    return tracker.track()
+    return tracker.run()
 }
 
 private fun checking(grid: Grid, data: List<Map<String, String>>): GridSignal {
-    val checker = Checker(grid, data, Spec.atoms)
+    val checker = Checker(grid, data, Spec.atomsAsIds())
     return checker.check(Spec.formula)
 }
 

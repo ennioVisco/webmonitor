@@ -1,22 +1,20 @@
-import at.ac.tuwien.trustcps.Spec
-import at.ac.tuwien.trustcps.impliesFormula
-import eu.quanticol.moonlight.formula.AtomicFormula
+import at.ac.tuwien.trustcps.*
 
 Spec.atoms = listOf(
-    ".carousel\$visibility = visible",
-    ".col-sm-12 p\$width > 256",
-    ".col-sm-12 p\$height > 320",
-    ".item.active .carousel-caption p\$height < 150",
-    ".item.active"
+    select { ".carousel" } read "visibility" equals "visible",
+    select { ".col-sm-12 p" } read "width" greaterThan 256,
+    select { ".col-sm-12 p" } read "height" greaterThan 320,
+    select { ".item.active .carousel-caption p" } read "height" lessThan 150,
+    select { ".item.active" }
 )
 
 // helper formulae
-val screen = AtomicFormula("screen")
-val slider = AtomicFormula(Spec.atoms[0])
-val pWidth = AtomicFormula(Spec.atoms[1])
-val pHeight = AtomicFormula(Spec.atoms[2])
-val cCaption = AtomicFormula(Spec.atoms[3])
-val isActive = AtomicFormula(Spec.atoms[4])
+val screen = Spec.screen
+val slider = Spec.atoms[0]
+val pWidth = Spec.atoms[1]
+val pHeight = Spec.atoms[2]
+val cCaption = Spec.atoms[3]
+val isActive = Spec.atoms[4]
 
 // Final formula
 //Spec.formula = NegationFormula(AndFormula(pWidth, pHeight))

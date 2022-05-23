@@ -1,7 +1,10 @@
 package at.ac.tuwien.trustcps
 
+import at.ac.tuwien.trustcps.parsing.Event
+import at.ac.tuwien.trustcps.parsing.Selector
 import at.ac.tuwien.trustcps.tracking.Browser
 import eu.quanticol.moonlight.core.formula.Formula
+import eu.quanticol.moonlight.formula.AtomicFormula
 import eu.quanticol.moonlight.formula.classic.NegationFormula
 import eu.quanticol.moonlight.formula.classic.OrFormula
 import eu.quanticol.moonlight.signal.SpatialTemporalSignal
@@ -55,22 +58,26 @@ object Spec {
     /**
      * List of atom labels to consider. These must be valid CSS selectors.
      */
-    var atoms = emptyList<String>()
+    var atoms = emptyList<Selector>()
 
     /**
      * Formula that determines the specification to analyse.
      */
     var formula: Formula = NegationFormula(null)
+
+    var record = emptyList<Event>()
+
+    fun atomsAsIds(): List<String> {
+        return atoms.map { it.toString() }
+    }
+
+    val screen = AtomicFormula("screen")
 }
 
-fun parseSelector(queryString: String): List<String> {
-    val sanitized = queryString
-        .replace("\\s+".toRegex(), " ")
-        .split('$', '<', '>', '=', limit = 3)
-        .map { it.trim() }
-    return if (sanitized.size < 2) {
-        listOf(sanitized[0], "", "")
-    } else {
-        sanitized
-    }
+fun select(init: () -> String): Selector {
+    return Selector(init())
+}
+
+fun after(init: () -> String): Event {
+    return Event(init())
 }

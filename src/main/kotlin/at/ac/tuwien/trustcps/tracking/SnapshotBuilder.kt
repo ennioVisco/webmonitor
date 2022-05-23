@@ -1,6 +1,6 @@
 package at.ac.tuwien.trustcps.tracking
 
-import at.ac.tuwien.trustcps.parseSelector
+import at.ac.tuwien.trustcps.parsing.parseSelector
 import org.apache.commons.io.FileUtils
 import org.openqa.selenium.By
 import org.openqa.selenium.OutputType

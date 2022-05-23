@@ -22,7 +22,7 @@ internal class PageTrackerTest {
     fun `page tracker can track basic page metadata`() {
         val tracker = trackerInit()
 
-        val data = tracker.track()[0]
+        val data = tracker.run()[0]
 
         assertContains(data, "lvp_height")
         assertContains(data, "lvp_width")
@@ -39,7 +39,7 @@ internal class PageTrackerTest {
         val tracker = trackerInit()
 
         tracker.select("elem")
-        val data = tracker.track()[0]
+        val data = tracker.run()[0]
 
         assertContains(data, "elem::x")
         assertContains(data, "elem::y")

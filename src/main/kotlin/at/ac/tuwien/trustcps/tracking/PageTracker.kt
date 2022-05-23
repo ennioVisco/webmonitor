@@ -21,6 +21,7 @@ class PageTracker(
 ) {
     private val snapshots = mutableListOf<Map<String, String>>()
     private val selectors = ArrayList<String>()
+    private val events = ArrayList<String>()
     private var snapshotBuilder: SnapshotBuilder? = null
 
     /**
@@ -31,9 +32,16 @@ class PageTracker(
     }
 
     /**
+     * selects some elements to track from the page
+     */
+    fun record(event: String) {
+        events.add(event)
+    }
+
+    /**
      * Tracks the provided selectors for the provided page
      */
-    fun track(): List<Map<String, String>> {
+    fun run(): List<Map<String, String>> {
         spawnBrowserSession().use {
             snapshotBuilder = SnapshotBuilder(it.driver, selectors, toFile)
             recordEvents(it.driver)
@@ -70,7 +78,8 @@ class PageTracker(
 
     }
 
-    private fun spawnBrowserSession() = SessionBuilder(page, ::capture, dimension, browser)
+    private fun spawnBrowserSession() =
+        SessionBuilder(page, ::capture, dimension, browser)
 
 
 //    fun selectAll(driver: RemoteWebDriver) {

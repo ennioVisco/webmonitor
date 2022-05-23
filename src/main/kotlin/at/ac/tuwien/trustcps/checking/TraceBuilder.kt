@@ -1,6 +1,6 @@
 package at.ac.tuwien.trustcps.checking
 
-import at.ac.tuwien.trustcps.parseSelector
+import at.ac.tuwien.trustcps.parsing.parseSelector
 import at.ac.tuwien.trustcps.space.Grid
 import eu.quanticol.moonlight.signal.SpatialTemporalSignal
 import kotlin.math.roundToInt
