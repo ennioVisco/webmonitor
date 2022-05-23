@@ -58,6 +58,7 @@ private fun tracking(): List<Map<String, String>> {
     val dimensions = Dimension(WebSource.screenWidth, WebSource.screenHeight)
     val tracker = PageTracker(
         baseUrl, dimensions, WebSource.browser,
+        wait = WebSource.wait,
         maxSessionDuration = WebSource.maxSessionDuration, toFile = true
     )
 

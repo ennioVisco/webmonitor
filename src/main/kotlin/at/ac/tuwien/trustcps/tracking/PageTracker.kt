@@ -17,6 +17,7 @@ class PageTracker(
     private val dimension: Dimension? = null,
     private val browser: Browser? = null,
     private val maxSessionDuration: Long = 100,
+    private val wait: Long = 1_000L,
     private val toFile: Boolean = false
 ) {
     private val snapshots = mutableListOf<Map<String, String>>()
@@ -71,7 +72,7 @@ class PageTracker(
     }
 
     private fun capture(event: ConsoleEvent) {
-        Thread.sleep(1_000L)
+        Thread.sleep(wait)
         println("Console log message is ${event.messages}")
         if (snapshotBuilder != null) {
             snapshotBuilder?.collect(snapshots.size)?.let { snapshots.add(it) }

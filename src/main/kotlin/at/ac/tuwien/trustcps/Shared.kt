@@ -30,6 +30,13 @@ object WebSource {
     var screenHeight = 1
 
     /**
+     * Waiting time before starting to record. Use this to give time to the 
+     * page to load all the initial content, required by heavy pages and slow
+     * connections
+     */
+    var wait = 1_000L
+
+    /**
      * Time (in milliseconds) after which the recording is stopped.
      */
     var maxSessionDuration = 0L
