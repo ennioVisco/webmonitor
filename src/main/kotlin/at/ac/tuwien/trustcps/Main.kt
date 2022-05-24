@@ -11,22 +11,22 @@ import javax.script.*
 fun main(args: Array<String>) {
     validateArgs(args)
 
-    val report = Reporter(toFile = true)
+    val report = Reporter(toFile = false)
 
-    report.mark("Tracking")
+    report.title("Tracking")
     val snapshots = tracking()
 
-    report.mark("Checking")
+    report.title("Checking")
     val grid = generateSpatialModel(snapshots[0])
     val result = checking(grid, snapshots)
     report.report(result, "output dump")
 
     for ((pos, _) in snapshots.withIndex()) {
-        report.mark("Plotting results")
+        report.title("Plotting results")
         report.plot(pos, result, grid, "Grid plot")
     }
 
-    report.mark("Ending")
+    report.title("Ending")
 }
 
 private fun validateArgs(args: Array<String>) {

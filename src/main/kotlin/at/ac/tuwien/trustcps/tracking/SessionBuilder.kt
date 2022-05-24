@@ -8,6 +8,7 @@ import org.openqa.selenium.devtools.HasDevTools
 import org.openqa.selenium.devtools.events.ConsoleEvent
 import org.openqa.selenium.firefox.FirefoxDriver
 import org.openqa.selenium.remote.RemoteWebDriver
+import org.openqa.selenium.safari.SafariDriver
 import java.io.Closeable
 import java.net.URL
 

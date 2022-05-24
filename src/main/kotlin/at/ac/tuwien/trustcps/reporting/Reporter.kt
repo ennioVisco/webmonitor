@@ -29,6 +29,11 @@ class Reporter(
         }
         buffer.add(data)
     }
+    
+    fun title(text: String) {
+        println(text)
+        mark(text)
+    }
 
     /**
      * Function to record a string with current time
@@ -59,10 +64,10 @@ class Reporter(
         grid: Grid
     ) {
         try {
-            Platform.startup(Plotter(id, title, values, grid, withBackground = true))
+            Platform.startup(Plotter(id, title, values, grid))
         } catch (e: IllegalStateException) {
             println("JavaFX platform already instantiated. Skipping.")
-            Platform.runLater(Plotter(id, title, values, grid, withBackground = true))
+            Platform.runLater(Plotter(id, title, values, grid))
         }
     }
 

@@ -7,7 +7,8 @@ import eu.quanticol.moonlight.formula.AtomicFormula
 data class Selector(
     val queryString: String,
     var attribute: String = "",
-    var comparison: Any? = null
+    var comparison: Any? = null,
+    var state: String = ""
 ) : Formula {
     private var op = ""
 
@@ -18,6 +19,11 @@ data class Selector(
 
     infix fun read(attribute: String): Selector {
         this.attribute = attribute
+        return this
+    }
+    
+    infix fun at(state: String): Selector {
+        this.state = state
         return this
     }
 

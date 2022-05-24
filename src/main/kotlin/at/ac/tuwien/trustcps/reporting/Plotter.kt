@@ -31,7 +31,7 @@ class Plotter(
     private val title: String,
     data: Array<DoubleArray>,
     private val grid: Grid,
-    private val withBackground: Boolean = false
+    private val withBackground: Boolean = true
 ) : Application(), Runnable {
     private val columns = data.size //TODO: should compare to grid
     private val rows = data[0].size

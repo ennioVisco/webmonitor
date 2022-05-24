@@ -8,7 +8,7 @@
             display: inline;
         }
 
-        .dialog {
+        .cookieInfo {
             width: 500px;
             margin: 10px;
             border: 5px solid;
@@ -39,7 +39,7 @@
 <body>
 <main>
     <h1> Sample page </h1>
-    <div class="dialog">
+    <div class="cookieInfo">
         <button id="close">X</button>
         <h2>Cookies</h2>
         We use cookies to improve your experience on our site.
@@ -77,7 +77,7 @@
     //     console.log("Page ready")
     // });
     document.getElementById("close").onclick = function hide() {
-        document.querySelector(".dialog").style.visibility = "hidden";
+        document.querySelector(".cookieInfo").style.visibility = "hidden";
     }
 </script>
 </body>

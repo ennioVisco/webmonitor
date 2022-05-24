@@ -58,28 +58,32 @@ class PageTracker(
     }
 
     private fun captureEvent(driver: RemoteWebDriver, selector: String, event: String) {
-        driver.executeScript("$selector.addEventListener('$event', () => { console.log('page is fully loaded'); });")
+        driver.executeScript("$selector.addEventListener('$event', () => { " +
+                "console.log('[wm] $selector@$event'); });")
     }
 
     private fun capturePageLoaded(driver: RemoteWebDriver) {
         driver.executeScript(
             "if(document.readyState === \"complete\") {" +
-                    "console.log('page is fully loaded');" +
+                    "console.log('[wm] page is fully loaded');" +
                     "} else {" +
-                    "window.addEventListener('load', () => { console.log('page is fully loaded'); " +
+                    "window.addEventListener('load', () => { console.log" +
+                    "('[wm] page is fully loaded'); " +
                     "})} "
         )
     }
 
     private fun capture(event: ConsoleEvent) {
         Thread.sleep(wait)
-        println("Console log message is ${event.messages}")
-        if (snapshotBuilder != null) {
-            snapshotBuilder?.collect(snapshots.size)?.let { snapshots.add(it) }
-        } else {
-            throw UnsupportedOperationException(
-                "Trying to capture event before instantiation is complete"
-            )
+        if (event.messages[0].startsWith("[wm] ")) {
+            if (snapshotBuilder != null) {
+                println("Console log message is ${event.messages}")
+                snapshotBuilder?.collect(snapshots.size)
+                    ?.let { snapshots.add(it) }
+            }
+            else {
+                throw UnsupportedOperationException("Trying to capture event before instantiation is complete")
+            }
         }
 
     }

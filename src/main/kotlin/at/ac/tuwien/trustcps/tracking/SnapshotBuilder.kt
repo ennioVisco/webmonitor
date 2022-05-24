@@ -2,9 +2,7 @@ package at.ac.tuwien.trustcps.tracking
 
 import at.ac.tuwien.trustcps.parsing.parseSelector
 import org.apache.commons.io.FileUtils
-import org.openqa.selenium.By
-import org.openqa.selenium.OutputType
-import org.openqa.selenium.TakesScreenshot
+import org.openqa.selenium.*
 import org.openqa.selenium.remote.RemoteWebDriver
 import java.io.File
 
@@ -25,8 +23,7 @@ class SnapshotBuilder(
 
     private fun takeScreenshot(id: Int) {
         if (toFile) {
-            val screenshot = driver as TakesScreenshot
-            val scrFile = screenshot.getScreenshotAs(OutputType.FILE)
+            val scrFile = driver.getScreenshotAs(OutputType.FILE)
             val outputFile = File("./output/snap_${id}.png")
             FileUtils.copyFile(scrFile, outputFile)
         }
