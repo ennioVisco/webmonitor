@@ -8,13 +8,15 @@ import at.ac.tuwien.trustcps.tracking.Browser
 val verticalBrowserFrame = 133 // px, i.e. Chrome browser's offset
 
 // We are targeting the Pixel 5 resolution
-WebSource.screenWidth = 393 // px
-WebSource.screenHeight = 851 + verticalBrowserFrame // px
+WebSource.screenWidth = 600 // px
+WebSource.screenHeight = 500 // px
 
 // To date Google Chrome is the browser with the most stable APIs
 WebSource.browser = Browser.CHROME
 
-WebSource.maxSessionDuration = 5_000L // 5 secs
+WebSource.wait = 0
+
+WebSource.maxSessionDuration = 5_000 // ms
 
 WebSource.targetUrl = "https://enniovisco.github.io/webmonitor/"
 
