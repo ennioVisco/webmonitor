@@ -8,7 +8,6 @@ import org.openqa.selenium.devtools.HasDevTools
 import org.openqa.selenium.devtools.events.ConsoleEvent
 import org.openqa.selenium.firefox.FirefoxDriver
 import org.openqa.selenium.remote.RemoteWebDriver
-import org.openqa.selenium.safari.SafariDriver
 import java.io.Closeable
 import java.net.URL
 
@@ -64,19 +63,6 @@ class SessionBuilder(
     }
 
     override fun close() {
-        //close all webdriver sessions
-        driver.quit()
+        driver.quit() // close all webdriver sessions
     }
-
-//    private fun something() {
-//        val mobileEmulation = mapOf(
-//            "deviceName" to "Pixel 5"
-//        )
-//
-//        val chromeOptions = ChromeOptions()
-//
-//        chromeOptions.setExperimentalOption("mobileEmulation", mobileEmulation)
-//
-//        val driver = ChromeDriver(chromeOptions)
-//    }
 }

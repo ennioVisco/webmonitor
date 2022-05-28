@@ -1,6 +1,6 @@
 package at.ac.tuwien.trustcps.tracking
 
-import at.ac.tuwien.trustcps.parsing.parseSelector
+import at.ac.tuwien.trustcps.dsl.parseSelector
 import org.apache.commons.io.FileUtils
 import org.openqa.selenium.*
 import org.openqa.selenium.remote.RemoteWebDriver

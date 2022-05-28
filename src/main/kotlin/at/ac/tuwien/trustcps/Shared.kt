@@ -1,7 +1,7 @@
 package at.ac.tuwien.trustcps
 
-import at.ac.tuwien.trustcps.parsing.Event
-import at.ac.tuwien.trustcps.parsing.Selector
+import at.ac.tuwien.trustcps.dsl.Event
+import at.ac.tuwien.trustcps.dsl.Selector
 import at.ac.tuwien.trustcps.tracking.Browser
 import eu.quanticol.moonlight.core.formula.Formula
 import eu.quanticol.moonlight.core.formula.Interval
