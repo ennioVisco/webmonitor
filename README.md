@@ -83,4 +83,4 @@ Spec.formula = f2
 ```
 
 ## Thanks
-Special thanks to [Moonlight](https://github.com/MoonLightSuite/MoonLight) and [Selenium Webdriver](https://github.com/SeleniumHQ/selenium), and the suppporting developers.
+Special thanks to [Moonlight](https://github.com/MoonLightSuite/MoonLight) and [Selenium Webdriver](https://github.com/SeleniumHQ/selenium), and the supporting developers.
