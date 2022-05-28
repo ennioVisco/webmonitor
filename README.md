@@ -3,15 +3,12 @@
 ## Quick Overview
 [![WebMonitor Demo - With Live Coding 💻](https://i.ytimg.com/vi/hqVw0JU3k9c/hqdefault.jpg)](https://youtu.be/hqVw0JU3k9c "WebMonitor Demo - With Live Coding 💻")
 
-
-https://www.youtube.com/watch?v=hqVw0JU3k9c
-
 ## Prerequisites
 
 Please remember that to execute this tool, the following condition must be met:
 
 - JVM 11+ installed (IntelliJ should have one out of the box)
-- The selected browser engines (for exact replication, Google Chrome 99+ and Mozilla Firefox 99+)
+- The selected browser engines (possibly, Google Chrome 99+ and Mozilla Firefox 99+)
 - A desktop environment must be available, with a resolution greater or equal than the ones addressed by the
   experiments (i.e. a screen bigger than 800x600, ideally bigger than 1920x1200 )
 
