@@ -10,7 +10,7 @@ import java.net.*
 
 
 internal class SessionBuilderTest {
-    //@Disabled("Needs way to mock driver execution")
+    @Disabled("Needs way to mock driver execution")
     @Test
     fun `browser session is initialized correctly`() {
         val url = URL("https://google.com")
