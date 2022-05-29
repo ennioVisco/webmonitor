@@ -1,53 +1,48 @@
 package at.ac.tuwien.trustcps.tracking
 
-import io.github.bonigarcia.wdm.WebDriverManager
-import org.openqa.selenium.Dimension
-import org.openqa.selenium.chrome.ChromeDriver
-import org.openqa.selenium.chrome.ChromeOptions
-import org.openqa.selenium.devtools.HasDevTools
-import org.openqa.selenium.devtools.events.ConsoleEvent
-import org.openqa.selenium.firefox.FirefoxDriver
-import org.openqa.selenium.remote.RemoteWebDriver
-import java.io.Closeable
-import java.net.URL
+import io.github.bonigarcia.wdm.*
+import org.openqa.selenium.*
+import org.openqa.selenium.chrome.*
+import org.openqa.selenium.devtools.*
+import org.openqa.selenium.devtools.events.*
+import org.openqa.selenium.firefox.*
+import org.openqa.selenium.remote.*
+import java.io.*
+import java.net.*
 
 
 class SessionBuilder(
     url: URL,
     eventsHandler: (ConsoleEvent) -> Unit,
     dims: Dimension? = null,
-    engine: Browser? = Browser.CHROME
+    engine: Browser = Browser.CHROME
 ) : Closeable {
-    val driver: RemoteWebDriver = when (engine) {
-        Browser.CHROME -> run {
+    val driver: RemoteWebDriver = run {
+        val browserDriver = when (engine) {
+            Browser.CHROME -> initChromeSettings(dims)
+            Browser.FIREFOX -> initFirefoxSettings()
+        }
+        startDevTools(browserDriver, eventsHandler)
+        browserDriver
+    }
 
-            val driver = initChromeSettings(dims)
-            startDevTools(driver, eventsHandler)
-            driver
-        }
-        Browser.FIREFOX -> run {
-            WebDriverManager.firefoxdriver().setup()
-            val driver = FirefoxDriver()
-            startDevTools(driver, eventsHandler)
-            driver
-        }
-        else -> error("The provided browser is not supported")
+    private fun initFirefoxSettings(): FirefoxDriver {
+        WebDriverManager.firefoxdriver().setup()
+        return FirefoxDriver()
     }
 
     private fun initChromeSettings(dims: Dimension?): ChromeDriver {
-        if (dims?.width!! < 500 || dims.height < 400) {
-//            val wdm = WebDriverManager.chromedriver().browserInDockerAndroid()
-//            return wdm.create() as ChromeDriver
-            WebDriverManager.chromedriver().setup()
+        WebDriverManager.chromedriver().setup()
+        return if (dims?.width!! < 500 || dims.height < 400) {
+            //            val wdm = WebDriverManager.chromedriver().browserInDockerAndroid()
+            //            return wdm.create() as ChromeDriver
             val mobileEmulation: MutableMap<String, String> = HashMap()
             mobileEmulation["deviceName"] = "iPhone 5/SE"
             val chromeOptions = ChromeOptions()
             chromeOptions.setExperimentalOption("mobileEmulation", mobileEmulation)
-            return ChromeDriver(chromeOptions)
-
+            ChromeDriver(chromeOptions)
         } else {
-            WebDriverManager.chromedriver().setup()
-            return ChromeDriver()
+            ChromeDriver()
         }
     }
 

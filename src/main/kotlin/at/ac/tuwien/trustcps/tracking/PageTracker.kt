@@ -15,7 +15,7 @@ import java.net.*
 class PageTracker(
     private val page: URL,
     private val dimension: Dimension? = null,
-    private val browser: Browser? = null,
+    private val browser: Browser,
     private val maxSessionDuration: Long = 100,
     private val wait: Long = 1_000L,
     private val toFile: Boolean = false
@@ -58,8 +58,10 @@ class PageTracker(
     }
 
     private fun captureEvent(driver: RemoteWebDriver, selector: String, event: String) {
-        driver.executeScript("$selector.addEventListener('$event', () => { " +
-                "console.log('[wm] $selector@$event'); });")
+        driver.executeScript(
+            "$selector.addEventListener('$event', () => { " +
+                    "console.log('[wm] $selector@$event'); });"
+        )
     }
 
     private fun capturePageLoaded(driver: RemoteWebDriver) {
@@ -80,8 +82,7 @@ class PageTracker(
                 println("Console log message is ${event.messages}")
                 snapshotBuilder?.collect(snapshots.size)
                     ?.let { snapshots.add(it) }
-            }
-            else {
+            } else {
                 throw UnsupportedOperationException("Trying to capture event before instantiation is complete")
             }
         }

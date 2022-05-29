@@ -1,11 +1,18 @@
 package at.ac.tuwien.trustcps.tracking
 
-import at.ac.tuwien.trustcps.dsl.parseSelector
-import org.apache.commons.io.FileUtils
+import at.ac.tuwien.trustcps.dsl.*
+import org.apache.commons.io.*
 import org.openqa.selenium.*
-import org.openqa.selenium.remote.RemoteWebDriver
-import java.io.File
+import org.openqa.selenium.remote.*
+import java.io.*
 
+/**
+ * Fetches the snapshot data from the current session of the browser
+ *
+ * @property driver Browser session to interact with
+ * @property selectors list of HTML selectors of interest in the snapshot
+ * @property toFile option to tell whether a screenshot must be saved as a file or not
+ */
 class SnapshotBuilder(
     private val driver: RemoteWebDriver,
     private val selectors: List<String>,

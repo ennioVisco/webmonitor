@@ -1,16 +1,16 @@
 package at.ac.tuwien.trustcps.tracking
 
-import io.mockk.mockk
-import org.junit.jupiter.api.Assertions.assertEquals
-import org.junit.jupiter.api.Assertions.assertInstanceOf
-import org.junit.jupiter.api.Disabled
-import org.junit.jupiter.api.Test
-import org.openqa.selenium.Dimension
-import org.openqa.selenium.chrome.ChromeDriver
-import java.net.URL
+import io.github.bonigarcia.wdm.*
+import io.mockk.*
+import org.junit.jupiter.api.*
+import org.junit.jupiter.api.Assertions.*
+import org.openqa.selenium.*
+import org.openqa.selenium.chrome.*
+import java.net.*
+
 
 internal class SessionBuilderTest {
-    @Disabled("Needs way to mock driver execution")
+    //@Disabled("Needs way to mock driver execution")
     @Test
     fun `browser session is initialized correctly`() {
         val url = URL("https://google.com")
@@ -20,6 +20,14 @@ internal class SessionBuilderTest {
 
             assertInstanceOf(ChromeDriver::class.java, it.driver)
             assertEquals(dims, it.driver.manage().window().size)
+        }
+    }
+
+    companion object {
+        @JvmStatic
+        @BeforeAll
+        fun setupClass() {
+            WebDriverManager.chromedriver().setup()
         }
     }
 }
