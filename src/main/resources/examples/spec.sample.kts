@@ -1,19 +1,20 @@
 import at.ac.tuwien.trustcps.*
+import eu.quanticol.moonlight.core.formula.*
 
-Spec.atoms (
+Spec.atoms(
     select { ".cookieInfo" }  // [0]
-            read "visibility" 
+            read "visibility"
             equals "visible",
     select { ".cookieInfo" }  // [1]
             read "visibility"
             equals "hidden",
     select { "button#close" } // [2]
-            at "click" 
+            at "click"
 )
 
-Spec.record (
+Spec.record(
     after { "click" },
-    after { "touch"}
+    after { "touch" }
 )
 
 // helper formulae
@@ -25,5 +26,7 @@ val er1 = isVisible and screen
 val innerEr2 = er1 and (button implies isHidden)
 val er2 = eventually(innerEr2)
 
+val test: Formula = screen reach2 screen distance "distance"
+
 // Final formula
-Spec.formula = er2
+Spec.formula = test

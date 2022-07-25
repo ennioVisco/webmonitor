@@ -1,4 +1,4 @@
-import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
+import org.jetbrains.kotlin.gradle.tasks.*
 
 group = "at.ac.tuwien.trustcps"
 version = "1.0-SNAPSHOT"
@@ -10,11 +10,12 @@ plugins {
     kotlin("jvm") version "1.6.20"
     id("org.openjfx.javafxplugin") version "0.0.13"
     id("org.javamodularity.moduleplugin") version ("1.8.10") apply false
+    id("org.jetbrains.dokka") version "1.6.21"
 }
 
 repositories {
     mavenCentral()
-    githubPackages("MoonlightSuite", "Moonlight")
+    //githubPackages("MoonlightSuite", "Moonlight")
 }
 
 sonarqube {
@@ -30,6 +31,10 @@ javafx {
     modules = listOf("javafx.base", "javafx.controls", "javafx.swing")
 }
 
+tasks.dokkaHtml.configure {
+    outputDirectory.set(buildDir.resolve("dokka"))
+}
+
 dependencies {
     // Configuration files
     implementation(kotlin("script-runtime"))
@@ -42,6 +47,10 @@ dependencies {
     // Selenium
     implementation("org.seleniumhq.selenium:selenium-java:4.1.3")
     implementation("io.github.bonigarcia:webdrivermanager:5.1.1")
+
+    // Dokka
+    implementation("org.jetbrains.dokka:dokka-gradle-plugin:1.6.21")
+
 
     // Charts
     implementation("eu.hansolo.fx:charts:11.1")
