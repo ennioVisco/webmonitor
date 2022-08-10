@@ -7,7 +7,7 @@ import eu.quanticol.moonlight.formula.*
 import eu.quanticol.moonlight.formula.classic.*
 import eu.quanticol.moonlight.formula.spatial.*
 import eu.quanticol.moonlight.formula.temporal.*
-import eu.quanticol.moonlight.signal.*
+import eu.quanticol.moonlight.offline.signal.*
 
 typealias GridSignal = SpatialTemporalSignal<Boolean>
 typealias NotFormula = NegationFormula

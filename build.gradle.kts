@@ -26,6 +26,14 @@ sonarqube {
     }
 }
 
+java {
+    sourceCompatibility = JavaVersion.VERSION_17
+}
+
+tasks.withType<JavaCompile> {
+    options.compilerArgs.add("--enable-preview")
+}
+
 javafx {
     version = "17"
     modules = listOf("javafx.base", "javafx.controls", "javafx.swing")
@@ -75,6 +83,7 @@ dependencies {
 
 tasks.test {
     useJUnitPlatform()
+    jvmArgs("--enable-preview")
     finalizedBy(tasks.jacocoTestReport) // report is always generated after tests run
 
 }
@@ -87,7 +96,7 @@ tasks.jacocoTestReport {
 }
 
 tasks.withType<KotlinCompile> {
-    kotlinOptions.jvmTarget = "11"
+    kotlinOptions.jvmTarget = "17"
 }
 
 application {

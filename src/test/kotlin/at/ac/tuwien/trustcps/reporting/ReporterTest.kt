@@ -1,21 +1,16 @@
 package at.ac.tuwien.trustcps.reporting
 
-import at.ac.tuwien.trustcps.evenLocationsAreTrueSignal
-import at.ac.tuwien.trustcps.space.Grid
-import com.github.stefanbirkner.systemlambda.SystemLambda.tapSystemOut
-import eu.quanticol.moonlight.signal.Signal
-import eu.quanticol.moonlight.signal.SpatialTemporalSignal
-import io.mockk.every
-import io.mockk.justRun
-import io.mockk.mockk
-import io.mockk.spyk
-import org.junit.jupiter.api.Assertions.assertDoesNotThrow
-import org.junit.jupiter.api.Assertions.assertEquals
-import org.junit.jupiter.api.Nested
+import at.ac.tuwien.trustcps.*
+import at.ac.tuwien.trustcps.space.*
+import com.github.stefanbirkner.systemlambda.SystemLambda.*
+import eu.quanticol.moonlight.offline.signal.*
+import io.mockk.*
+import org.junit.jupiter.api.*
+import org.junit.jupiter.api.Assertions.*
 import org.junit.jupiter.api.Test
-import java.time.LocalDateTime
-import java.time.temporal.ChronoUnit
-import kotlin.test.assertFailsWith
+import java.time.*
+import java.time.temporal.*
+import kotlin.test.*
 
 internal class ReporterTest {
     @Test

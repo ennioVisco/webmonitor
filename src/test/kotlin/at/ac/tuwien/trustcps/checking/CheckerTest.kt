@@ -1,11 +1,9 @@
 package at.ac.tuwien.trustcps.checking
 
-import at.ac.tuwien.trustcps.space.Grid
-import eu.quanticol.moonlight.formula.AtomicFormula
+import at.ac.tuwien.trustcps.space.*
+import eu.quanticol.moonlight.formula.*
 import org.junit.jupiter.api.Test
-import kotlin.test.assertEquals
-import kotlin.test.assertFailsWith
-import kotlin.test.assertTrue
+import kotlin.test.*
 
 internal class CheckerTest {
     private val grid = Grid(rows = 2, columns = 3)
@@ -30,7 +28,8 @@ internal class CheckerTest {
         assertFailsWith<IllegalArgumentException>(
             "Empty data in input should not be allowed"
         ) {
-            checker.check(AtomicFormula("screen"))
+            val output = checker.check(AtomicFormula("screen"))
+            println(output)
         }
     }
 

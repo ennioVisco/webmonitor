@@ -1,12 +1,11 @@
 package at.ac.tuwien.trustcps.checking
 
-import at.ac.tuwien.trustcps.space.Grid
-import eu.quanticol.moonlight.signal.SpatialTemporalSignal
-import org.junit.jupiter.api.Assertions.assertArrayEquals
-import org.junit.jupiter.api.Assertions.assertTrue
-import org.junit.jupiter.api.Nested
+import at.ac.tuwien.trustcps.space.*
+import eu.quanticol.moonlight.offline.signal.*
+import org.junit.jupiter.api.*
+import org.junit.jupiter.api.Assertions.*
 import org.junit.jupiter.api.Test
-import kotlin.test.assertFailsWith
+import kotlin.test.*
 
 internal class TraceBuilderTest {
     @Test

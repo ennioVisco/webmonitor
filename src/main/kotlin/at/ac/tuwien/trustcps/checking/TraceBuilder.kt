@@ -1,9 +1,9 @@
 package at.ac.tuwien.trustcps.checking
 
-import at.ac.tuwien.trustcps.dsl.parseSelector
-import at.ac.tuwien.trustcps.space.Grid
-import eu.quanticol.moonlight.signal.SpatialTemporalSignal
-import kotlin.math.roundToInt
+import at.ac.tuwien.trustcps.dsl.*
+import at.ac.tuwien.trustcps.space.*
+import eu.quanticol.moonlight.offline.signal.*
+import kotlin.math.*
 
 /**
  *  Builder class that generates a signal based on the data

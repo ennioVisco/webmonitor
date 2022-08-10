@@ -2,7 +2,7 @@ package at.ac.tuwien.trustcps.reporting
 
 import at.ac.tuwien.trustcps.*
 import at.ac.tuwien.trustcps.space.*
-import eu.quanticol.moonlight.signal.*
+import eu.quanticol.moonlight.offline.signal.*
 import javafx.application.*
 import java.io.*
 import java.time.*
@@ -29,7 +29,7 @@ class Reporter(
         }
         buffer.add(data)
     }
-    
+
     fun title(text: String) {
         println(text)
         mark(text)
