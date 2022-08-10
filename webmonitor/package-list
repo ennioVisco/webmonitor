@@ -58,9 +58,9 @@ $dokka.location:at.ac.tuwien.trustcps.reporting/Plotter/stop/#/PointingToDeclara
 $dokka.location:at.ac.tuwien.trustcps.reporting/Reporter///PointingToDeclaration/webmonitor/at.ac.tuwien.trustcps.reporting/-reporter/index.html
 $dokka.location:at.ac.tuwien.trustcps.reporting/Reporter/Reporter/#kotlin.Boolean#kotlin.Boolean/PointingToDeclaration/webmonitor/at.ac.tuwien.trustcps.reporting/-reporter/-reporter.html
 $dokka.location:at.ac.tuwien.trustcps.reporting/Reporter/mark/#kotlin.String/PointingToDeclaration/webmonitor/at.ac.tuwien.trustcps.reporting/-reporter/mark.html
-$dokka.location:at.ac.tuwien.trustcps.reporting/Reporter/plot/#kotlin.Int#eu.quanticol.moonlight.signal.SpatialTemporalSignal[kotlin.Boolean]#at.ac.tuwien.trustcps.space.Grid#kotlin.String/PointingToDeclaration/webmonitor/at.ac.tuwien.trustcps.reporting/-reporter/plot.html
-$dokka.location:at.ac.tuwien.trustcps.reporting/Reporter/report/#eu.quanticol.moonlight.signal.Signal[TypeParam(bounds=[kotlin.Any?])]#kotlin.String/PointingToDeclaration/webmonitor/at.ac.tuwien.trustcps.reporting/-reporter/report.html
-$dokka.location:at.ac.tuwien.trustcps.reporting/Reporter/report/#eu.quanticol.moonlight.signal.SpatialTemporalSignal[TypeParam(bounds=[kotlin.Any?])]#kotlin.String/PointingToDeclaration/webmonitor/at.ac.tuwien.trustcps.reporting/-reporter/report.html
+$dokka.location:at.ac.tuwien.trustcps.reporting/Reporter/plot/#kotlin.Int#eu.quanticol.moonlight.offline.signal.SpatialTemporalSignal[kotlin.Boolean]#at.ac.tuwien.trustcps.space.Grid#kotlin.String/PointingToDeclaration/webmonitor/at.ac.tuwien.trustcps.reporting/-reporter/plot.html
+$dokka.location:at.ac.tuwien.trustcps.reporting/Reporter/report/#eu.quanticol.moonlight.offline.signal.Signal[TypeParam(bounds=[kotlin.Any?])]#kotlin.String/PointingToDeclaration/webmonitor/at.ac.tuwien.trustcps.reporting/-reporter/report.html
+$dokka.location:at.ac.tuwien.trustcps.reporting/Reporter/report/#eu.quanticol.moonlight.offline.signal.SpatialTemporalSignal[TypeParam(bounds=[kotlin.Any?])]#kotlin.String/PointingToDeclaration/webmonitor/at.ac.tuwien.trustcps.reporting/-reporter/report.html
 $dokka.location:at.ac.tuwien.trustcps.reporting/Reporter/title/#kotlin.String/PointingToDeclaration/webmonitor/at.ac.tuwien.trustcps.reporting/-reporter/title.html
 $dokka.location:at.ac.tuwien.trustcps.space////PointingToDeclaration/webmonitor/at.ac.tuwien.trustcps.space/index.html
 $dokka.location:at.ac.tuwien.trustcps.space/Grid///PointingToDeclaration/webmonitor/at.ac.tuwien.trustcps.space/-grid/index.html
