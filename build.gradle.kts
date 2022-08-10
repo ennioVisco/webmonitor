@@ -45,8 +45,8 @@ dependencies {
     implementation(files("lib/moonlight.jar"))
 
     // Selenium
-    implementation("org.seleniumhq.selenium:selenium-java:4.1.3")
-    implementation("io.github.bonigarcia:webdrivermanager:5.1.1")
+    implementation("org.seleniumhq.selenium:selenium-java:4.2.1")
+    implementation("io.github.bonigarcia:webdrivermanager:5.2.0")
 
     // Dokka
     implementation("org.jetbrains.dokka:dokka-gradle-plugin:1.6.21")
@@ -56,7 +56,7 @@ dependencies {
     implementation("eu.hansolo.fx:charts:11.1")
 
     // Logging
-    implementation("io.github.microutils:kotlin-logging-jvm:2.1.21")
+    implementation("io.github.microutils:kotlin-logging-jvm:2.1.23")
     implementation("org.slf4j:slf4j-api:1.7.36")
     implementation("org.apache.logging.log4j:log4j-api:2.17.2")
     implementation("org.apache.logging.log4j:log4j-core:2.17.2")
@@ -69,7 +69,7 @@ dependencies {
     testImplementation(kotlin("test"))
     testImplementation(kotlin("test-junit5"))
     testImplementation("org.junit.jupiter:junit-jupiter:5.8.2")
-    testImplementation("io.mockk:mockk:1.12.3")
+    testImplementation("io.mockk:mockk:1.12.4")
     testImplementation("com.github.stefanbirkner:system-lambda:1.2.1")
 }
 
