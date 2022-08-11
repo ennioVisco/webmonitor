@@ -53,31 +53,28 @@ dependencies {
     implementation(files("lib/moonlight.jar"))
 
     // Selenium
-    implementation("org.seleniumhq.selenium:selenium-java:4.2.1")
-    implementation("io.github.bonigarcia:webdrivermanager:5.2.0")
+    implementation("org.seleniumhq.selenium:selenium-java:4.3.0")
+    implementation("io.github.bonigarcia:webdrivermanager:5.2.3")
 
     // Dokka
-    implementation("org.jetbrains.dokka:dokka-gradle-plugin:1.6.21")
+    implementation("org.jetbrains.dokka:dokka-gradle-plugin:1.7.10")
 
 
     // Charts
-    implementation("eu.hansolo.fx:charts:11.1")
+    implementation("eu.hansolo.fx:charts:17.1.13")
 
     // Logging
     implementation("io.github.microutils:kotlin-logging-jvm:2.1.23")
-    implementation("org.slf4j:slf4j-api:1.7.36")
-    implementation("org.apache.logging.log4j:log4j-api:2.17.2")
-    implementation("org.apache.logging.log4j:log4j-core:2.17.2")
-    implementation("org.apache.logging.log4j:log4j-slf4j-impl:2.17.2")
-//    implementation("ch.qos.logback:logback-classic:1.2.10")
+    runtimeOnly("org.slf4j:slf4j-api:1.7.36")
+    implementation("ch.qos.logback:logback-classic:1.2.11")
 
     implementation("com.tylerthrailkill.helpers:pretty-print:2.0.2")
 
     // Tests
     testImplementation(kotlin("test"))
     testImplementation(kotlin("test-junit5"))
-    testImplementation("org.junit.jupiter:junit-jupiter:5.8.2")
-    testImplementation("io.mockk:mockk:1.12.4")
+    testImplementation("org.junit.jupiter:junit-jupiter:5.9.0")
+    testImplementation("io.mockk:mockk:1.12.5")
     testImplementation("com.github.stefanbirkner:system-lambda:1.2.1")
 }
 
@@ -85,7 +82,10 @@ tasks.test {
     useJUnitPlatform()
     jvmArgs("--enable-preview")
     finalizedBy(tasks.jacocoTestReport) // report is always generated after tests run
+}
 
+tasks.withType<JavaExec>() {
+    jvmArgs("--enable-preview")
 }
 
 tasks.jacocoTestReport {
@@ -101,7 +101,7 @@ tasks.withType<KotlinCompile> {
 
 application {
     //executableDir = "$buildDir/../src/main/kotlin/at/ac/tuwien/trustcps"
-    println("Current exec dir: ${executableDir}")
+    println("Current exec dir: $executableDir")
     fun pkg(name: String) = "${group}.${name}Kt"
     mainClass.set(pkg("Main"))
     //println("Current sources dir: ${buildDir}")
@@ -112,8 +112,10 @@ fun RepositoryHandler.githubPackages(user: String, repo: String):
     return maven {
         url = uri("https://maven.pkg.github.com/$user/$repo")
         credentials {
-            username = project.findProperty("gpr.user") as String? ?: System.getenv("GITHUB_USER")
-            password = project.findProperty("gpr.key") as String? ?: System.getenv("GITHUB_TOKEN")
+            username = project.findProperty("gpr.user") as String?
+                ?: System.getenv("GITHUB_USER")
+            password = project.findProperty("gpr.key") as String?
+                ?: System.getenv("GITHUB_TOKEN")
         }
     }
 }

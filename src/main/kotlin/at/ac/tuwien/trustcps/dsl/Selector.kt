@@ -1,11 +1,9 @@
 package at.ac.tuwien.trustcps.dsl
 
-import eu.quanticol.moonlight.core.formula.Formula
-import eu.quanticol.moonlight.core.formula.FormulaVisitor
-import eu.quanticol.moonlight.formula.AtomicFormula
+import eu.quanticol.moonlight.formula.*
 
 /**
- * pseudo-selector for selecting the whole document 
+ * Pseudo-selector for selecting the whole document
  */
 internal val document = Selector("document")
 
@@ -18,12 +16,12 @@ data class Selector(
     val comparison: Any? = null,
     val state: String = "",
     private val op: String = ""
-) : Formula {
+) : AtomicFormula(stringify(queryString, attribute, op, comparison)) {
 
     infix fun read(attribute: String): Selector {
         return Selector(queryString, attribute)
     }
-    
+
     infix fun at(state: String): Selector {
         return Selector(queryString, state = state)
     }
@@ -50,14 +48,23 @@ data class Selector(
     }
 
     override fun toString(): String {
-        return queryString + optionalAttribute()
+        return stringify(queryString, attribute, op, comparison)
     }
 
-    override fun <T, R> accept(visitor: FormulaVisitor<T, R>, params: T): R {
-        return visitor.visit(AtomicFormula(toString()), params)
-    }
+    companion object {
+        @JvmStatic
+        private fun stringify(
+            queryString: String,
+            attribute: String,
+            op: String,
+            comparison: Any?
+        ) = queryString + optionalAttribute(attribute, op, comparison)
 
-    private fun optionalAttribute(): String {
-        return if (attribute != "") "\$$attribute $op $comparison" else ""
+        @JvmStatic
+        private fun optionalAttribute(
+            attribute: String,
+            op: String,
+            comparison: Any?
+        ) = if (attribute != "") "\$$attribute $op $comparison" else ""
     }
 }

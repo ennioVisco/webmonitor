@@ -4,9 +4,12 @@ import at.ac.tuwien.trustcps.checking.*
 import at.ac.tuwien.trustcps.reporting.*
 import at.ac.tuwien.trustcps.space.*
 import at.ac.tuwien.trustcps.tracking.*
+import mu.*
 import org.openqa.selenium.*
 import java.net.*
 import javax.script.*
+
+private val LOG = KotlinLogging.logger {}
 
 fun main(args: Array<String>) {
     validateArgs(args)
