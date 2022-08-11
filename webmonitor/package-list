@@ -31,9 +31,9 @@ $dokka.location:at.ac.tuwien.trustcps.dsl/Event/asPair/#/PointingToDeclaration/
 $dokka.location:at.ac.tuwien.trustcps.dsl/Event/eventName/#/PointingToDeclaration/webmonitor/at.ac.tuwien.trustcps.dsl/-event/event-name.html
 $dokka.location:at.ac.tuwien.trustcps.dsl/Event/on/#at.ac.tuwien.trustcps.dsl.Selector/PointingToDeclaration/webmonitor/at.ac.tuwien.trustcps.dsl/-event/on.html
 $dokka.location:at.ac.tuwien.trustcps.dsl/Event/selector/#/PointingToDeclaration/webmonitor/at.ac.tuwien.trustcps.dsl/-event/selector.html
+$dokka.location:at.ac.tuwien.trustcps.dsl/Selector.Companion///PointingToDeclaration/webmonitor/at.ac.tuwien.trustcps.dsl/-selector/-companion/index.html
 $dokka.location:at.ac.tuwien.trustcps.dsl/Selector///PointingToDeclaration/webmonitor/at.ac.tuwien.trustcps.dsl/-selector/index.html
 $dokka.location:at.ac.tuwien.trustcps.dsl/Selector/Selector/#kotlin.String#kotlin.String#kotlin.Any?#kotlin.String#kotlin.String/PointingToDeclaration/webmonitor/at.ac.tuwien.trustcps.dsl/-selector/-selector.html
-$dokka.location:at.ac.tuwien.trustcps.dsl/Selector/accept/#eu.quanticol.moonlight.core.formula.FormulaVisitor[TypeParam(bounds=[kotlin.Any?]),TypeParam(bounds=[kotlin.Any?])]#TypeParam(bounds=[kotlin.Any?])/PointingToDeclaration/webmonitor/at.ac.tuwien.trustcps.dsl/-selector/accept.html
 $dokka.location:at.ac.tuwien.trustcps.dsl/Selector/at/#kotlin.String/PointingToDeclaration/webmonitor/at.ac.tuwien.trustcps.dsl/-selector/at.html
 $dokka.location:at.ac.tuwien.trustcps.dsl/Selector/attribute/#/PointingToDeclaration/webmonitor/at.ac.tuwien.trustcps.dsl/-selector/attribute.html
 $dokka.location:at.ac.tuwien.trustcps.dsl/Selector/comparison/#/PointingToDeclaration/webmonitor/at.ac.tuwien.trustcps.dsl/-selector/comparison.html
