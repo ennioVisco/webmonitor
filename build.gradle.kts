@@ -36,7 +36,13 @@ tasks.withType<JavaCompile> {
 
 javafx {
     version = "17"
-    modules = listOf("javafx.base", "javafx.controls", "javafx.swing")
+    modules =
+        listOf(
+            "javafx.base",
+            "javafx.controls",
+            "javafx.swing",
+            "javafx.web"
+        )
 }
 
 tasks.dokkaHtml.configure {
@@ -53,29 +59,49 @@ dependencies {
     implementation(files("lib/moonlight.jar"))
 
     // Selenium
-    implementation("org.seleniumhq.selenium:selenium-java:4.3.0")
-    implementation("io.github.bonigarcia:webdrivermanager:5.2.3")
+    implementation("org.seleniumhq.selenium:selenium-java:4.4.0")
+    implementation("io.github.bonigarcia:webdrivermanager:5.3.0")
+
+    // TestFX (headless GUI)
+    implementation("org.testfx:testfx-core:4.0.16-alpha")
+    implementation("org.testfx", "testfx-junit5", "4.0.16-alpha")
+    implementation("org.testfx:openjfx-monocle:jdk-12.0.1+2")
 
     // Dokka
     implementation("org.jetbrains.dokka:dokka-gradle-plugin:1.7.10")
 
-
     // Charts
-    implementation("eu.hansolo.fx:charts:17.1.13")
+    implementation("eu.hansolo.fx:charts:17.1.21")
 
     // Logging
     implementation("io.github.microutils:kotlin-logging-jvm:2.1.23")
-    runtimeOnly("org.slf4j:slf4j-api:1.7.36")
-    implementation("ch.qos.logback:logback-classic:1.2.11")
+    runtimeOnly("org.slf4j:slf4j-api:2.0.0")
+    implementation("ch.qos.logback:logback-classic:1.4.0")
 
+    // Pretty printing (debug)
     implementation("com.tylerthrailkill.helpers:pretty-print:2.0.2")
 
     // Tests
     testImplementation(kotlin("test"))
     testImplementation(kotlin("test-junit5"))
     testImplementation("org.junit.jupiter:junit-jupiter:5.9.0")
-    testImplementation("io.mockk:mockk:1.12.5")
+    testImplementation("io.mockk:mockk:1.12.7")
     testImplementation("com.github.stefanbirkner:system-lambda:1.2.1")
+}
+
+fun runtimeArgs(exec: Any) {
+    val arguments = listOf(
+        "--enable-preview",
+        "--add-exports", "javafx.graphics/com.sun.glass.ui=ALL-UNNAMED",
+        "--add-exports", "javafx.graphics/com.sun.glass.utils=ALL-UNNAMED",
+        "--add-opens", "javafx.graphics/com.sun.glass.ui=ALL-UNNAMED",
+        "--add-opens", "javafx.graphics/com.sun.glass.utils=ALL-UNNAMED"
+    )
+    when (exec) {
+        is JavaExec -> exec.jvmArgs(arguments)
+        is Test -> exec.jvmArgs(arguments)
+        else -> throw IllegalArgumentException("Unknown exec type: $exec")
+    }
 }
 
 tasks.test {
@@ -84,8 +110,19 @@ tasks.test {
     finalizedBy(tasks.jacocoTestReport) // report is always generated after tests run
 }
 
-tasks.withType<JavaExec>() {
-    jvmArgs("--enable-preview")
+val headlessJavaFXSettings = mapOf(
+    //"java.awt.headless" to true,
+    "testfx.robot" to "glass",
+    "testfx.headless" to true,
+    "glass.platform" to "Monocle",
+    "monocle.platform" to "Headless",
+    "headless.geometry" to "1920x1080-32",
+    //"prism.order" to "sw"
+)
+
+tasks.withType<JavaExec> {
+    runtimeArgs(this)
+    systemProperties = headlessJavaFXSettings
 }
 
 tasks.jacocoTestReport {

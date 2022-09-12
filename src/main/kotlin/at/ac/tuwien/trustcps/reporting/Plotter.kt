@@ -1,23 +1,19 @@
 package at.ac.tuwien.trustcps.reporting
 
 import at.ac.tuwien.trustcps.space.Grid
-import eu.hansolo.fx.charts.ChartType
-import eu.hansolo.fx.charts.MatrixPane
-import eu.hansolo.fx.charts.data.MatrixChartItem
-import eu.hansolo.fx.charts.series.MatrixItemSeries
-import javafx.application.Application
-import javafx.embed.swing.SwingFXUtils
-import javafx.scene.Scene
-import javafx.scene.image.Image
+import eu.hansolo.fx.charts.*
+import eu.hansolo.fx.charts.data.*
+import eu.hansolo.fx.charts.series.*
+import javafx.application.*
+import javafx.embed.swing.*
+import javafx.scene.*
+import javafx.scene.image.*
 import javafx.scene.layout.*
-import javafx.scene.paint.Color
-import javafx.scene.paint.CycleMethod
-import javafx.scene.paint.LinearGradient
-import javafx.scene.paint.Stop
-import javafx.scene.transform.Scale
-import javafx.stage.Stage
-import java.io.File
-import javax.imageio.ImageIO
+import javafx.scene.paint.*
+import javafx.scene.transform.*
+import javafx.stage.*
+import java.io.*
+import javax.imageio.*
 
 /**
  * Plotting class based on JavaFX and Han Solo's Charts library.
@@ -88,7 +84,8 @@ class Plotter(
     }
 
     private fun setBackground(fileName: String): Background {
-        val backgroundURL = File(fileName).canonicalFile.toURI().toURL().toString()
+        val backgroundURL =
+            File(fileName).canonicalFile.toURI().toURL().toString()
         val image = Image(backgroundURL)
         val backgroundImage = BackgroundImage(
             image,

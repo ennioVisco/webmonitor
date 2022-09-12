@@ -38,15 +38,24 @@ class SessionBuilder(
             //            return wdm.create() as ChromeDriver
             val mobileEmulation: MutableMap<String, String> = HashMap()
             mobileEmulation["deviceName"] = "iPhone 5/SE"
-            val chromeOptions = ChromeOptions()
-            chromeOptions.setExperimentalOption("mobileEmulation", mobileEmulation)
-            ChromeDriver(chromeOptions)
+            val options = ChromeOptions()
+            options.setHeadless(true)
+            options.setExperimentalOption(
+                "mobileEmulation",
+                mobileEmulation
+            )
+            ChromeDriver(options)
         } else {
-            ChromeDriver()
+            val options = ChromeOptions()
+            options.setHeadless(true)
+            ChromeDriver(options)
         }
     }
 
-    private fun startDevTools(driver: HasDevTools, handler: (ConsoleEvent) -> Unit) {
+    private fun startDevTools(
+        driver: HasDevTools,
+        handler: (ConsoleEvent) -> Unit
+    ) {
         val devTools = driver.devTools
         devTools.createSession()
         devTools.domains.events().addConsoleListener(handler)

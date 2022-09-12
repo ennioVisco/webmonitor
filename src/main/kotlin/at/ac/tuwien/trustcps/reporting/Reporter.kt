@@ -16,7 +16,8 @@ class Reporter(
     private val toConsole: Boolean = false,
     private val toFile: Boolean = false
 ) {
-    private val logTimeGranularity = LocalDateTime.now().truncatedTo(ChronoUnit.SECONDS)
+    private val logTimeGranularity =
+        LocalDateTime.now().truncatedTo(ChronoUnit.SECONDS)
 
     private val buffer = mutableListOf<String>()
 
@@ -68,6 +69,8 @@ class Reporter(
         } catch (e: IllegalStateException) {
             println("JavaFX platform already instantiated. Skipping.")
             Platform.runLater(Plotter(id, title, values, grid))
+        } finally {
+            Platform.exit()
         }
     }
 
@@ -97,7 +100,10 @@ class Reporter(
         }
     }
 
-    private fun generateOutput(name: String, block: (output: PrintWriter) -> Unit) {
+    private fun generateOutput(
+        name: String,
+        block: (output: PrintWriter) -> Unit
+    ) {
         val now = logTimeGranularity.toString()
             .replace("-", "")
             .replace(":", "")
