@@ -6,6 +6,7 @@ version = "1.0-SNAPSHOT"
 plugins {
     application
     jacoco
+    checkstyle
     id("org.sonarqube") version "3.3"
     kotlin("jvm") version "1.6.20"
     id("org.openjfx.javafxplugin") version "0.0.13"

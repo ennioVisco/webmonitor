@@ -1,15 +1,11 @@
 package at.ac.tuwien.trustcps.reporting
 
-import at.ac.tuwien.trustcps.space.Grid
-import io.mockk.every
-import io.mockk.justRun
-import io.mockk.mockk
-import io.mockk.spyk
-import javafx.stage.Stage
-import org.junit.jupiter.api.Disabled
+import at.ac.tuwien.trustcps.space.*
+import io.mockk.*
+import javafx.stage.*
+import org.junit.jupiter.api.*
 import org.junit.jupiter.api.Test
-import org.junit.jupiter.api.assertDoesNotThrow
-import kotlin.test.assertFailsWith
+import kotlin.test.*
 
 internal class PlotterTest {
     private val grid = Grid(3, 3)
@@ -46,7 +42,8 @@ internal class PlotterTest {
         justRun { mockStage.title = any() }
         justRun { mockStage.scene = any() }
 
-        val plotter = spyk(Plotter(0, "test", data, grid), recordPrivateCalls = true)
+        val plotterSkeleton = Plotter(0, "test", data, grid)
+        val plotter = spyk(plotterSkeleton, recordPrivateCalls = true)
         every {
             plotter invoke "spawnStage" withArguments
                     listOf()
