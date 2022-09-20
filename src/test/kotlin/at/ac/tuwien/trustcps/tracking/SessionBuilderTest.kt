@@ -16,7 +16,7 @@ internal class SessionBuilderTest {
         val url = URL("https://google.com")
         val dims = Dimension(800, 600)
 
-        SessionBuilder(url, mockk(), dims, Browser.CHROME).use {
+        SessionBuilder(url, mockk(), dims).use {
 
             assertInstanceOf(ChromeDriver::class.java, it.driver)
             assertEquals(dims, it.driver.manage().window().size)

@@ -15,11 +15,12 @@ class SessionBuilder(
     url: URL,
     eventsHandler: (ConsoleEvent) -> Unit,
     dims: Dimension? = null,
-    engine: Browser = Browser.CHROME
+    engine: Browser = Browser.CHROME_HEADLESS
 ) : Closeable {
     val driver: RemoteWebDriver = run {
         val browserDriver = when (engine) {
-            Browser.CHROME -> initChromeSettings(dims)
+            Browser.CHROME -> initChromeSettings(dims, false)
+            Browser.CHROME_HEADLESS -> initChromeSettings(dims, true)
             Browser.FIREFOX -> initFirefoxSettings()
         }
         startDevTools(browserDriver, eventsHandler)
@@ -31,27 +32,28 @@ class SessionBuilder(
         return FirefoxDriver()
     }
 
-    private fun initChromeSettings(dims: Dimension?): ChromeDriver {
+    private fun initChromeSettings(
+        dims: Dimension?,
+        headless: Boolean
+    ): ChromeDriver {
         WebDriverManager.chromedriver().setup()
-        return if (dims?.width!! < 500 || dims.height < 400) {
-            //            val wdm = WebDriverManager.chromedriver().browserInDockerAndroid()
-            //            return wdm.create() as ChromeDriver
-            val mobileEmulation: MutableMap<String, String> = HashMap()
-            mobileEmulation["deviceName"] = "iPhone 5/SE"
-            val options = ChromeOptions()
-            options.setHeadless(true)
-            options.addArguments("--force-device-scale-factor=1")
+        val options = ChromeOptions()
+        if (dims?.width!! < 500 || dims.height < 400) {
+            //val wdm = WebDriverManager.chromedriver().browserInDockerAndroid()
+            //return wdm.create() as ChromeDriver
+            val mobileEmulation = mapOf("deviceName" to "iPhone 5/SE")
             options.setExperimentalOption(
                 "mobileEmulation",
                 mobileEmulation
             )
-            ChromeDriver(options)
-        } else {
-            val options = ChromeOptions()
-            options.setHeadless(true)
-            options.addArguments("--force-device-scale-factor=1")
-            ChromeDriver(options)
         }
+
+        if (headless) {
+            options.setHeadless(true)
+        }
+
+        options.addArguments("--force-device-scale-factor=1")
+        return ChromeDriver(options)
     }
 
     private fun startDevTools(

@@ -18,9 +18,15 @@ class SnapshotBuilder(
     private val selectors: List<String>,
     private val toFile: Boolean = false
 ) {
+
+    /**
+     * Fetches the snapshot data from the current session of the browser
+     * @param id identifier of the snapshot (used for storing the screenshot)
+     * @return a map of SnapshotData pairs
+     */
     fun collect(id: Int): Map<String, String> {
         val data = HashMap<String, String>()
-        fetchMetadata(driver, data)
+        fetchMetadata(data)
         for (selector in selectors) {
             doSelect(selector, driver, data)
         }
@@ -37,7 +43,6 @@ class SnapshotBuilder(
     }
 
     private fun fetchMetadata(
-        driver: RemoteWebDriver,
         data: HashMap<String, String>
     ) {
         // Document: areas considered by the page, including unreachable ones.
@@ -45,15 +50,15 @@ class SnapshotBuilder(
         //
         // Layout Viewport: Scrollable area
         val layoutVp = "return document.documentElement"
-        val layoutVpWidth = exec(driver, "${layoutVp}.scrollWidth")
-        val layoutVpHeight = exec(driver, "${layoutVp}.scrollHeight")
+        val layoutVpWidth = exec("${layoutVp}.scrollWidth")
+        val layoutVpHeight = exec("${layoutVp}.scrollHeight")
         data["lvp_width"] = layoutVpWidth.toString()
         data["lvp_height"] = layoutVpHeight.toString()
         println("Layout Viewport: ${layoutVpWidth}x${layoutVpHeight}")
 
         // Visual Viewport: physical screen
-        val visualVpWidth = exec(driver, "return window.innerWidth;")
-        val visualVpHeight = exec(driver, "return window.innerHeight;")
+        val visualVpWidth = exec("return window.innerWidth;")
+        val visualVpHeight = exec("return window.innerHeight;")
         data["vvp_width"] = visualVpWidth.toString()
         data["vvp_height"] = visualVpHeight.toString()
         println("Visual Viewport: ${visualVpWidth}x${visualVpHeight}")
@@ -89,7 +94,5 @@ class SnapshotBuilder(
     }
 
 
-    private fun exec(driver: RemoteWebDriver, command: String): Any? {
-        return driver.executeScript(command)
-    }
+    private fun exec(command: String) = driver.executeScript(command)
 }

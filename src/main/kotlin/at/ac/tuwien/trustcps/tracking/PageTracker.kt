@@ -1,5 +1,6 @@
 package at.ac.tuwien.trustcps.tracking
 
+import mu.*
 import org.openqa.selenium.*
 import org.openqa.selenium.devtools.events.*
 import org.openqa.selenium.remote.*
@@ -15,32 +16,34 @@ import java.net.*
 class PageTracker(
     private val page: URL,
     private val dimension: Dimension? = null,
-    private val browser: Browser,
+    private val browser: Browser? = null,
     private val maxSessionDuration: Long = 100,
     private val wait: Long = 1_000L,
     private val toFile: Boolean = false
 ) {
+    private val prefix: String = "[wm] "
     private val snapshots = mutableListOf<Map<String, String>>()
     private val selectors = ArrayList<String>()
     private val events = ArrayList<Pair<String, String>>()
     private var snapshotBuilder: SnapshotBuilder? = null
+    private val log = KotlinLogging.logger {}
 
     /**
-     * selects some elements to track from the page
+     * lazily selects some elements to track from the page
      */
     fun select(queryString: String) {
         selectors.add(queryString)
     }
 
     /**
-     * selects some elements to track from the page
+     * lazily selects some events to track from the page
      */
     fun record(event: Pair<String, String>) {
         events.add(event)
     }
 
     /**
-     * Tracks the provided selectors for the provided page
+     * Tracks the provided selectors for the current page
      */
     fun run(): List<Map<String, String>> {
         spawnBrowserSession().use {
@@ -52,63 +55,40 @@ class PageTracker(
     }
 
     private fun recordEvents(driver: RemoteWebDriver) {
-        driver.executeScript("window.devicePixelRatio = 1;")
-        capturePageLoaded(driver)
-        events.forEach { captureEvent(driver, it.first, it.second) }
-        //driver.executeScript("\$('div[data-ride=\"carousel\"').on('slide.bs.carousel', function () { console.log(\"carousel-slide\")})")
+        val recorder = EventRecorder(driver, prefix)
+        recorder.capturePageLoaded()
+        events.forEach { recorder.captureEvent(it.first, it.second) }
     }
 
-    private fun captureEvent(
-        driver: RemoteWebDriver,
-        selector: String,
-        event: String
-    ) {
-        driver.executeScript(
-            "$selector.addEventListener('$event', () => { " +
-                    "console.log('[wm] $selector@$event'); });"
-        )
-    }
-
-    private fun capturePageLoaded(driver: RemoteWebDriver) {
-        driver.executeScript(
-            "if(document.readyState === \"complete\") {" +
-                    "console.log('[wm] page is fully loaded');" +
-                    "} else {" +
-                    "window.addEventListener('load', () => { console.log" +
-                    "('[wm] page is fully loaded'); " +
-                    "})} "
-        )
-    }
-
-    private fun capture(event: ConsoleEvent) {
+    private fun takeSnapshot(event: ConsoleEvent) {
         Thread.sleep(wait)
-        if (event.messages[0].startsWith("[wm] ")) {
-            if (snapshotBuilder != null) {
-                println("Console log message is ${event.messages}")
-                snapshotBuilder?.collect(snapshots.size)
-                    ?.let { snapshots.add(it) }
-            } else {
-                throw UnsupportedOperationException("Trying to capture event before instantiation is complete")
+        if (event.messages[0].startsWith(prefix)) {
+            log.info("Console log message is: ${event.messages}")
+            snapshotOrFail {
+                snapshotBuilder?.collect(snapshots.size)?.let {
+                    snapshots.add(it)
+                }
             }
         }
+    }
 
+    private fun snapshotOrFail(action: () -> Unit) {
+        if (snapshotBuilder != null) {
+            action()
+        } else {
+            throw UnsupportedOperationException(
+                "Trying to capture event before instantiation is complete"
+            )
+        }
     }
 
     private fun spawnBrowserSession() =
-        SessionBuilder(page, ::capture, dimension, browser)
+        if (browser != null)
+            SessionBuilder(page, ::takeSnapshot, dimension, browser)
+        else
+            SessionBuilder(page, ::takeSnapshot, dimension)
 
+    fun isTracking(queryString: String) = selectors.contains(queryString)
 
-//    fun selectAll(driver: RemoteWebDriver) {
-//        driver.findElements(By.xpath("//*")).forEach { elem ->
-//            println(elem.rect.toString())
-//        }
-//    }
-//
-//    fun execScript(driver: RemoteWebDriver) {
-//        //val viewport = driver.executeScript("return [window.innerWidth, window.innerHeight];")
-//        val h12 = driver.executeScript(
-//            "return window.getComputedStyle(document.querySelector('h1')).getPropertyValue('font-size');")
-//        println("<h1>'s font-size: $h12")
-//    }
-
+    fun isRecordingAt(event: Pair<String, String>) = events.contains(event)
 }
