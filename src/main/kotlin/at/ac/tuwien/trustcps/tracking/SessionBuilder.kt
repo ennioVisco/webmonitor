@@ -10,13 +10,22 @@ import org.openqa.selenium.remote.*
 import java.io.*
 import java.net.*
 
-
+/**
+ * Generates a WebDriver instance for the given browser (engine).
+ * @param url the url the session should be started with
+ * @param eventsHandler the handler for the events recorded on the page
+ * @param dims the dimensions of the browser window
+ * @param engine the browser engine to use (optional)
+ */
 class SessionBuilder(
     url: URL,
     eventsHandler: (ConsoleEvent) -> Unit,
-    dims: Dimension? = null,
+    dims: Dimension? = Dimension(1920, 1080),
     engine: Browser = Browser.CHROME_HEADLESS
 ) : Closeable {
+    /**
+     * The WebDriver instance.
+     */
     val driver: RemoteWebDriver = run {
         val browserDriver = when (engine) {
             Browser.CHROME -> initChromeSettings(dims, false)
@@ -66,7 +75,7 @@ class SessionBuilder(
     }
 
     init {
-        driver.manage().window().size = dims ?: Dimension(1920, 1080)
+        driver.manage().window().size = dims
         driver.get(url.toString())
     }
 

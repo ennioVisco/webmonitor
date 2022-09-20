@@ -93,6 +93,5 @@ class SnapshotBuilder(
         }
     }
 
-
     private fun exec(command: String) = driver.executeScript(command)
 }

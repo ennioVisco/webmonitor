@@ -12,6 +12,8 @@ import java.net.*
  * @param page is the url to track
  * @param dimension sets the dimensions of the browser window
  * @param browser selects the browser to run the tracking session
+ * @param wait sets the time to wait for the page to load
+ * @param toFile sets whether the snapshot should be stored as files or not.
  */
 class PageTracker(
     private val page: URL,
@@ -29,18 +31,32 @@ class PageTracker(
     private val log = KotlinLogging.logger {}
 
     /**
-     * lazily selects some elements to track from the page
+     * Lazily selects some elements to track from the page
+     * @param queryString is a query string to track
      */
     fun select(queryString: String) {
         selectors.add(queryString)
     }
 
     /**
-     * lazily selects some events to track from the page
+     * Lazily selects some events to track from the page
+     * @param event is the event to track
      */
     fun record(event: Pair<String, String>) {
         events.add(event)
     }
+
+    /**
+     * @param queryString is the css selector to query the page for
+     * @return true if the query string is being tracked
+     */
+    fun isTracking(queryString: String) = selectors.contains(queryString)
+
+    /**
+     * @param event is the event to trigger a page snapshot from
+     * @return true if the event is being tracked
+     */
+    fun isRecordingAt(event: Pair<String, String>) = events.contains(event)
 
     /**
      * Tracks the provided selectors for the current page
@@ -88,7 +104,4 @@ class PageTracker(
         else
             SessionBuilder(page, ::takeSnapshot, dimension)
 
-    fun isTracking(queryString: String) = selectors.contains(queryString)
-
-    fun isRecordingAt(event: Pair<String, String>) = events.contains(event)
 }
