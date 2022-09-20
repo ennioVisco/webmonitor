@@ -40,6 +40,7 @@ class SessionBuilder(
             mobileEmulation["deviceName"] = "iPhone 5/SE"
             val options = ChromeOptions()
             options.setHeadless(true)
+            options.addArguments("--force-device-scale-factor=1")
             options.setExperimentalOption(
                 "mobileEmulation",
                 mobileEmulation
@@ -48,6 +49,7 @@ class SessionBuilder(
         } else {
             val options = ChromeOptions()
             options.setHeadless(true)
+            options.addArguments("--force-device-scale-factor=1")
             ChromeDriver(options)
         }
     }

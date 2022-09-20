@@ -52,12 +52,17 @@ class PageTracker(
     }
 
     private fun recordEvents(driver: RemoteWebDriver) {
+        driver.executeScript("window.devicePixelRatio = 1;")
         capturePageLoaded(driver)
         events.forEach { captureEvent(driver, it.first, it.second) }
         //driver.executeScript("\$('div[data-ride=\"carousel\"').on('slide.bs.carousel', function () { console.log(\"carousel-slide\")})")
     }
 
-    private fun captureEvent(driver: RemoteWebDriver, selector: String, event: String) {
+    private fun captureEvent(
+        driver: RemoteWebDriver,
+        selector: String,
+        event: String
+    ) {
         driver.executeScript(
             "$selector.addEventListener('$event', () => { " +
                     "console.log('[wm] $selector@$event'); });"

@@ -2,6 +2,7 @@ package at.ac.tuwien.trustcps.reporting
 
 import at.ac.tuwien.trustcps.space.*
 import io.mockk.*
+import javafx.application.*
 import javafx.stage.*
 import org.junit.jupiter.api.*
 import org.junit.jupiter.api.Test
@@ -34,9 +35,20 @@ internal class PlotterTest {
         assertFailsWith<UnsupportedOperationException> { plotter.stop() }
     }
 
+    @Test
+    fun `plotter plots something`() {
+        val data = arrayOf(doubleArrayOf(0.0, 1.0), doubleArrayOf(1.0, 0.0))
+        val plotter = Plotter(0, "test", data, grid)
+
+        assertDoesNotThrow {
+            Platform.startup(plotter)
+        }
+    }
+
     @Disabled("failing on mac")
     @Test
     fun `basic heatmap does not fail`() {
+        System.setProperty("org.graphstream.debug", "true")
         val data = arrayOf(doubleArrayOf(0.0, 1.0), doubleArrayOf(1.0, 0.0))
         val mockStage = mockk<Stage>()
         justRun { mockStage.title = any() }
