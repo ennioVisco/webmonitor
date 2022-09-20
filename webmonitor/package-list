@@ -47,8 +47,6 @@ $dokka.location:at.ac.tuwien.trustcps.dsl/Selector/read/#kotlin.String/PointingT
 $dokka.location:at.ac.tuwien.trustcps.dsl/Selector/state/#/PointingToDeclaration/webmonitor/at.ac.tuwien.trustcps.dsl/-selector/state.html
 $dokka.location:at.ac.tuwien.trustcps.dsl/Selector/toString/#/PointingToDeclaration/webmonitor/at.ac.tuwien.trustcps.dsl/-selector/to-string.html
 $dokka.location:at.ac.tuwien.trustcps.reporting////PointingToDeclaration/webmonitor/at.ac.tuwien.trustcps.reporting/index.html
-$dokka.location:at.ac.tuwien.trustcps.reporting/Plotter.Companion///PointingToDeclaration/webmonitor/at.ac.tuwien.trustcps.reporting/-plotter/-companion/index.html
-$dokka.location:at.ac.tuwien.trustcps.reporting/Plotter.Companion/running/#/PointingToDeclaration/webmonitor/at.ac.tuwien.trustcps.reporting/-plotter/-companion/running.html
 $dokka.location:at.ac.tuwien.trustcps.reporting/Plotter///PointingToDeclaration/webmonitor/at.ac.tuwien.trustcps.reporting/-plotter/index.html
 $dokka.location:at.ac.tuwien.trustcps.reporting/Plotter/Plotter/#kotlin.Int#kotlin.String#kotlin.Array[kotlin.DoubleArray]#at.ac.tuwien.trustcps.space.Grid#kotlin.Boolean/PointingToDeclaration/webmonitor/at.ac.tuwien.trustcps.reporting/-plotter/-plotter.html
 $dokka.location:at.ac.tuwien.trustcps.reporting/Plotter/init/#/PointingToDeclaration/webmonitor/at.ac.tuwien.trustcps.reporting/-plotter/init.html
