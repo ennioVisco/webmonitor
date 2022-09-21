@@ -5,48 +5,9 @@ import at.ac.tuwien.trustcps.tracking.*
 import eu.quanticol.moonlight.core.formula.*
 import eu.quanticol.moonlight.formula.*
 import eu.quanticol.moonlight.formula.classic.*
-import eu.quanticol.moonlight.formula.spatial.*
-import eu.quanticol.moonlight.formula.temporal.*
 import eu.quanticol.moonlight.offline.signal.*
 
 typealias GridSignal = SpatialTemporalSignal<Boolean>
-typealias NotFormula = NegationFormula
-
-fun impliesFormula(left: Formula, right: Formula): Formula =
-    OrFormula(NotFormula(left), right)
-
-infix fun Formula.implies(right: Formula): Formula =
-    OrFormula(NotFormula(this), right)
-
-infix fun Formula.or(right: Formula): Formula = OrFormula(this, right)
-infix fun Formula.and(right: Formula): Formula = AndFormula(this, right)
-fun not(argument: Formula): Formula = NotFormula(argument)
-fun eventually(argument: Formula, interval: Interval? = null): Formula =
-    EventuallyFormula(argument, interval)
-
-fun globally(argument: Formula, interval: Interval? = null): Formula =
-    EventuallyFormula(argument, interval)
-
-fun everywhere(argument: Formula): Formula =
-    EverywhereFormula("base", argument)
-
-fun somewhere(argument: Formula): Formula =
-    SomewhereFormula("base", argument)
-
-infix fun Formula.reach(right: Formula): Formula =
-    ReachFormula(this, "base", right)
-
-infix fun Formula.reach2(right: Formula): (String) -> Formula {
-    return { distance -> ReachFormula(this, distance, right) }
-}
-
-infix fun ((String) -> Formula).distance(distanceId: String): Formula {
-    return this(distanceId)
-}
-
-infix fun Formula.until(right: Formula): Formula =
-    UntilFormula(this, right)
-
 
 /**
  * Singleton object used to define the general settings of the browser session.
@@ -120,16 +81,4 @@ object Spec {
     }
 
     val screen = AtomicFormula("screen")
-}
-
-//infix fun String.select(selector: Selector): Selector {
-//    return Selector(this)
-//}
-
-fun select(init: () -> String): Selector {
-    return Selector(init())
-}
-
-fun after(init: () -> String): Event {
-    return Event(init())
 }

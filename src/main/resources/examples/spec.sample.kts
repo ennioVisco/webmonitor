@@ -1,5 +1,4 @@
-import at.ac.tuwien.trustcps.*
-import eu.quanticol.moonlight.core.formula.*
+import at.ac.tuwien.trustcps.dsl.*
 
 Spec.atoms(
     select { ".cookieInfo" }  // [0]
@@ -25,8 +24,8 @@ val button = Spec.atoms[2]
 val er1 = isVisible and screen
 val innerEr2 = er1 and (button implies isHidden)
 val er2 = eventually(innerEr2)
-
-val test: Formula = screen reach2 screen distance "distance"
+val er3 = everywhere(er2)
+// val test = screen reach screen within interval(0, 10)
 
 // Final formula
-Spec.formula = test
+Spec.formula = er3

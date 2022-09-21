@@ -1,5 +1,5 @@
-import at.ac.tuwien.trustcps.WebSource
-import at.ac.tuwien.trustcps.tracking.Browser
+import at.ac.tuwien.trustcps.*
+import at.ac.tuwien.trustcps.tracking.*
 
 // Unfortunately, the frame-size is browser-specific.
 // Typically, all browsers have only a vertical frame,
@@ -12,11 +12,11 @@ WebSource.screenWidth = 600 // px
 WebSource.screenHeight = 500 // px
 
 // To date Google Chrome is the browser with the most stable APIs
-WebSource.browser = Browser.CHROME
+WebSource.browser = Browser.CHROME_HEADLESS
 
 WebSource.wait = 0
 
 WebSource.maxSessionDuration = 5_000 // ms
 
-WebSource.targetUrl = "https://enniovisco.github.io/webmonitor/"
+WebSource.targetUrl = "https://enniovisco.github.io/webmonitor/sample.html"
 

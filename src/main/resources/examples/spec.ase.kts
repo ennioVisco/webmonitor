@@ -1,4 +1,4 @@
-import at.ac.tuwien.trustcps.*
+import at.ac.tuwien.trustcps.dsl.*
 
 Spec.atoms = listOf(
     select { ".carousel" } read "visibility" equals "visible",
@@ -18,4 +18,4 @@ val isActive = Spec.atoms[4]
 
 // Final formula
 //Spec.formula = NegationFormula(AndFormula(pWidth, pHeight))
-Spec.formula = impliesFormula(isActive, cCaption)
+Spec.formula = isActive implies cCaption
