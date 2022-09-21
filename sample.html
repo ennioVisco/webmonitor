@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Sample page</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
+    <style>
+        h1 {
+            display: inline;
+        }
+
+        .cookieInfo {
+            width: 500px;
+            margin: 10px;
+            border: 5px solid;
+            padding: 10px;
+        }
+
+        dialog::backdrop {
+            background-color: rgba(0, 0, 0, 0.5);
+        }
+
+        #close {
+            position: relative;
+            top: -10px;
+            float: right;
+            border-radius: 50%;
+            padding-top: 3px;
+            padding-bottom: 3px;
+            border: none;
+            background-color: lightgray;
+        }
+
+        .info {
+            position: absolute;
+            bottom: -150px;
+        }
+    </style>
+</head>
+<body>
+<main>
+    <h1> Sample page </h1>
+    <div class="cookieInfo">
+        <button id="close">X</button>
+        <h2>Cookies</h2>
+        We use cookies to improve your experience on our site.
+        Read our
+        <a href="#">Cookie Policy</a>
+        or our
+        <a href="#">Privacy Policy</a>
+        to know more about how we handle your data.
+        <hr/>
+        <button> &#10003; Ok.</button>
+        <button>Learn more</button>
+    </div>
+    <section class="info">
+        <h2>Lorem ipsum</h2>
+        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Aspernatur dolor error facilis repudiandae sunt.
+            Adipisci deserunt id ipsum, molestiae nihil nisi perspiciatis, placeat quaerat qui quis reiciendis tempore
+            veritatis voluptatem!
+        </p>
+        <p>
+            Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem
+            aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo.
+            Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia consequuntur magni
+            dolores eos qui ratione voluptatem sequi nesciunt. Neque porro quisquam est, qui dolorem ipsum quia dolor
+            sit amet, consectetur, adipisci velit, sed quia non numquam eius modi tempora incidunt ut labore et dolore
+            magnam aliquam quaerat voluptatem. Ut enim ad minima veniam, quis nostrum exercitationem ullam corporis
+            suscipit laboriosam, nisi ut aliquid ex ea commodi consequatur? Quis autem vel eum iure reprehenderit qui in
+            ea voluptate velit esse quam nihil molestiae consequatur, vel illum qui dolorem eum fugiat quo voluptas
+            nulla pariatur?"
+        </p>
+    </section>
+</main>
+<script>
+    //document.getElementsByTagName("dialog")[0].showModal();
+    // window.addEventListener("load", function () {
+    //     console.log("Page ready")
+    // });
+    document.getElementById("close").onclick = function hide() {
+        document.querySelector(".cookieInfo").style.visibility = "hidden";
+    }
+</script>
+</body>
+</html>
