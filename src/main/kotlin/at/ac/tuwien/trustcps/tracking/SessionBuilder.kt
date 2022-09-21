@@ -59,6 +59,8 @@ class SessionBuilder(
 
         if (headless) {
             options.setHeadless(true)
+            options.addArguments("--no-sandbox")
+            options.addArguments("--disable-dev-shm-usage")
         }
 
         options.addArguments("--force-device-scale-factor=1")
