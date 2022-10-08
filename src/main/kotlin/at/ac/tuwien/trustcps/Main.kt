@@ -41,7 +41,8 @@ private fun validateArgs(args: Array<String>) {
             val (source) = args
             loadScripts(source, spec = source)
         } catch (e: ArrayIndexOutOfBoundsException) {
-            throw IllegalArgumentException("No source or spec provided.")
+            LOG.warn { "No input passed. Loading sample files." }
+            loadScripts(source = "sample", spec = "sample")
         }
     }
 }

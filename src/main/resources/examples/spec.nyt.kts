@@ -15,6 +15,6 @@ val cookieInfo = Spec.atoms[1]
 val cookieInfoIsVisible = cookieInfo and screen
 val learnMoreIsVisible = learnMoreButton and screen
 val bothVisibleAtSameTime = cookieInfoIsVisible and learnMoreIsVisible
-//val alwaysVisible = GloballyFormula(bothVisibleAtSameTime)
+val alwaysVisible = globally(bothVisibleAtSameTime)
 
-Spec.formula = cookieInfoIsVisible
+Spec.formula = alwaysVisible

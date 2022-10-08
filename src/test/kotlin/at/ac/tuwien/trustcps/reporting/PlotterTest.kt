@@ -40,7 +40,7 @@ internal class PlotterTest {
         val data = arrayOf(doubleArrayOf(0.0, 1.0), doubleArrayOf(1.0, 0.0))
         val plotter = Plotter(0, "test", data, grid)
 
-        assertDoesNotThrow {
+        assertDoesNotThrow("Are you sure you have a display manager?") {
             Platform.startup(plotter)
         }
     }

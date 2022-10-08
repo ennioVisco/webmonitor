@@ -39,7 +39,7 @@ class Checker(
         if (data.isEmpty()) {
             throw IllegalArgumentException("Empty data passed for the trace.")
         }
-        val m = Monitor(atoms, dist, BooleanDomain())
+        val m = Monitor(atoms, dist, BooleanDomain(), true)
         return m.monitor(spec).monitor(locationService, signal)
     }
 

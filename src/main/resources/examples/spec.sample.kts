@@ -25,7 +25,6 @@ val er1 = isVisible and screen
 val innerEr2 = er1 and (button implies isHidden)
 val er2 = eventually(innerEr2)
 val er3 = everywhere(er2)
-// val test = screen reach screen within interval(0, 10)
 
 // Final formula
 Spec.formula = er3

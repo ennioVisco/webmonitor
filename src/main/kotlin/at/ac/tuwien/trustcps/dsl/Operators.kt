@@ -9,8 +9,6 @@ import eu.quanticol.moonlight.formula.spatial.*
 import eu.quanticol.moonlight.formula.temporal.*
 import eu.quanticol.moonlight.space.*
 
-typealias NotFormula = NegationFormula
-
 // Interval shorthand
 typealias interval = Box<Int>
 

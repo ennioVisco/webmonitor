@@ -10,16 +10,20 @@ import java.net.*
 
 
 internal class SessionBuilderTest {
-    //@Disabled("Needs way to mock driver execution")
+
     @Test
     fun `browser session is initialized correctly`() {
         val url = URL("https://google.com")
         val dims = Dimension(800, 600)
 
-        SessionBuilder(url, mockk(), dims).use {
+        try {
+            SessionBuilder(url, mockk(), dims).use {
 
-            assertInstanceOf(ChromeDriver::class.java, it.driver)
-            assertEquals(dims, it.driver.manage().window().size)
+                assertInstanceOf(ChromeDriver::class.java, it.driver)
+                assertEquals(dims, it.driver.manage().window().size)
+            }
+        } catch (e: Exception) {
+            fail("Are you sure the Chrome browser is installed?", e)
         }
     }
 
