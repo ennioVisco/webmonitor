@@ -7,11 +7,11 @@ plugins {
     application
     jacoco
     checkstyle
-    id("org.sonarqube") version "3.3"
-    kotlin("jvm") version "1.6.20"
+    id("org.sonarqube") version "3.5.0.2730"
+    kotlin("jvm") version "1.7.21"
     id("org.openjfx.javafxplugin") version "0.0.13"
     id("org.javamodularity.moduleplugin") version ("1.8.10") apply false
-    id("org.jetbrains.dokka") version "1.7.10"
+    id("org.jetbrains.dokka") version "1.7.20"
 }
 
 repositories {
@@ -60,8 +60,8 @@ dependencies {
     implementation(files("lib/moonlight.jar"))
 
     // Selenium
-    implementation("org.seleniumhq.selenium:selenium-java:4.4.0")
-    implementation("io.github.bonigarcia:webdrivermanager:5.3.0")
+    implementation("org.seleniumhq.selenium:selenium-java:4.6.0")
+    implementation("io.github.bonigarcia:webdrivermanager:5.3.1")
 
     // TestFX (headless GUI)
     implementation("org.testfx:testfx-core:4.0.16-alpha")
@@ -69,15 +69,15 @@ dependencies {
     implementation("org.testfx:openjfx-monocle:jdk-12.0.1+2")
 
     // Dokka
-    implementation("org.jetbrains.dokka:dokka-gradle-plugin:1.7.10")
+    implementation("org.jetbrains.dokka:dokka-gradle-plugin:1.7.20")
 
     // Charts
-    implementation("eu.hansolo.fx:charts:17.1.21")
+    implementation("eu.hansolo.fx:charts:17.1.25")
 
     // Logging
-    implementation("io.github.microutils:kotlin-logging-jvm:2.1.23")
-    runtimeOnly("org.slf4j:slf4j-api:2.0.0")
-    implementation("ch.qos.logback:logback-classic:1.4.0")
+    implementation("io.github.microutils:kotlin-logging-jvm:3.0.4")
+    runtimeOnly("org.slf4j:slf4j-api:2.0.4")
+    implementation("ch.qos.logback:logback-classic:1.4.5")
 
     // Pretty printing (debug)
     implementation("com.tylerthrailkill.helpers:pretty-print:2.0.2")
@@ -86,7 +86,7 @@ dependencies {
     testImplementation(kotlin("test"))
     testImplementation(kotlin("test-junit5"))
     testImplementation("org.junit.jupiter:junit-jupiter:5.9.0")
-    testImplementation("io.mockk:mockk:1.12.7")
+    testImplementation("io.mockk:mockk:1.13.2")
     testImplementation("com.github.stefanbirkner:system-lambda:1.2.1")
 }
 
