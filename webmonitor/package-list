@@ -94,6 +94,8 @@ $dokka.location:at.ac.tuwien.trustcps.tracking/Browser.CHROME///PointingToDeclar
 $dokka.location:at.ac.tuwien.trustcps.tracking/Browser.CHROME_HEADLESS///PointingToDeclaration/{"org.jetbrains.dokka.links.EnumEntryDRIExtra":{"key":"org.jetbrains.dokka.links.EnumEntryDRIExtra"}}webmonitor/at.ac.tuwien.trustcps.tracking/-browser/-c-h-r-o-m-e_-h-e-a-d-l-e-s-s/index.html
 $dokka.location:at.ac.tuwien.trustcps.tracking/Browser.FIREFOX///PointingToDeclaration/{"org.jetbrains.dokka.links.EnumEntryDRIExtra":{"key":"org.jetbrains.dokka.links.EnumEntryDRIExtra"}}webmonitor/at.ac.tuwien.trustcps.tracking/-browser/-f-i-r-e-f-o-x/index.html
 $dokka.location:at.ac.tuwien.trustcps.tracking/Browser///PointingToDeclaration/webmonitor/at.ac.tuwien.trustcps.tracking/-browser/index.html
+$dokka.location:at.ac.tuwien.trustcps.tracking/Browser/valueOf/#kotlin.String/PointingToDeclaration/webmonitor/at.ac.tuwien.trustcps.tracking/-browser/value-of.html
+$dokka.location:at.ac.tuwien.trustcps.tracking/Browser/values/#/PointingToDeclaration/webmonitor/at.ac.tuwien.trustcps.tracking/-browser/values.html
 $dokka.location:at.ac.tuwien.trustcps.tracking/EventRecorder///PointingToDeclaration/webmonitor/at.ac.tuwien.trustcps.tracking/-event-recorder/index.html
 $dokka.location:at.ac.tuwien.trustcps.tracking/EventRecorder/EventRecorder/#org.openqa.selenium.remote.RemoteWebDriver#kotlin.String/PointingToDeclaration/webmonitor/at.ac.tuwien.trustcps.tracking/-event-recorder/-event-recorder.html
 $dokka.location:at.ac.tuwien.trustcps.tracking/EventRecorder/captureEvent/#kotlin.String#kotlin.String/PointingToDeclaration/webmonitor/at.ac.tuwien.trustcps.tracking/-event-recorder/capture-event.html
