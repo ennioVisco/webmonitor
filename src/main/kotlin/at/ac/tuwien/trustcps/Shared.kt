@@ -1,13 +1,14 @@
 package at.ac.tuwien.trustcps
 
 import at.ac.tuwien.trustcps.dsl.*
-import at.ac.tuwien.trustcps.tracking.*
 import eu.quanticol.moonlight.core.formula.*
 import eu.quanticol.moonlight.formula.*
 import eu.quanticol.moonlight.formula.classic.*
 import eu.quanticol.moonlight.offline.signal.*
 
 typealias GridSignal = SpatialTemporalSignal<Boolean>
+
+typealias Browser = at.ac.tuwien.trustcps.tracking.Browser
 
 /**
  * Singleton object used to define the general settings of the browser session.

@@ -10,6 +10,7 @@ import org.openqa.selenium.remote.*
 import java.io.*
 import java.net.*
 
+
 /**
  * Generates a WebDriver instance for the given browser (engine).
  * @param url the url the session should be started with
@@ -23,6 +24,8 @@ class SessionBuilder(
     dims: Dimension? = Dimension(1920, 1080),
     engine: Browser = Browser.CHROME_HEADLESS
 ) : Closeable {
+    private val chromeVerticalBrowserFrame = 133 // Chrome browser's offset
+
     /**
      * The WebDriver instance.
      */
@@ -48,13 +51,10 @@ class SessionBuilder(
         WebDriverManager.chromedriver().setup()
         val options = ChromeOptions()
         if (dims?.width!! < 500 || dims.height < 400) {
-            //val wdm = WebDriverManager.chromedriver().browserInDockerAndroid()
-            //return wdm.create() as ChromeDriver
-            val mobileEmulation = mapOf("deviceName" to "iPhone 5/SE")
-            options.setExperimentalOption(
-                "mobileEmulation",
-                mobileEmulation
-            )
+            initMobileChrome(options, "iPhone 5/SE")
+        } else {
+            val windowSizeFlag = "--window-size=${dims.width},${dims.height}"
+            options.addArguments(windowSizeFlag)
         }
 
         if (headless) {
@@ -62,9 +62,34 @@ class SessionBuilder(
             options.addArguments("--no-sandbox")
             options.addArguments("--disable-dev-shm-usage")
         }
-
-        options.addArguments("--force-device-scale-factor=1")
+        
         return ChromeDriver(options)
+    }
+
+    private fun initMobileChrome(options: ChromeOptions, device: String) {
+        val mobileDevice = selectMobileDevice(device)
+        val mobileEmulation = mobileDevice.deviceName
+        options.setExperimentalOption("mobileEmulation", mobileEmulation)
+        val windowWidth = mobileDevice.width
+        val windowHeight = mobileDevice.height + chromeVerticalBrowserFrame
+        val windowSizeFlag = "--window-size=$windowWidth,$windowHeight"
+        options.addArguments(windowSizeFlag)
+    }
+
+    private fun selectMobileDevice(key: String): Device {
+        val devices: List<Device> = listOf(
+            Device("iPhone 5/SE", 375, 667),
+        )
+        return devices.find { it.name == key }
+            ?: throw Error("The device \"$key\" is not supported yet!")
+    }
+
+    private data class Device(
+        val name: String,
+        val width: Int,
+        val height: Int
+    ) {
+        val deviceName = mapOf("deviceName" to name)
     }
 
     private fun startDevTools(
@@ -77,7 +102,7 @@ class SessionBuilder(
     }
 
     init {
-        driver.manage().window().size = dims
+//        driver.manage().window().size = dims
         driver.get(url.toString())
     }
 

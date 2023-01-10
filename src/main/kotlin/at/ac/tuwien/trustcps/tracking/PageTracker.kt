@@ -29,6 +29,7 @@ class PageTracker(
     private val events = ArrayList<Pair<String, String>>()
     private var snapshotBuilder: SnapshotBuilder? = null
     private val log = KotlinLogging.logger {}
+    var metadata = mapOf<String, String>()
 
     /**
      * Lazily selects some elements to track from the page
@@ -72,7 +73,7 @@ class PageTracker(
 
     private fun recordEvents(driver: RemoteWebDriver) {
         val recorder = EventRecorder(driver, prefix)
-        recorder.capturePageLoaded()
+        metadata = recorder.capturePageLoaded()
         events.forEach { recorder.captureEvent(it.first, it.second) }
     }
 

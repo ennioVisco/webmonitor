@@ -1,4 +1,4 @@
-import at.ac.tuwien.trustcps.WebSource
+import at.ac.tuwien.trustcps.*
 import at.ac.tuwien.trustcps.tracking.Browser
 
 // Unfortunately, the frame-size is browser-specific.

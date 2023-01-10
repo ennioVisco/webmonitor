@@ -13,14 +13,14 @@ internal class PlotterTest {
 
     @Test
     fun `classic JavaFX init is not allowed`() {
-        val plotter = Plotter(0, "test", arrayOf(doubleArrayOf(0.0)), grid)
+        val plotter = Plotter(0, "test", arrayOf(doubleArrayOf(0.0)), grid, 1.0)
 
         assertFailsWith<UnsupportedOperationException> { plotter.init() }
     }
 
     @Test
     fun `classic JavaFX start is not allowed`() {
-        val plotter = Plotter(0, "test", arrayOf(doubleArrayOf(0.0)), grid)
+        val plotter = Plotter(0, "test", arrayOf(doubleArrayOf(0.0)), grid, 1.0)
 
         assertFailsWith<UnsupportedOperationException> {
             plotter.start(mockk())
@@ -30,7 +30,7 @@ internal class PlotterTest {
 
     @Test
     fun `classic JavaFX stop is not allowed`() {
-        val plotter = Plotter(0, "test", arrayOf(doubleArrayOf(0.0)), grid)
+        val plotter = Plotter(0, "test", arrayOf(doubleArrayOf(0.0)), grid, 1.0)
 
         assertFailsWith<UnsupportedOperationException> { plotter.stop() }
     }
@@ -38,7 +38,7 @@ internal class PlotterTest {
     @Test
     fun `plotter plots something`() {
         val data = arrayOf(doubleArrayOf(0.0, 1.0), doubleArrayOf(1.0, 0.0))
-        val plotter = Plotter(0, "test", data, grid)
+        val plotter = Plotter(0, "test", data, grid, 1.0)
 
         assertDoesNotThrow("Are you sure you have a display manager?") {
             Platform.startup(plotter)
@@ -54,7 +54,7 @@ internal class PlotterTest {
         justRun { mockStage.title = any() }
         justRun { mockStage.scene = any() }
 
-        val plotterSkeleton = Plotter(0, "test", data, grid)
+        val plotterSkeleton = Plotter(0, "test", data, grid, 1.0)
         val plotter = spyk(plotterSkeleton, recordPrivateCalls = true)
         every {
             plotter invoke "spawnStage" withArguments

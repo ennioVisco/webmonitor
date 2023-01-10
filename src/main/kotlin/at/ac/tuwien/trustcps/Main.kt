@@ -4,12 +4,12 @@ import at.ac.tuwien.trustcps.checking.*
 import at.ac.tuwien.trustcps.reporting.*
 import at.ac.tuwien.trustcps.space.*
 import at.ac.tuwien.trustcps.tracking.*
-import mu.*
 import org.openqa.selenium.*
 import java.net.*
 import javax.script.*
 
-private val LOG = KotlinLogging.logger {}
+private typealias ResultData = List<Map<String, String>>
+private typealias Metadata = Map<String, String>
 
 fun main(args: Array<String>) {
     validateArgs(args)
@@ -17,7 +17,8 @@ fun main(args: Array<String>) {
     val report = Reporter(toFile = false)
 
     report.title("Tracking")
-    val snapshots = tracking()
+    val (snapshots, metadata) = tracking()
+    processMetadata(metadata, report)
 
     report.title("Checking")
     val grid = generateSpatialModel(snapshots[0])
@@ -32,6 +33,11 @@ fun main(args: Array<String>) {
     report.title("Ending")
 }
 
+fun processMetadata(metadata: Metadata, report: Reporter) {
+    report.devicePixelRatio = metadata["devicePixelRatio"]?.toDouble()
+        ?: throw Error("No device pixel ratio found")
+}
+
 private fun validateArgs(args: Array<String>) {
     try {
         val (source, spec) = args
@@ -41,7 +47,6 @@ private fun validateArgs(args: Array<String>) {
             val (source) = args
             loadScripts(source, spec = source)
         } catch (e: ArrayIndexOutOfBoundsException) {
-            LOG.warn { "No input passed. Loading sample files." }
             loadScripts(source = "sample", spec = "sample")
         }
     }
@@ -57,7 +62,8 @@ private fun loadScripts(source: String, spec: String) {
 private fun loadResource(name: String) =
     object {}.javaClass.classLoader.getResourceAsStream(name)?.bufferedReader()
 
-private fun tracking(): List<Map<String, String>> {
+
+private fun tracking(): Pair<ResultData, Metadata> {
     val baseUrl = URL(WebSource.targetUrl)
     val dimensions = Dimension(WebSource.screenWidth, WebSource.screenHeight)
     val tracker = PageTracker(
@@ -69,7 +75,9 @@ private fun tracking(): List<Map<String, String>> {
     Spec.atomsAsIds().forEach { tracker.select(it) }
     Spec.record.forEach { tracker.record(it.asPair()) }
 
-    return tracker.run()
+    val results = tracker.run()
+
+    return Pair(results, tracker.metadata)
 }
 
 private fun checking(grid: Grid, data: List<Map<String, String>>): GridSignal {

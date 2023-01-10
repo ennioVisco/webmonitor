@@ -27,6 +27,7 @@ class Plotter(
     private val title: String,
     data: Array<DoubleArray>,
     private val grid: Grid,
+    private val deviceRatio: Double,
     private val withBackground: Boolean = true
 ) : Application(), Runnable {
     private val columns = data.size //TODO: should compare to grid
@@ -37,12 +38,17 @@ class Plotter(
      * Initializes the data to plot a heatmap
      */
     private fun addData(data: Array<DoubleArray>): MatrixPane<MatrixChartItem> {
-        val plotData: MutableList<MatrixChartItem> = ArrayList()
-        for (x in 0 until columns) {
-            for (y in 0 until rows) {
-                plotData.add(MatrixChartItem(x, y, data[x][y]))
+        // val plotData: MutableList<MatrixChartItem> = ArrayList()
+        val plotData = (0 until columns).map { x ->
+            (0 until rows).map { y ->
+                MatrixChartItem(x, y, data[x][y])
             }
-        }
+        }.flatten()
+//        for (x in 0 until columns) {
+//            for (y in 0 until rows) {
+//                plotData.add(MatrixChartItem(x, y, data[x][y]))
+//            }
+//        }
         val series = MatrixItemSeries(plotData, ChartType.MATRIX_HEATMAP)
         val color = Color(1.0, 1.0, 1.0, 0.4)
         return MatrixPane(color, series)
@@ -83,14 +89,30 @@ class Plotter(
         val backgroundURL =
             File(fileName).canonicalFile.toURI().toURL().toString()
         val image = Image(backgroundURL)
+
+        val backgroundSize = BackgroundSize(
+            image.width / deviceRatio,
+            image.height / deviceRatio,
+            false,
+            false,
+            false,
+            false
+        )
+
         val backgroundImage = BackgroundImage(
             image,
             BackgroundRepeat.NO_REPEAT,
             BackgroundRepeat.NO_REPEAT,
             BackgroundPosition.DEFAULT,
-            BackgroundSize.DEFAULT
+            backgroundSize
         )
         return Background(backgroundImage)
+    }
+
+    private fun retinaSize(): BackgroundSize {
+        val width = BackgroundSize.DEFAULT.width / 2
+        val height = BackgroundSize.DEFAULT.height / 2
+        return BackgroundSize(-1.0, -1.0, true, true, false, true)
     }
 
     private fun configPlot() {
@@ -105,8 +127,8 @@ class Plotter(
 
     private fun rescale(): Scale {
         val scale = Scale()
-        //scale.x = 0.8
-        //scale.y = 0.8
+        scale.x = 0.8
+        scale.y = 0.8
         return scale
     }
 

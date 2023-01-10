@@ -14,7 +14,8 @@ import java.time.temporal.*
  */
 class Reporter(
     private val toConsole: Boolean = false,
-    private val toFile: Boolean = false
+    private val toFile: Boolean = false,
+    var devicePixelRatio: Double = 1.0,
 ) {
     private val logTimeGranularity =
         LocalDateTime.now().truncatedTo(ChronoUnit.SECONDS)
@@ -23,17 +24,16 @@ class Reporter(
 
     private fun outputLine(text: String) = "[$logTimeGranularity] - $text\n"
 
-    fun mark(text: String) {
+    fun mark(text: String, important: Boolean = false) {
         val data = outputLine(text)
-        if (toConsole) {
+        if (toConsole || important) {
             print(data)
         }
         buffer.add(data)
     }
 
     fun title(text: String) {
-        println(text)
-        mark(text)
+        mark(text, true)
     }
 
     /**
@@ -65,12 +65,20 @@ class Reporter(
         grid: Grid
     ) {
         try {
-            Platform.startup(Plotter(id, title, values, grid))
+            Platform.startup(Plotter(id, title, values, grid, devicePixelRatio))
         } catch (e: IllegalStateException) {
             println("JavaFX platform already instantiated. Skipping.")
-            Platform.runLater(Plotter(id, title, values, grid))
+            Platform.runLater(
+                Plotter(
+                    id,
+                    title,
+                    values,
+                    grid,
+                    devicePixelRatio
+                )
+            )
         } finally {
-            Platform.exit()
+            // Platform.exit()
         }
     }
 

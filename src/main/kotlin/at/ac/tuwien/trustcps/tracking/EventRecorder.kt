@@ -33,7 +33,7 @@ class EventRecorder(
     /**
      * Records the page-load event.
      */
-    fun capturePageLoaded() {
+    fun capturePageLoaded(): Map<String, String> {
         exec(// language=JavaScript
             """
             if(document.readyState === "complete") {
@@ -45,13 +45,17 @@ class EventRecorder(
             } 
             """
         )
+
+        val getPixelRatio = "return window.devicePixelRatio"
+        val currentPixelRatio = driver.executeScript(getPixelRatio).toString()
+//        LOG.info("The device pixel ratio is $currentPixelRatio")
+        return mapOf(
+            "devicePixelRatio" to currentPixelRatio,
+        )
     }
 
     private fun print(msg: String) = "console.log('$prefix$msg');"
 
     private fun exec(command: String) = driver.executeScript(command)
 
-    init {
-        exec("window.devicePixelRatio = 1;")
-    }
 }

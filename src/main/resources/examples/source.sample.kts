@@ -1,5 +1,4 @@
 import at.ac.tuwien.trustcps.*
-import at.ac.tuwien.trustcps.tracking.*
 
 // Unfortunately, the frame-size is browser-specific.
 // Typically, all browsers have only a vertical frame,
@@ -8,15 +7,15 @@ import at.ac.tuwien.trustcps.tracking.*
 val verticalBrowserFrame = 133 // px, i.e. Chrome browser's offset
 
 // We are targeting the Pixel 5 resolution
-WebSource.screenWidth = 60 // px
-WebSource.screenHeight = 50 // px
+WebSource.screenWidth = 500 // px
+WebSource.screenHeight = 400 + verticalBrowserFrame // px
 
 // To date Google Chrome is the browser with the most stable APIs
 WebSource.browser = Browser.CHROME_HEADLESS
 
 WebSource.wait = 0
 
-WebSource.maxSessionDuration = 5_000 // ms
+WebSource.maxSessionDuration = 55_000 // ms
 
 WebSource.targetUrl = "https://enniovisco.github.io/webmonitor/sample.html"
 

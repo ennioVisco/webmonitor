@@ -55,7 +55,7 @@ infix fun SomewhereFormula.within(distanceInterval: interval) =
     SomewhereFormula(addDistanceFunction(distanceInterval), this.argument)
 
 infix fun EverywhereFormula.within(distanceInterval: interval) =
-    SomewhereFormula(addDistanceFunction(distanceInterval), this.argument)
+    EverywhereFormula(addDistanceFunction(distanceInterval), this.argument)
 
 infix fun ReachFormula.within(distanceInterval: interval) =
     ReachFormula(
