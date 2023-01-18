@@ -78,7 +78,8 @@ class Reporter(
                 )
             )
         } finally {
-            // Platform.exit()
+            Thread.sleep(60_000);
+            Platform.exit()
         }
     }
 
