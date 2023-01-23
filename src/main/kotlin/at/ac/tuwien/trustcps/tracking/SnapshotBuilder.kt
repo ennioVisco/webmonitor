@@ -38,14 +38,17 @@ class SnapshotBuilder(
         MetadataCollector(driver::executeScript).dump(data)
 
     private fun bindValues(
-        labels: List<String>,
-        data: MutableMap<String, String>
-    ) =
-        BoundsInitializer(labels, driver::executeScript).dump(data)
+        labels: List<String>, data: MutableMap<String, String>
+    ) {
+        val bounds = BoundsInitializer(labels, driver::executeScript)
+        bounds.dump(data)
+    }
 
     private fun doSelect(cssQuery: String, data: MutableMap<String, String>) {
         val findCss = { q: String -> driver.findElement(By.cssSelector(q)) }
-        SelectorCollector(cssQuery, findCss).dump(data)
+        val collector =
+            SelectorCollector(cssQuery, findCss, driver::executeScript)
+        collector.dump(data)
     }
 
     private fun takeScreenshot(id: Int) {

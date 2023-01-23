@@ -7,7 +7,8 @@ class BoundsInitializer(labels: List<String>, cmdExec: (String) -> Unit) :
 
     init {
         labels.forEach {
-            cmdExec("""root.style.setProperty('--$BOUNDS_PREFIX$it', '')""")
+            cmdExec("document.querySelector(':root').style.setProperty('--$BOUNDS_PREFIX$it', '')")
+            println("Initializing bound: $it")
         }
     }
 

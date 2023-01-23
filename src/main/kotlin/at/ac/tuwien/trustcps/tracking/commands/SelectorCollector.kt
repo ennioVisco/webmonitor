@@ -5,7 +5,8 @@ import org.openqa.selenium.*
 
 class SelectorCollector(
     queryString: String,
-    cmdExec: (command: String) -> WebElement
+    cmdExec: (command: String) -> WebElement,
+    private val rawCmdExec: (command: String) -> Any,
 ) :
     BrowserCommand(cmdExec) {
     private val selectorX: String
@@ -40,12 +41,19 @@ class SelectorCollector(
 
     private fun initializeBound(
         isBinding: String,
-        bound: String,
-        currentValue: String
+        currentValue: String,
+        bound: String
     ): String {
         return if (isBinding == "true") {
-            val actual = cmdExec("root.style.getPropertyValue(${prop(bound)})")
-            updateOrReturn(actual, bound, currentValue)
+            val actual =
+                rawCmdExec(
+                    "return document.querySelector(':root').style.getPropertyValue(${
+                        prop(
+                            bound
+                        )
+                    })"
+                )
+            updateOrReturn(actual, currentValue, bound)
         } else {
             ""
         }
@@ -54,20 +62,29 @@ class SelectorCollector(
     private fun prop(bound: String) = "'--$BOUNDS_PREFIX$bound'"
 
     private fun updateOrReturn(
-        actual: Any,
-        bound: String,
-        currentValue: String
+        actual: Any?,
+        currentValue: String,
+        bound: String
     ): String {
-        return if (actual.toString() == "") {
-            cmdExec("root.style.setProperty(${prop(bound)}, '$currentValue')")
+        return if (actual == null || actual.toString() == "") {
+            rawCmdExec(
+                "document.querySelector(':root').style.setProperty(${
+                    prop(bound)
+                }, '$currentValue')"
+            )
+            println("Bound '$bound' set to '$currentValue'")
             currentValue
-        } else actual.toString()
+        } else {
+            println("Bound '$bound' already set to '$actual'")
+            actual.toString()
+        }
     }
 
     private fun initializeProperty(property: String, elem: WebElement): String {
         return if (property != "") {
-            println("Property '$property' value: $selectorProperty")
-            elem.getCssValue(property)
+            val actual = elem.getCssValue(property)
+            println("Property '$property' value: $actual")
+            actual
         } else {
             ""
         }

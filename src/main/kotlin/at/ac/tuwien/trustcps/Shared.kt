@@ -65,7 +65,7 @@ object Spec {
     /**
      * List of atom labels to consider. These must be valid CSS selectors.
      */
-    val bounds = mutableListOf<String>()
+    var bounds = emptyList<String>()
 
     /**
      * Formula that determines the specification to analyse.
@@ -82,8 +82,8 @@ object Spec {
         atoms = selectors.toList()
     }
 
-    fun bind(label: String) {
-        bounds.add(label)
+    fun bounds(vararg labels: String) {
+        bounds = labels.toList()
     }
 
     fun atomsAsIds(): List<String> {
