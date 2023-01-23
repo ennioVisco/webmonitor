@@ -92,6 +92,7 @@ $dokka.location:at.ac.tuwien.trustcps.space/Grid/size/#/PointingToDeclaration/w
 $dokka.location:at.ac.tuwien.trustcps.space/Grid/toNode/#kotlin.Pair[kotlin.Int,kotlin.Int]/PointingToDeclaration/webmonitor/at.ac.tuwien.trustcps.space/-grid/to-node.html
 $dokka.location:at.ac.tuwien.trustcps.space/Grid/toXY/#kotlin.Int/PointingToDeclaration/webmonitor/at.ac.tuwien.trustcps.space/-grid/to-x-y.html
 $dokka.location:at.ac.tuwien.trustcps.tracking.commands////PointingToDeclaration/webmonitor/at.ac.tuwien.trustcps.tracking.commands/index.html
+$dokka.location:at.ac.tuwien.trustcps.tracking.commands//BOUNDS_PREFIX/#/PointingToDeclaration/webmonitor/at.ac.tuwien.trustcps.tracking.commands/-b-o-u-n-d-s_-p-r-e-f-i-x.html
 $dokka.location:at.ac.tuwien.trustcps.tracking.commands/BoundsInitializer///PointingToDeclaration/webmonitor/at.ac.tuwien.trustcps.tracking.commands/-bounds-initializer/index.html
 $dokka.location:at.ac.tuwien.trustcps.tracking.commands/BoundsInitializer/BoundsInitializer/#kotlin.collections.List[kotlin.String]#kotlin.Function1[kotlin.String,kotlin.Unit]/PointingToDeclaration/webmonitor/at.ac.tuwien.trustcps.tracking.commands/-bounds-initializer/-bounds-initializer.html
 $dokka.location:at.ac.tuwien.trustcps.tracking.commands/BoundsInitializer/dump/#kotlin.collections.MutableMap[kotlin.String,kotlin.String]/PointingToDeclaration/webmonitor/at.ac.tuwien.trustcps.tracking.commands/-bounds-initializer/dump.html
