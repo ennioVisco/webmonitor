@@ -73,6 +73,7 @@ private fun tracking(): Pair<ResultData, Metadata> {
     )
 
     Spec.atomsAsIds().forEach { tracker.select(it) }
+    Spec.bounds.forEach { tracker.bind(it) }
     Spec.record.forEach { tracker.record(it.asPair()) }
 
     val results = tracker.run()

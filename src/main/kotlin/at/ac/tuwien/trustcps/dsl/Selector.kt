@@ -31,6 +31,10 @@ data class Selector(
         return Selector(queryString, attribute, comparison, state, "=")
     }
 
+    infix fun bind(label: String): Selector {
+        return Selector(queryString, attribute, label, state, "bind")
+    }
+
     infix fun greaterThan(comparison: Any): Selector {
         return Selector(queryString, attribute, comparison, state, ">")
     }

@@ -8,17 +8,16 @@ import kotlin.test.*
 
 internal class SnapshotBuilderTest {
     private val selectors = listOf("body")
-    private val irrelevantId = 0
+    private val firstAndOnlyOne = 0
 
     @Test
     fun `can fetch a basic selector`() {
         val fakeDriver = mockWebDrive()
-        val snapshot = SnapshotBuilder(fakeDriver, selectors)
-        val fakeElement = mockWebElement()
+        val snapshot = SnapshotBuilder(fakeDriver, selectors, emptyList())
 
-        every { fakeDriver.findElement(any()) } returns fakeElement
+        every { fakeDriver.findElement(any()) } returns mockWebElement()
 
-        assertEquals("0", snapshot.collect(irrelevantId)["body::y"])
+        assertEquals("0", snapshot.collect(firstAndOnlyOne)["body::y"])
     }
 
     private fun mockWebDrive(): RemoteWebDriver {
@@ -26,7 +25,7 @@ internal class SnapshotBuilderTest {
         every { driver.executeScript(any<String>()) } returns "body"
         return driver
     }
-    
+
     private fun mockWebElement(): WebElement {
         val element = mockk<WebElement>()
         every { element.rect } returns Rectangle(0, 0, 100, 100)

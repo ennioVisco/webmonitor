@@ -63,6 +63,11 @@ object Spec {
     var atoms = emptyList<Selector>()
 
     /**
+     * List of atom labels to consider. These must be valid CSS selectors.
+     */
+    val bounds = mutableListOf<String>()
+
+    /**
      * Formula that determines the specification to analyse.
      */
     var formula: Formula = NegationFormula(null)
@@ -75,6 +80,10 @@ object Spec {
 
     fun atoms(vararg selectors: Selector) {
         atoms = selectors.toList()
+    }
+
+    fun bind(label: String) {
+        bounds.add(label)
     }
 
     fun atomsAsIds(): List<String> {

@@ -26,6 +26,7 @@ class PageTracker(
     private val prefix: String = "[wm] "
     private val snapshots = mutableListOf<Map<String, String>>()
     private val selectors = ArrayList<String>()
+    private val bounds = ArrayList<String>()
     private val events = ArrayList<Pair<String, String>>()
     private var snapshotBuilder: SnapshotBuilder? = null
     private val log = KotlinLogging.logger {}
@@ -37,6 +38,14 @@ class PageTracker(
      */
     fun select(queryString: String) {
         selectors.add(queryString)
+    }
+
+    /**
+     * Lazily bind same labels to elements' values
+     * @param label is a label to which some values will be bound
+     */
+    fun bind(label: String) {
+        bounds.add(label)
     }
 
     /**
@@ -64,7 +73,7 @@ class PageTracker(
      */
     fun run(): List<Map<String, String>> {
         spawnBrowserSession().use {
-            snapshotBuilder = SnapshotBuilder(it.driver, selectors, toFile)
+            snapshotBuilder = SnapshotBuilder(it.driver, selectors, bounds, toFile)
             recordEvents(it.driver)
             Thread.sleep(maxSessionDuration)
         }
