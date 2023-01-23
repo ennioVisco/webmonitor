@@ -2,6 +2,7 @@ package at.ac.tuwien.trustcps.checking
 
 import at.ac.tuwien.trustcps.dsl.*
 import at.ac.tuwien.trustcps.space.*
+import at.ac.tuwien.trustcps.tracking.commands.*
 import eu.quanticol.moonlight.offline.signal.*
 import kotlin.math.*
 
@@ -86,6 +87,8 @@ class TraceBuilder(
             "<"
         } else if (atom.contains('=')) {
             "="
+        } else if (atom.contains('@')) {
+            "@"
         } else {
             ""
         }
@@ -104,11 +107,21 @@ class TraceBuilder(
                 "<" -> parsePixels(value) < parsePixels(comparator)
                 "<=" -> parsePixels(value) <= parsePixels(comparator)
                 "=" -> value == comparator
+                "&" -> sameAsBound(comparator, value, data[t])
                 "" -> data[t]["$selector::${property}"] == value
                 else -> error("Unsupported operator in atom definition")
             }
         }
         return true
+    }
+
+    private fun sameAsBound(
+        bound: String,
+        value: String,
+        snapshot: Map<String, String>
+    ): Boolean {
+        val bound = snapshot["$BOUNDS_PREFIX-$bound"]!!
+        return value == bound
     }
 
     private fun Box.has(location: Int): Boolean {

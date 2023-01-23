@@ -32,7 +32,7 @@ data class Selector(
     }
 
     infix fun bind(label: String): Selector {
-        return Selector(queryString, attribute, label, state, "bind")
+        return Selector(queryString, attribute, label, state, "&")
     }
 
     infix fun greaterThan(comparison: Any): Selector {

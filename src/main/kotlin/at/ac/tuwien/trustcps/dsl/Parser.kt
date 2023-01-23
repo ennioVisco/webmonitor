@@ -4,12 +4,13 @@ package at.ac.tuwien.trustcps.dsl
 fun parseSelector(queryString: String): List<String> {
     val sanitized = queryString
         .replace("\\s+".toRegex(), " ")
-        .split('$', '<', '>', '=', limit = 3)
+        .split('$', '<', '>', '=', '&', limit = 3)
         .map { it.trim() }
+    val isBinding = queryString.contains('&').toString()
     return if (sanitized.size < 2) {
-        listOf(sanitized[0], "", "")
+        listOf(sanitized[0], "", "", isBinding)
     } else {
-        sanitized
+        sanitized + isBinding
     }
 }
 

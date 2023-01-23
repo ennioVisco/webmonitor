@@ -5,10 +5,9 @@ import org.openqa.selenium.*
 
 class SelectorCollector(
     queryString: String,
-    commandExecutor: (command: String) -> WebElement
+    cmdExec: (command: String) -> WebElement
 ) :
-    BrowserCommand(commandExecutor) {
-
+    BrowserCommand(cmdExec) {
     private val selectorX: String
     private val selectorY: String
     private val selectorWidth: String
@@ -16,12 +15,13 @@ class SelectorCollector(
     private val selectorProperty: String
     private val cssQuery: String
     private val cssProperty: String
+    private val boundValue: String
 
     init {
-        val (cssQuery, cssProperty, _) = parseSelector(queryString)
-        this.cssQuery = cssQuery
-        this.cssProperty = cssProperty
-        val elem = commandExecutor(cssQuery)
+        val (query, property, value, isBinding) = parseSelector(queryString)
+        cssQuery = query
+        cssProperty = property
+        val elem = cmdExec(query)
 
         // Rectangle class provides getX,getY, getWidth, getHeight methods
         selectorX = elem.rect.x.toString()
@@ -30,17 +30,46 @@ class SelectorCollector(
         selectorHeight = elem.rect.width.toString()
 
         println(
-            "Element <${cssQuery}> = " +
-                    "(${selectorX}, ${selectorY})" +
-                    " -> " +
-                    "(${selectorWidth}, ${selectorHeight})"
+            "Element <${query}> = (${selectorX}, ${selectorY})" +
+                    " -> (${selectorWidth}, ${selectorHeight})"
         )
 
-        if (cssProperty != "") {
-            selectorProperty = elem.getCssValue(cssProperty)
-            println("Property '$cssProperty' value: $selectorProperty")
+        selectorProperty = initializeProperty(property, elem)
+        boundValue = initializeBound(isBinding, selectorProperty, value)
+    }
+
+    private fun initializeBound(
+        isBinding: String,
+        bound: String,
+        currentValue: String
+    ): String {
+        return if (isBinding == "true") {
+            val actual = cmdExec("root.style.getPropertyValue(${prop(bound)})")
+            updateOrReturn(actual, bound, currentValue)
         } else {
-            selectorProperty = ""
+            ""
+        }
+    }
+
+    private fun prop(bound: String) = "'--$BOUNDS_PREFIX$bound'"
+
+    private fun updateOrReturn(
+        actual: Any,
+        bound: String,
+        currentValue: String
+    ): String {
+        return if (actual.toString() == "") {
+            cmdExec("root.style.setProperty(${prop(bound)}, '$currentValue')")
+            currentValue
+        } else actual.toString()
+    }
+
+    private fun initializeProperty(property: String, elem: WebElement): String {
+        return if (property != "") {
+            println("Property '$property' value: $selectorProperty")
+            elem.getCssValue(property)
+        } else {
+            ""
         }
     }
 
@@ -51,6 +80,10 @@ class SelectorCollector(
         target["$cssQuery::height"] = selectorHeight
         if (cssProperty != "") {
             target["$cssQuery::$cssProperty"] = selectorProperty
+        }
+
+        if (boundValue != "") {
+            target["$BOUNDS_PREFIX$boundValue"] = "true"
         }
     }
 
