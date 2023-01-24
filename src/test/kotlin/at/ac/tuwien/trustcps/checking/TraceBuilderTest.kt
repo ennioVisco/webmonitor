@@ -1,5 +1,6 @@
 package at.ac.tuwien.trustcps.checking
 
+import at.ac.tuwien.trustcps.*
 import at.ac.tuwien.trustcps.space.*
 import eu.quanticol.moonlight.offline.signal.*
 import org.junit.jupiter.api.*
@@ -166,18 +167,6 @@ internal class TraceBuilderTest {
                 listOf(false)
             }
         }
-        signal
-    }
-
-    private val alwaysTrueSignal = run {
-        val signal = SpatialTemporalSignal<List<Boolean>>(9)
-        signal.add(0.0) { listOf(true) }
-        signal
-    }
-
-    private val alwaysFalseSignal = run {
-        val signal = SpatialTemporalSignal<List<Boolean>>(9)
-        signal.add(0.0) { listOf(false) }
         signal
     }
 

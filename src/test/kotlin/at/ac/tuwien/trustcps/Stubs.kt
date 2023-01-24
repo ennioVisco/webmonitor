@@ -3,6 +3,18 @@ package at.ac.tuwien.trustcps
 import eu.quanticol.moonlight.offline.signal.*
 import java.util.function.*
 
+val alwaysTrueSignal = run {
+    val signal = SpatialTemporalSignal<List<Boolean>>(9)
+    signal.add(0.0) { listOf(true) }
+    signal
+}
+
+val alwaysFalseSignal = run {
+    val signal = SpatialTemporalSignal<List<Boolean>>(9)
+    signal.add(0.0) { listOf(false) }
+    signal
+}
+
 fun evenLocationsAreTrueSignal(size: Int) =
     createStubSignal(size) { _, location ->
         location % 2 == 0

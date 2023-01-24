@@ -13,9 +13,10 @@ internal class SnapshotBuilderTest {
     @Test
     fun `can fetch a basic selector`() {
         val fakeDriver = mockWebDrive()
-        val snapshot = SnapshotBuilder(fakeDriver, selectors, emptyList())
-
         every { fakeDriver.findElement(any()) } returns mockWebElement()
+        every { fakeDriver.getScreenshotAs(OutputType.FILE) } returns mockk()
+
+        val snapshot = SnapshotBuilder(fakeDriver, selectors, emptyList())
 
         assertEquals("0", snapshot.collect(firstAndOnlyOne)["body::y"])
     }

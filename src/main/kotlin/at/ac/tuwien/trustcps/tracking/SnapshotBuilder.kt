@@ -52,8 +52,8 @@ class SnapshotBuilder(
     }
 
     private fun takeScreenshot(id: Int) {
-        val scrFile = driver.getScreenshotAs(OutputType.FILE)
+        val screenshotFile = driver.getScreenshotAs(OutputType.FILE)
         val outputFile = File("./output/snap_${id}.png")
-        FileUtils.copyFile(scrFile, outputFile)
+        FileUtils.copyFile(screenshotFile, outputFile)
     }
 }
