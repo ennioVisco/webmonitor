@@ -36,7 +36,7 @@ class EventRecorder(
     fun capturePageLoaded(): Map<String, String> {
         exec(// language=JavaScript
             """
-            if(document.readyState === "complete") {
+            if(document.readyState === 'complete') {
                 ${print("page is fully loaded")}
             } else {
                 window.addEventListener('load', () => { 

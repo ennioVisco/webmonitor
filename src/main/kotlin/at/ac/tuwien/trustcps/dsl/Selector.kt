@@ -23,11 +23,11 @@ data class Selector(
     }
 
     infix fun at(state: String): Selector {
+        // TODO: not sure it is currently working!
         return Selector(queryString, state = state)
     }
 
-    @Suppress("CovariantEquals")
-    infix fun equals(comparison: Any): Selector {
+    infix fun equalTo(comparison: Any): Selector {
         return Selector(queryString, attribute, comparison, state, "=")
     }
 
@@ -39,7 +39,7 @@ data class Selector(
         return Selector(queryString, attribute, comparison, state, ">")
     }
 
-    infix fun greaterEqualsThan(comparison: Any): Selector {
+    infix fun greaterEqualThan(comparison: Any): Selector {
         return Selector(queryString, attribute, comparison, state, ">=")
     }
 
@@ -47,7 +47,7 @@ data class Selector(
         return Selector(queryString, attribute, comparison, state, "<")
     }
 
-    infix fun lessEqualsThan(comparison: Any): Selector {
+    infix fun lessEqualThan(comparison: Any): Selector {
         return Selector(queryString, attribute, comparison, state, "<=")
     }
 
@@ -69,6 +69,10 @@ data class Selector(
             attribute: String,
             op: String,
             comparison: Any?
-        ) = if (attribute != "") "\$$attribute $op $comparison" else ""
+        ): String {
+            return if (attribute != "" && op != "" && comparison != null) {
+                "\$$attribute $op $comparison"
+            } else ""
+        }
     }
 }

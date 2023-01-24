@@ -41,9 +41,6 @@ class Reporter(
      */
     private fun sendOutput(text: String, out: PrintWriter) {
         val data = outputLine(text)
-        if (toConsole) {
-            print(data)
-        }
         out.write(data)
     }
 
@@ -119,14 +116,18 @@ class Reporter(
 
         val pathName = "output/${name}_${now}.txt"
 
-        File(pathName).printWriter().use {
-            buffer.forEach { line -> sendOutput(line, it) }
-            block(it)
+        if (toFile) {
+            File(pathName).printWriter().use {
+                buffer.forEach { line -> sendOutput(line, it) }
+                block(it)
+            }
         }
 
-        // TODO: Workaround, needs refactoring
-        if (!toFile) {
-            File(pathName).delete()
+        if (toConsole) {
+            PrintWriter(System.out).use {
+                buffer.forEach { line -> sendOutput(line, it) }
+                block(it)
+            }
         }
     }
 

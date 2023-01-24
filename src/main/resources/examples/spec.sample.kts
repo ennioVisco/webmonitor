@@ -3,10 +3,10 @@ import at.ac.tuwien.trustcps.dsl.*
 Spec.atoms(
     select { ".cookieInfo" }  // [0]
             read "visibility"
-            equals "visible",
+            equalTo "visible",
     select { ".cookieInfo" }  // [1]
             read "visibility"
-            equals "hidden",
+            equalTo "hidden",
     select { "button#close" } // [2]
             at "click"
 )

@@ -1,7 +1,7 @@
 import at.ac.tuwien.trustcps.dsl.*
 
 Spec.atoms = listOf(
-    select { ".carousel" } read "visibility" equals "visible",
+    select { ".carousel" } read "visibility" equalTo "visible",
     select { ".col-sm-12 p" } read "width" greaterThan 256,
     select { ".col-sm-12 p" } read "height" greaterThan 320,
     select { ".item.active .carousel-caption p" } read "height" lessThan 150,
