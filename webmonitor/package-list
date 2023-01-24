@@ -57,10 +57,10 @@ $dokka.location:at.ac.tuwien.trustcps.dsl/Selector/at/#kotlin.String/PointingToD
 $dokka.location:at.ac.tuwien.trustcps.dsl/Selector/attribute/#/PointingToDeclaration/webmonitor/at.ac.tuwien.trustcps.dsl/-selector/attribute.html
 $dokka.location:at.ac.tuwien.trustcps.dsl/Selector/bind/#kotlin.String/PointingToDeclaration/webmonitor/at.ac.tuwien.trustcps.dsl/-selector/bind.html
 $dokka.location:at.ac.tuwien.trustcps.dsl/Selector/comparison/#/PointingToDeclaration/webmonitor/at.ac.tuwien.trustcps.dsl/-selector/comparison.html
-$dokka.location:at.ac.tuwien.trustcps.dsl/Selector/equals/#kotlin.Any/PointingToDeclaration/webmonitor/at.ac.tuwien.trustcps.dsl/-selector/equals.html
-$dokka.location:at.ac.tuwien.trustcps.dsl/Selector/greaterEqualsThan/#kotlin.Any/PointingToDeclaration/webmonitor/at.ac.tuwien.trustcps.dsl/-selector/greater-equals-than.html
+$dokka.location:at.ac.tuwien.trustcps.dsl/Selector/equalTo/#kotlin.Any/PointingToDeclaration/webmonitor/at.ac.tuwien.trustcps.dsl/-selector/equal-to.html
+$dokka.location:at.ac.tuwien.trustcps.dsl/Selector/greaterEqualThan/#kotlin.Any/PointingToDeclaration/webmonitor/at.ac.tuwien.trustcps.dsl/-selector/greater-equal-than.html
 $dokka.location:at.ac.tuwien.trustcps.dsl/Selector/greaterThan/#kotlin.Any/PointingToDeclaration/webmonitor/at.ac.tuwien.trustcps.dsl/-selector/greater-than.html
-$dokka.location:at.ac.tuwien.trustcps.dsl/Selector/lessEqualsThan/#kotlin.Any/PointingToDeclaration/webmonitor/at.ac.tuwien.trustcps.dsl/-selector/less-equals-than.html
+$dokka.location:at.ac.tuwien.trustcps.dsl/Selector/lessEqualThan/#kotlin.Any/PointingToDeclaration/webmonitor/at.ac.tuwien.trustcps.dsl/-selector/less-equal-than.html
 $dokka.location:at.ac.tuwien.trustcps.dsl/Selector/lessThan/#kotlin.Any/PointingToDeclaration/webmonitor/at.ac.tuwien.trustcps.dsl/-selector/less-than.html
 $dokka.location:at.ac.tuwien.trustcps.dsl/Selector/queryString/#/PointingToDeclaration/webmonitor/at.ac.tuwien.trustcps.dsl/-selector/query-string.html
 $dokka.location:at.ac.tuwien.trustcps.dsl/Selector/read/#kotlin.String/PointingToDeclaration/webmonitor/at.ac.tuwien.trustcps.dsl/-selector/read.html
