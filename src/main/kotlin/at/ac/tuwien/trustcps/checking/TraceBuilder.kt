@@ -69,50 +69,41 @@ class TraceBuilder(
     }
 
     private fun checkAtom(atom: String, t: Int, location: Int): Boolean {
-        val (selector, property, comparator) = parseSelector(atom)
+        val (selector, property, value) = parseSelector(atom)
         val isPresent = dataToBox(selector, t).has(location)
-        val op = getOperator(atom)
-        val eval = select(op, selector, property, comparator, t)
-        return isPresent && eval
-    }
-
-    private fun getOperator(atom: String): String {
-        return if (atom.contains(">=")) {
-            ">="
-        } else if (atom.contains('>')) {
-            ">"
-        } else if (atom.contains("<=")) {
-            "<="
-        } else if (atom.contains('<')) {
-            "<"
-        } else if (atom.contains('=')) {
-            "="
-        } else if (atom.contains('@')) {
-            "@"
-        } else {
-            ""
-        }
-    }
-
-    private fun select(
-        op: String,
-        selector: String, property: String, comparator: String,
-        t: Int
-    ): Boolean {
+        val op = getComparator(atom)
         if (property != "") {
-            val value = data[t]["$selector::${property}"]!!
-            return when (op) {
-                ">" -> parsePixels(value) > parsePixels(comparator)
-                ">=" -> parsePixels(value) >= parsePixels(comparator)
-                "<" -> parsePixels(value) < parsePixels(comparator)
-                "<=" -> parsePixels(value) <= parsePixels(comparator)
-                "=" -> value == comparator
-                "&" -> sameAsBound(comparator, value, data[t])
-                "" -> data[t]["$selector::${property}"] == value
-                else -> error("Unsupported operator in atom definition")
-            }
+            val eval = applyComparison(op, selector, property, value, data[t])
+            return isPresent && eval
         }
-        return true
+        return isPresent
+    }
+
+    private fun getComparator(atom: String): String {
+        val allowedComparators = listOf(">=", "<=", "<", ">", "=", "@", "&")
+        return when (val res = allowedComparators.find { atom.contains(it) }) {
+            null -> ""
+            else -> res
+        }
+    }
+
+    private fun applyComparison(
+        op: String,
+        selector: String,
+        property: String,
+        comparison: String,
+        snapshot: Map<String, String>
+    ): Boolean {
+        val value = snapshot["$selector::${property}"]!!
+        return when (op) {
+            ">" -> parsePixels(value) > parsePixels(comparison)
+            ">=" -> parsePixels(value) >= parsePixels(comparison)
+            "<" -> parsePixels(value) < parsePixels(comparison)
+            "<=" -> parsePixels(value) <= parsePixels(comparison)
+            "=" -> value == comparison
+            "&" -> sameAsBound(comparison, value, snapshot)
+            else -> true
+        }
     }
 
     private fun sameAsBound(
@@ -120,12 +111,12 @@ class TraceBuilder(
         value: String,
         snapshot: Map<String, String>
     ): Boolean {
-        val bound = snapshot["$BOUNDS_PREFIX-$bound"]!!
-        return value == bound
+        val boundValue = snapshot["$BOUNDS_PREFIX$bound"]!!
+        return value == boundValue
     }
 
     private fun Box.has(location: Int): Boolean {
-        return this.contains(grid.toXY(location))
+        return contains(grid.toXY(location))
     }
 
     private fun screenToBox(time: Int): Box {
@@ -135,8 +126,7 @@ class TraceBuilder(
             return Box.from(minX = "0", minY = "0", maxX = maxX, maxY = maxY)
         } catch (e: NullPointerException) {
             throw IllegalArgumentException(
-                "Unable to find box coordinates " +
-                        "for the window."
+                "Unable to find box coordinates for the window."
             )
         }
     }

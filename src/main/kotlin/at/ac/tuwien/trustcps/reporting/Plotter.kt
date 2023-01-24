@@ -38,17 +38,11 @@ class Plotter(
      * Initializes the data to plot a heatmap
      */
     private fun addData(data: Array<DoubleArray>): MatrixPane<MatrixChartItem> {
-        // val plotData: MutableList<MatrixChartItem> = ArrayList()
         val plotData = (0 until columns).map { x ->
             (0 until rows).map { y ->
                 MatrixChartItem(x, y, data[x][y])
             }
         }.flatten()
-//        for (x in 0 until columns) {
-//            for (y in 0 until rows) {
-//                plotData.add(MatrixChartItem(x, y, data[x][y]))
-//            }
-//        }
         val series = MatrixItemSeries(plotData, ChartType.MATRIX_HEATMAP)
         val color = Color(1.0, 1.0, 1.0, 0.4)
         return MatrixPane(color, series)
@@ -107,12 +101,6 @@ class Plotter(
             backgroundSize
         )
         return Background(backgroundImage)
-    }
-
-    private fun retinaSize(): BackgroundSize {
-        val width = BackgroundSize.DEFAULT.width / 2
-        val height = BackgroundSize.DEFAULT.height / 2
-        return BackgroundSize(-1.0, -1.0, true, true, false, true)
     }
 
     private fun configPlot() {

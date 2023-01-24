@@ -23,7 +23,8 @@ class Checker(
 ) {
     private val locationService = StaticLocationService(grid.model)
 
-    private val signal = TraceBuilder(grid, data).useMetadata()
+    private val signal = TraceBuilder(grid, data)
+        .useMetadata()
         .useElements(elements)
         .build()
 
