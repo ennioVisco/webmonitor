@@ -38,9 +38,6 @@ $dokka.location:at.ac.tuwien.trustcps.dsl//reach/eu.quanticol.moonlight.core.for
 $dokka.location:at.ac.tuwien.trustcps.dsl//select/#kotlin.Function0[kotlin.String]/PointingToDeclaration/webmonitor/at.ac.tuwien.trustcps.dsl/select.html
 $dokka.location:at.ac.tuwien.trustcps.dsl//somewhere/#eu.quanticol.moonlight.core.formula.Formula/PointingToDeclaration/webmonitor/at.ac.tuwien.trustcps.dsl/somewhere.html
 $dokka.location:at.ac.tuwien.trustcps.dsl//until/eu.quanticol.moonlight.core.formula.Formula#eu.quanticol.moonlight.core.formula.Formula/PointingToDeclaration/webmonitor/at.ac.tuwien.trustcps.dsl/until.html
-$dokka.location:at.ac.tuwien.trustcps.dsl//within/eu.quanticol.moonlight.formula.spatial.EverywhereFormula#eu.quanticol.moonlight.core.base.Box[kotlin.Int]/PointingToDeclaration/webmonitor/at.ac.tuwien.trustcps.dsl/within.html
-$dokka.location:at.ac.tuwien.trustcps.dsl//within/eu.quanticol.moonlight.formula.spatial.ReachFormula#eu.quanticol.moonlight.core.base.Box[kotlin.Int]/PointingToDeclaration/webmonitor/at.ac.tuwien.trustcps.dsl/within.html
-$dokka.location:at.ac.tuwien.trustcps.dsl//within/eu.quanticol.moonlight.formula.spatial.SomewhereFormula#eu.quanticol.moonlight.core.base.Box[kotlin.Int]/PointingToDeclaration/webmonitor/at.ac.tuwien.trustcps.dsl/within.html
 $dokka.location:at.ac.tuwien.trustcps.dsl//within/eu.quanticol.moonlight.formula.temporal.EventuallyFormula#eu.quanticol.moonlight.core.formula.Interval/PointingToDeclaration/webmonitor/at.ac.tuwien.trustcps.dsl/within.html
 $dokka.location:at.ac.tuwien.trustcps.dsl//within/eu.quanticol.moonlight.formula.temporal.GloballyFormula#eu.quanticol.moonlight.core.formula.Interval/PointingToDeclaration/webmonitor/at.ac.tuwien.trustcps.dsl/within.html
 $dokka.location:at.ac.tuwien.trustcps.dsl//within/eu.quanticol.moonlight.formula.temporal.UntilFormula#eu.quanticol.moonlight.core.formula.Interval/PointingToDeclaration/webmonitor/at.ac.tuwien.trustcps.dsl/within.html
@@ -93,9 +90,9 @@ $dokka.location:at.ac.tuwien.trustcps.space/Grid/toNode/#kotlin.Pair[kotlin.Int,
 $dokka.location:at.ac.tuwien.trustcps.space/Grid/toXY/#kotlin.Int/PointingToDeclaration/webmonitor/at.ac.tuwien.trustcps.space/-grid/to-x-y.html
 $dokka.location:at.ac.tuwien.trustcps.tracking.commands////PointingToDeclaration/webmonitor/at.ac.tuwien.trustcps.tracking.commands/index.html
 $dokka.location:at.ac.tuwien.trustcps.tracking.commands//BOUNDS_PREFIX/#/PointingToDeclaration/webmonitor/at.ac.tuwien.trustcps.tracking.commands/-b-o-u-n-d-s_-p-r-e-f-i-x.html
-$dokka.location:at.ac.tuwien.trustcps.tracking.commands/BoundsInitializer///PointingToDeclaration/webmonitor/at.ac.tuwien.trustcps.tracking.commands/-bounds-initializer/index.html
-$dokka.location:at.ac.tuwien.trustcps.tracking.commands/BoundsInitializer/BoundsInitializer/#kotlin.collections.List[kotlin.String]#kotlin.Function1[kotlin.String,kotlin.Unit]/PointingToDeclaration/webmonitor/at.ac.tuwien.trustcps.tracking.commands/-bounds-initializer/-bounds-initializer.html
-$dokka.location:at.ac.tuwien.trustcps.tracking.commands/BoundsInitializer/dump/#kotlin.collections.MutableMap[kotlin.String,kotlin.String]/PointingToDeclaration/webmonitor/at.ac.tuwien.trustcps.tracking.commands/-bounds-initializer/dump.html
+$dokka.location:at.ac.tuwien.trustcps.tracking.commands/BoundInitializer///PointingToDeclaration/webmonitor/at.ac.tuwien.trustcps.tracking.commands/-bound-initializer/index.html
+$dokka.location:at.ac.tuwien.trustcps.tracking.commands/BoundInitializer/BoundInitializer/#kotlin.String#kotlin.String#kotlin.Function1[kotlin.String,kotlin.Any]/PointingToDeclaration/webmonitor/at.ac.tuwien.trustcps.tracking.commands/-bound-initializer/-bound-initializer.html
+$dokka.location:at.ac.tuwien.trustcps.tracking.commands/BoundInitializer/dump/#kotlin.collections.MutableMap[kotlin.String,kotlin.String]/PointingToDeclaration/webmonitor/at.ac.tuwien.trustcps.tracking.commands/-bound-initializer/dump.html
 $dokka.location:at.ac.tuwien.trustcps.tracking.commands/BrowserCommand///PointingToDeclaration/webmonitor/at.ac.tuwien.trustcps.tracking.commands/-browser-command/index.html
 $dokka.location:at.ac.tuwien.trustcps.tracking.commands/BrowserCommand/BrowserCommand/#kotlin.Function1[kotlin.String,kotlin.Any]/PointingToDeclaration/webmonitor/at.ac.tuwien.trustcps.tracking.commands/-browser-command/-browser-command.html
 $dokka.location:at.ac.tuwien.trustcps.tracking.commands/BrowserCommand/dump/#kotlin.collections.MutableMap[kotlin.String,kotlin.String]/PointingToDeclaration/webmonitor/at.ac.tuwien.trustcps.tracking.commands/-browser-command/dump.html
@@ -118,7 +115,6 @@ $dokka.location:at.ac.tuwien.trustcps.tracking/EventRecorder/captureEvent/#kotli
 $dokka.location:at.ac.tuwien.trustcps.tracking/EventRecorder/capturePageLoaded/#/PointingToDeclaration/webmonitor/at.ac.tuwien.trustcps.tracking/-event-recorder/capture-page-loaded.html
 $dokka.location:at.ac.tuwien.trustcps.tracking/PageTracker///PointingToDeclaration/webmonitor/at.ac.tuwien.trustcps.tracking/-page-tracker/index.html
 $dokka.location:at.ac.tuwien.trustcps.tracking/PageTracker/PageTracker/#java.net.URL#org.openqa.selenium.Dimension?#at.ac.tuwien.trustcps.tracking.Browser?#kotlin.Long#kotlin.Long#kotlin.Boolean/PointingToDeclaration/webmonitor/at.ac.tuwien.trustcps.tracking/-page-tracker/-page-tracker.html
-$dokka.location:at.ac.tuwien.trustcps.tracking/PageTracker/bind/#kotlin.String/PointingToDeclaration/webmonitor/at.ac.tuwien.trustcps.tracking/-page-tracker/bind.html
 $dokka.location:at.ac.tuwien.trustcps.tracking/PageTracker/isRecordingAt/#kotlin.Pair[kotlin.String,kotlin.String]/PointingToDeclaration/webmonitor/at.ac.tuwien.trustcps.tracking/-page-tracker/is-recording-at.html
 $dokka.location:at.ac.tuwien.trustcps.tracking/PageTracker/isTracking/#kotlin.String/PointingToDeclaration/webmonitor/at.ac.tuwien.trustcps.tracking/-page-tracker/is-tracking.html
 $dokka.location:at.ac.tuwien.trustcps.tracking/PageTracker/metadata/#/PointingToDeclaration/webmonitor/at.ac.tuwien.trustcps.tracking/-page-tracker/metadata.html
@@ -130,7 +126,7 @@ $dokka.location:at.ac.tuwien.trustcps.tracking/SessionBuilder/SessionBuilder/#ja
 $dokka.location:at.ac.tuwien.trustcps.tracking/SessionBuilder/close/#/PointingToDeclaration/webmonitor/at.ac.tuwien.trustcps.tracking/-session-builder/close.html
 $dokka.location:at.ac.tuwien.trustcps.tracking/SessionBuilder/driver/#/PointingToDeclaration/webmonitor/at.ac.tuwien.trustcps.tracking/-session-builder/driver.html
 $dokka.location:at.ac.tuwien.trustcps.tracking/SnapshotBuilder///PointingToDeclaration/webmonitor/at.ac.tuwien.trustcps.tracking/-snapshot-builder/index.html
-$dokka.location:at.ac.tuwien.trustcps.tracking/SnapshotBuilder/SnapshotBuilder/#org.openqa.selenium.remote.RemoteWebDriver#kotlin.collections.List[kotlin.String]#kotlin.collections.List[kotlin.String]#kotlin.Boolean/PointingToDeclaration/webmonitor/at.ac.tuwien.trustcps.tracking/-snapshot-builder/-snapshot-builder.html
+$dokka.location:at.ac.tuwien.trustcps.tracking/SnapshotBuilder/SnapshotBuilder/#org.openqa.selenium.remote.RemoteWebDriver#kotlin.collections.List[kotlin.String]#kotlin.Boolean/PointingToDeclaration/webmonitor/at.ac.tuwien.trustcps.tracking/-snapshot-builder/-snapshot-builder.html
 $dokka.location:at.ac.tuwien.trustcps.tracking/SnapshotBuilder/collect/#kotlin.Int/PointingToDeclaration/webmonitor/at.ac.tuwien.trustcps.tracking/-snapshot-builder/collect.html
 $dokka.location:at.ac.tuwien.trustcps////PointingToDeclaration/webmonitor/at.ac.tuwien.trustcps/index.html
 $dokka.location:at.ac.tuwien.trustcps//main/#kotlin.Array[kotlin.String]/PointingToDeclaration/webmonitor/at.ac.tuwien.trustcps/main.html
@@ -140,8 +136,6 @@ $dokka.location:at.ac.tuwien.trustcps/Spec/atoms/#/PointingToDeclaration/webmon
 $dokka.location:at.ac.tuwien.trustcps/Spec/atoms/#kotlin.Array[at.ac.tuwien.trustcps.dsl.Selector]/PointingToDeclaration/webmonitor/at.ac.tuwien.trustcps/-spec/atoms.html
 $dokka.location:at.ac.tuwien.trustcps/Spec/atomsAsIds/#/PointingToDeclaration/webmonitor/at.ac.tuwien.trustcps/-spec/atoms-as-ids.html
 $dokka.location:at.ac.tuwien.trustcps/Spec/basicDistance/#/PointingToDeclaration/webmonitor/at.ac.tuwien.trustcps/-spec/basic-distance.html
-$dokka.location:at.ac.tuwien.trustcps/Spec/bounds/#/PointingToDeclaration/webmonitor/at.ac.tuwien.trustcps/-spec/bounds.html
-$dokka.location:at.ac.tuwien.trustcps/Spec/bounds/#kotlin.Array[kotlin.String]/PointingToDeclaration/webmonitor/at.ac.tuwien.trustcps/-spec/bounds.html
 $dokka.location:at.ac.tuwien.trustcps/Spec/formula/#/PointingToDeclaration/webmonitor/at.ac.tuwien.trustcps/-spec/formula.html
 $dokka.location:at.ac.tuwien.trustcps/Spec/record/#/PointingToDeclaration/webmonitor/at.ac.tuwien.trustcps/-spec/record.html
 $dokka.location:at.ac.tuwien.trustcps/Spec/record/#kotlin.Array[at.ac.tuwien.trustcps.dsl.Event]/PointingToDeclaration/webmonitor/at.ac.tuwien.trustcps/-spec/record.html
