@@ -16,7 +16,7 @@ internal class SnapshotBuilderTest {
         every { fakeDriver.findElement(any()) } returns mockWebElement()
         every { fakeDriver.getScreenshotAs(OutputType.FILE) } returns mockk()
 
-        val snapshot = SnapshotBuilder(fakeDriver, selectors, emptyList())
+        val snapshot = SnapshotBuilder(fakeDriver, selectors)
 
         assertEquals("0", snapshot.collect(firstAndOnlyOne)["body::y"])
     }

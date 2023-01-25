@@ -1,15 +1,13 @@
 import at.ac.tuwien.trustcps.dsl.*
 
-Spec.bounds("position")
-
 Spec.atoms(
     select { ".cookieInfo" }    // [0]
             read "visibility"
             equalTo "visible",
     select { ".subtitle" },     // [1]
     select { "button#close" },  // [2]
-    select { ".info" } read "position" bind Spec.bounds[0],
-    select { ".cookieInfo" } read "position" bind Spec.bounds[0],
+    select { ".cookieInfo" } read "position" bind "position",
+    select { ".info" } read "position" bind "position",
 )
 
 Spec.record(
@@ -26,4 +24,4 @@ val er1 = closeButton implies screen
 val er2 = not(popupIsVisible and subtitle)
 
 // Final formula
-Spec.formula = Spec.atoms[3]
+Spec.formula = Spec.atoms[4]

@@ -31,13 +31,15 @@ class PageTrackerTest {
 
     @Test
     fun `trivial session runs`() {
-        val tracker = PageTracker(
-            url,
-            Dimension(100, 100),
-            maxSessionDuration = 0,
-            wait = 0
-        )
+        val tracker = trackerStub()
 
         assertDoesNotThrow { tracker.run() }
     }
+
+    private fun trackerStub() = PageTracker(
+        url,
+        Dimension(100, 100),
+        maxSessionDuration = 0,
+        wait = 0
+    )
 }

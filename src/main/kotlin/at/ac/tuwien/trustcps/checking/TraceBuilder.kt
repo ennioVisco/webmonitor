@@ -111,13 +111,13 @@ class TraceBuilder(
         value: String,
         snapshot: Map<String, String>
     ): Boolean {
+        val boundValue = snapshot["$BOUNDS_PREFIX$bound"]
         try {
-            val boundValue = snapshot["$BOUNDS_PREFIX$bound"]
+            if (boundValue == null) {
+                throw IllegalArgumentException("Bound '$bound' has value '${snapshot["$BOUNDS_PREFIX$bound"]}'.")
+            }
             return value == boundValue
         } catch (e: NullPointerException) {
-//            if (snapshot.containsKey("$BOUNDS_PREFIX$bound")) {
-//                throw IllegalArgumentException("Bound '$bound' has value '${snapshot["$BOUNDS_PREFIX$bound"]}'.")
-//            }
             throw IllegalArgumentException("Bound '$bound' not found.")
         }
     }

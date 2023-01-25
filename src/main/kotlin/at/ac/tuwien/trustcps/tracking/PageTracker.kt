@@ -41,14 +41,6 @@ class PageTracker(
     }
 
     /**
-     * Lazily bind same labels to elements' values
-     * @param label is a label to which some values will be bound
-     */
-    fun bind(label: String) {
-        bounds.add(label)
-    }
-
-    /**
      * Lazily selects some events to track from the page
      * @param event is the event to track
      */
@@ -73,7 +65,7 @@ class PageTracker(
      */
     fun run(): List<Map<String, String>> {
         spawnBrowserSession().use {
-            snapshotBuilder = SnapshotBuilder(it.driver, selectors, bounds, toFile)
+            snapshotBuilder = SnapshotBuilder(it.driver, selectors, toFile)
             recordEvents(it.driver)
             Thread.sleep(maxSessionDuration)
         }

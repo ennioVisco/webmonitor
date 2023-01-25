@@ -16,7 +16,6 @@ import java.io.*
 class SnapshotBuilder(
     private val driver: RemoteWebDriver,
     private val selectors: List<String>,
-    private val bounds: List<String>,
     private val toFile: Boolean = false
 ) {
 
@@ -28,7 +27,6 @@ class SnapshotBuilder(
     fun collect(id: Int): Map<String, String> {
         val data = HashMap<String, String>()
         fetchMetadata(data)
-        bindValues(bounds, data)
         selectors.forEach { doSelect(it, data) }
         if (toFile) takeScreenshot(id)
         return data
@@ -37,18 +35,10 @@ class SnapshotBuilder(
     private fun fetchMetadata(data: MutableMap<String, String>) =
         MetadataCollector(driver::executeScript).dump(data)
 
-    private fun bindValues(
-        labels: List<String>, data: MutableMap<String, String>
-    ) {
-        val bounds = BoundsInitializer(labels, driver::executeScript)
-        bounds.dump(data)
-    }
-
     private fun doSelect(cssQuery: String, data: MutableMap<String, String>) {
         val findCss = { q: String -> driver.findElement(By.cssSelector(q)) }
-        val collector =
-            SelectorCollector(cssQuery, findCss, driver::executeScript)
-        collector.dump(data)
+        val elem = SelectorCollector(cssQuery, findCss, driver::executeScript)
+        elem.dump(data)
     }
 
     private fun takeScreenshot(id: Int) {

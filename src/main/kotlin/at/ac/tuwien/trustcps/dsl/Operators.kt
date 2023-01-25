@@ -2,12 +2,9 @@ package at.ac.tuwien.trustcps.dsl
 
 import eu.quanticol.moonlight.core.base.*
 import eu.quanticol.moonlight.core.formula.*
-import eu.quanticol.moonlight.core.space.*
-import eu.quanticol.moonlight.domain.*
 import eu.quanticol.moonlight.formula.classic.*
 import eu.quanticol.moonlight.formula.spatial.*
 import eu.quanticol.moonlight.formula.temporal.*
-import eu.quanticol.moonlight.space.*
 
 // Interval shorthand
 typealias interval = Box<Int>
@@ -50,6 +47,7 @@ fun somewhere(argument: Formula): SomewhereFormula =
 infix fun Formula.reach(right: Formula): ReachFormula =
     ReachFormula(this, Spec.basicDistance, right)
 
+/*
 // Spatial operators distances
 infix fun SomewhereFormula.within(distanceInterval: interval) =
     SomewhereFormula(addDistanceFunction(distanceInterval), this.argument)
@@ -65,7 +63,7 @@ infix fun ReachFormula.within(distanceInterval: interval) =
     )
 
 private fun addDistanceFunction(interval: interval): String {
-    TODO("Add distance function to the model")
+    TODO("Add distance function to the model)
     val id = interval.toString()
     //distanceFunctions.put(id) { intervalToDistance(interval, it) }
     return id
@@ -81,7 +79,7 @@ private fun intervalToDistance(
         IntegerDomain(), interval.start, interval.end, model
     )
 }
-
+*/
 
 fun select(init: () -> String): Selector {
     return Selector(init())
