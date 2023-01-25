@@ -8,6 +8,7 @@ import org.junit.jupiter.api.*
 import org.junit.jupiter.api.Test
 import kotlin.test.*
 
+
 internal class PlotterTest {
     private val grid = Grid(3, 3)
 
@@ -41,11 +42,26 @@ internal class PlotterTest {
         val plotter = Plotter(0, "test", data, grid, 1.0)
 
         assertDoesNotThrow("Are you sure you have a display manager?") {
-            Platform.startup(plotter)
+            Platform.runLater(plotter)
         }
     }
 
-    @Disabled("failing on mac")
+
+    companion object {
+        @BeforeAll
+        @JvmStatic
+        fun `init JavaFX`() {
+            Platform.setImplicitExit(false)
+            Platform.startup { }
+        }
+
+        @AfterAll
+        @JvmStatic
+        fun `shutdown JavaFX`() {
+            Platform.exit()
+        }
+    }
+
     @Test
     fun `basic heatmap does not fail`() {
         System.setProperty("org.graphstream.debug", "true")
@@ -54,19 +70,22 @@ internal class PlotterTest {
         justRun { mockStage.title = any() }
         justRun { mockStage.scene = any() }
 
+        assertDoesNotThrow {
+            Platform.runLater { plotterStub(mockStage, data) }
+        }
+    }
+
+    private fun plotterStub(stage: Stage, data: Array<DoubleArray>): Plotter {
         val plotterSkeleton = Plotter(0, "test", data, grid, 1.0)
         val plotter = spyk(plotterSkeleton, recordPrivateCalls = true)
         every {
             plotter invoke "spawnStage" withArguments
                     listOf()
-        } returns mockStage
+        } returns stage
         justRun {
             plotter invoke "showStage" withArguments
                     listOf(any<Stage>())
         }
-
-        assertDoesNotThrow {
-            plotter.run()
-        }
+        return plotter
     }
 }
