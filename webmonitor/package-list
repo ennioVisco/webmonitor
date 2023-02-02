@@ -71,7 +71,7 @@ $dokka.location:at.ac.tuwien.trustcps.reporting/Plotter/run/#/PointingToDeclarat
 $dokka.location:at.ac.tuwien.trustcps.reporting/Plotter/start/#javafx.stage.Stage/PointingToDeclaration/webmonitor/at.ac.tuwien.trustcps.reporting/-plotter/start.html
 $dokka.location:at.ac.tuwien.trustcps.reporting/Plotter/stop/#/PointingToDeclaration/webmonitor/at.ac.tuwien.trustcps.reporting/-plotter/stop.html
 $dokka.location:at.ac.tuwien.trustcps.reporting/Reporter///PointingToDeclaration/webmonitor/at.ac.tuwien.trustcps.reporting/-reporter/index.html
-$dokka.location:at.ac.tuwien.trustcps.reporting/Reporter/Reporter/#kotlin.Boolean#kotlin.Boolean#kotlin.Double/PointingToDeclaration/webmonitor/at.ac.tuwien.trustcps.reporting/-reporter/-reporter.html
+$dokka.location:at.ac.tuwien.trustcps.reporting/Reporter/Reporter/#kotlin.Boolean#kotlin.Boolean#kotlin.Double#java.time.temporal.TemporalUnit/PointingToDeclaration/webmonitor/at.ac.tuwien.trustcps.reporting/-reporter/-reporter.html
 $dokka.location:at.ac.tuwien.trustcps.reporting/Reporter/devicePixelRatio/#/PointingToDeclaration/webmonitor/at.ac.tuwien.trustcps.reporting/-reporter/device-pixel-ratio.html
 $dokka.location:at.ac.tuwien.trustcps.reporting/Reporter/mark/#kotlin.String#kotlin.Boolean/PointingToDeclaration/webmonitor/at.ac.tuwien.trustcps.reporting/-reporter/mark.html
 $dokka.location:at.ac.tuwien.trustcps.reporting/Reporter/plot/#kotlin.Int#eu.quanticol.moonlight.offline.signal.SpatialTemporalSignal[kotlin.Boolean]#at.ac.tuwien.trustcps.space.Grid#kotlin.String/PointingToDeclaration/webmonitor/at.ac.tuwien.trustcps.reporting/-reporter/plot.html
