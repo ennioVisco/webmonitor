@@ -102,14 +102,14 @@ internal class ReporterTest {
         @Test
         fun `dumping spatio-temporal signals prints right output`() {
             val title = "test space-time trace"
-            val reporter = Reporter(toConsole = true)
+            val reporter = Reporter(toConsole = true, logTimeGranularity=ChronoUnit.MINUTES)
             val ss = evenLocationsAreTrueSignal(4)
 
-            val output = tapSystemOut {
+            val output = tapSystemOutNormalized {
                 reporter.report(ss, title)
             }
 
-            val currTime = LocalDateTime.now().truncatedTo(ChronoUnit.SECONDS)
+            val currTime = LocalDateTime.now().truncatedTo(ChronoUnit.MINUTES)
             assertEquals(signalDump1(currTime), output)
         }
 
@@ -125,14 +125,14 @@ internal class ReporterTest {
         @Test
         fun `dumping temporal signals prints right output`() {
             val title = "test time trace"
-            val reporter = Reporter(toConsole = true)
+            val reporter = Reporter(toConsole = true, logTimeGranularity=ChronoUnit.MINUTES)
             val ss = evenLocationsAreTrueSignal(4)
 
-            val output = tapSystemOut {
+            val output = tapSystemOutNormalized {
                 reporter.report(ss.signals[0], title)
             }
 
-            val currTime = LocalDateTime.now().truncatedTo(ChronoUnit.SECONDS)
+            val currTime = LocalDateTime.now().truncatedTo(ChronoUnit.MINUTES)
             assertEquals(signalDump2(currTime), output)
         }
 
@@ -144,6 +144,6 @@ internal class ReporterTest {
         }
 
         private fun <T> timeBox(time: LocalDateTime, content: T) =
-            "[$time] - ${content.toString()}${System.lineSeparator()}"
+            "[$time] - ${content.toString()}\n"
     }
 }

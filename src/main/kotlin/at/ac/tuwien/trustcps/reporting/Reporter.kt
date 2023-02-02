@@ -16,13 +16,14 @@ class Reporter(
     private val toConsole: Boolean = false,
     private val toFile: Boolean = false,
     var devicePixelRatio: Double = 1.0,
+    private val logTimeGranularity: TemporalUnit = ChronoUnit.SECONDS,
 ) {
-    private val logTimeGranularity =
-        LocalDateTime.now().truncatedTo(ChronoUnit.SECONDS)
+
+    private fun logTime() = LocalDateTime.now().truncatedTo(logTimeGranularity)
 
     private val buffer = mutableListOf<String>()
 
-    private fun outputLine(text: String) = "[$logTimeGranularity] - $text\n"
+    private fun outputLine(text: String) = "[${logTime()}] - $text\n"
 
     fun mark(text: String, important: Boolean = false) {
         val data = outputLine(text)
@@ -75,7 +76,7 @@ class Reporter(
                 )
             )
         } finally {
-            Thread.sleep(60_000);
+            Thread.sleep(60_000)
             Platform.exit()
         }
     }
