@@ -15,7 +15,8 @@ data class Selector(
     val attribute: String = "",
     val comparison: Any? = null,
     val state: String = "",
-    private val op: String = ""
+    private val op: String = "",
+    val modifier: (current: String, bound: String) -> Boolean = ::equality
 ) : AtomicFormula(stringify(queryString, attribute, op, comparison)) {
 
     infix fun read(attribute: String): Selector {
@@ -34,6 +35,16 @@ data class Selector(
     infix fun bind(label: String): Selector {
         return Selector(queryString, attribute, label, state, "&")
     }
+
+    infix fun applying(modifier: (current: String, bound: String) -> Boolean) =
+        Selector(
+            queryString,
+            attribute,
+            comparison,
+            state,
+            "&",
+            modifier
+        )
 
     infix fun greaterThan(comparison: Any): Selector {
         return Selector(queryString, attribute, comparison, state, ">")
@@ -74,5 +85,8 @@ data class Selector(
                 "\$$attribute $op $comparison"
             } else ""
         }
+
+        @JvmStatic
+        private fun equality(current: String, bound: String) = current == bound
     }
 }

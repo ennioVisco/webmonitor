@@ -1,6 +1,5 @@
 package at.ac.tuwien.trustcps.dsl
 
-// TODO: currently doesn't recognize >= and <= correctly
 fun parseSelector(queryString: String): List<String> {
     val sanitized = queryString
         .replace("\\s+".toRegex(), " ")

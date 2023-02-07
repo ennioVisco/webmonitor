@@ -26,7 +26,6 @@ class PageTracker(
     private val prefix: String = "[wm] "
     private val snapshots = mutableListOf<Map<String, String>>()
     private val selectors = ArrayList<String>()
-    private val bounds = ArrayList<String>()
     private val events = ArrayList<Pair<String, String>>()
     private var snapshotBuilder: SnapshotBuilder? = null
     private val log = KotlinLogging.logger {}

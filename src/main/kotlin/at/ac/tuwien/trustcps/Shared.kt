@@ -6,8 +6,11 @@ import eu.quanticol.moonlight.formula.*
 import eu.quanticol.moonlight.formula.classic.*
 import eu.quanticol.moonlight.offline.signal.*
 
-typealias GridSignal = SpatialTemporalSignal<Boolean>
+internal typealias GridSignal = SpatialTemporalSignal<Boolean>
 
+/**
+ * Enum of the supported browsers.
+ */
 typealias Browser = at.ac.tuwien.trustcps.tracking.Browser
 
 /**
@@ -60,26 +63,39 @@ object Spec {
     /**
      * List of atom labels to consider. These must be valid CSS selectors.
      */
-    var atoms = emptyList<Selector>()
+    internal var atoms = emptyList<Selector>()
 
     /**
      * Formula that determines the specification to analyse.
      */
     var formula: Formula = NegationFormula(null)
 
-    var record = emptyList<Event>()
+    /**
+     * List of events that trigger the recording.
+     */
+    internal var record = emptyList<Event>()
 
+
+    /**
+     * Sets the list of events triggering the recording.
+     */
     fun record(vararg events: Event) {
         record = events.toList()
     }
 
+    /**
+     * Sets the list of atoms to consider.
+     */
     fun atoms(vararg selectors: Selector) {
         atoms = selectors.toList()
     }
 
-    fun atomsAsIds(): List<String> {
+    internal fun atomsAsIds(): List<String> {
         return atoms.map { it.toString() }
     }
 
+    /**
+     * Helper atom to represent the screen.
+     */
     val screen = AtomicFormula("screen")
 }

@@ -7,8 +7,7 @@ class SelectorCollector(
     queryString: String,
     cmdExec: (command: String) -> WebElement,
     private val rawCmdExec: (command: String) -> Any,
-) :
-    BrowserCommand(cmdExec) {
+) : BrowserCommand(cmdExec) {
     private val selectorX: String
     private val selectorY: String
     private val selectorWidth: String
@@ -38,7 +37,6 @@ class SelectorCollector(
         propertyValue = initializeProperty(property, elem)
         bound = initBound(isBinding, label)
     }
-
 
     private fun initializeProperty(property: String, elem: WebElement) =
         if (property != "") {

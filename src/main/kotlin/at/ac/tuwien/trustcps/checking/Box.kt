@@ -40,7 +40,7 @@ data class Box(
 
     companion object {
         /**
-         * TODO: remove, too dangerous: if people sum string it doesn't get caught
+         * TODO: remove, too dangerous: if people sum strings it doesn't get caught
          * Factory method that generates a [Box], given strings representing
          * the coordinates of the box.
          * @param minX = minimum coordinate over the X axis
