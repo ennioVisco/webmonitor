@@ -6,9 +6,19 @@ Spec.atoms(
             equalTo "visible",
     select { ".subtitle" },     // [1]
     select { "button#close" },  // [2]
-    select { ".cookieInfo" } read "position" bind "position",
-    select { ".info" } read "position" bind "position",
+    select { ".cookieInfo" } read "position" bind "pos",
+    select { ".cookieInfo" } read "font-size" bind "fs",
+    select { ".info" } read "position" bind "pos",
+    select { ".subtitle" } read "font-size" bind "fs"
+            applying { value, bound -> parsePixels(value) == parsePixels(bound) * 1.5 },
+    select { "h2.subtitle" },
+    select { "p" }
 )
+
+fun parsePixels(value: String): Double {
+    return value.substring(0, value.length - 2).toDouble()
+}
+
 
 Spec.record(
     after { "click" },
@@ -24,4 +34,4 @@ val er1 = closeButton implies screen
 val er2 = not(popupIsVisible and subtitle)
 
 // Final formula
-Spec.formula = Spec.atoms[4]
+Spec.formula = Spec.atoms[6] and not(Spec.atoms[8])

@@ -19,7 +19,7 @@ typealias Interpretation<T> = Function<Parameters?, Function<T, Boolean>>
 class Checker(
     private val grid: Grid,
     private val data: List<Map<String, String>>,
-    elements: List<String>
+    elements: Map<String, (String, String) -> Boolean>
 ) {
     private val locationService = StaticLocationService(grid.model)
 
@@ -34,7 +34,7 @@ class Checker(
         Pair("base", Function { grid.distance(1) })
     )
 
-    val atoms = elems(elements)
+    val atoms = elems(elements.map { it.key })
 
     fun check(spec: Formula): SpatialTemporalSignal<Boolean> {
         if (data.isEmpty()) {

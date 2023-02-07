@@ -9,11 +9,17 @@ import org.junit.jupiter.api.Test
 import kotlin.test.*
 
 internal class TraceBuilderTest {
+
+    private val dummyElems = mapOf(
+        "elem" to { _: String, _: String -> true },
+        "elem2" to { _: String, _: String -> true }
+    )
+
     @Test
     fun `malformed data makes building fail`() {
         val builder = builderMalformedData()
 
-        builder.useElement("elem")
+        builder.useElement(dummyElems.entries.first())
 
         assertFailsWith<IllegalArgumentException> { builder.build() }
     }
@@ -31,7 +37,7 @@ internal class TraceBuilderTest {
     fun `simple builder test`() {
         val builder = builderOneElementInit()
 
-        builder.useElement("elem")
+        builder.useElement(dummyElems.entries.first())
         val built = builder.build()
 
         assertSignalDimensionEquals(signalStub, built)
@@ -58,19 +64,19 @@ internal class TraceBuilderTest {
         fun `elements modifier actually adds elements`() {
             val builder = builderMetadataInit()
 
-            builder.useElements(listOf("element1", "element2"))
+            builder.useElements(dummyElems)
 
-            assertTrue(builder.hasElement("element1"))
-            assertTrue(builder.hasElement("element2"))
+            assertTrue(builder.hasElement("elem"))
+            assertTrue(builder.hasElement("elem2"))
         }
 
         @Test
         fun `element modifier actually adds an element`() {
             val builder = builderMetadataInit()
 
-            builder.useElement("element1")
+            builder.useElement(dummyElems.entries.first())
 
-            assertTrue(builder.hasElement("element1"))
+            assertTrue(builder.hasElement("elem"))
         }
     }
 

@@ -17,6 +17,8 @@ class TraceBuilder(
 ) {
     private var metadata: Boolean = false
     private val elements: MutableList<String> = ArrayList()
+    private val modifiers: MutableMap<String, (String, String) -> Boolean> =
+        HashMap()
 
     /**
      * Modifier determining whether to also load page metadata in the signal
@@ -32,14 +34,22 @@ class TraceBuilder(
      * Method that allows to consider into a signal a list of selected elements
      * @param elems list of element ids to select
      */
-    fun useElements(elems: List<String>) =
+    fun useElements(elems: Map<String, (String, String) -> Boolean>) =
         apply { elems.forEach { useElement(it) } }
 
     /**
      * Method that allows to consider into a signal a given selected element
      * @param elem element id to select
      */
-    fun useElement(elem: String) = apply { elements.add(elem) }
+    fun useElement(elem: Map.Entry<String, (String, String) -> Boolean>) =
+        apply { elements.add(elem.key); modifiers[elem.key] = elem.value }
+
+    /**
+     * Method that allows to consider into a signal a given selected element
+     * @param elem element id to select, must not have a bound!
+     */
+    fun useElement(elem: String) =
+        apply { elements.add(elem); modifiers[elem] = { _, _ -> true } }
 
     /**
      * Method that allows to determine whether a given selected element
@@ -73,7 +83,8 @@ class TraceBuilder(
         val isPresent = dataToBox(selector, t).has(location)
         val op = getComparator(atom)
         if (property != "") {
-            val eval = applyComparison(op, selector, property, value, data[t])
+            val eval =
+                applyComparison(op, selector, property, value, data[t], atom)
             return isPresent && eval
         }
         return isPresent
@@ -92,7 +103,8 @@ class TraceBuilder(
         selector: String,
         property: String,
         comparison: String,
-        snapshot: Map<String, String>
+        snapshot: Map<String, String>,
+        id: String
     ): Boolean {
         val value = snapshot["$selector::${property}"]!!
         return when (op) {
@@ -101,22 +113,25 @@ class TraceBuilder(
             "<" -> parsePixels(value) < parsePixels(comparison)
             "<=" -> parsePixels(value) <= parsePixels(comparison)
             "=" -> value == comparison
-            "&" -> sameAsBound(comparison, value, snapshot)
+            "&" -> sameAsBound(comparison, value, snapshot, mod(id))
             else -> true
         }
     }
 
+    private fun mod(id: String) = modifiers[id] ?: { x, y -> x == y }
+
     private fun sameAsBound(
         bound: String,
         value: String,
-        snapshot: Map<String, String>
+        snapshot: Map<String, String>,
+        modifier: (String, String) -> Boolean
     ): Boolean {
         val boundValue = snapshot["$BOUNDS_PREFIX$bound"]
         try {
             if (boundValue == null) {
                 throw IllegalArgumentException("Bound '$bound' has value '${snapshot["$BOUNDS_PREFIX$bound"]}'.")
             }
-            return value == boundValue
+            return modifier(value, boundValue)
         } catch (e: NullPointerException) {
             throw IllegalArgumentException("Bound '$bound' not found.")
         }
@@ -162,3 +177,6 @@ class TraceBuilder(
 //        }
     }
 }
+
+
+

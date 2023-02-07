@@ -63,7 +63,7 @@ object Spec {
     /**
      * List of atom labels to consider. These must be valid CSS selectors.
      */
-    internal var atoms = emptyList<Selector>()
+    var atoms = emptyList<Selector>()
 
     /**
      * Formula that determines the specification to analyse.

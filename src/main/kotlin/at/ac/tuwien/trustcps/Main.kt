@@ -81,7 +81,8 @@ private fun tracking(): Pair<ResultData, Metadata> {
 }
 
 private fun checking(grid: Grid, data: List<Map<String, String>>): GridSignal {
-    val checker = Checker(grid, data, Spec.atomsAsIds())
+    val selectors = Spec.atoms.associate { Pair(it.toString(), it.modifier) }
+    val checker = Checker(grid, data, selectors)
     return checker.check(Spec.formula)
 }
 
