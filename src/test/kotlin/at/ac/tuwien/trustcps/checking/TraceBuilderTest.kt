@@ -146,8 +146,12 @@ internal class TraceBuilderTest {
         fun ` 'bind' works`() {
             val builder = builderOneElementInit()
 
-            builder.useElement("elem\$x & test")
-            builder.useElement("elem\$width & test")
+            val elems = mapOf<String, (String, String) -> Boolean>(
+                "elem\$x & test" to { x, y -> x == y },
+                "elem\$width & test" to { x, y -> x == y }
+            )
+
+            builder.useElements(elems)
             val builtSignal = builder.build()
 
             assertSignalDimensionEquals(alwaysFalseSignal, builtSignal, 1)
