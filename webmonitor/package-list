@@ -49,7 +49,8 @@ $dokka.location:at.ac.tuwien.trustcps.dsl/Event/on/#at.ac.tuwien.trustcps.dsl.Se
 $dokka.location:at.ac.tuwien.trustcps.dsl/Event/selector/#/PointingToDeclaration/webmonitor/at.ac.tuwien.trustcps.dsl/-event/selector.html
 $dokka.location:at.ac.tuwien.trustcps.dsl/Selector.Companion///PointingToDeclaration/webmonitor/at.ac.tuwien.trustcps.dsl/-selector/-companion/index.html
 $dokka.location:at.ac.tuwien.trustcps.dsl/Selector///PointingToDeclaration/webmonitor/at.ac.tuwien.trustcps.dsl/-selector/index.html
-$dokka.location:at.ac.tuwien.trustcps.dsl/Selector/Selector/#kotlin.String#kotlin.String#kotlin.Any?#kotlin.String#kotlin.String/PointingToDeclaration/webmonitor/at.ac.tuwien.trustcps.dsl/-selector/-selector.html
+$dokka.location:at.ac.tuwien.trustcps.dsl/Selector/Selector/#kotlin.String#kotlin.String#kotlin.Any?#kotlin.String#kotlin.String#kotlin.Function2[kotlin.String,kotlin.String,kotlin.Boolean]/PointingToDeclaration/webmonitor/at.ac.tuwien.trustcps.dsl/-selector/-selector.html
+$dokka.location:at.ac.tuwien.trustcps.dsl/Selector/applying/#kotlin.Function2[kotlin.String,kotlin.String,kotlin.Boolean]/PointingToDeclaration/webmonitor/at.ac.tuwien.trustcps.dsl/-selector/applying.html
 $dokka.location:at.ac.tuwien.trustcps.dsl/Selector/at/#kotlin.String/PointingToDeclaration/webmonitor/at.ac.tuwien.trustcps.dsl/-selector/at.html
 $dokka.location:at.ac.tuwien.trustcps.dsl/Selector/attribute/#/PointingToDeclaration/webmonitor/at.ac.tuwien.trustcps.dsl/-selector/attribute.html
 $dokka.location:at.ac.tuwien.trustcps.dsl/Selector/bind/#kotlin.String/PointingToDeclaration/webmonitor/at.ac.tuwien.trustcps.dsl/-selector/bind.html
@@ -59,6 +60,7 @@ $dokka.location:at.ac.tuwien.trustcps.dsl/Selector/greaterEqualThan/#kotlin.Any/
 $dokka.location:at.ac.tuwien.trustcps.dsl/Selector/greaterThan/#kotlin.Any/PointingToDeclaration/webmonitor/at.ac.tuwien.trustcps.dsl/-selector/greater-than.html
 $dokka.location:at.ac.tuwien.trustcps.dsl/Selector/lessEqualThan/#kotlin.Any/PointingToDeclaration/webmonitor/at.ac.tuwien.trustcps.dsl/-selector/less-equal-than.html
 $dokka.location:at.ac.tuwien.trustcps.dsl/Selector/lessThan/#kotlin.Any/PointingToDeclaration/webmonitor/at.ac.tuwien.trustcps.dsl/-selector/less-than.html
+$dokka.location:at.ac.tuwien.trustcps.dsl/Selector/modifier/#/PointingToDeclaration/webmonitor/at.ac.tuwien.trustcps.dsl/-selector/modifier.html
 $dokka.location:at.ac.tuwien.trustcps.dsl/Selector/queryString/#/PointingToDeclaration/webmonitor/at.ac.tuwien.trustcps.dsl/-selector/query-string.html
 $dokka.location:at.ac.tuwien.trustcps.dsl/Selector/read/#kotlin.String/PointingToDeclaration/webmonitor/at.ac.tuwien.trustcps.dsl/-selector/read.html
 $dokka.location:at.ac.tuwien.trustcps.dsl/Selector/state/#/PointingToDeclaration/webmonitor/at.ac.tuwien.trustcps.dsl/-selector/state.html
@@ -132,12 +134,9 @@ $dokka.location:at.ac.tuwien.trustcps////PointingToDeclaration/webmonitor/at.ac
 $dokka.location:at.ac.tuwien.trustcps//main/#kotlin.Array[kotlin.String]/PointingToDeclaration/webmonitor/at.ac.tuwien.trustcps/main.html
 $dokka.location:at.ac.tuwien.trustcps//processMetadata/#kotlin.collections.Map[kotlin.String,kotlin.String]#at.ac.tuwien.trustcps.reporting.Reporter/PointingToDeclaration/webmonitor/at.ac.tuwien.trustcps/process-metadata.html
 $dokka.location:at.ac.tuwien.trustcps/Spec///PointingToDeclaration/webmonitor/at.ac.tuwien.trustcps/-spec/index.html
-$dokka.location:at.ac.tuwien.trustcps/Spec/atoms/#/PointingToDeclaration/webmonitor/at.ac.tuwien.trustcps/-spec/atoms.html
 $dokka.location:at.ac.tuwien.trustcps/Spec/atoms/#kotlin.Array[at.ac.tuwien.trustcps.dsl.Selector]/PointingToDeclaration/webmonitor/at.ac.tuwien.trustcps/-spec/atoms.html
-$dokka.location:at.ac.tuwien.trustcps/Spec/atomsAsIds/#/PointingToDeclaration/webmonitor/at.ac.tuwien.trustcps/-spec/atoms-as-ids.html
 $dokka.location:at.ac.tuwien.trustcps/Spec/basicDistance/#/PointingToDeclaration/webmonitor/at.ac.tuwien.trustcps/-spec/basic-distance.html
 $dokka.location:at.ac.tuwien.trustcps/Spec/formula/#/PointingToDeclaration/webmonitor/at.ac.tuwien.trustcps/-spec/formula.html
-$dokka.location:at.ac.tuwien.trustcps/Spec/record/#/PointingToDeclaration/webmonitor/at.ac.tuwien.trustcps/-spec/record.html
 $dokka.location:at.ac.tuwien.trustcps/Spec/record/#kotlin.Array[at.ac.tuwien.trustcps.dsl.Event]/PointingToDeclaration/webmonitor/at.ac.tuwien.trustcps/-spec/record.html
 $dokka.location:at.ac.tuwien.trustcps/Spec/screen/#/PointingToDeclaration/webmonitor/at.ac.tuwien.trustcps/-spec/screen.html
 $dokka.location:at.ac.tuwien.trustcps/WebSource///PointingToDeclaration/webmonitor/at.ac.tuwien.trustcps/-web-source/index.html
