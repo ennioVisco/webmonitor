@@ -94,8 +94,10 @@ internal class ReporterTest {
                 reporter.mark(text)
             }
 
-            val currTime = LocalDateTime.now().truncatedTo(ChronoUnit.SECONDS)
-            assertEquals("[$currTime] - $text", output.trim())
+            val currTime = LocalTime.now().truncatedTo(ChronoUnit.SECONDS)
+            assertEquals(
+                "$currTime [Test worker] \u001B[34mINFO \u001B[0;39m Reporter - ==== $text ====",
+                output.trim())
         }
 
 

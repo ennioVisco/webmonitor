@@ -101,7 +101,7 @@ class TraceBuilder(
             return isPresent
         } catch (e: IllegalArgumentException) {
             log.error("Unable to extract required information for atom '$atom'.")
-            exitProcess(1)
+            throw IllegalArgumentException("Unable to extract required information for atom '$atom'.", e)
         }
     }
 
