@@ -48,6 +48,7 @@ class SessionBuilder(
         dims: Dimension?,
         headless: Boolean
     ): ChromeDriver {
+        reduceDriverVerbosity()
         WebDriverManager.chromedriver().setup()
         val options = ChromeOptions()
         options.addArguments("--remote-allow-origins=*")
@@ -59,12 +60,23 @@ class SessionBuilder(
         }
 
         if (headless) {
-            options.setHeadless(true)
+            options.addArguments("--headless=new")
             options.addArguments("--no-sandbox")
             options.addArguments("--disable-dev-shm-usage")
         }
 
         return ChromeDriver(options)
+    }
+
+    private fun reduceDriverVerbosity() {
+        System.setProperty(
+            ChromeDriverService.CHROME_DRIVER_VERBOSE_LOG_PROPERTY,
+            "false"
+        )
+        System.setProperty(
+            ChromeDriverService.CHROME_DRIVER_SILENT_OUTPUT_PROPERTY,
+            "true"
+        )
     }
 
     private fun initMobileChrome(options: ChromeOptions, device: String) {

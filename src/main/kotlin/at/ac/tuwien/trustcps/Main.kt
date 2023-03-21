@@ -25,8 +25,8 @@ fun main(args: Array<String>) {
     val result = checking(grid, snapshots)
     report.report(result, "output dump")
 
+    report.title("Plotting results")
     for ((pos, _) in snapshots.withIndex()) {
-        report.title("Plotting results")
         report.plot(pos, result, grid, "Grid plot")
     }
 
@@ -88,9 +88,7 @@ private fun checking(grid: Grid, data: List<Map<String, String>>): GridSignal {
 
 
 private fun generateSpatialModel(data: Map<String, String>): Grid {
-    return if (data.containsKey("lvp_width")
-        && data.containsKey("lvp_height")
-    ) {
+    return if (data.containsKey("lvp_width") && data.containsKey("lvp_height")) {
         Grid(
             rows = data["lvp_height"]!!.toInt(),
             columns = data["lvp_width"]!!.toInt()

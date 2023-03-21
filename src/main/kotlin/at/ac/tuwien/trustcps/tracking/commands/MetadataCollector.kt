@@ -1,5 +1,7 @@
 package at.ac.tuwien.trustcps.tracking.commands
 
+import mu.*
+
 class MetadataCollector(commandExecutor: (String) -> Any) :
     BrowserCommand(
         commandExecutor
@@ -8,6 +10,7 @@ class MetadataCollector(commandExecutor: (String) -> Any) :
     private val layoutVpHeight: String
     private val visualVpWidth: String
     private val visualVpHeight: String
+    private val log = KotlinLogging.logger {}
 
     init {
         /*
@@ -18,12 +21,12 @@ class MetadataCollector(commandExecutor: (String) -> Any) :
         val layoutVp = "return document.documentElement"
         layoutVpWidth = cmdExec("${layoutVp}.scrollWidth").toString()
         layoutVpHeight = cmdExec("${layoutVp}.scrollHeight").toString()
-        println("Layout Viewport: ${layoutVpWidth}x${layoutVpHeight}")
+        log.info("Layout Viewport: ${layoutVpWidth}x${layoutVpHeight}")
 
         // Visual Viewport: physical screen
         visualVpWidth = cmdExec("return window.innerWidth;").toString()
         visualVpHeight = cmdExec("return window.innerHeight;").toString()
-        println("Visual Viewport: ${visualVpWidth}x${visualVpHeight}")
+        log.info("Visual Viewport: ${visualVpWidth}x${visualVpHeight}")
     }
 
     override fun dump(target: MutableMap<String, String>) {

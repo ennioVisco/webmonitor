@@ -4,7 +4,9 @@ import at.ac.tuwien.trustcps.dsl.*
 import at.ac.tuwien.trustcps.space.*
 import at.ac.tuwien.trustcps.tracking.commands.*
 import eu.quanticol.moonlight.offline.signal.*
+import mu.*
 import kotlin.math.*
+import kotlin.system.*
 
 /**
  *  Builder class that generates a signal based on the data
@@ -19,6 +21,7 @@ class TraceBuilder(
     private val elements: MutableList<String> = ArrayList()
     private val modifiers: MutableMap<String, (String, String) -> Boolean> =
         HashMap()
+    private val log = KotlinLogging.logger {}
 
     /**
      * Modifier determining whether to also load page metadata in the signal
@@ -80,14 +83,26 @@ class TraceBuilder(
 
     private fun checkAtom(atom: String, t: Int, location: Int): Boolean {
         val (selector, property, value) = parseSelector(atom)
-        val isPresent = dataToBox(selector, t).has(location)
-        val op = getComparator(atom)
-        if (property != "") {
-            val eval =
-                applyComparison(op, selector, property, value, data[t], atom)
-            return isPresent && eval
+        try {
+            val isPresent = dataToBox(selector, t).has(location)
+            val op = getComparator(atom)
+            if (property != "") {
+                val eval =
+                    applyComparison(
+                        op,
+                        selector,
+                        property,
+                        value,
+                        data[t],
+                        atom
+                    )
+                return isPresent && eval
+            }
+            return isPresent
+        } catch (e: IllegalArgumentException) {
+            log.error("Unable to extract required information for atom '$atom'.")
+            exitProcess(1)
         }
-        return isPresent
     }
 
     private fun getComparator(atom: String): String {

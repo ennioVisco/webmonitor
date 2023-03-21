@@ -1,6 +1,7 @@
 package at.ac.tuwien.trustcps.tracking.commands
 
 import at.ac.tuwien.trustcps.dsl.*
+import mu.*
 import org.openqa.selenium.*
 
 class SelectorCollector(
@@ -16,6 +17,7 @@ class SelectorCollector(
     private val cssQuery: String
     private val cssProperty: String
     private val bound: BoundInitializer?
+    private val log = KotlinLogging.logger {}
 
     init {
         val (query, property, label, isBinding) = parseSelector(queryString)
@@ -29,7 +31,7 @@ class SelectorCollector(
         selectorWidth = elem.rect.width.toString()
         selectorHeight = elem.rect.width.toString()
 
-        println(
+        log.info(
             "Element <${query}> = (${selectorX}, ${selectorY})" +
                     " -> (${selectorWidth}, ${selectorHeight})"
         )

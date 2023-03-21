@@ -4,6 +4,7 @@ import at.ac.tuwien.trustcps.*
 import at.ac.tuwien.trustcps.space.*
 import eu.quanticol.moonlight.offline.signal.*
 import javafx.application.*
+import mu.*
 import java.io.*
 import java.time.*
 import java.time.temporal.*
@@ -18,6 +19,7 @@ class Reporter(
     var devicePixelRatio: Double = 1.0,
     private val logTimeGranularity: TemporalUnit = ChronoUnit.SECONDS,
 ) {
+    private val log = KotlinLogging.logger {}
 
     private fun logTime() = LocalDateTime.now().truncatedTo(logTimeGranularity)
 
@@ -28,7 +30,7 @@ class Reporter(
     fun mark(text: String, important: Boolean = false) {
         val data = outputLine(text)
         if (toConsole || important) {
-            print(data)
+            log.info("==== $text ====")
         }
         buffer.add(data)
     }

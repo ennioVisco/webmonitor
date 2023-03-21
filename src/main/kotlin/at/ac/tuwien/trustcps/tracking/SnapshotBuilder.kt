@@ -1,8 +1,10 @@
 package at.ac.tuwien.trustcps.tracking
 
 import at.ac.tuwien.trustcps.tracking.commands.*
+import mu.*
 import org.apache.commons.io.*
 import org.openqa.selenium.*
+import org.openqa.selenium.devtools.*
 import org.openqa.selenium.remote.*
 import java.io.*
 
@@ -18,6 +20,7 @@ class SnapshotBuilder(
     private val selectors: List<String>,
     private val toFile: Boolean = false
 ) {
+    private val log = KotlinLogging.logger {}
 
     /**
      * Fetches the snapshot data from the current session of the browser
@@ -36,10 +39,31 @@ class SnapshotBuilder(
         MetadataCollector(driver::executeScript).dump(data)
 
     private fun doSelect(cssQuery: String, data: MutableMap<String, String>) {
+        try {
+            findAndDump(cssQuery, data)
+        } catch (e: Exception) {
+            when (e) {
+                is NoSuchElementException,
+                is DevToolsException ->
+                    log.error(
+                        "Selector '$cssQuery' not found. " +
+                                "Are you sure it is present in the page?"
+                    )
+
+                else -> throw e
+            }
+        }
+    }
+
+    private fun findAndDump(
+        cssQuery: String,
+        data: MutableMap<String, String>
+    ) {
         val findCss = { q: String -> driver.findElement(By.cssSelector(q)) }
         val elem = SelectorCollector(cssQuery, findCss, driver::executeScript)
         elem.dump(data)
     }
+
 
     private fun takeScreenshot(id: Int) {
         val screenshotFile = driver.getScreenshotAs(OutputType.FILE)
