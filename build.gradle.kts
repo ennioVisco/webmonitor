@@ -60,8 +60,8 @@ dependencies {
     implementation(files("lib/moonlight.jar"))
 
     // Selenium
-    implementation("org.seleniumhq.selenium:selenium-java:4.6.0")
-    implementation("io.github.bonigarcia:webdrivermanager:5.3.1")
+    implementation("org.seleniumhq.selenium:selenium-java:4.8.0")
+    implementation("io.github.bonigarcia:webdrivermanager:5.3.2")
 
     // TestFX (headless GUI)
     implementation("org.testfx:testfx-core:4.0.16-alpha")

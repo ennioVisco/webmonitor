@@ -50,6 +50,7 @@ class SessionBuilder(
     ): ChromeDriver {
         WebDriverManager.chromedriver().setup()
         val options = ChromeOptions()
+        options.addArguments("--remote-allow-origins=*")
         if (dims?.width!! < 500 || dims.height < 400) {
             initMobileChrome(options, "iPhone 5/SE")
         } else {
@@ -62,7 +63,7 @@ class SessionBuilder(
             options.addArguments("--no-sandbox")
             options.addArguments("--disable-dev-shm-usage")
         }
-        
+
         return ChromeDriver(options)
     }
 
