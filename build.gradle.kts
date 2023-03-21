@@ -53,7 +53,7 @@ tasks.dokkaHtml.configure {
 dependencies {
     // Configuration files
     implementation(kotlin("script-runtime"))
-    runtimeOnly("org.jetbrains.kotlin:kotlin-scripting-jsr223:1.6.21")
+    runtimeOnly("org.jetbrains.kotlin:kotlin-scripting-jsr223:1.8.10")
 
     // Moonlight
     //implementation("eu.quanticol.moonlight:core:1.0-SNAPSHOT")
