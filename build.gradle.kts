@@ -7,11 +7,11 @@ plugins {
     application
     jacoco
     checkstyle
-    id("org.sonarqube") version "3.5.0.2730"
-    kotlin("jvm") version "1.7.21"
+    id("org.sonarqube") version "4.0.0.2929"
+    kotlin("jvm") version "1.8.10"
     id("org.openjfx.javafxplugin") version "0.0.13"
-    id("org.javamodularity.moduleplugin") version ("1.8.10") apply false
-    id("org.jetbrains.dokka") version "1.7.20"
+    id("org.javamodularity.moduleplugin") version ("1.8.12") apply false
+    id("org.jetbrains.dokka") version "1.8.10"
 }
 
 repositories {
@@ -19,7 +19,7 @@ repositories {
     //githubPackages("MoonlightSuite", "Moonlight")
 }
 
-sonarqube {
+sonar {
     properties {
         property("sonar.projectKey", "ennioVisco_webmonitor")
         property("sonar.organization", "enniovisco")
@@ -60,7 +60,7 @@ dependencies {
     implementation(files("lib/moonlight.jar"))
 
     // Selenium
-    implementation("org.seleniumhq.selenium:selenium-java:4.8.0")
+    implementation("org.seleniumhq.selenium:selenium-java:4.8.1")
     implementation("io.github.bonigarcia:webdrivermanager:5.3.2")
 
     // TestFX (headless GUI)
@@ -69,15 +69,15 @@ dependencies {
     implementation("org.testfx:openjfx-monocle:jdk-12.0.1+2")
 
     // Dokka
-    implementation("org.jetbrains.dokka:dokka-gradle-plugin:1.7.20")
+    implementation("org.jetbrains.dokka:dokka-gradle-plugin:1.8.10")
 
     // Charts
-    implementation("eu.hansolo.fx:charts:17.1.25")
+    implementation("eu.hansolo.fx:charts:17.1.27")
 
     // Logging
-    implementation("io.github.microutils:kotlin-logging-jvm:3.0.4")
+    implementation("io.github.microutils:kotlin-logging-jvm:3.0.5")
     runtimeOnly("org.slf4j:slf4j-api:2.0.5")
-    implementation("ch.qos.logback:logback-classic:1.4.5")
+    implementation("ch.qos.logback:logback-classic:1.4.6")
 
     // Pretty printing (debug)
     implementation("com.tylerthrailkill.helpers:pretty-print:2.0.2")
@@ -85,8 +85,8 @@ dependencies {
     // Tests
     testImplementation(kotlin("test"))
     testImplementation(kotlin("test-junit5"))
-    testImplementation("org.junit.jupiter:junit-jupiter:5.9.0")
-    testImplementation("io.mockk:mockk:1.13.2")
+    testImplementation("org.junit.jupiter:junit-jupiter:5.9.2")
+    testImplementation("io.mockk:mockk:1.13.4")
     testImplementation("com.github.stefanbirkner:system-lambda:1.2.1")
 }
 
