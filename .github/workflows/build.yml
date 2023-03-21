@@ -11,8 +11,7 @@ jobs:
 
     strategy:
       matrix:
-        os: [ubuntu-latest] # , windows-latest] # Windows remove as needs alternative to xvfb-run!
-        node-version: [12.x]
+        os: [ ubuntu-latest, macos-latest ] # , windows-latest] # Windows remove as needs alternative to xvfb-run!
     steps:
       - uses: actions/checkout@v3
         with:
