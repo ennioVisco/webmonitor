@@ -48,7 +48,6 @@ class EventRecorder(
 
         val getPixelRatio = "return window.devicePixelRatio"
         val currentPixelRatio = driver.executeScript(getPixelRatio).toString()
-//        LOG.info("The device pixel ratio is $currentPixelRatio")
         return mapOf(
             "devicePixelRatio" to currentPixelRatio,
         )
