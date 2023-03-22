@@ -43,7 +43,7 @@ class SelectorCollector(
     private fun initializeProperty(property: String, elem: WebElement) =
         if (property != "") {
             val actual = elem.getCssValue(property)
-            println("Property '$property' set at value: $actual")
+            log.info("Property '$property' set at value: $actual")
             actual
         } else ""
 

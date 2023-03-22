@@ -1,5 +1,7 @@
 package at.ac.tuwien.trustcps.tracking.commands
 
+import mu.*
+
 const val BOUNDS_PREFIX = "wm-"
 
 class BoundInitializer(
@@ -8,6 +10,7 @@ class BoundInitializer(
     cmdExec: (String) -> Any
 ) : BrowserCommand(cmdExec) {
     private val value: String
+    private val log = KotlinLogging.logger {}
 
     init {
         value = collectBound(label, initialValue)
@@ -33,7 +36,7 @@ class BoundInitializer(
             storeBoundValue(bound, defaultValue)
             defaultValue
         } else {
-            println("Bound '$bound' already set to '$actual'")
+            log.warn("Bound '$bound' already set to '$actual'")
             return actual.toString()
         }
     }
@@ -42,7 +45,7 @@ class BoundInitializer(
         cmdExec(//language=JavaScript
             "document.querySelector(':root').style.setProperty(${prop(bound)}, '$value')"
         )
-        println("Bound '$bound' set to '$value'")
+        log.info("Bound '$bound' set to '$value'")
     }
 
     override fun dump(target: MutableMap<String, String>) {

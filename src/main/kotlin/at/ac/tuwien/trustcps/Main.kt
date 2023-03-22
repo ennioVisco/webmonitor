@@ -26,6 +26,7 @@ fun main(args: Array<String>) {
         for ((pos, _) in snapshots.withIndex()) {
             report.plot(pos, result, grid, "Grid plot")
         }
+
         report.title("Ending")
     }
 }
@@ -43,7 +44,6 @@ private fun tracking(report: Reporter): ResultData {
     Spec.record.forEach { tracker.record(it.asPair()) }
 
     val results = tracker.run()
-
 
     processMetadata(tracker.metadata, report)
 
