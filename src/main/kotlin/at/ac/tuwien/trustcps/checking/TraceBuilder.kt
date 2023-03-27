@@ -6,7 +6,6 @@ import at.ac.tuwien.trustcps.tracking.commands.*
 import eu.quanticol.moonlight.offline.signal.*
 import mu.*
 import kotlin.math.*
-import kotlin.system.*
 
 /**
  *  Builder class that generates a signal based on the data
@@ -101,7 +100,10 @@ class TraceBuilder(
             return isPresent
         } catch (e: IllegalArgumentException) {
             log.error("Unable to extract required information for atom '$atom'.")
-            throw IllegalArgumentException("Unable to extract required information for atom '$atom'.", e)
+            throw IllegalArgumentException(
+                "Unable to extract required information for atom '$atom'.",
+                e
+            )
         }
     }
 

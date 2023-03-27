@@ -20,6 +20,7 @@ class SelectorCollector(
     private val log = KotlinLogging.logger {}
 
     init {
+        log.info("SelectorCollector: $queryString")
         val (query, property, label, isBinding) = parseSelector(queryString)
         cssQuery = query
         cssProperty = property
@@ -29,7 +30,7 @@ class SelectorCollector(
         selectorX = elem.rect.x.toString()
         selectorY = elem.rect.y.toString()
         selectorWidth = elem.rect.width.toString()
-        selectorHeight = elem.rect.width.toString()
+        selectorHeight = elem.rect.height.toString()
 
         log.info(
             "Element <${query}> = (${selectorX}, ${selectorY})" +

@@ -52,8 +52,10 @@ class SessionBuilder(
         WebDriverManager.chromedriver().setup()
         val options = ChromeOptions()
         options.addArguments("--remote-allow-origins=*")
+        options.addArguments("--force-device-scale-factor=1")
+
         if (dims?.width!! < 500 || dims.height < 400) {
-            initMobileChrome(options, "iPhone 5/SE")
+            initMobileChrome(options, "Pixel 5")
         } else {
             val windowSizeFlag = "--window-size=${dims.width},${dims.height}"
             options.addArguments(windowSizeFlag)
@@ -84,7 +86,8 @@ class SessionBuilder(
         val mobileEmulation = mobileDevice.deviceName
         options.setExperimentalOption("mobileEmulation", mobileEmulation)
         val windowWidth = mobileDevice.width
-        val windowHeight = mobileDevice.height + chromeVerticalBrowserFrame
+        val windowHeight =
+            mobileDevice.height + (chromeVerticalBrowserFrame * 1)
         val windowSizeFlag = "--window-size=$windowWidth,$windowHeight"
         options.addArguments(windowSizeFlag)
     }
@@ -92,6 +95,7 @@ class SessionBuilder(
     private fun selectMobileDevice(key: String): Device {
         val devices: List<Device> = listOf(
             Device("iPhone 5/SE", 375, 667),
+            Device("Pixel 5", 393, 851),
         )
         return devices.find { it.name == key }
             ?: throw Error("The device \"$key\" is not supported yet!")

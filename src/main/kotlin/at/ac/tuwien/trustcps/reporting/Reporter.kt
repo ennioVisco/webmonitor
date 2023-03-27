@@ -67,7 +67,7 @@ class Reporter(
         try {
             Platform.startup(Plotter(id, title, values, grid, devicePixelRatio))
         } catch (e: IllegalStateException) {
-            println("JavaFX platform already instantiated. Skipping.")
+            log.info("JavaFX platform already instantiated. Skipping.")
             Platform.runLater(
                 Plotter(
                     id,

@@ -14,6 +14,7 @@ import javafx.scene.transform.*
 import javafx.stage.*
 import java.io.*
 import javax.imageio.*
+import kotlin.math.*
 
 /**
  * Plotting class based on JavaFX and Han Solo's Charts library.
@@ -33,6 +34,7 @@ class Plotter(
     private val columns = data.size //TODO: should compare to grid
     private val rows = data[0].size
     private val heatMap = addData(data)
+    private val log = mu.KotlinLogging.logger {}
 
     /**
      * Initializes the data to plot a heatmap
@@ -69,7 +71,7 @@ class Plotter(
         }
         stage.title = title
         stage.scene = scene
-        takeSnapshot(scene, "output/eval_${id}.png")
+        Platform.runLater { takeSnapshot(scene, "output/eval_${id}.png") }
     }
 
     private fun takeSnapshot(scene: Scene, fileName: String) {
@@ -84,9 +86,12 @@ class Plotter(
             File(fileName).canonicalFile.toURI().toURL().toString()
         val image = Image(backgroundURL)
 
+        val width = (image.width / deviceRatio).roundToInt().toDouble()
+        val height = (image.height / deviceRatio).roundToInt().toDouble()
+
         val backgroundSize = BackgroundSize(
-            image.width / deviceRatio,
-            image.height / deviceRatio,
+            width,
+            height,
             false,
             false,
             false,

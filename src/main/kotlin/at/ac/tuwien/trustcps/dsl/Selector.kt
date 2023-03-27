@@ -29,7 +29,7 @@ data class Selector(
     }
 
     infix fun equalTo(comparison: Any): Selector {
-        return Selector(queryString, attribute, comparison, state, "=")
+        return Selector(queryString, attribute, comparison, state, "==")
     }
 
     infix fun bind(label: String): Selector {

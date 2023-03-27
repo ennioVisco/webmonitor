@@ -11,6 +11,8 @@ import java.net.*
 private typealias ResultData = List<Map<String, String>>
 private typealias Metadata = Map<String, String>
 
+private val log = mu.KotlinLogging.logger {}
+
 fun main(args: Array<String>) {
     Cli(args) {
         report.title("Tracking")
@@ -62,10 +64,13 @@ private fun checking(grid: Grid, data: List<Map<String, String>>): GridSignal {
 }
 
 private fun generateSpatialModel(data: Map<String, String>): Grid {
-    return if (data.containsKey("lvp_width") && data.containsKey("lvp_height")) {
+    // TODO: could switch between lvp and vvp
+    val widthKey = "vvp_width"
+    val heightKey = "vvp_height"
+    return if (data.containsKey(widthKey) && data.containsKey(heightKey)) {
         Grid(
-            rows = data["lvp_height"]!!.toInt(),
-            columns = data["lvp_width"]!!.toInt()
+            rows = data[heightKey]!!.toInt(),
+            columns = data[widthKey]!!.toInt()
         )
     } else {
         Grid(rows = WebSource.screenHeight, columns = WebSource.screenWidth)
