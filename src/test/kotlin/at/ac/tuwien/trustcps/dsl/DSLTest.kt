@@ -50,7 +50,7 @@ internal class DSLTest {
             val selector4 = select { "body" } read "attr" greaterEqualThan "0"
             val selector5 = select { "body" } read "attr" lessEqualThan "0"
 
-            assertEquals("body\$attr = 0", selector1.toString())
+            assertEquals("body\$attr == 0", selector1.toString())
             assertEquals("body\$attr > 0", selector2.toString())
             assertEquals("body\$attr < 0", selector3.toString())
             assertEquals("body\$attr >= 0", selector4.toString())

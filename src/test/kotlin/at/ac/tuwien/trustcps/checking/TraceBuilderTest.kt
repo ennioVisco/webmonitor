@@ -96,7 +96,7 @@ internal class TraceBuilderTest {
         fun ` 'equal to' works`() {
             val builder = builderOneElementInit()
 
-            builder.useElement("elem\$width = 1")
+            builder.useElement("elem\$width == 1")
             val builtSignal = builder.build()
 
             assertSignalDimensionEquals(signalStub, builtSignal)
