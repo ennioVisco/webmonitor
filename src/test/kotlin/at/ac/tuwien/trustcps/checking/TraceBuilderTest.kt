@@ -171,7 +171,7 @@ internal class TraceBuilderTest {
     private val signalStub = run {
         val signal = SpatialTemporalSignal<List<Boolean>>(9)
         signal.add(0.0) {
-            if (it in listOf(0, 1, 3, 4)) {         //  1 1 0
+            if (it in listOf(0, 1, 3, 4, 6, 7)) {   //  1 1 0
                 listOf(true)                   //  1 1 0
             } else {                                //  0 0 0
                 listOf(false)
@@ -228,7 +228,7 @@ internal class TraceBuilderTest {
                 "elem::x" to "0",
                 "elem::y" to "0",
                 "elem::width" to "1",
-                "elem::height" to "1"
+                "elem::height" to "2"
             )
         )
         return TraceBuilder(grid, data)
