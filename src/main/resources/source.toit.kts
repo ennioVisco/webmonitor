@@ -8,7 +8,7 @@ WebSource.browser = Browser.CHROME
 
 WebSource.wait = 2_000 // ms
 
-WebSource.maxSessionDuration = 7_000 // ms
+WebSource.maxSessionDuration = 10_000 // ms
 
 WebSource.targetUrl = "https://dl.acm.org/journal/toit"
 

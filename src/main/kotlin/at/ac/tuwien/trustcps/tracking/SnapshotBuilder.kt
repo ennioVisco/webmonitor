@@ -59,7 +59,7 @@ class SnapshotBuilder(
         cssQuery: String,
         data: MutableMap<String, String>
     ) {
-        val findCss = { q: String -> driver.findElements(By.cssSelector(q))[0] }
+        val findCss = { q: String -> driver.findElement(By.cssSelector(q)) }
         val elem = SelectorCollector(cssQuery, findCss, driver::executeScript)
         elem.dump(data)
     }
