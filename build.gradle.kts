@@ -3,6 +3,8 @@ import org.jetbrains.kotlin.gradle.tasks.*
 group = "at.ac.tuwien.trustcps"
 version = "1.0-SNAPSHOT"
 
+val ENABLE_PREVIEW = "--enable-preview"
+
 plugins {
     application
     jacoco
@@ -16,7 +18,6 @@ plugins {
 
 repositories {
     mavenCentral()
-    //githubPackages("MoonlightSuite", "Moonlight")
 }
 
 sonar {
@@ -31,23 +32,10 @@ java {
     sourceCompatibility = JavaVersion.VERSION_17
 }
 
-tasks.withType<JavaCompile> {
-    options.compilerArgs.add("--enable-preview")
-}
-
 javafx {
     version = "17"
     modules =
-        listOf(
-            "javafx.base",
-            "javafx.controls",
-            "javafx.swing",
-            "javafx.web"
-        )
-}
-
-tasks.dokkaHtml.configure {
-    outputDirectory.set(buildDir.resolve("dokka"))
+        listOf("javafx.base", "javafx.controls", "javafx.swing", "javafx.web")
 }
 
 dependencies {
@@ -94,7 +82,7 @@ dependencies {
 
 fun runtimeArgs(exec: Any) {
     val arguments = listOf(
-        "--enable-preview",
+        ENABLE_PREVIEW,
         "--add-exports", "javafx.graphics/com.sun.glass.ui=ALL-UNNAMED",
         "--add-exports", "javafx.graphics/com.sun.glass.utils=ALL-UNNAMED",
         "--add-opens", "javafx.graphics/com.sun.glass.ui=ALL-UNNAMED",
@@ -107,59 +95,52 @@ fun runtimeArgs(exec: Any) {
     }
 }
 
-tasks.test {
-    useJUnitPlatform()
-    jvmArgs("--enable-preview")
-    finalizedBy(tasks.jacocoTestReport) // report is always generated after tests run
-}
-
-val headlessJavaFXSettings = mapOf(
-    //"java.awt.headless" to true,
-    "testfx.robot" to "glass",
-    "testfx.headless" to true,
-    "glass.platform" to "Monocle",
-    "monocle.platform" to "Headless",
-    "headless.geometry" to "1920x1080-32",
-    //"prism.order" to "sw"
-)
-
-tasks.withType<JavaExec> {
-    runtimeArgs(this)
-    systemProperties = headlessJavaFXSettings
-    System.setProperty("webdriver.http.factory", "jdk-http-client")
-
-}
-
-tasks.jacocoTestReport {
-    dependsOn(tasks.test) // tests are required to run before generating the report
-    reports {
-        xml.required.set(true)
+tasks tasks@{
+    withType<JavaCompile> {
+        options.compilerArgs.add(ENABLE_PREVIEW)
     }
-}
 
-tasks.withType<KotlinCompile> {
-    compilerOptions {
-        jvmTarget.set(org.jetbrains.kotlin.gradle.dsl.JvmTarget.JVM_17)
+    dokkaHtml.configure {
+        outputDirectory.set(buildDir.resolve("dokka"))
+    }
+
+    test {
+        useJUnitPlatform()
+        runtimeArgs(this)
+        finalizedBy(this@tasks.jacocoTestReport) // report is always generated after tests run
+    }
+
+    withType<JavaExec> {
+        val headlessJavaFXSettings = mapOf(
+            //"java.awt.headless" to true,
+            "testfx.robot" to "glass",
+            "testfx.headless" to true,
+            "glass.platform" to "Monocle",
+            "monocle.platform" to "Headless",
+            "headless.geometry" to "1920x1080-32",
+            //"prism.order" to "sw"
+        )
+        runtimeArgs(this)
+        systemProperties = headlessJavaFXSettings
+        System.setProperty("webdriver.http.factory", "jdk-http-client")
+    }
+
+    jacocoTestReport {
+        dependsOn(this@tasks.test) // tests are required to run before generating the report
+        reports {
+            xml.required.set(true)
+        }
+    }
+
+    withType<KotlinCompile> {
+        compilerOptions {
+            jvmTarget.set(org.jetbrains.kotlin.gradle.dsl.JvmTarget.JVM_17)
+        }
     }
 }
 
 application {
-    //executableDir = "$buildDir/../src/main/kotlin/at/ac/tuwien/trustcps"
     println("Current exec dir: $executableDir")
     fun pkg(name: String) = "${group}.${name}Kt"
     mainClass.set(pkg("Main"))
-    //println("Current sources dir: ${buildDir}")
-}
-
-fun RepositoryHandler.githubPackages(user: String, repo: String):
-        MavenArtifactRepository {
-    return maven {
-        url = uri("https://maven.pkg.github.com/$user/$repo")
-        credentials {
-            username = project.findProperty("gpr.user") as String?
-                ?: System.getenv("GITHUB_USER")
-            password = project.findProperty("gpr.key") as String?
-                ?: System.getenv("GITHUB_TOKEN")
-        }
-    }
 }

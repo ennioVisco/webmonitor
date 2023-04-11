@@ -11,8 +11,6 @@ import java.net.*
 private typealias ResultData = List<Map<String, String>>
 private typealias Metadata = Map<String, String>
 
-private val log = mu.KotlinLogging.logger {}
-
 fun main(args: Array<String>) {
     Cli(args) {
         it.title("Tracking")

@@ -62,6 +62,7 @@ class SessionBuilder(
 
         if (headless) {
             options.addArguments("--headless=new")
+            options.addArguments("--disable-extensions");
             options.addArguments("--no-sandbox")
             options.addArguments("--disable-dev-shm-usage")
         }

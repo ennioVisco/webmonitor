@@ -10,6 +10,7 @@ class Cli(
     exec: Cli.(Reporter) -> Unit
 ) {
     val report = Reporter(toConsole, toFile)
+    private val log = mu.KotlinLogging.logger {}
 
     init {
         report.use {
@@ -27,6 +28,7 @@ class Cli(
                 val (source) = args
                 loadScripts(source, spec = source)
             } catch (e: ArrayIndexOutOfBoundsException) {
+                log.info("No arguments provided, using default scripts")
                 loadScripts(source = "sample", spec = "sample")
             }
         }
