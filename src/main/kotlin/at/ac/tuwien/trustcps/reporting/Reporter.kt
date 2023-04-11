@@ -18,7 +18,7 @@ class Reporter(
     private val toFile: Boolean = false,
     var devicePixelRatio: Double = 1.0,
     private val logTimeGranularity: TemporalUnit = ChronoUnit.SECONDS,
-) {
+) : AutoCloseable {
     private val log = KotlinLogging.logger {}
 
     private fun logTime() = LocalDateTime.now().truncatedTo(logTimeGranularity)
@@ -77,10 +77,11 @@ class Reporter(
                     devicePixelRatio
                 )
             )
-        } finally {
-            Thread.sleep(60_000)
-            Platform.exit()
         }
+//        finally {
+//            Thread.sleep(60_000)
+//            Platform.exit()
+//        }
     }
 
     private fun <T> signalToGrid(signal: SpatialTemporalSignal<T>, grid: Grid) =
@@ -192,5 +193,12 @@ class Reporter(
      */
     private fun invalidType(): Double {
         throw IllegalArgumentException("The provided type is not supported")
+    }
+
+    override fun close() {
+        val isHeadless = System.getProperty("testfx.headless")
+//        if (isHeadless != null && isHeadless == "true") {
+//            Platform.exit()
+//        }
     }
 }

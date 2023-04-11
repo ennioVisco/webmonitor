@@ -86,7 +86,7 @@ internal class TraceBuilderTest {
         fun ` 'bigger than' works`() {
             val builder = builderOneElementInit()
 
-            builder.useElement("elem\$width > 3")
+            builder.useElement("elem\$width >> 3")
             val builtSignal = builder.build()
 
             assertSignalDimensionEquals(alwaysFalseSignal, builtSignal)
@@ -116,7 +116,7 @@ internal class TraceBuilderTest {
         fun ` 'less than' works`() {
             val builder = builderOneElementInit()
 
-            builder.useElement("elem\$width < 2")
+            builder.useElement("elem\$width << 2")
             val builtSignal = builder.build()
 
             assertSignalDimensionEquals(signalStub, builtSignal)

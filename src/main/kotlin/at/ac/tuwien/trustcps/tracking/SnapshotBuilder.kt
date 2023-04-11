@@ -50,7 +50,10 @@ class SnapshotBuilder(
                                 "Are you sure it is present in the page?"
                     )
 
-                else -> throw e
+                else -> {
+                    log.error("Error while collecting data for selector '$cssQuery'.")
+                    throw e
+                }
             }
         }
     }

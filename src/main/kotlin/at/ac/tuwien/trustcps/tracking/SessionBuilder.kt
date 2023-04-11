@@ -51,7 +51,6 @@ class SessionBuilder(
         reduceDriverVerbosity()
         WebDriverManager.chromedriver().setup()
         val options = ChromeOptions()
-        options.addArguments("--remote-allow-origins=*")
         options.addArguments("--force-device-scale-factor=1")
 
         if (dims?.width!! < 500 || dims.height < 400) {
@@ -66,6 +65,7 @@ class SessionBuilder(
             options.addArguments("--no-sandbox")
             options.addArguments("--disable-dev-shm-usage")
         }
+        options.addArguments("--remote-allow-origins=*")
 
         return ChromeDriver(options)
     }

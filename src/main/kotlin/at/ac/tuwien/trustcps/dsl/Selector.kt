@@ -47,7 +47,7 @@ data class Selector(
         )
 
     infix fun greaterThan(comparison: Any): Selector {
-        return Selector(queryString, attribute, comparison, state, ">")
+        return Selector(queryString, attribute, comparison, state, ">>")
     }
 
     infix fun greaterEqualThan(comparison: Any): Selector {
@@ -55,7 +55,7 @@ data class Selector(
     }
 
     infix fun lessThan(comparison: Any): Selector {
-        return Selector(queryString, attribute, comparison, state, "<")
+        return Selector(queryString, attribute, comparison, state, "<<")
     }
 
     infix fun lessEqualThan(comparison: Any): Selector {

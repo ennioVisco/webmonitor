@@ -8,7 +8,7 @@ plugins {
     jacoco
     checkstyle
     id("org.sonarqube") version "4.0.0.2929"
-    kotlin("jvm") version "1.8.10"
+    kotlin("jvm") version "1.8.20"
     id("org.openjfx.javafxplugin") version "0.0.13"
     id("org.javamodularity.moduleplugin") version ("1.8.12") apply false
     id("org.jetbrains.dokka") version "1.8.10"
@@ -53,14 +53,16 @@ tasks.dokkaHtml.configure {
 dependencies {
     // Configuration files
     implementation(kotlin("script-runtime"))
-    runtimeOnly("org.jetbrains.kotlin:kotlin-scripting-jsr223:1.8.10")
+    runtimeOnly("org.jetbrains.kotlin:kotlin-scripting-jsr223:1.8.20")
 
     // Moonlight
     //implementation("eu.quanticol.moonlight:core:1.0-SNAPSHOT")
     implementation(files("lib/moonlight.jar"))
 
     // Selenium
-    implementation("org.seleniumhq.selenium:selenium-java:4.8.1")
+    implementation("org.seleniumhq.selenium:selenium-java:4.8.3")
+    implementation("org.seleniumhq.selenium:selenium-http-jdk-client:4.8.3")
+
     implementation("io.github.bonigarcia:webdrivermanager:5.3.2")
 
     // TestFX (headless GUI)
@@ -124,6 +126,8 @@ val headlessJavaFXSettings = mapOf(
 tasks.withType<JavaExec> {
     runtimeArgs(this)
     systemProperties = headlessJavaFXSettings
+    System.setProperty("webdriver.http.factory", "jdk-http-client")
+
 }
 
 tasks.jacocoTestReport {
@@ -134,7 +138,9 @@ tasks.jacocoTestReport {
 }
 
 tasks.withType<KotlinCompile> {
-    kotlinOptions.jvmTarget = "17"
+    compilerOptions {
+        jvmTarget.set(org.jetbrains.kotlin.gradle.dsl.JvmTarget.JVM_17)
+    }
 }
 
 application {

@@ -7,13 +7,15 @@ class Cli(
     args: Array<String>,
     toConsole: Boolean = false,
     toFile: Boolean = false,
-    exec: Cli.() -> Unit
+    exec: Cli.(Reporter) -> Unit
 ) {
     val report = Reporter(toConsole, toFile)
 
     init {
-        validateArgs(args)
-        exec()
+        report.use {
+            validateArgs(args)
+            exec(it)
+        }
     }
 
     private fun validateArgs(args: Array<String>) {

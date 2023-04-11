@@ -15,21 +15,21 @@ private val log = mu.KotlinLogging.logger {}
 
 fun main(args: Array<String>) {
     Cli(args) {
-        report.title("Tracking")
-        val snapshots = tracking(report)
+        it.title("Tracking")
+        val snapshots = tracking(it)
 
         val grid = generateSpatialModel(snapshots[0])
 
-        report.title("Checking")
+        it.title("Checking")
         val result = checking(grid, snapshots)
-        report.report(result, "output dump")
+        it.report(result, "output dump")
 
-        report.title("Plotting results")
+        it.title("Plotting results")
         for ((pos, _) in snapshots.withIndex()) {
-            report.plot(pos, result, grid, "Grid plot")
+            it.plot(pos, result, grid, "Grid plot $pos")
         }
 
-        report.title("Ending")
+        it.title("Ending")
     }
 }
 

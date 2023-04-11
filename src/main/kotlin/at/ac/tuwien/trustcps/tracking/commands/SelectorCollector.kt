@@ -34,7 +34,8 @@ class SelectorCollector(
 
         log.info(
             "Element <${query}> = (${selectorX}, ${selectorY})" +
-                    " -> (${selectorWidth}, ${selectorHeight})"
+                    " -> (${selectorX.toInt() + selectorWidth.toInt()}" +
+                    ", ${selectorY.toInt() + selectorHeight.toInt()})"
         )
 
         propertyValue = initializeProperty(property, elem)
