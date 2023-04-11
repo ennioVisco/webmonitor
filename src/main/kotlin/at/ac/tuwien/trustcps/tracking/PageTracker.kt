@@ -79,10 +79,9 @@ class PageTracker(
 
     private fun takeSnapshot(event: ConsoleEvent) {
         Thread.sleep(wait)
-        if (event.messages.size < 1) {
-            log.warn("Console log message is empty")
-        } else if (event.messages[0].startsWith(prefix)) {
-            log.info("Console log message is: ${event.messages}")
+
+        if (event.messages.size > 0 && event.messages[0].startsWith(prefix)) {
+            log.info("Console log message is: ${event.messages[0]}")
             snapshotOrFail {
                 snapshotBuilder?.collect(snapshots.size)?.let {
                     snapshots.add(it)

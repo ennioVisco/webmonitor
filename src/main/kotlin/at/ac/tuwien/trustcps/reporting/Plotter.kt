@@ -29,7 +29,8 @@ class Plotter(
     data: Array<DoubleArray>,
     private val grid: Grid,
     private val deviceRatio: Double,
-    private val withBackground: Boolean = true
+    private val withBackground: Boolean = true,
+    private val headless: Boolean = false
 ) : Application(), Runnable {
     private val columns = data.size //TODO: should compare to grid
     private val rows = data[0].size
@@ -71,10 +72,17 @@ class Plotter(
         }
         stage.title = title
         stage.scene = scene
-        Platform.runLater { takeSnapshot(scene, "output/eval_${id}.png") }
+        Platform.runLater {
+            takeSnapshot(scene, "output/eval_${id}.png")
+            if (headless) {
+                log.info("Headless mode, closing GUI.")
+                Platform.exit()
+            }
+        }
     }
 
     private fun takeSnapshot(scene: Scene, fileName: String) {
+        log.info("Taking snapshot of $fileName")
         val image = scene.snapshot(null)
         val file = File("./$fileName")
         val buffer = SwingFXUtils.fromFXImage(image, null)

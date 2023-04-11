@@ -1,7 +1,8 @@
 import at.ac.tuwien.trustcps.dsl.*
 
 Spec.atoms(
-    select { ".btn-open-survey" },  // [0]
+    select { "body" },  // [0]
+//    select { ".btn-open-survey" },  // [0]
     //read "height"
 //    select { ".left-bordered-title" },  // [1]
     // read "height"
@@ -13,6 +14,7 @@ Spec.atoms(
     select { ".item-meta-row p" } read "width" greaterThan 256,
     select { ":is(.item-meta-row p):nth-of-type(1)" },
     select { ".owl-item.active" } read "color" bind "bg",
+    select { ".owl-item.active" },
 )
 
 Spec.record(
@@ -27,10 +29,11 @@ val title = Spec.atoms[1]
 val pHeight = Spec.atoms[2]
 val pWidth = Spec.atoms[3]
 val owlItemBgColor = Spec.atoms[5]
+val owlItem = Spec.atoms[6]
 
 val titleAndFeedbackOverlap = not(title and feedback and screen)
 val reflow = not(pHeight and pWidth)
 val flashing = globally(owlItemBgColor)
 
 // Final formula
-Spec.formula = flashing
+Spec.formula = owlItem // or flashing

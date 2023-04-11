@@ -20,6 +20,12 @@ class Reporter(
     private val logTimeGranularity: TemporalUnit = ChronoUnit.SECONDS,
 ) : AutoCloseable {
     private val log = KotlinLogging.logger {}
+    private val headless: Boolean
+
+    init {
+        val isHeadless = System.getProperty("testfx.headless")
+        headless = isHeadless != null && isHeadless == "true"
+    }
 
     private fun logTime() = LocalDateTime.now().truncatedTo(logTimeGranularity)
 
@@ -65,24 +71,19 @@ class Reporter(
         grid: Grid
     ) {
         try {
-            Platform.startup(Plotter(id, title, values, grid, devicePixelRatio))
+            Platform.startup(doPlot(id, title, values, grid))
         } catch (e: IllegalStateException) {
             log.info("JavaFX platform already instantiated. Skipping.")
-            Platform.runLater(
-                Plotter(
-                    id,
-                    title,
-                    values,
-                    grid,
-                    devicePixelRatio
-                )
-            )
+            Platform.runLater(doPlot(id, title, values, grid))
         }
-//        finally {
-//            Thread.sleep(60_000)
-//            Platform.exit()
-//        }
     }
+
+    private fun doPlot(
+        id: Int,
+        title: String,
+        values: Array<DoubleArray>,
+        grid: Grid
+    ) = Plotter(id, title, values, grid, devicePixelRatio, headless = headless)
 
     private fun <T> signalToGrid(signal: SpatialTemporalSignal<T>, grid: Grid) =
         arrayToMatrix(signal.signals.map {
@@ -196,9 +197,6 @@ class Reporter(
     }
 
     override fun close() {
-        val isHeadless = System.getProperty("testfx.headless")
-//        if (isHeadless != null && isHeadless == "true") {
-//            Platform.exit()
-//        }
+        log.info("Closing reporter")
     }
 }
