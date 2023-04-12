@@ -14,6 +14,7 @@ plugins {
     id("org.openjfx.javafxplugin") version "0.0.13"
     id("org.javamodularity.moduleplugin") version ("1.8.12") apply false
     id("org.jetbrains.dokka") version "1.8.10"
+    id("org.panteleyev.jpackageplugin") version "1.5.2"
 }
 
 repositories {
@@ -140,9 +141,51 @@ tasks tasks@{
     }
 }
 
+
+fun pkg(name: String) = "${group}.${name}Kt"
+
 application {
     applicationDefaultJvmArgs = listOf(ENABLE_PREVIEW)
     println("Current exec dir: $executableDir")
-    fun pkg(name: String) = "${group}.${name}Kt"
     mainClass.set(pkg("Main"))
+}
+
+task("copyDependencies", Copy::class) {
+    from(configurations.runtimeClasspath).into("$buildDir/jars")
+}
+
+task("copyJar", Copy::class) {
+    from(tasks.jar).into("$buildDir/jars")
+}
+
+
+tasks.jpackage {
+    dependsOn("build", "copyDependencies", "copyJar")
+
+    appName = "WebMonitor"
+    vendor = "enniovisco.io"
+    appVersion = project.version.toString()
+    copyright = "Copyright (c) 2023 Vendor"
+    runtimeImage = System.getProperty("java.home")
+    module = "org.app.module/org.app.MainClass"
+    modulePaths = listOf(File("$buildDir/jmods").toString())
+    destination = "$buildDir/dist"
+    javaOptions = listOf("-Dfile.encoding=UTF-8")
+
+    windows {
+        winMenu = true
+        winDirChooser = true
+    }
+
+    input = "$buildDir/jars"
+    destination = "$buildDir/dist"
+
+    mainJar = tasks.jar.get().archiveFileName.get()
+    mainClass = pkg("Main")
+
+    javaOptions = listOf("-Dfile.encoding=UTF-8")
+
+    windows {
+        winConsole = true
+    }
 }
