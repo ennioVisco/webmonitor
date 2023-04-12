@@ -120,6 +120,7 @@ tasks tasks@{
             "headless.geometry" to "1920x1080-32",
             //"prism.order" to "sw"
         )
+
         runtimeArgs(this)
         systemProperties = headlessJavaFXSettings
         System.setProperty("webdriver.http.factory", "jdk-http-client")
@@ -140,6 +141,7 @@ tasks tasks@{
 }
 
 application {
+    applicationDefaultJvmArgs = listOf(ENABLE_PREVIEW)
     println("Current exec dir: $executableDir")
     fun pkg(name: String) = "${group}.${name}Kt"
     mainClass.set(pkg("Main"))
