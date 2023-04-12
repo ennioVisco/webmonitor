@@ -51,7 +51,7 @@ class SessionBuilder(
         reduceDriverVerbosity()
         WebDriverManager.chromedriver().setup()
         val options = ChromeOptions()
-        options.addArguments("--force-device-scale-factor=2.75")
+        options.addArguments("--force-device-scale-factor=1")
 
         if (dims?.width!! < 500 || dims.height < 400) {
             initMobileChrome(options, "Pixel 5")

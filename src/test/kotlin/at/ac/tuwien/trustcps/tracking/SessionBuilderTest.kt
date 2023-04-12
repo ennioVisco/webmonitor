@@ -14,7 +14,7 @@ internal class SessionBuilderTest {
     @Test
     fun `browser session is initialized correctly`() {
         val url = URL("https://google.com")
-        val dims = Dimension(803, 603)
+        val dims = Dimension(800, 600)
 
         try {
             SessionBuilder(url, mockk(), dims).use {
