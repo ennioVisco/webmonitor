@@ -1,10 +1,10 @@
 package at.ac.tuwien.trustcps.tracking
 
 import org.junit.jupiter.api.*
-import org.junit.jupiter.api.Test
 import org.openqa.selenium.*
 import java.net.*
 import kotlin.test.*
+import kotlin.test.Test
 
 class PageTrackerTest {
     private val url = URL("https://www.google.com")
@@ -39,7 +39,7 @@ class PageTrackerTest {
     private fun trackerStub() = PageTracker(
         url,
         Dimension(100, 100),
-        maxSessionDuration = 0,
+        maxSessionDuration = 500,
         wait = 0
     )
 }
