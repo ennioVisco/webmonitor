@@ -39,7 +39,7 @@ class PageTrackerTest {
     private fun trackerStub() = PageTracker(
         url,
         Dimension(100, 100),
-        maxSessionDuration = 500,
+        maxSessionDuration = 250,
         wait = 0
     )
 }

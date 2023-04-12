@@ -51,18 +51,19 @@ class SessionBuilder(
         reduceDriverVerbosity()
         WebDriverManager.chromedriver().setup()
         val options = ChromeOptions()
-        options.addArguments("--force-device-scale-factor=1")
+        options.addArguments("--force-device-scale-factor=2.75")
 
         if (dims?.width!! < 500 || dims.height < 400) {
             initMobileChrome(options, "Pixel 5")
         } else {
             val windowSizeFlag = "--window-size=${dims.width},${dims.height}"
             options.addArguments(windowSizeFlag)
+            options.addArguments("--force-device-scale-factor=1.0")
         }
 
         if (headless) {
             options.addArguments("--headless=new")
-            options.addArguments("--disable-extensions");
+            options.addArguments("--disable-extensions")
             options.addArguments("--no-sandbox")
             options.addArguments("--disable-dev-shm-usage")
         }
@@ -90,13 +91,14 @@ class SessionBuilder(
         val windowHeight =
             mobileDevice.height + (chromeVerticalBrowserFrame * 1)
         val windowSizeFlag = "--window-size=$windowWidth,$windowHeight"
+        options.addArguments("--force-device-scale-factor=${mobileDevice.scaleFactor}")
         options.addArguments(windowSizeFlag)
     }
 
     private fun selectMobileDevice(key: String): Device {
         val devices: List<Device> = listOf(
             Device("iPhone 5/SE", 375, 667),
-            Device("Pixel 5", 393, 851),
+            Device("Pixel 5", 393, 851, 2.75),
         )
         return devices.find { it.name == key }
             ?: throw Error("The device \"$key\" is not supported yet!")
@@ -105,7 +107,8 @@ class SessionBuilder(
     private data class Device(
         val name: String,
         val width: Int,
-        val height: Int
+        val height: Int,
+        val scaleFactor: Double = 1.0,
     ) {
         val deviceName = mapOf("deviceName" to name)
     }
