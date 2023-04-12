@@ -44,12 +44,13 @@ class SnapshotBuilder(
         } catch (e: Exception) {
             when (e) {
                 is NoSuchElementException,
-                is DevToolsException ->
+                is DevToolsException -> {
                     log.error(
                         "Selector '$cssQuery' not found. " +
                                 "Are you sure it is present in the page?"
                     )
-
+                    throw e
+                }
                 else -> {
                     log.error("Error while collecting data for selector '$cssQuery'.")
                     throw e

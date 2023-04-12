@@ -82,10 +82,15 @@ class PageTracker(
 
         if (event.messages.size > 0 && event.messages[0].startsWith(prefix)) {
             log.info("Console log message is: ${event.messages[0]}")
-            snapshotOrFail {
-                snapshotBuilder?.collect(snapshots.size)?.let {
-                    snapshots.add(it)
+            try {
+                snapshotOrFail {
+                    snapshotBuilder?.collect(snapshots.size)?.let {
+                        snapshots.add(it)
+                    }
                 }
+            } catch (e: Exception) {
+                log.error { "WebDriver session error." }
+                throw e
             }
         }
     }
