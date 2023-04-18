@@ -43,7 +43,7 @@ class SelectorCollector(
             selectorHeight.add(elem.rect.height.toString())
 
             log.info(
-                "Element <${elements}>[$i] = (${selectorX}, ${selectorY})" +
+                "Element <$cssQuery>[$i] = (${selectorX}, ${selectorY})" +
                         " -> (${selectorX[i].toInt() + selectorWidth[i].toInt()}" +
                         ", ${selectorY[i].toInt() + selectorHeight[i].toInt()})"
             )
@@ -63,6 +63,7 @@ class SelectorCollector(
         else null
 
     override fun dump(target: MutableMap<String, String>) {
+        target["$cssQuery::size::"] = selectorX.size.toString()
         for (i in 0 until selectorX.size) {
             target["$cssQuery::$i::x"] = selectorX[i]
             target["$cssQuery::$i::y"] = selectorY[i]

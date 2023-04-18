@@ -83,7 +83,8 @@ class TraceBuilder(
     private fun checkAtom(atom: String, t: Int, location: Int): Boolean {
         val (selector, property, value) = parseSelector(atom)
         try {
-            val isPresent = dataToBox(selector, t).has(location)
+            val isPresent = dataToBoxes(selector, t).map { it.has(location) }
+                .reduce { acc, b -> acc || b }
             val op = getComparator(atom)
             if (property != "") {
                 val eval =
@@ -170,12 +171,25 @@ class TraceBuilder(
         }
     }
 
-    private fun dataToBox(id: String, index: Int): Box {
+    private fun dataToBoxes(id: String, index: Int): List<Box> {
         try {
-            val minX: Int = parsePixels(data[index]["$id::x"]!!)
-            val minY: Int = parsePixels(data[index]["$id::y"]!!)
-            val maxX: Int = minX + parsePixels(data[index]["$id::width"]!!)
-            val maxY: Int = minY + parsePixels(data[index]["$id::height"]!!)
+            val size: Int = data[index]["$id::size::"]!!.toInt()
+            return (0 until size).map { dataToBox(id, it, index) }
+        } catch (e: NullPointerException) {
+            throw IllegalArgumentException(
+                "Unable to find box coordinates " +
+                        "for id: $id."
+            )
+        }
+
+    }
+
+    private fun dataToBox(id: String, i: Int, index: Int): Box {
+        try {
+            val minX: Int = parsePixels(data[index]["$id::$i::x"]!!)
+            val minY: Int = parsePixels(data[index]["$id::$i::y"]!!)
+            val maxX: Int = minX + parsePixels(data[index]["$id::$i::width"]!!)
+            val maxY: Int = minY + parsePixels(data[index]["$id::$i::height"]!!)
             return Box(minX = minX, minY = minY, maxX = maxX, maxY = maxY)
         } catch (e: NullPointerException) {
             throw IllegalArgumentException(
