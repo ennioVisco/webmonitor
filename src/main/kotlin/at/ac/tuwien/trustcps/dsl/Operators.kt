@@ -81,6 +81,10 @@ private fun intervalToDistance(
 }
 */
 
+fun select(@Language("css") cssQuery: String): Selector {
+    return Selector(cssQuery)
+}
+
 fun select(init: () -> String): Selector {
     return Selector(init())
 }

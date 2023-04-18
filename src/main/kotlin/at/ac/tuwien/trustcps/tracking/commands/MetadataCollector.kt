@@ -2,10 +2,7 @@ package at.ac.tuwien.trustcps.tracking.commands
 
 import mu.*
 
-class MetadataCollector(commandExecutor: (String) -> Any) :
-    BrowserCommand(
-        commandExecutor
-    ) {
+class MetadataCollector(cmdExec: (String) -> Any) : BrowserCommand() {
     private val layoutVpWidth: String
     private val layoutVpHeight: String
     private val visualVpWidth: String

@@ -13,12 +13,12 @@ internal class SnapshotBuilderTest {
     @Test
     fun `can fetch a basic selector`() {
         val fakeDriver = mockWebDrive()
-        every { fakeDriver.findElement(any()) } returns mockWebElement()
+        every { fakeDriver.findElements(any()) } returns listOf(mockWebElement())
         every { fakeDriver.getScreenshotAs(OutputType.FILE) } returns mockk()
 
         val snapshot = SnapshotBuilder(fakeDriver, selectors)
 
-        assertEquals("0", snapshot.collect(firstAndOnlyOne)["body::y"])
+        assertEquals("0", snapshot.collect(firstAndOnlyOne)["body::0::y"])
     }
 
     private fun mockWebDrive(): RemoteWebDriver {
