@@ -7,8 +7,8 @@ const val BOUNDS_PREFIX = "wm-"
 class BoundInitializer(
     private val label: String,
     initialValue: String,
-    private val cmdExec: (String) -> Any
-) : BrowserCommand() {
+    cmdExec: (String) -> Any
+) : BrowserCommand(cmdExec) {
     private val value: String
     private val log = KotlinLogging.logger {}
 
