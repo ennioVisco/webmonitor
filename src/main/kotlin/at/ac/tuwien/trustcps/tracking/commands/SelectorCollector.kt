@@ -69,10 +69,10 @@ class SelectorCollector(
             target["$cssQuery::$i::y"] = selectorY[i]
             target["$cssQuery::$i::width"] = selectorWidth[i]
             target["$cssQuery::$i::height"] = selectorHeight[i]
-        }
 
-        if (cssProperty != "") {
-            target["$cssQuery::$cssProperty"] = propertyValue
+            if (cssProperty != "") {
+                target["$cssQuery::$i::$cssProperty"] = propertyValue
+            }
         }
 
         bound?.dump(target)
