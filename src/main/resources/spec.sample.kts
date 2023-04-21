@@ -19,7 +19,6 @@ fun parsePixels(value: String): Double {
     return value.substring(0, value.length - 2).toDouble()
 }
 
-
 Spec.record(
     after { "click" },
     after { "touch" }
