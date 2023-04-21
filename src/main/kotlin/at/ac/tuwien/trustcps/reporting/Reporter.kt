@@ -4,6 +4,7 @@ import at.ac.tuwien.trustcps.*
 import at.ac.tuwien.trustcps.space.*
 import eu.quanticol.moonlight.offline.signal.*
 import javafx.application.*
+import mu.*
 import java.io.*
 import java.time.*
 import java.time.temporal.*
@@ -18,7 +19,7 @@ class Reporter(
     var devicePixelRatio: Double = 1.0,
     private val logTimeGranularity: TemporalUnit = ChronoUnit.SECONDS,
 ) : AutoCloseable {
-    private val log = mu.KotlinLogging.logger {}
+    private val log = KotlinLogging.logger {}
     private val headless: Boolean
 
     init {

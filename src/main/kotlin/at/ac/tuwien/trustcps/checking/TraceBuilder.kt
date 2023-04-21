@@ -102,7 +102,6 @@ class TraceBuilder(
                 log.error(msg)
                 throw IllegalArgumentException(msg, e)
             }
-
         }
 
         fun comparator(): String {
