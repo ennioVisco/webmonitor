@@ -89,6 +89,8 @@ internal class TraceBuilderTest {
             builder.useElement("elem\$width >> 3")
             val builtSignal = builder.build()
 
+            println(builtSignal.valuesAtT(0.0))
+
             assertSignalDimensionEquals(alwaysFalseSignal, builtSignal)
         }
 
@@ -199,7 +201,7 @@ internal class TraceBuilderTest {
         val data = listOf(
             mapOf(
                 "vvp_width" to "2",
-                "elem::y" to "2"
+                "elem::0::y" to "2"
             )
         )
         val builder = TraceBuilder(grid, data)
@@ -225,10 +227,11 @@ internal class TraceBuilderTest {
         val data = listOf(
             mapOf(
                 "wm-test" to "0",
-                "elem::x" to "0",
-                "elem::y" to "0",
-                "elem::width" to "1",
-                "elem::height" to "2"
+                "elem::size::" to "1",
+                "elem::0::x" to "0",
+                "elem::0::y" to "0",
+                "elem::0::width" to "1",
+                "elem::0::height" to "2"
             )
         )
         return TraceBuilder(grid, data)

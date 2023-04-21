@@ -7,6 +7,9 @@ import eu.quanticol.moonlight.offline.signal.*
 import mu.*
 import kotlin.math.*
 
+
+typealias Snapshot = Map<String, String>
+
 /**
  *  Builder class that generates a signal based on the data
  *  @param grid spatial model to consider for building the signal
@@ -73,64 +76,85 @@ class TraceBuilder(
     }
 
     private fun activeElements(t: Int, location: Int): List<Boolean> {
-        val boxes = elements.map { checkAtom(it, t = t, location = location) }
+        val snapshot = data[t]
+        val boxes =
+            elements.map { checkAtom(Atom(it), snapshot, loc = location) }
         return if (metadata)
-            listOf(screenToBox(t).has(location)) + boxes
+            listOf(screenToBox(t).isContained(location)) + boxes
         else
             boxes
     }
 
-    private fun checkAtom(atom: String, t: Int, location: Int): Boolean {
-        val (selector, property, value) = parseSelector(atom)
-        try {
-            val isPresent = dataToBoxes(selector, t).map { it.has(location) }
-                .reduce { acc, b -> acc || b }
-            val op = getComparator(atom)
-            if (property != "") {
-                val eval =
-                    applyComparison(
-                        op,
-                        selector,
-                        property,
-                        value,
-                        data[t],
-                        atom
-                    )
-                return isPresent && eval
+    data class Atom(val fullName: String) {
+        val selector: String
+        val property: String
+        val value: String
+        private val log = KotlinLogging.logger {}
+
+        init {
+            try {
+                val (selector, property, value) = parseSelector(fullName)
+                this.selector = selector
+                this.property = property
+                this.value = value
+            } catch (e: IllegalArgumentException) {
+                val msg = "Unable to parse selector '$fullName'."
+                log.error(msg)
+                throw IllegalArgumentException(msg, e)
             }
-            return isPresent
-        } catch (e: IllegalArgumentException) {
-            log.error("Unable to extract required information for atom '$atom'.")
-            throw IllegalArgumentException(
-                "Unable to extract required information for atom '$atom'.",
-                e
-            )
+
+        }
+
+        fun comparator(): String {
+            val allowedOnes = listOf(">=", "<=", "<<", ">>", "==", "@", "&")
+            return when (val res = allowedOnes.find { fullName.contains(it) }) {
+                null -> ""
+                else -> res
+            }
         }
     }
 
-    private fun getComparator(atom: String): String {
-        val allowedComparators = listOf(">=", "<=", "<", ">", "=", "@", "&")
-        return when (val res = allowedComparators.find { atom.contains(it) }) {
-            null -> ""
-            else -> res
+    private fun checkAtom(atom: Atom, snapshot: Snapshot, loc: Int): Boolean {
+        val elements = dataToBoxes(atom.selector, snapshot)
+        val matchingElements = matchingElems(elements, loc)
+
+        return if (matchingElements.isNotEmpty() && atom.property != "") {
+            compareMatchingElems(matchingElements, atom, snapshot)
+        } else matchingElements.isNotEmpty()
+    }
+
+    private fun compareMatchingElems(
+        matchingElems: List<Int>,
+        atom: Atom,
+        snapshot: Snapshot
+    ): Boolean {
+        return matchingElems.any { i ->
+            val current = snapshot["${atom.selector}::$i::${atom.property}"]!!
+            applyComparison(atom, current, snapshot)
         }
+    }
+
+    private fun matchingElems(elements: List<Box>, loc: Int): List<Int> {
+        return elements.withIndex()
+            .filter { (_: Int, element: Box) -> element.isContained(loc) }
+            .map { it.index }
+        //.reduce { acc, b -> acc || b }
     }
 
     private fun applyComparison(
-        op: String,
-        selector: String,
-        property: String,
-        comparison: String,
-        snapshot: Map<String, String>,
-        id: String
+        atom: Atom,
+        value: String,
+        snapshot: Map<String, String>
     ): Boolean {
-        val value = snapshot["$selector::${property}"]!!
+        val op = atom.comparator()
+        val comparison = atom.value
+        val id = atom.fullName
         return when (op) {
-            ">" -> parsePixels(value) > parsePixels(comparison)
+            ">>" -> parsePixels(value) > parsePixels(comparison)
             ">=" -> parsePixels(value) >= parsePixels(comparison)
-            "<" -> parsePixels(value) < parsePixels(comparison)
+            "<<" -> parsePixels(value) < parsePixels(comparison)
             "<=" -> parsePixels(value) <= parsePixels(comparison)
-            "=" -> value == comparison
+            "==" -> value == comparison
             "&" -> sameAsBound(comparison, value, snapshot, mod(id))
             else -> true
         }
@@ -155,7 +179,7 @@ class TraceBuilder(
         }
     }
 
-    private fun Box.has(location: Int): Boolean {
+    private fun Box.isContained(location: Int): Boolean {
         return contains(grid.toXY(location))
     }
 
@@ -171,10 +195,10 @@ class TraceBuilder(
         }
     }
 
-    private fun dataToBoxes(id: String, index: Int): List<Box> {
+    private fun dataToBoxes(id: String, snapshot: Snapshot): List<Box> {
         try {
-            val size: Int = data[index]["$id::size::"]!!.toInt()
-            return (0 until size).map { dataToBox(id, it, index) }
+            val size: Int = snapshot["$id::size::"]!!.toInt()
+            return (0 until size).map { dataToBox(id, it, snapshot) }
         } catch (e: NullPointerException) {
             throw IllegalArgumentException(
                 "Unable to find box coordinates " +
@@ -184,20 +208,12 @@ class TraceBuilder(
 
     }
 
-    private fun dataToBox(id: String, i: Int, index: Int): Box {
-        try {
-            val minX: Int = parsePixels(data[index]["$id::$i::x"]!!)
-            val minY: Int = parsePixels(data[index]["$id::$i::y"]!!)
-            val maxX: Int = minX + parsePixels(data[index]["$id::$i::width"]!!)
-            val maxY: Int = minY + parsePixels(data[index]["$id::$i::height"]!!)
-            return Box(minX = minX, minY = minY, maxX = maxX, maxY = maxY)
-        } catch (e: NullPointerException) {
-            throw IllegalArgumentException(
-                "Unable to find box coordinates " +
-                        "for id: $id."
-            )
-        }
-
+    private fun dataToBox(selector: String, i: Int, snapshot: Snapshot): Box {
+        val minX: Int = parsePixels(snapshot["$selector::$i::x"]!!)
+        val minY: Int = parsePixels(snapshot["$selector::$i::y"]!!)
+        val maxX: Int = minX + parsePixels(snapshot["$selector::$i::width"]!!)
+        val maxY: Int = minY + parsePixels(snapshot["$selector::$i::height"]!!)
+        return Box(minX = minX, minY = minY, maxX = maxX, maxY = maxY)
     }
 
     private fun parsePixels(value: String): Int {
