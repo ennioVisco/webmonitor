@@ -196,6 +196,6 @@ class Reporter(
     }
 
     override fun close() {
-//        log.info("Closing reporter")
+        buffer.clear()
     }
 }

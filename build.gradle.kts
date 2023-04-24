@@ -4,6 +4,7 @@ group = "at.ac.tuwien.trustcps"
 version = "0.1"
 
 val ENABLE_PREVIEW = "--enable-preview"
+val GARBAGE_COLLECTOR = "-XX:+UseParallelGC"
 
 plugins {
     application
@@ -83,6 +84,7 @@ dependencies {
 
 fun runtimeArgs(exec: Any) {
     val arguments = listOf(
+        GARBAGE_COLLECTOR,
         ENABLE_PREVIEW,
         "--add-exports", "javafx.graphics/com.sun.glass.ui=ALL-UNNAMED",
         "--add-exports", "javafx.graphics/com.sun.glass.utils=ALL-UNNAMED",

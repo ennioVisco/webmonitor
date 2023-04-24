@@ -10,7 +10,6 @@ import javafx.scene.*
 import javafx.scene.image.*
 import javafx.scene.layout.*
 import javafx.scene.paint.*
-import javafx.scene.transform.*
 import javafx.stage.*
 import java.io.*
 import javax.imageio.*
@@ -32,10 +31,15 @@ class Plotter(
     private val withBackground: Boolean = true,
     private val headless: Boolean = false
 ) : Application(), Runnable {
-    private val columns = data.size //TODO: should compare to grid
+    private val columns = data.size
     private val rows = data[0].size
     private val heatMap = addData(data)
     private val log = mu.KotlinLogging.logger {}
+
+    init {
+        if (grid.columns != columns || grid.rows != rows)
+            throw IllegalArgumentException("Grid and data dimensions do not match")
+    }
 
     /**
      * Initializes the data to plot a heatmap
@@ -65,7 +69,6 @@ class Plotter(
 
     private fun configStage(stage: Stage) {
         val pane = StackPane(heatMap)
-        //pane.padding = Insets(6.0, 0.0, 0.0, 0.0)
         val scene = Scene(pane)
         if (withBackground) {
             pane.background = setBackground("output/snap_${id}.png")
@@ -117,20 +120,10 @@ class Plotter(
     }
 
     private fun configPlot() {
-        //matrixHeatMap2.setColorMapping(ColorMapping.BLUE_TRANSPARENT_RED)
-        //val color = Helper.createColorVariationGradient(Color.BLUE, 5)
         heatMap.matrixGradient = setColorGradient()
         heatMap.matrix.setUseSpacer(false)
         heatMap.matrix.setColsAndRows(columns, rows)
         heatMap.setPrefSize(grid.columns.toDouble(), grid.rows.toDouble())
-        //heatMap.transforms.add(rescale())
-    }
-
-    private fun rescale(): Scale {
-        val scale = Scale()
-        scale.x = 0.8
-        scale.y = 0.8
-        return scale
     }
 
     private fun setColorGradient(): LinearGradient {

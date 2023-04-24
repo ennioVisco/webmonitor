@@ -12,16 +12,23 @@ import kotlin.test.*
 internal class PlotterTest {
     private val grid = Grid(3, 3)
 
+    private val data = arrayOf(
+        doubleArrayOf(0.0, 0.0, 0.0),
+        doubleArrayOf(0.0, 0.0, 0.0),
+        doubleArrayOf(0.0, 0.0, 0.0)
+    )
+
     @Test
     fun `classic JavaFX init is not allowed`() {
-        val plotter = Plotter(0, "test", arrayOf(doubleArrayOf(0.0)), grid, 1.0)
+        val plotter =
+            Plotter(0, "test", data, grid, 1.0)
 
         assertFailsWith<UnsupportedOperationException> { plotter.init() }
     }
 
     @Test
     fun `classic JavaFX start is not allowed`() {
-        val plotter = Plotter(0, "test", arrayOf(doubleArrayOf(0.0)), grid, 1.0)
+        val plotter = Plotter(0, "test", data, grid, 1.0)
 
         assertFailsWith<UnsupportedOperationException> {
             plotter.start(mockk())
@@ -31,14 +38,13 @@ internal class PlotterTest {
 
     @Test
     fun `classic JavaFX stop is not allowed`() {
-        val plotter = Plotter(0, "test", arrayOf(doubleArrayOf(0.0)), grid, 1.0)
+        val plotter = Plotter(0, "test", data, grid, 1.0)
 
         assertFailsWith<UnsupportedOperationException> { plotter.stop() }
     }
 
     @Test
     fun `plotter plots something`() {
-        val data = arrayOf(doubleArrayOf(0.0, 1.0), doubleArrayOf(1.0, 0.0))
         val plotter = Plotter(0, "test", data, grid, 1.0)
 
         assertDoesNotThrow("Are you sure you have a display manager?") {
