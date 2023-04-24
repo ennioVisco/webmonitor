@@ -19,7 +19,7 @@ data class Selector(
     val modifier: (current: String, bound: String) -> Boolean = ::equality
 ) : AtomicFormula(stringify(queryString, attribute, op, comparison)) {
 
-    infix fun read(attribute: String): Selector {
+    infix fun read(@Language("css") attribute: String): Selector {
         return Selector(queryString, attribute)
     }
 

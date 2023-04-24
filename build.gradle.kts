@@ -1,7 +1,7 @@
 import org.jetbrains.kotlin.gradle.tasks.*
 
 group = "at.ac.tuwien.trustcps"
-version = "1.0-SNAPSHOT"
+version = "0.1"
 
 val ENABLE_PREVIEW = "--enable-preview"
 
@@ -162,30 +162,31 @@ task("copyJar", Copy::class) {
 tasks.jpackage {
     dependsOn("build", "copyDependencies", "copyJar")
 
+    // App Info
     appName = "WebMonitor"
     vendor = "enniovisco.io"
     appVersion = project.version.toString()
     copyright = "Copyright (c) 2023 Vendor"
-    runtimeImage = System.getProperty("java.home")
-    module = "org.app.module/org.app.MainClass"
-    modulePaths = listOf(File("$buildDir/jmods").toString())
+
+    // App settings (non-modular)
+    mainJar = tasks.jar.get().archiveFileName.get()
+    mainClass = pkg("Main")
+    input = "$buildDir/jars"
+
+    // App settings (modular)
+//    runtimeImage = System.getProperty("java.home")
+//    module = "org.app.module/org.app.MainClass"
+//    modulePaths = listOf(File("$buildDir/jmods").toString())
+
+    // Build destination
     destination = "$buildDir/dist"
+
+    // Java Options
     javaOptions = listOf("-Dfile.encoding=UTF-8")
 
     windows {
         winMenu = true
         winDirChooser = true
-    }
-
-    input = "$buildDir/jars"
-    destination = "$buildDir/dist"
-
-    mainJar = tasks.jar.get().archiveFileName.get()
-    mainClass = pkg("Main")
-
-    javaOptions = listOf("-Dfile.encoding=UTF-8")
-
-    windows {
         winConsole = true
     }
 }
