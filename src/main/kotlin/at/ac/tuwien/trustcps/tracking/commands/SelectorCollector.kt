@@ -42,11 +42,14 @@ class SelectorCollector(
             selectorWidth.add(elem.rect.width.toString())
             selectorHeight.add(elem.rect.height.toString())
 
-            log.info(
-                "Element <$cssQuery>[$i] = (${selectorX}, ${selectorY})" +
-                        " -> (${selectorX[i].toInt() + selectorWidth[i].toInt()}" +
-                        ", ${selectorY[i].toInt() + selectorHeight[i].toInt()})"
-            )
+            if (elements.size < 6) {
+                log.info(
+                    "Element <$cssQuery>[$i] =" +
+                            " (${selectorX[i].toInt()}, ${selectorY[i].toInt()})" +
+                            " -> (${selectorX[i].toInt() + selectorWidth[i].toInt()}" +
+                            ", ${selectorY[i].toInt() + selectorHeight[i].toInt()})"
+                )
+            }
         }
     }
 
