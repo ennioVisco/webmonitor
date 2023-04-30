@@ -21,8 +21,12 @@ class Cli(
 
     private fun validateArgs(args: Array<String>) {
         try {
-            val (source, spec) = args
-            loadScripts(source, spec)
+            if (args.size == 1) {
+                loadScripts(args[0], args[0])
+            } else {
+                val (source, spec) = args
+                loadScripts(source, spec)
+            }
         } catch (e: ArrayIndexOutOfBoundsException) {
             try {
                 val (source) = args
