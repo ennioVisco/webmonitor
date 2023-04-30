@@ -21,12 +21,8 @@ class Cli(
 
     private fun validateArgs(args: Array<String>) {
         try {
-            if (args.size == 1) {
-                loadScripts(args[0], args[0])
-            } else {
-                val (source, spec) = args
-                loadScripts(source, spec)
-            }
+            val (source, spec) = args
+            loadScripts(source, spec)
         } catch (e: ArrayIndexOutOfBoundsException) {
             try {
                 val (source) = args
@@ -35,8 +31,18 @@ class Cli(
                 log.info("No arguments provided, using default scripts")
                 loadScripts(source = "sample", spec = "sample")
             }
+        } catch (e: NullPointerException) {
+            if (args.size > 1)
+                log.error(errorMsg(source = args[0], spec = args[1]))
+            else
+                log.error(errorMsg(source = args[0], spec = args[0]))
         }
     }
+
+    private fun errorMsg(source: String, spec: String) =
+        "Cannot find any files named 'source.${source}.kts' and" +
+                " 'spec.${spec}.kts'. Please make sure that the files exist " +
+                "and are in the 'resources' directory."
 
     private fun loadScripts(source: String, spec: String) {
         with(ScriptEngineManager().getEngineByExtension("kts")) {
