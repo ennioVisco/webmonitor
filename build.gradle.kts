@@ -7,11 +7,12 @@ val ENABLE_PREVIEW = "--enable-preview"
 val GARBAGE_COLLECTOR = "-XX:+UseParallelGC"
 
 plugins {
-    application
+    id("me.filippov.gradle.jvm.wrapper") version "0.14.0"
+    kotlin("jvm") version "1.8.20"
     jacoco
+    application
     checkstyle
     id("org.sonarqube") version "4.0.0.2929"
-    kotlin("jvm") version "1.8.20"
     id("org.openjfx.javafxplugin") version "0.0.13"
     id("org.javamodularity.moduleplugin") version ("1.8.12") apply false
     id("org.jetbrains.dokka") version "1.8.10"
@@ -32,6 +33,9 @@ sonar {
 
 java {
     sourceCompatibility = JavaVersion.VERSION_17
+    toolchain {
+        languageVersion.set(JavaLanguageVersion.of(17))
+    }
 }
 
 javafx {
