@@ -9,6 +9,8 @@ import eu.quanticol.moonlight.formula.temporal.*
 // Interval shorthand
 typealias interval = Box<Int>
 
+typealias Interval = eu.quanticol.moonlight.core.formula.Interval
+
 val Spec = at.ac.tuwien.trustcps.Spec
 
 // Classical logic operators

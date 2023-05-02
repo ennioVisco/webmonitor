@@ -196,14 +196,17 @@ class TraceBuilder(
     }
 
     private fun dataToBoxes(id: String, snapshot: Snapshot): List<Box> {
-        try {
+        return try {
             val size: Int = snapshot["$id::size::"]!!.toInt()
-            return (0 until size).map { dataToBox(id, it, snapshot) }
+            (0 until size).map { dataToBox(id, it, snapshot) }
         } catch (e: NullPointerException) {
+//            log.warn { "Unable to find box coordinates for id: $id. Skipping." }
             throw IllegalArgumentException(
                 "Unable to find box coordinates " +
                         "for id: $id."
             )
+//            listOf(Box(0, 0, 0, 0))
+//            emptyList()
         }
 
     }
