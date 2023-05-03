@@ -49,6 +49,13 @@ internal class TraceBuilderTest {
         assertSignalDimensionEquals(alwaysTrueSignal, built)
     }
 
+    @Test
+    fun `complex signal builder test`() {
+        val built =
+            builderOneElementFlashingInit().useElements(dummyElems).build()
+        assertSignalDimensionEquals(alwaysTrueThenAlwaysFalse, built)
+    }
+
     @Nested
     inner class Modifiers {
         @Test
@@ -88,8 +95,6 @@ internal class TraceBuilderTest {
 
             builder.useElement("elem\$width >> 3")
             val builtSignal = builder.build()
-
-            println(builtSignal.valuesAtT(0.0))
 
             assertSignalDimensionEquals(alwaysFalseSignal, builtSignal)
         }
@@ -179,6 +184,13 @@ internal class TraceBuilderTest {
                 listOf(false)
             }
         }
+        signal.add(1.0) {
+            if (it in listOf(0, 1, 3, 4, 6, 7)) {   //  1 1 0
+                listOf(true)                   //  1 1 0
+            } else {                                //  0 0 0
+                listOf(false)
+            }
+        }
         signal
     }
 
@@ -215,6 +227,10 @@ internal class TraceBuilderTest {
             mapOf(
                 "vvp_width" to "2",
                 "vvp_height" to "2"
+            ),
+            mapOf(
+                "vvp_width" to "2",
+                "vvp_height" to "2"
             )
         )
         val builder = TraceBuilder(grid, data)
@@ -232,6 +248,32 @@ internal class TraceBuilderTest {
                 "elem::0::y" to "0",
                 "elem::0::width" to "1",
                 "elem::0::height" to "2"
+            ),
+            mapOf(
+                "wm-test" to "0",
+                "elem::size::" to "1",
+                "elem::0::x" to "0",
+                "elem::0::y" to "0",
+                "elem::0::width" to "1",
+                "elem::0::height" to "2"
+            )
+        )
+        return TraceBuilder(grid, data)
+    }
+
+    private fun builderOneElementFlashingInit(): TraceBuilder {
+        val grid = Grid(3, 3)
+        val data = listOf(
+            mapOf(
+                "wm-test" to "0",
+                "elem::size::" to "1",
+                "elem::0::x" to "0",
+                "elem::0::y" to "0",
+                "elem::0::width" to "3",
+                "elem::0::height" to "3"
+            ),
+            mapOf(
+                "wm-test" to "0",
             )
         )
         return TraceBuilder(grid, data)

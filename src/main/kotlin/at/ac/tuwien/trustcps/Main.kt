@@ -12,7 +12,7 @@ private typealias ResultData = List<Map<String, String>>
 private typealias Metadata = Map<String, String>
 
 fun main(args: Array<String>) {
-    Cli(args) {
+    Cli(args, toFile = true) {
         it.title("Tracking")
         val snapshots = tracking(it)
 

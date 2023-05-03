@@ -201,12 +201,12 @@ class TraceBuilder(
             (0 until size).map { dataToBox(id, it, snapshot) }
         } catch (e: NullPointerException) {
 //            log.warn { "Unable to find box coordinates for id: $id. Skipping." }
-            throw IllegalArgumentException(
-                "Unable to find box coordinates " +
-                        "for id: $id."
-            )
+//            throw IllegalArgumentException(
+//                "Unable to find box coordinates " +
+//                        "for id: $id."
+//            )
 //            listOf(Box(0, 0, 0, 0))
-//            emptyList()
+            emptyList()
         }
 
     }

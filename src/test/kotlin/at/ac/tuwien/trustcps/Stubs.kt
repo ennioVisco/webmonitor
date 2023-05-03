@@ -6,12 +6,21 @@ import java.util.function.*
 val alwaysTrueSignal = run {
     val signal = SpatialTemporalSignal<List<Boolean>>(9)
     signal.add(0.0) { listOf(true) }
+    signal.add(1.0) { listOf(true) }
     signal
 }
 
 val alwaysFalseSignal = run {
     val signal = SpatialTemporalSignal<List<Boolean>>(9)
     signal.add(0.0) { listOf(false) }
+    signal.add(1.0) { listOf(false) }
+    signal
+}
+
+val alwaysTrueThenAlwaysFalse = run {
+    val signal = SpatialTemporalSignal<List<Boolean>>(9)
+    signal.add(0.0) { listOf(true) }
+    signal.add(1.0) { listOf(false) }
     signal
 }
 

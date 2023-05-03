@@ -25,7 +25,6 @@ class SelectorCollector(
         cssQuery = query
         cssProperty = property
 
-
         val elems = cmdExec(query)
 
         collectElements(elems)

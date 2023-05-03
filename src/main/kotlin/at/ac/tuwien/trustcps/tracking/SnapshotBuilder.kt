@@ -51,7 +51,6 @@ class SnapshotBuilder(
                     )
                     throw e
                 }
-
                 else -> {
                     log.warn("Unable to find data for selector '$cssQuery'.")
 //                    throw e

@@ -185,14 +185,16 @@ class Reporter(
     private fun <T> doubleOf(aValue: T) = when (aValue) {
         is Double -> aValue
         is Boolean -> if (aValue) 1.0 else -1.0
-        else -> invalidType()
+        else -> if (aValue !== null) {
+            invalidType(aValue)
+        } else -1.0
     }
 
     /**
      * Default exception to throw when the type cannot be handled
      */
-    private fun invalidType(): Double {
-        throw IllegalArgumentException("The provided type is not supported")
+    private fun invalidType(value: Any): Double {
+        throw IllegalArgumentException("The provided type is not supported: $value")
     }
 
     override fun close() {
