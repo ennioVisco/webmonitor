@@ -6,12 +6,11 @@
 
 ## Prerequisites
 
-Please remember that to execute this tool, the following condition must be met:
+Please remember that to run the tool:
 
-- JVM 17+ installed (IntelliJ should have one out of the box)
-- The selected browser engines (possibly, Google Chrome 99+ and Mozilla Firefox 99+)
-- A desktop environment must be available, with a resolution greater or equal than the ones addressed by the
-  experiments (i.e. a screen bigger than 800x600, ideally bigger than 1920x1200 )
+- an internet connection is required
+- when not in headless mode, a desktop environment must be available on the running machine.
+  Alternatively, to run in headless mode, change the browser to `CHROME_HEADLESS` in `source.*.kts` files.
 
 ## Create Monitoring files
 
@@ -33,10 +32,12 @@ Or just
 
 if XXX = YYY
 
+Note that the first time you run the tool, it will download the required dependencies, so it might take a while.
+
 ### Running on Windows
 
 Since Windows 11, the default terminal is PowerShell, so the previous command should run out of the box. If it doesn't,
-and you are using the good old fashion CLI (Why are you doing it? You should riconsider your priorities...), you can
+and you are using the good old fashion CLI (Why are you doing it? You should reconsider your priorities...), you can
 substitute `./gradlew` with `gradlew.bat` and the rest should work the same way.
 
 ## Source file example
@@ -45,8 +46,7 @@ The spec file contains the key information about the browsing session that will 
 
 ```kts
 // source.XXX.kts
-import at.ac.tuwien.trustcps.WebSource
-import at.ac.tuwien.trustcps.tracking.Browser
+import at.ac.tuwien.trustcps.*
 
 // Browsing window size:
 WebSource.screenWidth = 600 // px 
@@ -82,15 +82,15 @@ Spec.record(
     after { "click" }
 )
 
+// Helper formulae
 val screen = Spec.screen
 val isVisible = Spec.atoms[0]
 
 val f1 = isVisible and screen
 val f2 = f1 and (eventually(isVisible) implies not(isVisible)) // some random complex formula to show operators.
 
+// Final monitored formula
 Spec.formula = f2
-
-
 ```
 
 ## Thanks
