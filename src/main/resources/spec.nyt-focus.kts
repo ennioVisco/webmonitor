@@ -5,7 +5,8 @@
  * 1. As soon as the ad appears, hover with the mouse on the ad popup.
  * 2. Stay over it until it disappears.
  * 3. Click anywhere on the page (not on links or buttons) to force an event.
- * 4. Counterexamples can be observed at the end in the output folder,
+ *
+ * Counterexamples can be observed at the end in the output folder,
  *    as `eval_*.png` snapshots.
  **/
 import at.ac.tuwien.trustcps.dsl.*
@@ -16,9 +17,9 @@ Spec.atoms(
 )
 
 Spec.record(
+    every(5000),
     after { "click" },
-    after { "touch" },
-    every(5000)
+    after { "touch" }
 )
 
 // Helper Formulae
