@@ -40,7 +40,13 @@ Since Windows 11, the default terminal is PowerShell, so the previous command sh
 and you are using the good old fashion CLI (Why are you doing it? You should reconsider your priorities...), you can
 substitute `./gradlew` with `gradlew.bat` and the rest should work the same way.
 
-## Source file example
+## Examples
+
+Some examples are available in `src/main/resources/examples`.
+
+In general though, few lines are needed to run the tool on a new website.
+
+### Source file example
 
 The spec file contains the key information about the browsing session that will be run. An example follows:
 
@@ -66,7 +72,7 @@ WebSource.targetUrl = "https://enniovisco.github.io/webmonitor/"
 
 ```
 
-## Spec file example
+### Spec file example
 
 The spec file contains the key information about the browsing session that will be run. An example follows:
 
