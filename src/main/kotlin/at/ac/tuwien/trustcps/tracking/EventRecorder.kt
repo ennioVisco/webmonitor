@@ -56,5 +56,14 @@ class EventRecorder(
     private fun print(msg: String) = "console.log('$prefix$msg');"
 
     private fun exec(command: String) = driver.executeScript(command)
+    fun captureTimedEvent(milliseconds: Int) {
+        exec(// language=JavaScript
+            """
+                setInterval(function() {
+                ${print("Another ${milliseconds}ms have passed")}
+                }, $milliseconds);
+             """
+        )
+    }
 
 }

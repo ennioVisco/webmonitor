@@ -74,7 +74,12 @@ class PageTracker(
     private fun recordEvents(driver: RemoteWebDriver) {
         val recorder = EventRecorder(driver, prefix)
         metadata = recorder.capturePageLoaded()
-        events.forEach { recorder.captureEvent(it.first, it.second) }
+        events.forEach { (selector, event) ->
+            when (selector) {
+                "Timer" -> recorder.captureTimedEvent(event.toInt())
+                else -> recorder.captureEvent(selector, event)
+            }
+        }
     }
 
     private fun takeSnapshot(event: ConsoleEvent) {
