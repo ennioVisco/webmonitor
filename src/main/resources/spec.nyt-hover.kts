@@ -24,6 +24,7 @@ Spec.atoms(
 )
 
 Spec.record(
+    every(15_000),
     after { "click" },
     after { "touch" }
 )

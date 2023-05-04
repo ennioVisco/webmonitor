@@ -41,6 +41,8 @@ class SelectorCollector(
             selectorWidth.add(elem.rect.width.toString())
             selectorHeight.add(elem.rect.height.toString())
 
+            log.info("[PERF] Element <$cssQuery> size: ${elements.size}")
+
             if (elements.size < 6) {
                 log.info(
                     "Element <$cssQuery>[$i] =" +
