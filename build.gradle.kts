@@ -1,7 +1,7 @@
 import org.jetbrains.kotlin.gradle.tasks.*
 
 group = "at.ac.tuwien.trustcps"
-version = "0.1"
+//version = "0.1"
 
 val ENABLE_PREVIEW = "--enable-preview"
 val GARBAGE_COLLECTOR = "-XX:+UseParallelGC"
@@ -101,6 +101,7 @@ fun runtimeArgs(exec: Any) {
         else -> throw IllegalArgumentException("Unknown exec type: $exec")
     }
 }
+
 
 tasks tasks@{
     withType<JavaCompile> {
