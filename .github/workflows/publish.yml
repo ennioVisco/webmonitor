@@ -26,6 +26,7 @@ jobs:
           command: 'publish'
           changelogPath: 'CHANGELOG.md'
           preset: 'extended'
+          resume: 'true'
           releaseLenient: 'true'
           stateFile: '.nyx-state.json'
           summaryFile: '.nyx-summary.txt'
