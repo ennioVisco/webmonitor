@@ -9,11 +9,10 @@ plugins {
 extensions.configure<NyxExtension>("nyx") {
     preset.set("simple")
 
-//    dryRun.set(false)
+    dryRun.set(false)
 //    resume.set(false)
 //    stateFile.set(".nyx-state.yml")
-//    verbosity.set("DEBUG")
-
+    verbosity.set("DEBUG")
 
     changelog {
         path.set("build/CHANGELOG.md")

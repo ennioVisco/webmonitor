@@ -17,6 +17,7 @@ plugins {
     id("org.javamodularity.moduleplugin") version ("1.8.12") apply false
     id("org.jetbrains.dokka") version "1.8.10"
     id("org.panteleyev.jpackageplugin") version "1.5.2"
+    id("it.nicolasfarabegoli.conventional-commits") version "3.1.1"
 }
 
 repositories {
