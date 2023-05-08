@@ -1,12 +1,9 @@
-# An example, making Nyx push tags and repository changes, publish artifacts, and using presets
-
-name: Example publishing a (new) version using Nyx
-# Run only when manually triggered
-on: workflow_dispatch
+name: Publish
+on: workflow_dispatch # Run only when manually triggered
 
 jobs:
   infer-version:
-    name: Publish a version with Nyx (if needed)
+    name: Publish a new version
     runs-on: ubuntu-latest
     steps:
       - name: Git checkout
@@ -21,7 +18,6 @@ jobs:
           NYX_VERBOSITY: 'INFO'
         with:
           command: 'publish'
-          dryRun: 'true' # remove this when you're sure
           changelogPath: 'CHANGELOG.md'
           preset: 'extended'
           releaseLenient: 'true'
