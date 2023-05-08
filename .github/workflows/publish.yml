@@ -10,6 +10,12 @@ jobs:
         uses: actions/checkout@v3
         with:
           fetch-depth: 0
+      - name: Run nyx Infer
+        uses: mooltiverse/nyx-github-action@main
+        with:
+          command: infer
+          resume: true
+          stateFile: .nyx-state.json
       - name: Nyx publish
         id: nyx
         uses: mooltiverse/nyx-github-action@main
