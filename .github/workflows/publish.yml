@@ -16,6 +16,12 @@ jobs:
           command: infer
           resume: true
           stateFile: .nyx-state.json
+      - name: Run nyx Make
+        uses: mooltiverse/nyx-github-action@main
+        with:
+          command: make
+          resume: true
+          stateFile: .nyx-state.json
       - name: Nyx publish
         id: nyx
         uses: mooltiverse/nyx-github-action@main
