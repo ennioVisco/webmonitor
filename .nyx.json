@@ -3,11 +3,11 @@
     "github": {
       "type": "GITHUB",
       "options": {
-        "AUTHENTICATION_TOKEN": "{{#environmentVariable}}GITHUB_TOKEN{{/environmentVariable}}",
+        "AUTHENTICATION_TOKEN": "{{#environmentVariable}}GH_TOKEN{{/environmentVariable}}",
         "REPOSITORY_NAME": "webmonitor",
         "REPOSITORY_OWNER": "ennioVisco"
       }
     }
   },
-  "verbosity": "INFO"
+  "verbosity": "debug"
 }
