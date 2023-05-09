@@ -60,7 +60,7 @@ jobs:
         with:
           command: 'publish'
           changelogPath: 'CHANGELOG.md'
-          preset: 'extended'
+          preset: 'simple'
           resume: 'true'
           releaseLenient: 'true'
           stateFile: '.nyx-state.json'
