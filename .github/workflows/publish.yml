@@ -14,6 +14,7 @@ jobs:
         uses: mooltiverse/nyx-github-action@main
         with:
           command: 'infer'
+          debug: 'true'
           changelogPath: 'CHANGELOG.md'
           preset: 'extended'
           resume: 'true'
@@ -24,6 +25,7 @@ jobs:
         uses: mooltiverse/nyx-github-action@main
         with:
           command: 'make'
+          debug: 'true'
           changelogPath: 'CHANGELOG.md'
           preset: 'extended'
           resume: 'true'
@@ -34,6 +36,7 @@ jobs:
         uses: mooltiverse/nyx-github-action@main
         with:
           command: 'mark'
+          debug: 'true'
           changelogPath: 'CHANGELOG.md'
           preset: 'extended'
           resume: 'true'
@@ -48,6 +51,7 @@ jobs:
           NYX_VERBOSITY: 'INFO'
         with:
           command: 'publish'
+          debug: 'true'
           changelogPath: 'CHANGELOG.md'
           preset: 'extended'
           resume: 'true'
