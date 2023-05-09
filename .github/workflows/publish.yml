@@ -16,7 +16,6 @@ jobs:
           NYX_VERBOSITY: 'DEBUG'
         with:
           command: 'infer'
-          debug: 'true'
           changelogPath: 'CHANGELOG.md'
           preset: 'extended'
           resume: 'true'
@@ -29,7 +28,6 @@ jobs:
           NYX_VERBOSITY: 'DEBUG'
         with:
           command: 'make'
-          debug: 'true'
           changelogPath: 'CHANGELOG.md'
           preset: 'extended'
           resume: 'true'
@@ -42,7 +40,6 @@ jobs:
           NYX_VERBOSITY: 'DEBUG'
         with:
           command: 'mark'
-          debug: 'true'
           changelogPath: 'CHANGELOG.md'
           preset: 'extended'
           resume: 'true'
