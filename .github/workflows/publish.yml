@@ -12,11 +12,10 @@ jobs:
           fetch-depth: 0
       - name: Run nyx Infer
         uses: mooltiverse/nyx-github-action@main
-        env:
-          NYX_VERBOSITY: 'DEBUG'
         with:
           command: 'infer'
           changelogPath: 'CHANGELOG.md'
+          verbosity: 'DEBUG'
           preset: 'extended'
           resume: 'true'
           releaseLenient: 'true'
@@ -24,34 +23,32 @@ jobs:
           summaryFile: '.nyx-summary.txt'
       - name: Run nyx Make
         uses: mooltiverse/nyx-github-action@main
-        env:
-          NYX_VERBOSITY: 'DEBUG'
         with:
           command: 'make'
           changelogPath: 'CHANGELOG.md'
+          verbosity: 'DEBUG'
           preset: 'extended'
           resume: 'true'
           releaseLenient: 'true'
           stateFile: '.nyx-state.json'
           summaryFile: '.nyx-summary.txt'
-      #      - name: Run nyx Mark
-      #        uses: mooltiverse/nyx-github-action@main
-      #        env:
-      #          NYX_VERBOSITY: 'DEBUG'
-      #        with:
-      #          command: 'mark'
-      #          changelogPath: 'CHANGELOG.md'
-      #          preset: 'extended'
-      #          resume: 'true'
-      #          releaseLenient: 'true'
-      #          stateFile: '.nyx-state.json'
-      #          summaryFile: '.nyx-summary.txt'
+      - name: Run nyx Mark
+        uses: mooltiverse/nyx-github-action@main
+        with:
+          command: 'mark'
+          changelogPath: 'CHANGELOG.md'
+          preset: 'extended'
+          verbosity: 'DEBUG'
+          resume: 'true'
+          releaseLenient: 'true'
+          stateFile: '.nyx-state.json'
+          summaryFile: '.nyx-summary.txt'
       - name: Nyx publish
         id: nyx
         uses: mooltiverse/nyx-github-action@main
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          NYX_RELEASE_TYPES_PUBLICATION_SERVICES: 'GITHUB'
+          NYX_RELEASE_TYPES_PUBLICATION_SERVICES: '["GITHUB"]'
           NYX_SERVICES_GITHUB_NAME: 'GITHUB'
           NYX_SERVICES_GITHUB_TYPE: 'GITHUB'
           NYX_SERVICES_GITHUB_OPTIONS_AUTHENTICATION_TOKEN: "{{#environmentVariable}}GH_TOKEN{{/environmentVariable}}"
