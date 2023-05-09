@@ -18,10 +18,83 @@ plugins {
     id("org.jetbrains.dokka") version "1.8.10"
     id("org.panteleyev.jpackageplugin") version "1.5.2"
     id("it.nicolasfarabegoli.conventional-commits") version "3.1.1"
+    `maven-publish`
+    signing
+
 }
 
 repositories {
     mavenCentral()
+}
+
+java {
+    withJavadocJar()
+    withSourcesJar()
+}
+
+publishing {
+    publications {
+        create<MavenPublication>("mavenJava") {
+            groupId = "at.ac.tuwien.trustcps"
+            artifactId = "webmonitor"
+            version = "0.1 - SNAPSHOT"
+            from(components["java"])
+            versionMapping {
+                usage("java-api") {
+                    fromResolutionOf("runtimeClasspath")
+                }
+                usage("java-runtime") {
+                    fromResolutionResult()
+                }
+            }
+            pom {
+                name.set("WebMonitor")
+                description.set("A formal approach to monitoring web pages as spatio-temporal traces.")
+                url.set("https://enniovisco.github.io/webmonitor/")
+//                properties.set(
+//                    mapOf(
+//                        "myProp" to "value",
+//                        "prop.with.dots" to "anotherValue"
+//                    )
+//                )
+                licenses {
+                    license {
+                        name.set("MIT License")
+                        url.set("https://raw.githubusercontent.com/ennioVisco/webmonitor/master/LICENSE")
+                    }
+                }
+                developers {
+                    developer {
+                        id.set("ennioVisco")
+                        name.set("Ennio Visconti")
+                        email.set("ennio.visconti@gmail.com")
+                    }
+                }
+                scm {
+                    connection.set("scm:git:git://github.com/enniovisco/webmonitor.git")
+                    developerConnection.set("scm:git:ssh://github.com/enniovisco/webmonitor.git")
+                    url.set("http://github.com/enniovisco/webmonitor")
+                }
+            }
+        }
+    }
+    repositories {
+//        maven {
+//            // change URLs to point to your repos, e.g. http://my.org/repo
+//            val releasesRepoUrl =
+//                uri(layout.buildDirectory.dir("repos/releases"))
+//            val snapshotsRepoUrl =
+//                uri(layout.buildDirectory.dir("repos/snapshots"))
+//            url = if (version.toString()
+//                    .endsWith("SNAPSHOT")
+//            ) snapshotsRepoUrl else releasesRepoUrl
+//        }
+        mavenCentral()
+    }
+}
+
+signing {
+    sign(publishing.publications["mavenJava"])
 }
 
 sonar {
