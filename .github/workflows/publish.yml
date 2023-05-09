@@ -51,11 +51,12 @@ jobs:
         uses: mooltiverse/nyx-github-action@main
         env:
           NYX_VERBOSITY: 'DEBUG'
-          NYX_SERVICES_GITHUB_NAME: 'GITHUB'
-          NYX_SERVICES_GITHUB_TYPE: 'GITHUB'
-          NYX_SERVICES_GITHUB_OPTIONS-AUTHENTICATION_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          NYX_SERVICES_GITHUB_OPTIONS-REPOSITORY_NAME: 'webmonitor'
-          NYX_SERVICES_GITHUB_OPTIONS-REPOSITORY_OWNER: 'ennioVisco'
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        #          NYX_SERVICES_GITHUB_NAME: 'GITHUB'
+        #          NYX_SERVICES_GITHUB_TYPE: 'GITHUB'
+        #          NYX_SERVICES_GITHUB_OPTIONS_AUTHENTICATION_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        #          NYX_SERVICES_GITHUB_OPTIONS_REPOSITORY_NAME: 'webmonitor'
+        #          NYX_SERVICES_GITHUB_OPTIONS_REPOSITORY_OWNER: 'ennioVisco'
         with:
           command: 'publish'
           changelogPath: 'CHANGELOG.md'
