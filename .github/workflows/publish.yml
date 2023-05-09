@@ -54,13 +54,13 @@ jobs:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           NYX_SERVICES_GITHUB_NAME: 'GITHUB'
           NYX_SERVICES_GITHUB_TYPE: 'GITHUB'
-          NYX_SERVICES_GITHUB_OPTIONS_AUTHENTICATION_TOKEN: "{{#environmentVariable}}GITHUB_TOKEN{{/environmentVariable}}"
+          NYX_SERVICES_GITHUB_OPTIONS_AUTHENTICATION_TOKEN: "{{#environmentVariable}}GH_TOKEN{{/environmentVariable}}"
           NYX_SERVICES_GITHUB_OPTIONS_REPOSITORY_NAME: 'webmonitor'
           NYX_SERVICES_GITHUB_OPTIONS_REPOSITORY_OWNER: 'ennioVisco'
         with:
           command: 'publish'
           changelogPath: 'CHANGELOG.md'
-          preset: 'simple'
+          preset: 'extended'
           resume: 'true'
           releaseLenient: 'true'
           stateFile: '.nyx-state.json'
