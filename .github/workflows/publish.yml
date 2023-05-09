@@ -12,6 +12,8 @@ jobs:
           fetch-depth: 0
       - name: Run nyx Infer
         uses: mooltiverse/nyx-github-action@main
+        env:
+          NYX_VERBOSITY: 'DEBUG'
         with:
           command: 'infer'
           debug: 'true'
@@ -23,6 +25,8 @@ jobs:
           summaryFile: '.nyx-summary.txt'
       - name: Run nyx Make
         uses: mooltiverse/nyx-github-action@main
+        env:
+          NYX_VERBOSITY: 'DEBUG'
         with:
           command: 'make'
           debug: 'true'
@@ -34,6 +38,8 @@ jobs:
           summaryFile: '.nyx-summary.txt'
       - name: Run nyx Mark
         uses: mooltiverse/nyx-github-action@main
+        env:
+          NYX_VERBOSITY: 'DEBUG'
         with:
           command: 'mark'
           debug: 'true'
@@ -48,10 +54,9 @@ jobs:
         uses: mooltiverse/nyx-github-action@main
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          NYX_VERBOSITY: 'INFO'
+          NYX_VERBOSITY: 'DEBUG'
         with:
           command: 'publish'
-          debug: 'true'
           changelogPath: 'CHANGELOG.md'
           preset: 'extended'
           resume: 'true'
