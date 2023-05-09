@@ -52,11 +52,11 @@ jobs:
         env:
           NYX_VERBOSITY: 'DEBUG'
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        #          NYX_SERVICES_GITHUB_NAME: 'GITHUB'
-        #          NYX_SERVICES_GITHUB_TYPE: 'GITHUB'
-        #          NYX_SERVICES_GITHUB_OPTIONS_AUTHENTICATION_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        #          NYX_SERVICES_GITHUB_OPTIONS_REPOSITORY_NAME: 'webmonitor'
-        #          NYX_SERVICES_GITHUB_OPTIONS_REPOSITORY_OWNER: 'ennioVisco'
+          #          NYX_SERVICES_GITHUB_NAME: 'GITHUB'
+          #          NYX_SERVICES_GITHUB_TYPE: 'GITHUB'
+          #          NYX_SERVICES_GITHUB_OPTIONS_AUTHENTICATION_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          NYX_SERVICES_GITHUB_OPTIONS_REPOSITORY_NAME: 'webmonitor'
+          NYX_SERVICES_GITHUB_OPTIONS_REPOSITORY_OWNER: 'ennioVisco'
         with:
           command: 'publish'
           changelogPath: 'CHANGELOG.md'
