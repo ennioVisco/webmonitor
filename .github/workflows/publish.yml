@@ -32,17 +32,17 @@ jobs:
           releaseLenient: 'true'
           stateFile: '.nyx-state.json'
           summaryFile: '.nyx-summary.txt'
-      - name: Run nyx Mark
-        uses: mooltiverse/nyx-github-action@main
-        with:
-          command: 'mark'
-          changelogPath: 'CHANGELOG.md'
-          preset: 'extended'
-          verbosity: 'DEBUG'
-          resume: 'true'
-          releaseLenient: 'true'
-          stateFile: '.nyx-state.json'
-          summaryFile: '.nyx-summary.txt'
+      #      - name: Run nyx Mark
+      #        uses: mooltiverse/nyx-github-action@main
+      #        with:
+      #          command: 'mark'
+      #          changelogPath: 'CHANGELOG.md'
+      #          preset: 'extended'
+      #          verbosity: 'DEBUG'
+      #          resume: 'true'
+      #          releaseLenient: 'true'
+      #          stateFile: '.nyx-state.json'
+      #          summaryFile: '.nyx-summary.txt'
       - name: Nyx publish
         id: nyx
         uses: mooltiverse/nyx-github-action@main
