@@ -51,7 +51,7 @@ jobs:
         uses: mooltiverse/nyx-github-action@main
         env:
           NYX_VERBOSITY: 'DEBUG'
-          NYX_SERVICES_GITHUB: 'GITHUB'
+          NYX_SERVICES_GITHUB_NAME: 'GITHUB'
           NYX_SERVICES_GITHUB_TYPE: 'GITHUB'
           NYX_SERVICES_GITHUB_OPTIONS_AUTHENTICATION_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           NYX_SERVICES_GITHUB_OPTIONS_REPOSITORY_NAME: 'webmonitor'
