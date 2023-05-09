@@ -50,7 +50,6 @@ jobs:
         id: nyx
         uses: mooltiverse/nyx-github-action@main
         env:
-          NYX_VERBOSITY: 'DEBUG'
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           NYX_SERVICES_GITHUB_NAME: 'GITHUB'
           NYX_SERVICES_GITHUB_TYPE: 'GITHUB'
@@ -61,6 +60,7 @@ jobs:
           command: 'publish'
           changelogPath: 'CHANGELOG.md'
           preset: 'extended'
+          verbosity: 'DEBUG'
           resume: 'true'
           releaseLenient: 'true'
           stateFile: '.nyx-state.json'
