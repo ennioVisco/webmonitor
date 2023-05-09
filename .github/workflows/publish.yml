@@ -13,15 +13,33 @@ jobs:
       - name: Run nyx Infer
         uses: mooltiverse/nyx-github-action@main
         with:
-          command: infer
-          resume: true
-          stateFile: .nyx-state.json
+          command: 'infer'
+          changelogPath: 'CHANGELOG.md'
+          preset: 'extended'
+          resume: 'true'
+          releaseLenient: 'true'
+          stateFile: '.nyx-state.json'
+          summaryFile: '.nyx-summary.txt'
       - name: Run nyx Make
         uses: mooltiverse/nyx-github-action@main
         with:
-          command: make
-          resume: true
-          stateFile: .nyx-state.json
+          command: 'make'
+          changelogPath: 'CHANGELOG.md'
+          preset: 'extended'
+          resume: 'true'
+          releaseLenient: 'true'
+          stateFile: '.nyx-state.json'
+          summaryFile: '.nyx-summary.txt'
+      - name: Run nyx Mark
+        uses: mooltiverse/nyx-github-action@main
+        with:
+          command: 'mark'
+          changelogPath: 'CHANGELOG.md'
+          preset: 'extended'
+          resume: 'true'
+          releaseLenient: 'true'
+          stateFile: '.nyx-state.json'
+          summaryFile: '.nyx-summary.txt'
       - name: Nyx publish
         id: nyx
         uses: mooltiverse/nyx-github-action@main
