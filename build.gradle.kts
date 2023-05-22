@@ -48,8 +48,8 @@ repositories {
 }
 
 java {
-    withJavadocJar()
-    withSourcesJar()
+//    withJavadocJar()
+//    withSourcesJar()
 
     sourceCompatibility = JavaVersion.VERSION_17
     toolchain {
