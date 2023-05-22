@@ -5,9 +5,6 @@ jobs:
   infer-version:
     name: Computing a new version
     runs-on: ubuntu-latest
-    outputs:
-      newVersion: ${{ steps.nyx.outputs.newVersion }}
-      version: ${{ steps.nyx.outputs.version }}
     steps:
       - uses: actions/checkout@v3
         with:
@@ -59,10 +56,11 @@ jobs:
       - uses: actions/checkout@v3
         with:
           fetch-depth: 0
+      - run: echo ${{ needs.infer-version.steps.nyx-infer.outputs.version }} - ${{ needs.infer-version.steps.nyx-infer.outputs.newVersion }}
       - name: Run gradle publish
         run: ./gradlew publish
         env:
-          ORG_GRADLE_PROJECT_project.version: ${{ needs.infer-version.steps.nyx.outputs.version }}
+          ORG_GRADLE_PROJECT_project.version: ${{ needs.infer-version.steps.nyx-infer.outputs.version }}
           ORG_GRADLE_PROJECT_signingKeyId: ${{ secrets.SIGNING_KEY_ID }}
           ORG_GRADLE_PROJECT_signingPassword: ${{ secrets.SIGNING_PASSWORD }}
           ORG_GRADLE_PROJECT_signingKey: ${{ secrets.SIGNING_KEY }}
