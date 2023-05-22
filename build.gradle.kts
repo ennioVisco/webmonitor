@@ -51,6 +51,7 @@ publishing {
             groupId = providers.gradleProperty("project.group").get()
             artifactId = providers.gradleProperty("project.name").get()
             version = providers.gradleProperty("project.version").get()
+                ?: "0.1.0-SNAPSHOT"
             from(components["java"])
             versionMapping {
                 usage("java-api") {
