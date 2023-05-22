@@ -99,10 +99,9 @@ jobs:
           find: "com\\.enniovisco:webmonitor:\\d+\\.\\d+\\.\\d+(-SNAPSHOT)?"
           replace: "com.enniovisco:webmonitor:${{ needs.infer-version.outputs.version }}"
           include: "README.md"
-      - name: Push changes
-        uses: actions/checkout@v3
       - uses: fregante/setup-git-user@v2
-      - run: |
+      - name: Push changes
+        run: |
           git add README.md
-          git commit -m "Updated README.md instructions with new package version"
-          git push
+          git commit -m "Updated README.md instructions with new package version" || true
+          git push || true
