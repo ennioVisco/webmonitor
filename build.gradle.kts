@@ -1,26 +1,35 @@
 import org.jetbrains.kotlin.gradle.tasks.*
 
-group = "at.ac.tuwien.trustcps"
-//version = "0.1"
+group = providers.gradleProperty("project.group").get()
+version = providers.gradleProperty("project.version").get()
+//version = "0.1.0-SNAPSHOT"
 
 val ENABLE_PREVIEW = "--enable-preview"
 val GARBAGE_COLLECTOR = "-XX:+UseParallelGC"
 
 plugins {
+    // Environment
     id("me.filippov.gradle.jvm.wrapper") version "0.14.0"
     kotlin("jvm") version "1.8.20"
+
+    // GUI
+    id("org.openjfx.javafxplugin") version "0.0.13"
+
+    // Code quality, testing & documentation
     jacoco
-    application
     checkstyle
     id("org.sonarqube") version "4.0.0.2929"
-    id("org.openjfx.javafxplugin") version "0.0.13"
-    id("org.javamodularity.moduleplugin") version ("1.8.12") apply false
     id("org.jetbrains.dokka") version "1.8.10"
+
+    // Modularization & packaging
+    application
+    id("org.javamodularity.moduleplugin") version ("1.8.12") apply false
     id("org.panteleyev.jpackageplugin") version "1.5.2"
+
+    // Releases & publishing
     id("it.nicolasfarabegoli.conventional-commits") version "3.1.1"
     `maven-publish`
     signing
-
 }
 
 repositories {
@@ -30,14 +39,19 @@ repositories {
 java {
     withJavadocJar()
     withSourcesJar()
+
+    sourceCompatibility = JavaVersion.VERSION_17
+    toolchain {
+        languageVersion.set(JavaLanguageVersion.of(17))
+    }
 }
 
 publishing {
     publications {
         create<MavenPublication>("mavenJava") {
-            groupId = "at.ac.tuwien.trustcps"
-            artifactId = "webmonitor"
-            version = "0.1 - SNAPSHOT"
+            groupId = providers.gradleProperty("project.group").get()
+            artifactId = providers.gradleProperty("project.name").get()
+            version = providers.gradleProperty("project.version").get()
             from(components["java"])
             versionMapping {
                 usage("java-api") {
@@ -48,15 +62,9 @@ publishing {
                 }
             }
             pom {
-                name.set("WebMonitor")
+                name.set("Webmonitor")
                 description.set("A formal approach to monitoring web pages as spatio-temporal traces.")
                 url.set("https://enniovisco.github.io/webmonitor/")
-//                properties.set(
-//                    mapOf(
-//                        "myProp" to "value",
-//                        "prop.with.dots" to "anotherValue"
-//                    )
-//                )
                 licenses {
                     license {
                         name.set("MIT License")
@@ -79,36 +87,37 @@ publishing {
         }
     }
     repositories {
-//        maven {
-//            // change URLs to point to your repos, e.g. http://my.org/repo
-//            val releasesRepoUrl =
-//                uri(layout.buildDirectory.dir("repos/releases"))
-//            val snapshotsRepoUrl =
-//                uri(layout.buildDirectory.dir("repos/snapshots"))
-//            url = if (version.toString()
-//                    .endsWith("SNAPSHOT")
-//            ) snapshotsRepoUrl else releasesRepoUrl
-//        }
-        mavenCentral()
+        maven {
+            name = "sonaType"
+
+            credentials(PasswordCredentials::class)
+
+            val releasesRepoUrl =
+                uri("https://s01.oss.sonatype.org/service/local/staging/deploy/maven2")
+            val snapshotsRepoUrl =
+                uri("https://s01.oss.sonatype.org/content/repositories/snapshots")
+
+            url = if (version.toString()
+                    .endsWith("SNAPSHOT")
+            ) snapshotsRepoUrl else releasesRepoUrl
+        }
     }
 }
 
 signing {
+    val signingKeyId: String? by project
+    val signingKey: String? by project
+    val signingPassword: String? by project
+    useInMemoryPgpKeys(signingKeyId, signingKey, signingPassword)
     sign(publishing.publications["mavenJava"])
 }
+
 
 sonar {
     properties {
         property("sonar.projectKey", "ennioVisco_webmonitor")
         property("sonar.organization", "enniovisco")
         property("sonar.host.url", "https://sonarcloud.io")
-    }
-}
-
-java {
-    sourceCompatibility = JavaVersion.VERSION_17
-    toolchain {
-        languageVersion.set(JavaLanguageVersion.of(17))
     }
 }
 
@@ -135,7 +144,7 @@ dependencies {
 
     // TestFX (headless GUI)
     implementation("org.testfx:testfx-core:4.0.16-alpha")
-    implementation("org.testfx", "testfx-junit5", "4.0.16-alpha")
+    implementation("org.testfx:testfx-junit5:4.0.16-alpha")
     implementation("org.testfx:openjfx-monocle:jdk-12.0.1+2")
 
     // Dokka
@@ -158,6 +167,7 @@ dependencies {
     testImplementation("org.junit.jupiter:junit-jupiter:5.9.2")
     testImplementation("io.mockk:mockk:1.13.4")
     testImplementation("com.github.stefanbirkner:system-lambda:1.2.1")
+    testImplementation(kotlin("reflect"))
 }
 
 fun runtimeArgs(exec: Any) {
@@ -175,7 +185,6 @@ fun runtimeArgs(exec: Any) {
         else -> throw IllegalArgumentException("Unknown exec type: $exec")
     }
 }
-
 
 tasks tasks@{
     withType<JavaCompile> {
@@ -222,9 +231,7 @@ tasks tasks@{
     }
 }
 
-
 fun pkg(name: String) = "${group}.${name}Kt"
-
 application {
     applicationDefaultJvmArgs = listOf(ENABLE_PREVIEW)
     println("Current exec dir: $executableDir")

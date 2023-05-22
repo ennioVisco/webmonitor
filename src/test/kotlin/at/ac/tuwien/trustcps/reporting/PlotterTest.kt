@@ -8,7 +8,6 @@ import org.junit.jupiter.api.*
 import org.junit.jupiter.api.Test
 import kotlin.test.*
 
-
 internal class PlotterTest {
     private val grid = Grid(3, 3)
 
