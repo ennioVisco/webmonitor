@@ -54,7 +54,7 @@ The spec file contains the key information about the browsing session that will 
 
 ```kts
 // source.XXX.kts
-import at.ac.tuwien.trustcps.*
+import com.enniovisco.*
 
 // Browsing window size:
 WebSource.screenWidth = 600 // px 
@@ -80,7 +80,7 @@ The spec file contains the key information about the browsing session that will 
 
 ```kts
 // spec.YYY.kts
-import at.ac.tuwien.trustcps.*
+import com.enniovisco.*
 
 Spec.atoms(
     select { "h1" } read "visibility" equals "visible",

@@ -1,4 +1,4 @@
-import at.ac.tuwien.trustcps.*
+import com.enniovisco.*
 
 // Unfortunately, the frame-size is browser-specific.
 // Typically, all browsers have only a vertical frame,

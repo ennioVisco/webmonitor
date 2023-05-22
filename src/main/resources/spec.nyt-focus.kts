@@ -9,7 +9,7 @@
  * Counterexamples can be observed at the end in the output folder,
  *    as `eval_*.png` snapshots.
  **/
-import at.ac.tuwien.trustcps.dsl.*
+import com.enniovisco.dsl.*
 
 Spec.atoms(
     select { ".welcomeAdLayout:hover" },

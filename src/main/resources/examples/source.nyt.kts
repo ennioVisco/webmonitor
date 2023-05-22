@@ -1,5 +1,5 @@
-import at.ac.tuwien.trustcps.WebSource
-import at.ac.tuwien.trustcps.tracking.Browser
+import com.enniovisco.*
+import com.enniovisco.tracking.Browser
 
 WebSource.screenWidth = 800 // px
 WebSource.screenHeight = 400 // px

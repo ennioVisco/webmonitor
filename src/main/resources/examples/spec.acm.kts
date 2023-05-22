@@ -1,4 +1,4 @@
-import at.ac.tuwien.trustcps.dsl.*
+import com.enniovisco.dsl.*
 
 Spec.atoms(
     select { ".tab__nav__item:first-child" },  // [0]

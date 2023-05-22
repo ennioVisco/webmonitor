@@ -5,6 +5,9 @@ jobs:
   infer-version:
     name: Computing a new version
     runs-on: ubuntu-latest
+    outputs:
+      newVersion: ${{ steps.nyx.outputs.newVersion }}
+      version: ${{ steps.nyx.outputs.version }}
     steps:
       - uses: actions/checkout@v3
         with:
@@ -44,7 +47,7 @@ jobs:
           stateFile: '.nyx-state.json'
           summaryFile: '.nyx-summary.txt'
       - name: Test dependencies
-        run: echo "${{ steps.nyx.outputs.version }} - ${{ steps.nyx.outputs.newVersion }}"
+        run: echo ${{ steps.nyx.outputs.version }} - ${{ steps.nyx.outputs.newVersion }}
 
 
   publish-version:

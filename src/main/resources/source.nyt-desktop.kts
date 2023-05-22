@@ -1,4 +1,4 @@
-import at.ac.tuwien.trustcps.*
+import com.enniovisco.*
 
 // We are targeting a small desktop screen
 WebSource.screenWidth = 800 // px

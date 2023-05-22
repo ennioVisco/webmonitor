@@ -8,7 +8,7 @@
  *    as `eval_*.png` snapshots.
  **/
 
-import at.ac.tuwien.trustcps.dsl.*
+import com.enniovisco.dsl.*
 
 @Language("css")
 val cookieInfoText = ".gdpr > div:nth-child(2) p:nth-child(1)"

@@ -1,4 +1,4 @@
-import at.ac.tuwien.trustcps.*
+import com.enniovisco.*
 
 // We are targeting the Pixel 5 resolution
 WebSource.screenWidth = 393 // px

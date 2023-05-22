@@ -1,5 +1,5 @@
-import at.ac.tuwien.trustcps.*
-import at.ac.tuwien.trustcps.tracking.Browser
+import com.enniovisco.*
+import com.enniovisco.tracking.Browser
 
 // Unfortunately, the frame-size is browser-specific.
 // Typically, all browsers have only a vertical frame,

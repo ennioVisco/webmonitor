@@ -1,4 +1,4 @@
-import at.ac.tuwien.trustcps.dsl.*
+import com.enniovisco.dsl.*
 
 Spec.atoms(
     select { "body" },  // [0]

@@ -13,7 +13,7 @@ module webmonitor {
     requires moonlight;
     requires kotlin.stdlib;
 
-    exports at.ac.tuwien.trustcps;
+    exports com.enniovisco;
 
-    opens at.ac.tuwien.trustcps to javafx.graphics;
+    opens com.enniovisco to javafx.graphics;
 }
