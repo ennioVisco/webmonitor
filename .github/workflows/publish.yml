@@ -93,9 +93,16 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
-      - name: Update GitHub Profile README
-        uses: theboi/github-update-readme@v1.0
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      - name: Find and Replace
+        uses: jacobtomlinson/gha-find-replace@v3
         with:
-          version: ${{ needs.infer-version.outputs.version }}
+          find: "com\.enniovisco:webmonitor:\d+\.\d+\.\d+(-SNAPSHOT)?"
+          replace: "com\.enniovisco:webmonitor:${{ needs.infer-version.outputs.version }}"
+          include: "README.md"
+          regex: true
+      - name: Push changes
+        uses: ad-m/github-push-action@v0.6.0
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          branch: ${{ github.ref }}
+
