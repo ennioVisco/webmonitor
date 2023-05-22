@@ -6,8 +6,8 @@ jobs:
     name: Computing a new version
     runs-on: ubuntu-latest
     outputs:
-      version: ${{ needs.infer-version.steps.nyx-infer.outputs.version }}
-      newVersion: ${{ needs.infer-version.steps.nyx-infer.outputs.newVersion }}
+      version: ${{ steps.nyx-infer.outputs.version }}
+      newVersion: ${{ steps.nyx-infer.outputs.newVersion }}
     steps:
       - uses: actions/checkout@v3
         with:
