@@ -1,3 +1,4 @@
+import com.vanniktech.maven.publish.*
 import org.jetbrains.kotlin.gradle.tasks.*
 
 group = providers.gradleProperty("project.group").get()
@@ -36,8 +37,8 @@ plugins {
 
     // Releases & publishing
     id("it.nicolasfarabegoli.conventional-commits") version "3.1.1"
-    `maven-publish`
-    signing
+    id("com.vanniktech.maven.publish") version "0.25.2"
+//    signing
 }
 
 repositories {
@@ -54,70 +55,100 @@ java {
     }
 }
 
-publishing {
-    publications {
-        create<MavenPublication>("mavenJava") {
-            groupId = providers.gradleProperty("project.group").get()
-            artifactId = providers.gradleProperty("project.name").get()
-            version = PROJECT_VERSION
-            from(components["java"])
-            versionMapping {
-                usage("java-api") {
-                    fromResolutionOf("runtimeClasspath")
-                }
-                usage("java-runtime") {
-                    fromResolutionResult()
-                }
-            }
-            pom {
-                name.set(rootProject.name)
-                description.set("A formal approach to monitoring web pages as spatio-temporal traces.")
-                url.set("https://enniovisco.github.io/webmonitor/")
-                licenses {
-                    license {
-                        name.set("MIT License")
-                        url.set("https://raw.githubusercontent.com/ennioVisco/webmonitor/master/LICENSE")
-                    }
-                }
-                developers {
-                    developer {
-                        id.set("ennioVisco")
-                        name.set("Ennio Visconti")
-                        email.set("ennio.visconti@gmail.com")
-                    }
-                }
-                scm {
-                    connection.set("scm:git:git://github.com/enniovisco/webmonitor.git")
-                    developerConnection.set("scm:git:ssh://github.com/enniovisco/webmonitor.git")
-                    url.set("http://github.com/enniovisco/webmonitor")
-                }
+//publishing {
+//    publications {
+//        create<MavenPublication>("mavenJava") {
+//            groupId = providers.gradleProperty("project.group").get()
+//            artifactId = providers.gradleProperty("project.name").get()
+//            version = PROJECT_VERSION
+//            from(components["java"])
+//            versionMapping {
+//                usage("java-api") {
+//                    fromResolutionOf("runtimeClasspath")
+//                }
+//                usage("java-runtime") {
+//                    fromResolutionResult()
+//                }
+//            }
+//            pom {
+//                name.set(rootProject.name)
+//                description.set("A formal approach to monitoring web pages as spatio-temporal traces.")
+//                url.set("https://enniovisco.github.io/webmonitor/")
+//                licenses {
+//                    license {
+//                        name.set("MIT License")
+//                        url.set("https://raw.githubusercontent.com/ennioVisco/webmonitor/master/LICENSE")
+//                    }
+//                }
+//                developers {
+//                    developer {
+//                        id.set("ennioVisco")
+//                        name.set("Ennio Visconti")
+//                        email.set("ennio.visconti@gmail.com")
+//                    }
+//                }
+//                scm {
+//                    connection.set("scm:git:git://github.com/enniovisco/webmonitor.git")
+//                    developerConnection.set("scm:git:ssh://github.com/enniovisco/webmonitor.git")
+//                    url.set("http://github.com/enniovisco/webmonitor")
+//                }
+//            }
+//        }
+//    }
+//    repositories {
+//        maven {
+//            name = "sonaType"
+//
+//            credentials(PasswordCredentials::class)
+//
+//            val releasesRepoUrl =
+//                uri("https://s01.oss.sonatype.org/service/local/staging/deploy/maven2")
+//            val snapshotsRepoUrl =
+//                uri("https://s01.oss.sonatype.org/content/repositories/snapshots")
+//
+//            url = if (PROJECT_VERSION.endsWith("SNAPSHOT"))
+//                snapshotsRepoUrl else releasesRepoUrl
+//        }
+//    }
+//}
+
+mavenPublishing {
+    publishToMavenCentral(SonatypeHost.S01, automaticRelease = true)
+
+    signAllPublications()
+
+    pom {
+        name.set(rootProject.name)
+        description.set("A formal approach to monitoring web pages as spatio-temporal traces.")
+        url.set("https://enniovisco.github.io/webmonitor/")
+        licenses {
+            license {
+                name.set("MIT License")
+                url.set("https://raw.githubusercontent.com/ennioVisco/webmonitor/master/LICENSE")
             }
         }
-    }
-    repositories {
-        maven {
-            name = "sonaType"
-
-            credentials(PasswordCredentials::class)
-
-            val releasesRepoUrl =
-                uri("https://s01.oss.sonatype.org/service/local/staging/deploy/maven2")
-            val snapshotsRepoUrl =
-                uri("https://s01.oss.sonatype.org/content/repositories/snapshots")
-
-            url = if (PROJECT_VERSION.endsWith("SNAPSHOT"))
-                snapshotsRepoUrl else releasesRepoUrl
+        developers {
+            developer {
+                id.set("ennioVisco")
+                name.set("Ennio Visconti")
+                email.set("ennio.visconti@gmail.com")
+            }
+        }
+        scm {
+            connection.set("scm:git:git://github.com/enniovisco/webmonitor.git")
+            developerConnection.set("scm:git:ssh://github.com/enniovisco/webmonitor.git")
+            url.set("http://github.com/enniovisco/webmonitor")
         }
     }
 }
 
-signing {
-//    val signingKeyId: String? by project
-    val signingKey: String? by project
-    val signingPassword: String? by project
-    useInMemoryPgpKeys(signingKey, signingPassword)
-    sign(publishing.publications["mavenJava"])
-}
+//signing {
+////    val signingKeyId: String? by project
+//    val signingKey: String? by project
+//    val signingPassword: String? by project
+////    useInMemoryPgpKeys(signingKey, signingPassword)
+//    sign(publishing.publications["mavenJava"])
+//}
 
 
 sonar {
