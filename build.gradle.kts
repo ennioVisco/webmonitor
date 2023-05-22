@@ -6,6 +6,12 @@ group = providers.gradleProperty("project.group").get()
 val ENABLE_PREVIEW = "--enable-preview"
 val GARBAGE_COLLECTOR = "-XX:+UseParallelGC"
 
+val PROJECT_VERSION = try {
+    providers.gradleProperty("project.version").get()
+} catch (e: Exception) {
+    "0.1.0-SNAPSHOT"
+}
+
 plugins {
     // Environment
     id("me.filippov.gradle.jvm.wrapper") version "0.14.0"
@@ -50,8 +56,7 @@ publishing {
         create<MavenPublication>("mavenJava") {
             groupId = providers.gradleProperty("project.group").get()
             artifactId = providers.gradleProperty("project.name").get()
-            version = providers.gradleProperty("project.version").get()
-                ?: "0.1.0-SNAPSHOT"
+            version = PROJECT_VERSION
             from(components["java"])
             versionMapping {
                 usage("java-api") {
@@ -97,9 +102,8 @@ publishing {
             val snapshotsRepoUrl =
                 uri("https://s01.oss.sonatype.org/content/repositories/snapshots")
 
-            url = if (providers.gradleProperty("project.version").get()
-                    .endsWith("SNAPSHOT")
-            ) snapshotsRepoUrl else releasesRepoUrl
+            url = if (PROJECT_VERSION.endsWith("SNAPSHOT"))
+                snapshotsRepoUrl else releasesRepoUrl
         }
     }
 }
@@ -253,7 +257,7 @@ tasks.jpackage {
     // App Info
     appName = "WebMonitor"
     vendor = "enniovisco.io"
-    appVersion = providers.gradleProperty("project.version").get()
+    appVersion = PROJECT_VERSION
     copyright = "Copyright (c) 2023 Vendor"
 
     // App settings (non-modular)
