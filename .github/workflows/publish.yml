@@ -75,7 +75,6 @@ jobs:
         run: ./gradlew publishAllPublicationsToMavenCentralRepository --no-configuration-cache
         env:
           ORG_GRADLE_PROJECT_projectVersion: ${{ needs.infer-version.outputs.version }}
-          #          ORG_GRADLE_PROJECT_signingInMemoryKeyId: ${{ secrets.SIGNING_KEY_ID }}
           ORG_GRADLE_PROJECT_signingInMemoryKeyPassword: ${{ secrets.SIGNING_PASSWORD }}
           ORG_GRADLE_PROJECT_signingInMemoryKey: ${{ secrets.SIGNING_KEY }}
           ORG_GRADLE_PROJECT_mavenCentralUsername: ${{ secrets.SONATYPE_USERNAME }}
@@ -103,7 +102,7 @@ jobs:
   update-readme:
     name: Updating README.md
     runs-on: ubuntu-latest
-    needs: publish-version
+    needs: [ publish-version, infer-version ]
     steps:
       - uses: actions/checkout@v3
       - name: Find and Replace
