@@ -262,7 +262,7 @@ tasks tasks@{
         }
     }
 
-    named("publishAllPublicationsToMavenCentral") {
+    named("publishAllPublicationsToSonaTypeRepository") {
         dependsOn("kotlinSourcesJar")
     }
 
