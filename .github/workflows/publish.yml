@@ -97,11 +97,13 @@ jobs:
         uses: jacobtomlinson/gha-find-replace@v3
         with:
           find: "com\\.enniovisco:webmonitor:\\d+\\.\\d+\\.\\d+(-SNAPSHOT)?"
-          replace: "com\\.enniovisco:webmonitor:${{ needs.infer-version.outputs.version }}"
+          replace: "com.enniovisco:webmonitor:${{ needs.infer-version.outputs.version }}"
           include: "README.md"
       - name: Push changes
-        uses: ad-m/github-push-action@v0.6.0
-        with:
-          github_token: ${{ secrets.GITHUB_TOKEN }}
-          branch: ${{ github.ref }}
-
+        uses: actions/checkout@v3
+      - run: |
+          git config user.name github-actions
+          git config user.email github-actions@github.com
+          git add README.md
+          git commit -m "Updated README.md instructions with new package version"
+          git push
