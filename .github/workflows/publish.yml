@@ -5,6 +5,9 @@ jobs:
   infer-version:
     name: Computing a new version
     runs-on: ubuntu-latest
+    outputs:
+      version: ${{ needs.infer-version.steps.nyx-infer.outputs.version }}
+      newVersion: ${{ needs.infer-version.steps.nyx-infer.outputs.newVersion }}
     steps:
       - uses: actions/checkout@v3
         with:
@@ -46,24 +49,21 @@ jobs:
       - name: Test dependencies
         run: echo ${{ steps.nyx-infer.outputs.version }} - ${{ steps.nyx-infer.outputs.newVersion }}
 
-
   publish-version:
     if: ${{ needs.infer-version.outputs.newVersion }} == true
     name: Publishing a new version
     runs-on: ubuntu-latest
     needs: infer-version
-    outputs:
-      version: ${{ needs.infer-version.steps.nyx-infer.outputs.version }}
-      newVersion: ${{ needs.infer-version.steps.nyx-infer.outputs.newVersion }}
     steps:
       - uses: actions/checkout@v3
         with:
           fetch-depth: 0
-      - run: echo ${{ needs.infer-version.outputs.version }} - ${{ needs.infer-version.outputs.newVersion }}
+      - name: Test dependencies
+        run: echo ${{ needs.infer-version.outputs.version }} - ${{ needs.infer-version.outputs.newVersion }}
       - name: Run gradle publish
         run: ./gradlew publish
         env:
-          ORG_GRADLE_PROJECT_project.version: ${{ needs.infer-version.steps.nyx-infer.outputs.version }}
+          ORG_GRADLE_PROJECT_project.version: ${{ needs.infer-version.outputs.version }}
           ORG_GRADLE_PROJECT_signingKeyId: ${{ secrets.SIGNING_KEY_ID }}
           ORG_GRADLE_PROJECT_signingPassword: ${{ secrets.SIGNING_PASSWORD }}
           ORG_GRADLE_PROJECT_signingKey: ${{ secrets.SIGNING_KEY }}
