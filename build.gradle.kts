@@ -1,7 +1,6 @@
 import org.jetbrains.kotlin.gradle.tasks.*
 
 group = providers.gradleProperty("project.group").get()
-version = providers.gradleProperty("project.version").get()
 //version = "0.1.0-SNAPSHOT"
 
 val ENABLE_PREVIEW = "--enable-preview"
@@ -97,7 +96,7 @@ publishing {
             val snapshotsRepoUrl =
                 uri("https://s01.oss.sonatype.org/content/repositories/snapshots")
 
-            url = if (version.toString()
+            url = if (providers.gradleProperty("project.version").get()
                     .endsWith("SNAPSHOT")
             ) snapshotsRepoUrl else releasesRepoUrl
         }
@@ -253,7 +252,7 @@ tasks.jpackage {
     // App Info
     appName = "WebMonitor"
     vendor = "enniovisco.io"
-    appVersion = project.version.toString()
+    appVersion = providers.gradleProperty("project.version").get()
     copyright = "Copyright (c) 2023 Vendor"
 
     // App settings (non-modular)
