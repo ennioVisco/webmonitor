@@ -47,7 +47,7 @@ jobs:
       #          stateFile: '.nyx-state.json'
       #          summaryFile: '.nyx-summary.txt'
       - name: Test dependencies
-        run: echo ${{ steps.nyx.outputs.version }} - ${{ steps.nyx.outputs.newVersion }}
+        run: echo ${{ steps.nyx-infer.outputs.version }} - ${{ steps.nyx-infer.outputs.newVersion }}
 
 
   publish-version:
