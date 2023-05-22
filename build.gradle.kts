@@ -262,8 +262,8 @@ tasks tasks@{
         }
     }
 
-    named("publishAllPublicationsToMavenCentralRepository") {
-        dependsOn("kotlinSourcesJar")
+    withType<GenerateModuleMetadata> {
+        dependsOn("dokkaJavadocJar")
     }
 
     withType<KotlinCompile> {
