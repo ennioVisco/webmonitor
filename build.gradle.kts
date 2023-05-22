@@ -144,7 +144,7 @@ mavenPublishing {
 
 afterEvaluate {
     tasks.named("generateMetadataFileForMavenPublication") {
-        dependsOn("kotlinSourcesJar")
+        dependsOn("kotlinSourcesJar", "dokkaJavadocJar")
     }
 }
 
