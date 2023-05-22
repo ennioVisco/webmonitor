@@ -7,7 +7,7 @@ val ENABLE_PREVIEW = "--enable-preview"
 val GARBAGE_COLLECTOR = "-XX:+UseParallelGC"
 
 val PROJECT_VERSION = try {
-    val v = providers.gradleProperty("project.version").get()
+    val v = providers.gradleProperty("projectVersion").get()
     println("Project version: $v")
     v
 } catch (e: Exception) {
