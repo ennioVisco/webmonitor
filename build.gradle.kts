@@ -142,6 +142,12 @@ mavenPublishing {
     }
 }
 
+afterEvaluate {
+    tasks.named("generateMetadataFileForMavenPublication") {
+        dependsOn("kotlinSourcesJar")
+    }
+}
+
 //signing {
 ////    val signingKeyId: String? by project
 //    val signingKey: String? by project
@@ -262,16 +268,13 @@ tasks tasks@{
         }
     }
 
-    withType<GenerateModuleMetadata> {
-        dependsOn("dokkaJavadocJar")
-    }
-
     withType<KotlinCompile> {
         compilerOptions {
             jvmTarget.set(org.jetbrains.kotlin.gradle.dsl.JvmTarget.JVM_17)
         }
     }
 }
+
 
 fun pkg(name: String) = "${group}.${name}Kt"
 application {
