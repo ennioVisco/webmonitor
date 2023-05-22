@@ -262,7 +262,7 @@ tasks tasks@{
         }
     }
 
-    named("generateMetadataFileForMavenPublication") {
+    named("publishAllPublicationsToMavenCentral") {
         dependsOn("kotlinSourcesJar")
     }
 
