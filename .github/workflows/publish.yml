@@ -96,8 +96,8 @@ jobs:
       - name: Find and Replace
         uses: jacobtomlinson/gha-find-replace@v3
         with:
-          find: "com\\.enniovisco:webmonitor:\\d+\\.\\d+\\.\\d+(-SNAPSHOT)?"
-          replace: "com.enniovisco:webmonitor:${{ needs.infer-version.outputs.version }}"
+          find: com.enniovisco:webmonitor:\d+.\d+.\d+(-SNAPSHOT)?
+          replace: com.enniovisco:webmonitor:${{ needs.infer-version.outputs.version }}
           include: "README.md"
       - uses: fregante/setup-git-user@v2
       - name: Push changes
