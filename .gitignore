@@ -30,4 +30,7 @@ output/
 # Mac
 .DS_Store
 
+# Releases control
 gradle.properties
+.nyx-state.json
+.nyx-summary.txt

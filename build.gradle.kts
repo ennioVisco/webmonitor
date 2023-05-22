@@ -7,8 +7,11 @@ val ENABLE_PREVIEW = "--enable-preview"
 val GARBAGE_COLLECTOR = "-XX:+UseParallelGC"
 
 val PROJECT_VERSION = try {
-    providers.gradleProperty("project.version").get()
+    val v = providers.gradleProperty("project.version").get()
+    println("Project version: $v")
+    v
 } catch (e: Exception) {
+    println("Unable to find version: ${e.message}")
     "0.1.0-SNAPSHOT"
 }
 
@@ -67,7 +70,7 @@ publishing {
                 }
             }
             pom {
-                name.set("Webmonitor")
+                name.set(rootProject.name)
                 description.set("A formal approach to monitoring web pages as spatio-temporal traces.")
                 url.set("https://enniovisco.github.io/webmonitor/")
                 licenses {
@@ -109,17 +112,17 @@ publishing {
 }
 
 signing {
-    val signingKeyId: String? by project
+//    val signingKeyId: String? by project
     val signingKey: String? by project
     val signingPassword: String? by project
-    useInMemoryPgpKeys(signingKeyId, signingKey, signingPassword)
+    useInMemoryPgpKeys(signingKey, signingPassword)
     sign(publishing.publications["mavenJava"])
 }
 
 
 sonar {
     properties {
-        property("sonar.projectKey", "ennioVisco_webmonitor")
+        property("sonar.projectKey", "ennioVisco_${rootProject.name}")
         property("sonar.organization", "enniovisco")
         property("sonar.host.url", "https://sonarcloud.io")
     }
