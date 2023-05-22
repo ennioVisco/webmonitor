@@ -11,8 +11,8 @@ val PROJECT_VERSION = try {
     println("Project version: $v")
     v
 } catch (e: Exception) {
-    println("Unable to find version: ${e.message}")
-    "0.1.0-SNAPSHOT"
+    println("ERROR - Unable to find version: ${e.message}")
+    throw e
 }
 
 plugins {
