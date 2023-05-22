@@ -41,7 +41,7 @@ Note that the first time you run the tool, it will download the required depende
 To use it as a maven package, just include the following line:
 
 ```kts
-implementation("com.enniovisco:webmonitor:0.1.0")
+implementation("com.enniovisco:webmonitor:1.0.0")
 ```
 
 ### Running on Windows
