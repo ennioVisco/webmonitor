@@ -259,7 +259,7 @@ tasks.jpackage {
 
     // App Info
     appName = "WebMonitor"
-    vendor = "enniovisco.io"
+    vendor = "enniovisco.com"
     appVersion = PROJECT_VERSION
     copyright = "Copyright (c) 2023 Vendor"
 
