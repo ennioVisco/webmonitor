@@ -2,8 +2,10 @@ name: Docs
 on:
   push:
     branches: [ master ]
+
 jobs:
   publish:
+    name: Update documentation
     runs-on: ubuntu-latest
     steps:
       - name: Pull code

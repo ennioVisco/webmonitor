@@ -36,6 +36,14 @@ if XXX = YYY
 
 Note that the first time you run the tool, it will download the required dependencies, so it might take a while.
 
+### Usage as Maven package
+
+To use it as a maven package, just include the following line:
+
+```kts
+implementation("com.enniovisco:webmonitor:${footer}")
+```
+
 ### Running on Windows
 
 Since Windows 11, the default terminal is PowerShell, so the previous command should run out of the box. If it doesn't,
