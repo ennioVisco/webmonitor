@@ -29,3 +29,5 @@ output/
 
 # Mac
 .DS_Store
+
+gradle.properties
