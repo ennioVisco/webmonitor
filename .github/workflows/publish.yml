@@ -52,6 +52,9 @@ jobs:
     name: Publishing a new version
     runs-on: ubuntu-latest
     needs: infer-version
+    outputs:
+      version: ${{ needs.infer-version.steps.nyx-infer.outputs.version }}
+      newVersion: ${{ needs.infer-version.steps.nyx-infer.outputs.newVersion }}
     steps:
       - uses: actions/checkout@v3
         with:
