@@ -96,10 +96,9 @@ jobs:
       - name: Find and Replace
         uses: jacobtomlinson/gha-find-replace@v3
         with:
-          find: "com\.enniovisco:webmonitor:\d+\.\d+\.\d+(-SNAPSHOT)?"
+          find: "/com\.enniovisco:webmonitor:\d+\.\d+\.\d+(-SNAPSHOT)?/g"
           replace: "com\.enniovisco:webmonitor:${{ needs.infer-version.outputs.version }}"
           include: "README.md"
-          regex: true
       - name: Push changes
         uses: ad-m/github-push-action@v0.6.0
         with:
