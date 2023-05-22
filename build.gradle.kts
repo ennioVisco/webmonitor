@@ -1,9 +1,6 @@
 import com.vanniktech.maven.publish.*
 import org.jetbrains.kotlin.gradle.tasks.*
 
-group = providers.gradleProperty("project.group").get()
-//version = "0.1.0-SNAPSHOT"
-
 val ENABLE_PREVIEW = "--enable-preview"
 val GARBAGE_COLLECTOR = "-XX:+UseParallelGC"
 
@@ -15,6 +12,11 @@ val PROJECT_VERSION = try {
     println("ERROR - Unable to find version: ${e.message}")
     "0.1.0-SNAPSHOT"
 }
+
+val PROJECT_GROUP = providers.gradleProperty("project.group").get()
+
+group = PROJECT_GROUP
+//version = "0.1.0-SNAPSHOT"
 
 plugins {
     // Environment
@@ -113,6 +115,8 @@ java {
 //}
 
 mavenPublishing {
+    coordinates(PROJECT_GROUP, rootProject.name, PROJECT_VERSION)
+
     publishToMavenCentral(SonatypeHost.S01, automaticRelease = true)
 
     signAllPublications()
