@@ -5,9 +5,7 @@ val ENABLE_PREVIEW = "--enable-preview"
 val GARBAGE_COLLECTOR = "-XX:+UseParallelGC"
 
 val PROJECT_VERSION = try {
-    val v = providers.gradleProperty("projectVersion").get()
-    println("Project version: $v")
-    v
+    providers.gradleProperty("projectVersion").get()
 } catch (e: Exception) {
     println("ERROR - Unable to find version: ${e.message}")
     "0.1.0-SNAPSHOT"
@@ -20,7 +18,7 @@ group = PROJECT_GROUP
 plugins {
     // Environment
     id("me.filippov.gradle.jvm.wrapper") version "0.14.0"
-    kotlin("jvm") version "1.8.20"
+    kotlin("jvm") version "1.8.21"
 
     // GUI
     id("org.openjfx.javafxplugin") version "0.0.13"
@@ -81,7 +79,7 @@ mavenPublishing {
         scm {
             connection.set("scm:git:git://github.com/enniovisco/webmonitor.git")
             developerConnection.set("scm:git:ssh://github.com/enniovisco/webmonitor.git")
-            url.set("http://github.com/enniovisco/webmonitor")
+            url.set("https://github.com/enniovisco/webmonitor")
         }
     }
 }
@@ -116,8 +114,8 @@ dependencies {
     implementation(files("lib/moonlight.jar"))
 
     // Selenium
-    implementation("org.seleniumhq.selenium:selenium-java:4.8.3")
-    implementation("org.seleniumhq.selenium:selenium-http-jdk-client:4.8.3")
+    implementation("org.seleniumhq.selenium:selenium-java:4.10.0")
+    implementation("org.seleniumhq.selenium:selenium-http-jdk-client:4.10.0")
 
     implementation("io.github.bonigarcia:webdrivermanager:5.3.2")
 
@@ -216,6 +214,7 @@ application {
     applicationDefaultJvmArgs = listOf(ENABLE_PREVIEW)
     println("Current exec dir: $executableDir")
     mainClass.set(pkg("Main"))
+//    mainModule.set("org.enniovisco.webmonitor")
 }
 
 task("copyDependencies", Copy::class) {
@@ -243,7 +242,7 @@ tasks.jpackage {
 
     // App settings (modular)
 //    runtimeImage = System.getProperty("java.home")
-//    module = "org.app.module/org.app.MainClass"
+//    module = pkg("Main")
 //    modulePaths = listOf(File("$buildDir/jmods").toString())
 
     // Build destination
