@@ -18,7 +18,7 @@ jobs:
         with:
           command: 'infer'
           configurationFile: '.nyx.json'
-          resume: 'false'
+          resume: 'true'
       - name: Run nyx Make
         uses: mooltiverse/nyx-github-action@main
         with:
