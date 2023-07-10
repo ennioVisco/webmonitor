@@ -18,7 +18,6 @@ jobs:
         with:
           command: 'infer'
           configurationFile: '.nyx.json'
-          verbosity: 'DEBUG'
           resume: 'true'
           stateFile: '.nyx-state.json'
           summaryFile: '.nyx-summary.txt'
@@ -27,7 +26,6 @@ jobs:
         with:
           command: 'make'
           configurationFile: '.nyx.json'
-          verbosity: 'DEBUG'
           resume: 'true'
           stateFile: '.nyx-state.json'
           summaryFile: '.nyx-summary.txt'
@@ -75,7 +73,6 @@ jobs:
         with:
           command: 'publish'
           configurationFile: '.nyx.json'
-          verbosity: 'DEBUG'
           resume: 'true'
           stateFile: '.nyx-state.json'
           summaryFile: '.nyx-summary.txt'
