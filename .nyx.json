@@ -2,6 +2,7 @@
   "preset": "simple",
   "changelog": {
     "path": "CHANGELOG.md",
+    "template": "changelog.hbs",
     "sections": {
       ":sparkles: Added": "^feat$",
       ":bug: Fixed": "^fix$",
