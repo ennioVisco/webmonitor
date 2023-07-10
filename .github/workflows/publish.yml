@@ -19,16 +19,12 @@ jobs:
           command: 'infer'
           configurationFile: '.nyx.json'
           resume: 'true'
-          stateFile: '.nyx-state.json'
-          summaryFile: '.nyx-summary.txt'
       - name: Run nyx Make
         uses: mooltiverse/nyx-github-action@main
         with:
           command: 'make'
           configurationFile: '.nyx.json'
           resume: 'true'
-          stateFile: '.nyx-state.json'
-          summaryFile: '.nyx-summary.txt'
 
   publish-version:
     if: needs.infer-version.outputs.newRelease == 'true'
@@ -74,8 +70,6 @@ jobs:
           command: 'publish'
           configurationFile: '.nyx.json'
           resume: 'true'
-          stateFile: '.nyx-state.json'
-          summaryFile: '.nyx-summary.txt'
 
   update-readme:
     if: github.ref_name == 'master'
