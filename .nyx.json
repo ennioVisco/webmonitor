@@ -45,7 +45,7 @@
         "gitCommit": "false",
         "gitPush": "false",
         "gitTag": "false",
-        "publish": "false",
+        "publish": "true",
         "versionRangeFromBranchName": false
       }
     }
