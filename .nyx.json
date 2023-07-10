@@ -11,8 +11,7 @@
       ":memo: Documentation": "^docs$"
     },
     "substitutions": {
-      "(?m)#([0-9]+)(?s)": "[#%s](https://github.com/enniovisco/webmonitor/issues/%s)",
-      "(?m)!(ci|build|fix|perf|docs|feat)(?s)": ":boom: **BREAKING CHANGE** "
+      "(?m)#([0-9]+)(?s)": "[#%s](https://github.com/enniovisco/webmonitor/issues/%s)"
     }
   },
   "git": {
