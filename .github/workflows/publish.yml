@@ -17,27 +17,23 @@ jobs:
         uses: mooltiverse/nyx-github-action@main
         with:
           command: 'infer'
-          changelogPath: 'CHANGELOG.md'
+          configurationFile: '.nyx.json'
           verbosity: 'DEBUG'
-          preset: 'extended'
           resume: 'true'
-          releaseLenient: 'true'
           stateFile: '.nyx-state.json'
           summaryFile: '.nyx-summary.txt'
       - name: Run nyx Make
         uses: mooltiverse/nyx-github-action@main
         with:
           command: 'make'
-          changelogPath: 'CHANGELOG.md'
+          configurationFile: '.nyx.json'
           verbosity: 'DEBUG'
-          preset: 'extended'
           resume: 'true'
-          releaseLenient: 'true'
           stateFile: '.nyx-state.json'
           summaryFile: '.nyx-summary.txt'
 
   publish-version:
-    if: needs.infer-version.outputs.newRelease == true
+    if: needs.infer-version.outputs.newVersion == true
     name: Publishing a new version
     runs-on: ubuntu-latest
     needs: infer-version
