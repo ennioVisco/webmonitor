@@ -22,15 +22,15 @@ jobs:
           resume: 'true'
           stateFile: '.nyx-state.json'
           summaryFile: '.nyx-summary.txt'
-      - name: Run nyx Make
-        uses: mooltiverse/nyx-github-action@main
-        with:
-          command: 'make'
-          configurationFile: '.nyx.json'
-          verbosity: 'DEBUG'
-          resume: 'true'
-          stateFile: '.nyx-state.json'
-          summaryFile: '.nyx-summary.txt'
+  #      - name: Run nyx Make
+  #        uses: mooltiverse/nyx-github-action@main
+  #        with:
+  #          command: 'make'
+  #          configurationFile: '.nyx.json'
+  #          verbosity: 'DEBUG'
+  #          resume: 'true'
+  #          stateFile: '.nyx-state.json'
+  #          summaryFile: '.nyx-summary.txt'
 
   publish-version:
     if: needs.infer-version.outputs.newRelease == true
