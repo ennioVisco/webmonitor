@@ -63,7 +63,7 @@
         "identifiers": [
           {
             "position": "PRE_RELEASE",
-            "qualifier": ""
+            "qualifier": "beta"
           }
         ],
         "versionRangeFromBranchName": false
