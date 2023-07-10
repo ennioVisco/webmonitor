@@ -22,22 +22,24 @@ jobs:
           resume: 'true'
           stateFile: '.nyx-state.json'
           summaryFile: '.nyx-summary.txt'
-  #      - name: Run nyx Make
-  #        uses: mooltiverse/nyx-github-action@main
-  #        with:
-  #          command: 'make'
-  #          configurationFile: '.nyx.json'
-  #          verbosity: 'DEBUG'
-  #          resume: 'true'
-  #          stateFile: '.nyx-state.json'
-  #          summaryFile: '.nyx-summary.txt'
+      - name: Run nyx Make
+        uses: mooltiverse/nyx-github-action@main
+        with:
+          command: 'make'
+          configurationFile: '.nyx.json'
+          verbosity: 'DEBUG'
+          resume: 'true'
+          stateFile: '.nyx-state.json'
+          summaryFile: '.nyx-summary.txt'
 
   publish-version:
-    if: needs.infer-version.outputs.newRelease == true
+    #    if: needs.infer-version.outputs.newRelease == true
     name: Publishing a new version
     runs-on: ubuntu-latest
     needs: infer-version
     steps:
+      - run: "echo 'Version: ${{ needs.infer-version.outputs.version }}'"
+      - run: "echo 'New Release: ${{ needs.infer-version.outputs.newRelease }}'"
       - uses: actions/checkout@v3
         with:
           fetch-depth: 0
