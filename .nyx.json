@@ -12,8 +12,7 @@
     },
     "substitutions": {
       "(?m)#([0-9]+)(?s)": "[#%s](https://github.com/enniovisco/webmonitor/issues/%s)",
-      "^(ci|build|fix|perf|docs|feat):": "",
-      "^!(ci|build|fix|perf|docs|feat):": ":boom: **BREAKING CHANGE:** "
+      "^!(?:ci|build|fix|perf|docs|feat)(?:\\((?<s>.+)\\))?:(?<m>.+)": ":boom: **BREAKING CHANGE:** %s: %m"
     }
   },
   "git": {
