@@ -1,7 +1,5 @@
 name: Publish
-on:
-  push:
-    branches: [ master ]
+on: [ push ]
 
 jobs:
   infer-version:
@@ -89,6 +87,7 @@ jobs:
           summaryFile: '.nyx-summary.txt'
 
   update-readme:
+    if: github.ref_name == 'master'
     name: Updating README.md
     runs-on: ubuntu-latest
     needs: [ publish-version, infer-version ]
