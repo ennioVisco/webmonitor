@@ -55,7 +55,7 @@
       "internal": {
         "collapseVersions": true,
         "collapsedVersionQualifier": "beta",
-        "description": "Beta release {{version}}",
+        "description": "{{#fileContent}}CHANGELOG.md{{/fileContent}}",
         "gitCommit": "false",
         "gitPush": "false",
         "gitTag": "false",
