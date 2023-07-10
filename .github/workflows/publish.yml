@@ -37,7 +37,7 @@ jobs:
           summaryFile: '.nyx-summary.txt'
 
   publish-version:
-    #    if: needs.infer-version.outputs.newVersion == true
+    if: needs.infer-version.outputs.newRelease == true
     name: Publishing a new version
     runs-on: ubuntu-latest
     needs: infer-version
