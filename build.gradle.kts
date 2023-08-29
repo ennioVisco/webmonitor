@@ -11,23 +11,23 @@ val PROJECT_VERSION = try {
     "0.1.0-SNAPSHOT"
 }
 
-val PROJECT_GROUP = providers.gradleProperty("project.group").get()
+val PROJECT_GROUP: String = providers.gradleProperty("project.group").get()
 
 group = PROJECT_GROUP
 
 plugins {
     // Environment
     id("me.filippov.gradle.jvm.wrapper") version "0.14.0"
-    kotlin("jvm") version "1.8.21"
+    kotlin("jvm") version "1.9.10"
 
     // GUI
-    id("org.openjfx.javafxplugin") version "0.0.13"
+    id("org.openjfx.javafxplugin") version "0.0.14"
 
     // Code quality, testing & documentation
     jacoco
     checkstyle
-    id("org.sonarqube") version "4.0.0.2929"
-    id("org.jetbrains.dokka") version "1.8.10"
+    id("org.sonarqube") version "4.3.0.3225"
+    id("org.jetbrains.dokka") version "1.8.20"
 
     // Modularization & packaging
     application
@@ -36,7 +36,7 @@ plugins {
 
     // Releases & publishing
     id("it.nicolasfarabegoli.conventional-commits") version "3.1.3"
-    id("com.vanniktech.maven.publish") version "0.25.2"
+    id("com.vanniktech.maven.publish") version "0.25.3"
 }
 
 repositories {
@@ -107,17 +107,17 @@ javafx {
 dependencies {
     // Configuration files
     implementation(kotlin("script-runtime"))
-    runtimeOnly("org.jetbrains.kotlin:kotlin-scripting-jsr223:1.8.20")
+    runtimeOnly("org.jetbrains.kotlin:kotlin-scripting-jsr223:1.9.10")
 
     // Moonlight
-    //implementation("eu.quanticol.moonlight:core:1.0-SNAPSHOT")
     implementation(files("lib/moonlight.jar"))
+//    implementation("io.github.moonlightsuite:moonlight-engine:v0.2.0")
 
     // Selenium
-    implementation("org.seleniumhq.selenium:selenium-java:4.10.0")
-    implementation("org.seleniumhq.selenium:selenium-http-jdk-client:4.10.0")
+    implementation("org.seleniumhq.selenium:selenium-java:4.11.0")
+    implementation("org.seleniumhq.selenium:selenium-http-jdk-client:4.11.0")
 
-    implementation("io.github.bonigarcia:webdrivermanager:5.3.2")
+    implementation("io.github.bonigarcia:webdrivermanager:5.5.2")
 
     // TestFX (headless GUI)
     implementation("org.testfx:testfx-core:4.0.16-alpha")
@@ -125,15 +125,15 @@ dependencies {
     implementation("org.testfx:openjfx-monocle:jdk-12.0.1+2")
 
     // Dokka
-    implementation("org.jetbrains.dokka:dokka-gradle-plugin:1.8.10")
+    implementation("org.jetbrains.dokka:dokka-gradle-plugin:1.8.20")
 
     // Charts
-    implementation("eu.hansolo.fx:charts:17.1.27")
+    implementation("eu.hansolo.fx:charts:17.1.51")
 
     // Logging
     implementation("io.github.microutils:kotlin-logging-jvm:3.0.5")
-    runtimeOnly("org.slf4j:slf4j-api:2.0.5")
-    implementation("ch.qos.logback:logback-classic:1.4.6")
+    runtimeOnly("org.slf4j:slf4j-api:2.0.7")
+    implementation("ch.qos.logback:logback-classic:1.4.11")
 
     // Pretty printing (debug)
     implementation("com.tylerthrailkill.helpers:pretty-print:2.0.2")
@@ -141,8 +141,8 @@ dependencies {
     // Tests
     testImplementation(kotlin("test"))
     testImplementation(kotlin("test-junit5"))
-    testImplementation("org.junit.jupiter:junit-jupiter:5.9.2")
-    testImplementation("io.mockk:mockk:1.13.4")
+    testImplementation("org.junit.jupiter:junit-jupiter:5.10.0")
+    testImplementation("io.mockk:mockk:1.13.7")
     testImplementation("com.github.stefanbirkner:system-lambda:1.2.1")
     testImplementation(kotlin("reflect"))
 }
@@ -169,7 +169,7 @@ tasks tasks@{
     }
 
     dokkaHtml.configure {
-        outputDirectory.set(buildDir.resolve("dokka"))
+        outputDirectory.set(layout.buildDirectory.dir("dokka"))
     }
 
     test {
@@ -214,15 +214,18 @@ application {
     applicationDefaultJvmArgs = listOf(ENABLE_PREVIEW)
     println("Current exec dir: $executableDir")
     mainClass.set(pkg("Main"))
-//    mainModule.set("org.enniovisco.webmonitor")
+    mainModule.set("org.enniovisco.webmonitor")
 }
 
+val jarsDir: Provider<Directory> = layout.buildDirectory.dir("jars")
+
 task("copyDependencies", Copy::class) {
-    from(configurations.runtimeClasspath).into("$buildDir/jars")
+
+    from(configurations.runtimeClasspath).into(jarsDir)
 }
 
 task("copyJar", Copy::class) {
-    from(tasks.jar).into("$buildDir/jars")
+    from(tasks.jar).into(jarsDir)
 }
 
 
@@ -238,7 +241,7 @@ tasks.jpackage {
     // App settings (non-modular)
     mainJar = tasks.jar.get().archiveFileName.get()
     mainClass = pkg("Main")
-    input = "$buildDir/jars"
+    input = jarsDir.toString()
 
     // App settings (modular)
 //    runtimeImage = System.getProperty("java.home")
@@ -246,7 +249,7 @@ tasks.jpackage {
 //    modulePaths = listOf(File("$buildDir/jmods").toString())
 
     // Build destination
-    destination = "$buildDir/dist"
+    destination = layout.buildDirectory.dir("dist").toString()
 
     // Java Options
     javaOptions = listOf("-Dfile.encoding=UTF-8")

@@ -10,7 +10,7 @@ module webmonitor {
     requires io.github.bonigarcia.webdrivermanager;
 
     requires io.github.microutils.kotlinlogging;
-    requires moonlight;
+//    requires moonlight;
     requires kotlin.stdlib;
 
     exports com.enniovisco;
