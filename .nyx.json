@@ -59,6 +59,7 @@
         "description": "{{#replace from=\"# Changelog\" to=\"\"}}{{#fileContent}}CHANGELOG.md{{/fileContent}}{{/replace}}",
         "gitCommit": "false",
         "gitPush": "false",
+        "publishPreRelease": true,
         "gitTag": "false",
         "publish": "true",
         "identifiers": [

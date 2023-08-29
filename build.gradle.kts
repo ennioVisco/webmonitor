@@ -35,7 +35,7 @@ plugins {
     id("org.panteleyev.jpackageplugin") version "1.5.2"
 
     // Releases & publishing
-    id("it.nicolasfarabegoli.conventional-commits") version "3.1.1"
+    id("it.nicolasfarabegoli.conventional-commits") version "3.1.3"
     id("com.vanniktech.maven.publish") version "0.25.2"
 }
 
