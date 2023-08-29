@@ -60,6 +60,7 @@
         "gitCommit": "false",
         "gitPush": "false",
         "publishPreRelease": "true",
+        "releaseName": "{{name}} ({{date}})",
         "gitTag": "false",
         "publish": "true",
         "identifiers": [
