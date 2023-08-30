@@ -1,13 +1,13 @@
 # Changelog
 
 {{#releases}}
-## {{name}} ({{date}})
+# {{name}} ({{date}})
 
 {{#sections}}
-### {{name}}
+## {{name}}
 
 {{#commits}}
-* [[{{#short5}}{{SHA}}{{/short5}}](https://github.com/enniovisco/webmonitor/commit/{{sha}})] {{#capture expression="(?<type>[a-zA-Z0-9_]+)(!)?(\((?<scope>[a-z ]+)\))?:( (?<title>.+))" group="title"}}{{message.shortMessage}}{{/capture}} ({{authorAction.identity.name}})
+* [[{{#short5}}{{sha}}{{/short5}}](https://github.com/enniovisco/webmonitor/commit/{{sha}})] {{#capture expression="(?<type>[a-zA-Z0-9_]+)(!)?(\((?<scope>[a-z ]+)\))?:( (?<title>.+))" group="title"}}{{message.shortMessage}}{{/capture}} ({{authorAction.identity.name}})
 
 {{/commits}}
 {{^commits}}
