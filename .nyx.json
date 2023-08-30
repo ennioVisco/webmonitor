@@ -60,7 +60,7 @@
         "gitCommit": "false",
         "gitPush": "false",
         "publishPreRelease": "true",
-        "releaseName": "{{version}} ({{#timeFormat format=\"20060102\"}}{{timestamp}}{{/timeFormat}})",
+        "releaseName": "{{version}} ({{#timeFormat format=\"2006-01-02\"}}{{timestamp}}{{/timeFormat}})",
         "gitTag": "false",
         "publish": "true",
         "identifiers": [
