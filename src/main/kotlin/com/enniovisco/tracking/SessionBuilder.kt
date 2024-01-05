@@ -54,7 +54,7 @@ class SessionBuilder(
         options.addArguments("--force-device-scale-factor=2.75")
 
         if (dims?.width!! < 500 || dims.height < 400) {
-            initMobileChrome(options, "Pixel 5")
+            initMobileChrome(options, "iPhone 5/SE")
         } else {
             val windowSizeFlag = "--window-size=${dims.width},${dims.height}"
             options.addArguments(windowSizeFlag)
