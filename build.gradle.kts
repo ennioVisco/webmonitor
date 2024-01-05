@@ -114,10 +114,10 @@ dependencies {
 //    implementation("io.github.moonlightsuite:moonlight-engine:v0.2.0")
 
     // Selenium
-    implementation("org.seleniumhq.selenium:selenium-java:4.11.0")
-    implementation("org.seleniumhq.selenium:selenium-http-jdk-client:4.11.0")
+    implementation("org.seleniumhq.selenium:selenium-java:4.16.1")
+    implementation("org.seleniumhq.selenium:selenium-http-jdk-client:4.13.0")
 
-    implementation("io.github.bonigarcia:webdrivermanager:5.5.2")
+    implementation("io.github.bonigarcia:webdrivermanager:5.6.3")
 
     // TestFX (headless GUI)
     implementation("org.testfx:testfx-core:4.0.16-alpha")
@@ -212,7 +212,7 @@ tasks tasks@{
 fun pkg(name: String) = "${group}.${name}Kt"
 application {
     applicationDefaultJvmArgs = listOf(ENABLE_PREVIEW)
-    println("Current exec dir: $executableDir")
+//    println("Current exec dir: $executableDir")
     mainClass.set(pkg("Main"))
     mainModule.set("org.enniovisco.webmonitor")
 }
