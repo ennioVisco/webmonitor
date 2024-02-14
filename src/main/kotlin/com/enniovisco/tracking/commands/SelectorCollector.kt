@@ -20,7 +20,7 @@ class SelectorCollector(
     private val log = KotlinLogging.logger {}
 
     init {
-        log.info("SelectorCollector: $queryString")
+        log.info { "SelectorCollector: $queryString" }
         val (query, property, label, isBinding) = parseSelector(queryString)
         cssQuery = query
         cssProperty = property
@@ -41,15 +41,15 @@ class SelectorCollector(
             selectorWidth.add(elem.rect.width.toString())
             selectorHeight.add(elem.rect.height.toString())
 
-            log.info("[PERF] Element <$cssQuery> size: ${elements.size}")
+            log.info { "[PERF] Element <$cssQuery> size: ${elements.size}" }
 
             if (elements.size < 6) {
-                log.info(
+                log.info {
                     "Element <$cssQuery>[$i] =" +
                             " (${selectorX[i].toInt()}, ${selectorY[i].toInt()})" +
                             " -> (${selectorX[i].toInt() + selectorWidth[i].toInt()}" +
                             ", ${selectorY[i].toInt() + selectorHeight[i].toInt()})"
-                )
+                }
             }
         }
     }
@@ -57,7 +57,7 @@ class SelectorCollector(
     private fun initializeProperty(property: String, elem: WebElement) =
         if (property != "") {
             val actual = elem.getCssValue(property)
-            log.info("Property '$property' set at value: $actual")
+            log.info { "Property '$property' set at value: $actual" }
             actual
         } else ""
 

@@ -35,7 +35,7 @@ class Reporter(
     fun mark(text: String, important: Boolean = false) {
         val data = outputLine(text)
         if (toConsole || important) {
-            log.info("==== $text ====")
+            log.info { "==== $text ====" }
         }
         buffer.add(data)
     }
@@ -72,7 +72,7 @@ class Reporter(
         try {
             Platform.startup(doPlot(id, title, values, grid))
         } catch (e: IllegalStateException) {
-            log.info("JavaFX platform already instantiated. Skipping.")
+            log.info { "JavaFX platform already instantiated. Skipping." }
             Platform.runLater(doPlot(id, title, values, grid))
         }
     }

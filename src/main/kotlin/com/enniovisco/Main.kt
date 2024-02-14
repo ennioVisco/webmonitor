@@ -14,12 +14,12 @@ private typealias Metadata = Map<String, String>
 fun main(args: Array<String>) {
     Cli(args, toFile = true) {
         it.title("Tracking")
-        val snapshots = com.enniovisco.tracking(it)
+        val snapshots = tracking(it)
 
-        val grid = com.enniovisco.generateSpatialModel(snapshots[0])
+        val grid = generateSpatialModel(snapshots[0])
 
         it.title("Checking")
-        val result = com.enniovisco.checking(grid, snapshots)
+        val result = checking(grid, snapshots)
         it.report(result, "output dump")
 
         it.title("Plotting results")
@@ -31,18 +31,18 @@ fun main(args: Array<String>) {
     }
 }
 
-private fun tracking(report: Reporter): com.enniovisco.ResultData {
-    val baseUrl = URL(com.enniovisco.WebSource.targetUrl)
+private fun tracking(report: Reporter): ResultData {
+    val baseUrl = URL(WebSource.targetUrl)
     val dimensions = Dimension(
-        com.enniovisco.WebSource.screenWidth,
-        com.enniovisco.WebSource.screenHeight
+        WebSource.screenWidth,
+        WebSource.screenHeight
     )
     val tracker = PageTracker(
         baseUrl,
         dimensions,
-        com.enniovisco.WebSource.browser,
-        wait = com.enniovisco.WebSource.wait,
-        maxSessionDuration = com.enniovisco.WebSource.maxSessionDuration,
+        WebSource.browser,
+        wait = WebSource.wait,
+        maxSessionDuration = WebSource.maxSessionDuration,
         toFile = true
     )
 
@@ -51,13 +51,13 @@ private fun tracking(report: Reporter): com.enniovisco.ResultData {
 
     val results = tracker.run()
 
-    com.enniovisco.processMetadata(tracker.metadata, report)
+    processMetadata(tracker.metadata, report)
 
     return results
 }
 
 private fun processMetadata(
-    metadata: com.enniovisco.Metadata,
+    metadata: Metadata,
     report: Reporter
 ) {
     report.devicePixelRatio = metadata["devicePixelRatio"]?.toDouble()

@@ -1,5 +1,5 @@
 name: Build
-on: [push, pull_request]
+on: [ push, pull_request ]
 
 jobs:
   build:
@@ -9,6 +9,8 @@ jobs:
       matrix:
         os: [ ubuntu-latest ] #, macos-latest  , windows-latest] # removed as they need alternative to xvfb-run!
     steps:
+      - uses: browser-actions/setup-chrome@v1
+      - run: chrome --version
       - uses: actions/checkout@v3
         with:
           fetch-depth: 0  # Shallow clones should be disabled for a better relevancy of analysis
