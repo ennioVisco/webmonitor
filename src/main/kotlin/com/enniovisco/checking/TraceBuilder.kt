@@ -99,7 +99,7 @@ class TraceBuilder(
                 this.value = value
             } catch (e: IllegalArgumentException) {
                 val msg = "Unable to parse selector '$fullName'."
-                log.error(msg)
+                log.error { msg }
                 throw IllegalArgumentException(msg, e)
             }
 

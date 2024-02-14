@@ -32,7 +32,7 @@ fun main(args: Array<String>) {
 }
 
 private fun tracking(report: Reporter): ResultData {
-    val baseUrl = URL(WebSource.targetUrl)
+    val baseUrl = URI.create(WebSource.targetUrl).toURL()
     val dimensions = Dimension(
         WebSource.screenWidth,
         WebSource.screenHeight

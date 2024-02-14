@@ -78,14 +78,14 @@ class Plotter(
         Platform.runLater {
             takeSnapshot(scene, "output/eval_${id}.png")
             if (headless) {
-                log.info("Headless mode, closing GUI.")
+                log.info { "Headless mode, closing GUI." }
                 Platform.exit()
             }
         }
     }
 
     private fun takeSnapshot(scene: Scene, fileName: String) {
-        log.info("Taking snapshot of $fileName")
+        log.info { "Taking snapshot of $fileName" }
         val image = scene.snapshot(null)
         val file = File("./$fileName")
         val buffer = SwingFXUtils.fromFXImage(image, null)

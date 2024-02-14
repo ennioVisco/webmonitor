@@ -7,7 +7,7 @@ import kotlin.test.*
 import kotlin.test.Test
 
 class PageTrackerTest {
-    private val url = URL("https://www.google.com")
+    private val url = URI.create("https://www.google.com").toURL()
 
     @Test
     fun `test can track basic selectors`() {
