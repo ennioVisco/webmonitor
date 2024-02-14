@@ -110,7 +110,7 @@ dependencies {
     runtimeOnly("org.jetbrains.kotlin:kotlin-scripting-jsr223:1.9.22")
 
     // Moonlight
-    implementation("io.github.moonlightsuite:moonlight-engine:v0.3.0")
+    implementation("io.github.moonlightsuite:moonlight-engine:0.3.0")
 
     // Selenium
     implementation("org.seleniumhq.selenium:selenium-java:4.17.0")
@@ -163,9 +163,9 @@ fun runtimeArgs(exec: Any) {
 }
 
 tasks tasks@{
-    withType<JavaCompile> {
-        options.compilerArgs.add(ENABLE_PREVIEW)
-    }
+//    withType<JavaCompile> {
+//        options.compilerArgs.add(ENABLE_PREVIEW)
+//    }
 
     dokkaHtml.configure {
         outputDirectory.set(layout.buildDirectory.dir("dokka"))

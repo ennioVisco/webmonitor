@@ -10,8 +10,11 @@ module webmonitor {
     requires io.github.bonigarcia.webdrivermanager;
 
     requires io.github.oshai.kotlinlogging;
-    requires moonlight;
+    requires moonlight.engine;
+
     requires kotlin.stdlib;
+    requires kotlin.compiler.embeddable;
+    requires java.scripting;
 
     exports com.enniovisco;
 
