@@ -1,10 +1,10 @@
 package com.enniovisco
 
 import com.enniovisco.dsl.*
-import eu.quanticol.moonlight.core.formula.*
-import eu.quanticol.moonlight.formula.*
-import eu.quanticol.moonlight.formula.classic.*
-import eu.quanticol.moonlight.offline.signal.*
+import io.github.moonlightsuite.moonlight.core.formula.*
+import io.github.moonlightsuite.moonlight.formula.*
+import io.github.moonlightsuite.moonlight.formula.classic.*
+import io.github.moonlightsuite.moonlight.offline.signal.*
 
 internal typealias GridSignal = SpatialTemporalSignal<Boolean>
 

@@ -1,6 +1,6 @@
 package com.enniovisco.space
 
-import eu.quanticol.moonlight.space.*
+import io.github.moonlightsuite.moonlight.space.*
 import org.junit.jupiter.api.*
 import org.junit.jupiter.api.Test
 import kotlin.test.*

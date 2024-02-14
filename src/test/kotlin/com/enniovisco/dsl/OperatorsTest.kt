@@ -1,9 +1,9 @@
 package com.enniovisco.dsl
 
-import eu.quanticol.moonlight.formula.*
-import eu.quanticol.moonlight.formula.classic.*
-import eu.quanticol.moonlight.formula.spatial.*
-import eu.quanticol.moonlight.formula.temporal.*
+import io.github.moonlightsuite.moonlight.formula.*
+import io.github.moonlightsuite.moonlight.formula.classic.*
+import io.github.moonlightsuite.moonlight.formula.spatial.*
+import io.github.moonlightsuite.moonlight.formula.temporal.*
 import org.junit.jupiter.api.Test
 import kotlin.test.*
 

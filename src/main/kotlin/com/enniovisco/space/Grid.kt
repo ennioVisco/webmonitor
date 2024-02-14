@@ -1,7 +1,7 @@
 package com.enniovisco.space
 
-import eu.quanticol.moonlight.core.space.*
-import eu.quanticol.moonlight.space.*
+import io.github.moonlightsuite.moonlight.core.space.*
+import io.github.moonlightsuite.moonlight.space.*
 
 class Grid(val rows: Int, val columns: Int) {
     /**

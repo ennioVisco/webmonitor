@@ -1,6 +1,6 @@
 package com.enniovisco
 
-import eu.quanticol.moonlight.offline.signal.*
+import io.github.moonlightsuite.moonlight.offline.signal.*
 import java.util.function.*
 
 val alwaysTrueSignal = run {

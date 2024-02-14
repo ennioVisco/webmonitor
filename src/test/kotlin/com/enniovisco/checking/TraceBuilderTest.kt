@@ -2,7 +2,7 @@ package com.enniovisco.checking
 
 import com.enniovisco.*
 import com.enniovisco.space.*
-import eu.quanticol.moonlight.offline.signal.*
+import io.github.moonlightsuite.moonlight.offline.signal.*
 import org.junit.jupiter.api.*
 import org.junit.jupiter.api.Assertions.*
 import org.junit.jupiter.api.Test

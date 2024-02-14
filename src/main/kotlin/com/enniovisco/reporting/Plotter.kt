@@ -34,7 +34,7 @@ class Plotter(
     private val columns = data.size
     private val rows = data[0].size
     private val heatMap = addData(data)
-    private val log = mu.KotlinLogging.logger {}
+    private val log = io.github.oshai.kotlinlogging.KotlinLogging.logger {}
 
     init {
         if (grid.columns != columns || grid.rows != rows)

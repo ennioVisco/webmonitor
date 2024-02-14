@@ -1,6 +1,6 @@
 package com.enniovisco.dsl
 
-import eu.quanticol.moonlight.formula.*
+import io.github.moonlightsuite.moonlight.formula.*
 
 /**
  * Pseudo-selector for selecting the whole document

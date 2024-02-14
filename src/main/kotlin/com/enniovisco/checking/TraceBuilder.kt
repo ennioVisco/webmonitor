@@ -3,8 +3,8 @@ package com.enniovisco.checking
 import com.enniovisco.dsl.*
 import com.enniovisco.space.*
 import com.enniovisco.tracking.commands.*
-import eu.quanticol.moonlight.offline.signal.*
-import mu.*
+import io.github.moonlightsuite.moonlight.offline.signal.*
+import io.github.oshai.kotlinlogging.*
 import kotlin.math.*
 
 

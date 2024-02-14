@@ -1,6 +1,6 @@
 package com.enniovisco.tracking.commands
 
-import mu.*
+import io.github.oshai.kotlinlogging.*
 
 class MetadataCollector(cmdExec: (String) -> Any) : BrowserCommand() {
     private val layoutVpWidth: String

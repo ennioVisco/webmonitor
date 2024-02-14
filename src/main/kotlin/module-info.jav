@@ -9,7 +9,7 @@ module webmonitor {
     requires org.seleniumhq.selenium.chrome_driver;
     requires io.github.bonigarcia.webdrivermanager;
 
-    requires io.github.microutils.kotlinlogging;
+    requires io.github.oshai.kotlinlogging;
     requires moonlight;
     requires kotlin.stdlib;
 

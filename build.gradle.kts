@@ -18,7 +18,7 @@ group = PROJECT_GROUP
 plugins {
     // Environment
     id("me.filippov.gradle.jvm.wrapper") version "0.14.0"
-    kotlin("jvm") version "1.8.21"
+    kotlin("jvm") version "1.9.22"
 
     // GUI
     id("org.openjfx.javafxplugin") version "0.0.13"
@@ -46,9 +46,9 @@ repositories {
 java {
 //    withJavadocJar()
 //    withSourcesJar()
-    sourceCompatibility = JavaVersion.VERSION_17
+    sourceCompatibility = JavaVersion.VERSION_21
     toolchain {
-        languageVersion.set(JavaLanguageVersion.of(17))
+        languageVersion.set(JavaLanguageVersion.of(21))
     }
 }
 
@@ -99,7 +99,7 @@ sonar {
 }
 
 javafx {
-    version = "17"
+    version = "21"
     modules =
         listOf("javafx.base", "javafx.controls", "javafx.swing", "javafx.web")
 }
@@ -107,17 +107,16 @@ javafx {
 dependencies {
     // Configuration files
     implementation(kotlin("script-runtime"))
-    runtimeOnly("org.jetbrains.kotlin:kotlin-scripting-jsr223:1.8.20")
+    runtimeOnly("org.jetbrains.kotlin:kotlin-scripting-jsr223:1.9.22")
 
     // Moonlight
-    //implementation("eu.quanticol.moonlight:core:1.0-SNAPSHOT")
-    implementation(files("lib/moonlight.jar"))
+    implementation("io.github.moonlightsuite:moonlight-engine:v0.3.0")
 
     // Selenium
-    implementation("org.seleniumhq.selenium:selenium-java:4.10.0")
-    implementation("org.seleniumhq.selenium:selenium-http-jdk-client:4.10.0")
+    implementation("org.seleniumhq.selenium:selenium-java:4.17.0")
+    implementation("org.seleniumhq.selenium:selenium-http-jdk-client:4.13.0")
 
-    implementation("io.github.bonigarcia:webdrivermanager:5.3.2")
+    implementation("io.github.bonigarcia:webdrivermanager:5.6.3")
 
     // TestFX (headless GUI)
     implementation("org.testfx:testfx-core:4.0.16-alpha")
@@ -125,15 +124,15 @@ dependencies {
     implementation("org.testfx:openjfx-monocle:jdk-12.0.1+2")
 
     // Dokka
-    implementation("org.jetbrains.dokka:dokka-gradle-plugin:1.8.10")
+    implementation("org.jetbrains.dokka:dokka-gradle-plugin:1.9.10")
 
     // Charts
     implementation("eu.hansolo.fx:charts:17.1.27")
 
     // Logging
-    implementation("io.github.microutils:kotlin-logging-jvm:3.0.5")
+    implementation("io.github.oshai:kotlin-logging-jvm:6.0.3")
     runtimeOnly("org.slf4j:slf4j-api:2.0.5")
-    implementation("ch.qos.logback:logback-classic:1.4.6")
+    implementation("ch.qos.logback:logback-classic:1.4.14")
 
     // Pretty printing (debug)
     implementation("com.tylerthrailkill.helpers:pretty-print:2.0.2")
@@ -203,7 +202,7 @@ tasks tasks@{
 
     withType<KotlinCompile> {
         compilerOptions {
-            jvmTarget.set(org.jetbrains.kotlin.gradle.dsl.JvmTarget.JVM_17)
+            jvmTarget.set(org.jetbrains.kotlin.gradle.dsl.JvmTarget.JVM_21)
         }
     }
 }

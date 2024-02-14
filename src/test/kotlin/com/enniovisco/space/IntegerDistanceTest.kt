@@ -1,6 +1,6 @@
 package com.enniovisco.space
 
-import eu.quanticol.moonlight.domain.*
+import io.github.moonlightsuite.moonlight.domain.*
 import org.junit.jupiter.api.*
 import org.junit.jupiter.api.Assertions.*
 

@@ -2,7 +2,7 @@ package com.enniovisco.reporting
 
 import com.enniovisco.*
 import com.enniovisco.space.*
-import eu.quanticol.moonlight.offline.signal.*
+import io.github.moonlightsuite.moonlight.offline.signal.*
 import javafx.application.*
 import java.io.*
 import java.time.*
@@ -18,7 +18,7 @@ class Reporter(
     var devicePixelRatio: Double = 1.0,
     private val logTimeGranularity: TemporalUnit = ChronoUnit.SECONDS,
 ) : AutoCloseable {
-    private val log = mu.KotlinLogging.logger {}
+    private val log = io.github.oshai.kotlinlogging.KotlinLogging.logger {}
     private val headless: Boolean
 
     init {

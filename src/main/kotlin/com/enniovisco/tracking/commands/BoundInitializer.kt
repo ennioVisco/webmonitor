@@ -1,6 +1,6 @@
 package com.enniovisco.tracking.commands
 
-import mu.*
+import io.github.oshai.kotlinlogging.*
 
 const val BOUNDS_PREFIX = "wm-"
 

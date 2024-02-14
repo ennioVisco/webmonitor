@@ -1,7 +1,7 @@
 package com.enniovisco.tracking.commands
 
 import com.enniovisco.dsl.*
-import mu.*
+import io.github.oshai.kotlinlogging.*
 import org.openqa.selenium.*
 
 class SelectorCollector(

@@ -1,6 +1,6 @@
 package com.enniovisco.tracking
 
-import mu.*
+import io.github.oshai.kotlinlogging.*
 import org.openqa.selenium.*
 import org.openqa.selenium.devtools.events.*
 import org.openqa.selenium.remote.*

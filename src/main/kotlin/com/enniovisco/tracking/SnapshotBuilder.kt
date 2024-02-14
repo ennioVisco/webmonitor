@@ -1,7 +1,7 @@
 package com.enniovisco.tracking
 
 import com.enniovisco.tracking.commands.*
-import mu.*
+import io.github.oshai.kotlinlogging.*
 import org.apache.commons.io.*
 import org.openqa.selenium.*
 import org.openqa.selenium.devtools.*
