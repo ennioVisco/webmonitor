@@ -41,7 +41,7 @@ Note that the first time you run the tool, it will download the required depende
 To use it as a maven package, just include the following line in your `build.gradle.kts`:
 
 ```kts
-implementation("com.enniovisco:webmonitor:1.0.0")
+implementation("com.enniovisco:webmonitor:v1.1.0")
 ```
 
 Check on [Maven Central](https://central.sonatype.com/artifact/com.enniovisco/webmonitor/) for alternative build tools (
