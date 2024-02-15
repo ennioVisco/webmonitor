@@ -18,7 +18,7 @@ jobs:
           java-version: 21
           distribution: adopt
       - name: Build documentation
-        run: ./gradlew dokkaHtml
+        run: ./gradlew dokkaHtml --no-configuration-cache
       - name: Add sample test page
         run: mv sample.html build/dokka/sample.html
       - name: Publish documentation

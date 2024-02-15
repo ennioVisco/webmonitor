@@ -157,10 +157,18 @@ fun runtimeArgs(exec: Any) {
         listOf(
             GARBAGE_COLLECTOR,
 //        ENABLE_PREVIEW,
-//        "--add-exports", "javafx.graphics/com.sun.glass.ui=ALL-UNNAMED",
-//        "--add-exports", "javafx.graphics/com.sun.glass.utils=ALL-UNNAMED",
-//        "--add-opens", "javafx.graphics/com.sun.glass.ui=ALL-UNNAMED",
-//        "--add-opens", "javafx.graphics/com.sun.glass.utils=ALL-UNNAMED"
+            "--add-exports",
+            "javafx.graphics/com.sun.glass.ui=ALL-UNNAMED",
+            "--add-exports",
+            "javafx.graphics/com.sun.glass.utils=ALL-UNNAMED",
+            "--add-exports",
+            "javafx.graphics/com.sun.javafx.util=ALL-UNNAMED",
+            "--add-exports",
+            "javafx.base/com.sun.javafx.logging=ALL-UNNAMED",
+            "--add-opens",
+            "javafx.graphics/com.sun.glass.ui=ALL-UNNAMED",
+            "--add-opens",
+            "javafx.graphics/com.sun.glass.utils=ALL-UNNAMED"
         )
     when (exec) {
         is JavaExec -> exec.jvmArgs(arguments)
@@ -221,7 +229,7 @@ application {
     applicationDefaultJvmArgs = listOf(ENABLE_PREVIEW)
 //    println("Current exec dir: $executableDir")
     mainClass.set(pkg("Main"))
-    mainModule.set("org.enniovisco.webmonitor")
+//    mainModule.set("com.enniovisco.webmonitor") // TODO: investigate, this seems to brake javafx deps
 }
 
 val jarsDir: Provider<Directory> = layout.buildDirectory.dir("jars")
