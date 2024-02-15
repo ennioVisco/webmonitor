@@ -13,7 +13,6 @@ module webmonitor {
     requires moonlight.engine;
 
     requires kotlin.stdlib;
-    requires kotlin.compiler.embeddable;
     requires java.scripting;
 
     exports com.enniovisco;

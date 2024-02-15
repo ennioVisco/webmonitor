@@ -46,8 +46,8 @@ private fun tracking(report: Reporter): ResultData {
         toFile = true
     )
 
-    com.enniovisco.Spec.atomsAsIds().forEach { tracker.select(it) }
-    com.enniovisco.Spec.record.forEach { tracker.record(it.asPair()) }
+    Spec.atomsAsIds().forEach { tracker.select(it) }
+    Spec.record.forEach { tracker.record(it.asPair()) }
 
     val results = tracker.run()
 
@@ -67,11 +67,11 @@ private fun processMetadata(
 private fun checking(
     grid: Grid,
     data: List<Map<String, String>>
-): com.enniovisco.GridSignal {
+): GridSignal {
     val selectors =
-        com.enniovisco.Spec.atoms.associate { Pair(it.toString(), it.modifier) }
+        Spec.atoms.associate { Pair(it.toString(), it.modifier) }
     val checker = Checker(grid, data, selectors)
-    return checker.check(com.enniovisco.Spec.formula)
+    return checker.check(Spec.formula)
 }
 
 private fun generateSpatialModel(data: Map<String, String>): Grid {
@@ -85,8 +85,8 @@ private fun generateSpatialModel(data: Map<String, String>): Grid {
         )
     } else {
         Grid(
-            rows = com.enniovisco.WebSource.screenHeight,
-            columns = com.enniovisco.WebSource.screenWidth
+            rows = WebSource.screenHeight,
+            columns = WebSource.screenWidth
         )
     }
 }
