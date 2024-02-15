@@ -1,7 +1,7 @@
 package com.enniovisco.tracking
 
 import com.enniovisco.tracking.commands.*
-import mu.*
+import io.github.oshai.kotlinlogging.*
 import org.apache.commons.io.*
 import org.openqa.selenium.*
 import org.openqa.selenium.devtools.*
@@ -45,15 +45,15 @@ class SnapshotBuilder(
             when (e) {
                 is NoSuchElementException,
                 is DevToolsException -> {
-                    log.error(
+                    log.error {
                         "Selector '$cssQuery' not found. " +
                                 "Are you sure it is present in the page?"
-                    )
+                    }
                     throw e
                 }
 
                 else -> {
-                    log.warn("Unable to find data for selector '$cssQuery'.")
+                    log.warn { "Unable to find data for selector '$cssQuery'." }
 //                    throw e
                 }
             }

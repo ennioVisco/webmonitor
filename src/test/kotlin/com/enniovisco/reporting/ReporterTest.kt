@@ -3,7 +3,7 @@ package com.enniovisco.reporting
 import com.enniovisco.*
 import com.enniovisco.space.*
 import com.github.stefanbirkner.systemlambda.SystemLambda.*
-import eu.quanticol.moonlight.offline.signal.*
+import io.github.moonlightsuite.moonlight.offline.signal.*
 import io.mockk.*
 import org.junit.jupiter.api.*
 import org.junit.jupiter.api.Assertions.*

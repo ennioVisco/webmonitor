@@ -1,6 +1,6 @@
 package com.enniovisco.tracking
 
-import mu.*
+import io.github.oshai.kotlinlogging.*
 import org.openqa.selenium.*
 import org.openqa.selenium.devtools.events.*
 import org.openqa.selenium.remote.*
@@ -85,8 +85,8 @@ class PageTracker(
     private fun takeSnapshot(event: ConsoleEvent) {
         Thread.sleep(wait)
 
-        if (event.messages.size > 0 && event.messages[0].startsWith(prefix)) {
-            log.info("Console log message is: ${event.messages[0]}")
+        if (event.messages.isNotEmpty() && event.messages[0].startsWith(prefix)) {
+            log.info { "Console log message is: ${event.messages[0]}" }
             try {
                 snapshotOrFail {
                     snapshotBuilder?.collect(snapshots.size)?.let {

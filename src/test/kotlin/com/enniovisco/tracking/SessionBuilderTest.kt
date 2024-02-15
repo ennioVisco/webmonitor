@@ -13,7 +13,7 @@ internal class SessionBuilderTest {
 
     @Test
     fun `browser session is initialized correctly`() {
-        val url = URL("https://google.com")
+        val url = URI.create("https://google.com").toURL()
         val dims = Dimension(800, 600)
 
         try {

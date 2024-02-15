@@ -1,6 +1,6 @@
 package com.enniovisco.tracking.commands
 
-import mu.*
+import io.github.oshai.kotlinlogging.*
 
 class MetadataCollector(cmdExec: (String) -> Any) : BrowserCommand() {
     private val layoutVpWidth: String
@@ -18,12 +18,12 @@ class MetadataCollector(cmdExec: (String) -> Any) : BrowserCommand() {
         val layoutVp = "return document.documentElement"
         layoutVpWidth = cmdExec("${layoutVp}.scrollWidth").toString()
         layoutVpHeight = cmdExec("${layoutVp}.scrollHeight").toString()
-        log.info("Layout Viewport: ${layoutVpWidth}x${layoutVpHeight}")
+        log.info { "Layout Viewport: ${layoutVpWidth}x${layoutVpHeight}" }
 
         // Visual Viewport: physical screen
         visualVpWidth = cmdExec("return window.innerWidth;").toString()
         visualVpHeight = cmdExec("return window.innerHeight;").toString()
-        log.info("Visual Viewport: ${visualVpWidth}x${visualVpHeight}")
+        log.info { "Visual Viewport: ${visualVpWidth}x${visualVpHeight}" }
     }
 
     override fun dump(target: MutableMap<String, String>) {

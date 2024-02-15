@@ -1,5 +1,19 @@
 {
   "preset": "simple",
+  "changelog": {
+    "path": "CHANGELOG.md",
+    "template": "changelog.hbs",
+    "sections": {
+      ":sparkles: Added": "^feat$",
+      ":bug: Fixed": "^fix$",
+      ":zap: Improved": "^perf$",
+      ":hammer: Tooling": "^(build|ci)$",
+      ":memo: Documentation": "^docs$"
+    },
+    "substitutions": {
+      "(?m)#([0-9]+)(?s)": "[#%s](https://github.com/enniovisco/webmonitor/issues/%s)"
+    }
+  },
   "git": {
     "remotes": {
       "origin": {
@@ -10,6 +24,7 @@
     }
   },
   "initialVersion": "0.1.0",
+  "releasePrefix": "v",
   "releaseTypes": {
     "enabled": [
       "mainline",
@@ -40,12 +55,20 @@
       },
       "internal": {
         "collapseVersions": true,
-        "collapsedVersionQualifier": "internal",
-        "description": "Internal release {{version}}",
+        "collapsedVersionQualifier": "beta",
+        "description": "{{#replace from=\"# Changelog\" to=\"\"}}{{#fileContent}}CHANGELOG.md{{/fileContent}}{{/replace}}",
         "gitCommit": "false",
         "gitPush": "false",
+        "publishPreRelease": "true",
+        "releaseName": "{{version}} ({{#timeFormat format=\"2006-01-02\"}}{{timestamp}}{{/timeFormat}})",
         "gitTag": "false",
-        "publish": "false",
+        "publish": "true",
+        "identifiers": [
+          {
+            "position": "PRE_RELEASE",
+            "qualifier": "beta"
+          }
+        ],
         "versionRangeFromBranchName": false
       }
     }

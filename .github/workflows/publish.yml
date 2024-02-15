@@ -1,7 +1,5 @@
 name: Publish
-on:
-  push:
-    branches: [ master ]
+on: [ push ]
 
 jobs:
   infer-version:
@@ -9,7 +7,7 @@ jobs:
     runs-on: ubuntu-latest
     outputs:
       version: ${{ steps.nyx-infer.outputs.version }}
-      newVersion: ${{ steps.nyx-infer.outputs.newVersion }}
+      newRelease: ${{ steps.nyx-infer.outputs.newRelease }}
     steps:
       - uses: actions/checkout@v3
         with:
@@ -19,55 +17,45 @@ jobs:
         uses: mooltiverse/nyx-github-action@main
         with:
           command: 'infer'
-          changelogPath: 'CHANGELOG.md'
-          verbosity: 'DEBUG'
-          preset: 'extended'
+          configurationFile: '.nyx.json'
           resume: 'true'
-          releaseLenient: 'true'
-          stateFile: '.nyx-state.json'
-          summaryFile: '.nyx-summary.txt'
       - name: Run nyx Make
         uses: mooltiverse/nyx-github-action@main
         with:
           command: 'make'
-          changelogPath: 'CHANGELOG.md'
-          verbosity: 'DEBUG'
-          preset: 'extended'
+          configurationFile: '.nyx.json'
           resume: 'true'
-          releaseLenient: 'true'
-          stateFile: '.nyx-state.json'
-          summaryFile: '.nyx-summary.txt'
 
   publish-version:
-    if: needs.infer-version.outputs.newVersion == true
+    if: needs.infer-version.outputs.newRelease == 'true'
     name: Publishing a new version
     runs-on: ubuntu-latest
     needs: infer-version
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4
         with:
           fetch-depth: 0
-      - name: Set up JDK 17
-        uses: actions/setup-java@v3
+      - name: Set up JDK 21
+        uses: actions/setup-java@v4
         with:
-          java-version: 17
+          java-version: 21
           distribution: adopt
       - name: Cache Gradle packages
-        uses: actions/cache@v3
+        uses: actions/cache@v4
         with:
           path: ~/.gradle/caches
           key: ${{ runner.os }}-gradle-${{ hashFiles('**/*.gradle') }}
           restore-keys: ${{ runner.os }}-gradle
       - name: Change wrapper permissions
         run: chmod +x gradlew
-      - name: Run gradle publish
-        run: ./gradlew publishAllPublicationsToMavenCentralRepository --no-configuration-cache
-        env:
-          ORG_GRADLE_PROJECT_projectVersion: ${{ needs.infer-version.outputs.version }}
-          ORG_GRADLE_PROJECT_signingInMemoryKeyPassword: ${{ secrets.SIGNING_PASSWORD }}
-          ORG_GRADLE_PROJECT_signingInMemoryKey: ${{ secrets.SIGNING_KEY }}
-          ORG_GRADLE_PROJECT_mavenCentralUsername: ${{ secrets.SONATYPE_USERNAME }}
-          ORG_GRADLE_PROJECT_mavenCentralPassword: ${{ secrets.SONATYPE_PASSWORD }}
+      #      - name: Run gradle publish
+      #        run: ./gradlew publishAllPublicationsToMavenCentralRepository --no-configuration-cache
+      #        env:
+      #          ORG_GRADLE_PROJECT_projectVersion: ${{ needs.infer-version.outputs.version }}
+      #          ORG_GRADLE_PROJECT_signingInMemoryKeyPassword: ${{ secrets.SIGNING_PASSWORD }}
+      #          ORG_GRADLE_PROJECT_signingInMemoryKey: ${{ secrets.SIGNING_KEY }}
+      #          ORG_GRADLE_PROJECT_mavenCentralUsername: ${{ secrets.SONATYPE_USERNAME }}
+      #          ORG_GRADLE_PROJECT_mavenCentralPassword: ${{ secrets.SONATYPE_PASSWORD }}
       - name: Nyx publish
         uses: mooltiverse/nyx-github-action@main
         env:
@@ -80,20 +68,16 @@ jobs:
           NYX_SERVICES_GITHUB_OPTIONS_REPOSITORY_OWNER: 'ennioVisco'
         with:
           command: 'publish'
-          changelogPath: 'CHANGELOG.md'
-          preset: 'extended'
-          verbosity: 'DEBUG'
+          configurationFile: '.nyx.json'
           resume: 'true'
-          releaseLenient: 'true'
-          stateFile: '.nyx-state.json'
-          summaryFile: '.nyx-summary.txt'
 
   update-readme:
+    if: github.ref_name == 'master'
     name: Updating README.md
     runs-on: ubuntu-latest
     needs: [ publish-version, infer-version ]
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4
       - name: Find and Replace
         uses: jacobtomlinson/gha-find-replace@v3
         with:

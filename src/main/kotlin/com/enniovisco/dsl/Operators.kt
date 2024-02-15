@@ -1,15 +1,15 @@
 package com.enniovisco.dsl
 
-import eu.quanticol.moonlight.core.base.*
-import eu.quanticol.moonlight.core.formula.*
-import eu.quanticol.moonlight.formula.classic.*
-import eu.quanticol.moonlight.formula.spatial.*
-import eu.quanticol.moonlight.formula.temporal.*
+import io.github.moonlightsuite.moonlight.core.base.*
+import io.github.moonlightsuite.moonlight.core.formula.*
+import io.github.moonlightsuite.moonlight.formula.classic.*
+import io.github.moonlightsuite.moonlight.formula.spatial.*
+import io.github.moonlightsuite.moonlight.formula.temporal.*
 
 // Interval shorthand
 typealias interval = Box<Int>
 
-typealias Interval = eu.quanticol.moonlight.core.formula.Interval
+typealias Interval = io.github.moonlightsuite.moonlight.core.formula.Interval
 
 val Spec = com.enniovisco.Spec
 

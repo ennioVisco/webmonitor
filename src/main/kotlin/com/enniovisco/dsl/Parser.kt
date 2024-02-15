@@ -3,7 +3,7 @@ package com.enniovisco.dsl
 
 typealias Language = org.intellij.lang.annotations.Language
 
-private val log = mu.KotlinLogging.logger {}
+private val log = io.github.oshai.kotlinlogging.KotlinLogging.logger {}
 
 fun parseSelector(queryString: String): List<String> {
     try {

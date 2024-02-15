@@ -1,13 +1,13 @@
 package com.enniovisco.checking
 
 import com.enniovisco.space.*
-import eu.quanticol.moonlight.core.formula.*
-import eu.quanticol.moonlight.core.space.*
-import eu.quanticol.moonlight.domain.*
-import eu.quanticol.moonlight.formula.*
-import eu.quanticol.moonlight.offline.monitoring.*
-import eu.quanticol.moonlight.offline.signal.*
-import eu.quanticol.moonlight.space.*
+import io.github.moonlightsuite.moonlight.core.formula.*
+import io.github.moonlightsuite.moonlight.core.space.*
+import io.github.moonlightsuite.moonlight.domain.*
+import io.github.moonlightsuite.moonlight.formula.*
+import io.github.moonlightsuite.moonlight.offline.monitoring.*
+import io.github.moonlightsuite.moonlight.offline.signal.*
+import io.github.moonlightsuite.moonlight.space.*
 import java.util.function.Function
 
 typealias Monitor<V, T, R> = SpatialTemporalMonitoring<V, T, R>

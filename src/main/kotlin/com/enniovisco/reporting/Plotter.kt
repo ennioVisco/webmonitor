@@ -34,7 +34,7 @@ class Plotter(
     private val columns = data.size
     private val rows = data[0].size
     private val heatMap = addData(data)
-    private val log = mu.KotlinLogging.logger {}
+    private val log = io.github.oshai.kotlinlogging.KotlinLogging.logger {}
 
     init {
         if (grid.columns != columns || grid.rows != rows)
@@ -78,14 +78,14 @@ class Plotter(
         Platform.runLater {
             takeSnapshot(scene, "output/eval_${id}.png")
             if (headless) {
-                log.info("Headless mode, closing GUI.")
+                log.info { "Headless mode, closing GUI." }
                 Platform.exit()
             }
         }
     }
 
     private fun takeSnapshot(scene: Scene, fileName: String) {
-        log.info("Taking snapshot of $fileName")
+        log.info { "Taking snapshot of $fileName" }
         val image = scene.snapshot(null)
         val file = File("./$fileName")
         val buffer = SwingFXUtils.fromFXImage(image, null)

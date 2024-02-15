@@ -1,7 +1,7 @@
 package com.enniovisco.checking
 
 import com.enniovisco.space.*
-import eu.quanticol.moonlight.formula.*
+import io.github.moonlightsuite.moonlight.formula.*
 import org.junit.jupiter.api.Test
 import kotlin.test.*
 

@@ -1,6 +1,6 @@
 package com.enniovisco.tracking.commands
 
-import mu.*
+import io.github.oshai.kotlinlogging.*
 
 const val BOUNDS_PREFIX = "wm-"
 
@@ -36,7 +36,7 @@ class BoundInitializer(
             storeBoundValue(bound, defaultValue)
             defaultValue
         } else {
-            log.warn("Bound '$bound' already set to '$actual'")
+            log.warn { "Bound '$bound' already set to '$actual'" }
             return actual.toString()
         }
     }
@@ -45,7 +45,7 @@ class BoundInitializer(
         cmdExec(//language=JavaScript
             "document.querySelector(':root').style.setProperty(${prop(bound)}, '$value')"
         )
-        log.info("Bound '$bound' set to '$value'")
+        log.info { "Bound '$bound' set to '$value'" }
     }
 
     override fun dump(target: MutableMap<String, String>) {

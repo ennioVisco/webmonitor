@@ -10,7 +10,7 @@ class Cli(
     exec: Cli.(Reporter) -> Unit
 ) {
     val report = Reporter(toConsole, toFile)
-    private val log = mu.KotlinLogging.logger {}
+    private val log = io.github.oshai.kotlinlogging.KotlinLogging.logger {}
 
     init {
         report.use {
@@ -25,36 +25,36 @@ class Cli(
                 0 -> defaultScript()
                 1 -> oneArgument(args)
                 2 -> twoArguments(args)
-                else -> log.info("Using custom scripts")
+                else -> log.info { "Using custom scripts" }
             }
         } catch (e: NullPointerException) {
             if (args.size > 1)
-                log.error(errorMsg(source = args[0], spec = args[1]))
+                log.error { errorMsg(source = args[0], spec = args[1]) }
             else
-                log.error(errorMsg(source = args[0], spec = args[0]))
+                log.error { errorMsg(source = args[0], spec = args[0]) }
         }
     }
 
     private fun defaultScript() {
-        log.info("No arguments provided, using default scripts")
+        log.info { "No arguments provided, using default scripts" }
         loadScripts(source = "sample", spec = "sample")
     }
 
     private fun oneArgument(args: Array<String>) {
         val (source) = args
-        log.info(
+        log.info {
             "Using 'source.$source.kts' as source script and " +
                     "'spec.$source.kts' as spec script"
-        )
+        }
         loadScripts(source = source, spec = source)
     }
 
     private fun twoArguments(args: Array<String>) {
         val (source, spec) = args
-        log.info(
+        log.info {
             "Using 'source.$source.kts' as source script and " +
                     "'spec.$spec.kts' as spec script"
-        )
+        }
         loadScripts(source = source, spec = spec)
     }
 
