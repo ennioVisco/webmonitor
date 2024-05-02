@@ -37,8 +37,9 @@ class Plotter(
     private val log = io.github.oshai.kotlinlogging.KotlinLogging.logger {}
 
     init {
-        if (grid.columns != columns || grid.rows != rows)
-            throw IllegalArgumentException("Grid and data dimensions do not match")
+        require(grid.columns == columns || grid.rows == rows) {
+            "Grid and data dimensions do not match"
+        }
     }
 
     /**

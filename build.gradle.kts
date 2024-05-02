@@ -1,7 +1,6 @@
 import com.vanniktech.maven.publish.*
 import org.jetbrains.kotlin.gradle.tasks.*
 
-val ENABLE_PREVIEW = "--enable-preview"
 val GARBAGE_COLLECTOR = "-XX:+UseParallelGC"
 
 val PROJECT_VERSION =
@@ -19,7 +18,7 @@ group = PROJECT_GROUP
 plugins {
     // Environment
     id("me.filippov.gradle.jvm.wrapper") version "0.14.0"
-    kotlin("jvm") version "1.9.22"
+    kotlin("jvm") version "2.0.0-RC2"
 
     // GUI
     id("org.openjfx.javafxplugin") version "0.1.0"
@@ -27,18 +26,18 @@ plugins {
     // Code quality, testing & documentation
     jacoco
 //    id("org.jlleitschuh.gradle.ktlint") version "12.1.0"
-    id("org.sonarqube") version "4.4.1.3373"
-    id("org.jetbrains.dokka") version "1.9.10"
+    id("org.sonarqube") version "5.0.0.4638"
+    id("org.jetbrains.dokka") version "1.9.20"
     id("com.github.ben-manes.versions") version "0.51.0"
 
     // Modularization & packaging
     application
-    id("org.javamodularity.moduleplugin") version ("1.8.12") apply false
+    id("org.javamodularity.moduleplugin") version ("1.8.15") apply false
     id("org.panteleyev.jpackageplugin") version "1.6.0"
 
     // Releases & publishing
     id("it.nicolasfarabegoli.conventional-commits") version "3.1.3"
-    id("com.vanniktech.maven.publish") version "0.27.0"
+    id("com.vanniktech.maven.publish") version "0.28.0"
 }
 
 repositories {
@@ -119,26 +118,26 @@ dependencies {
     implementation("io.github.moonlightsuite:moonlight-engine:0.3.0")
 
     // Selenium
-    implementation("org.seleniumhq.selenium:selenium-java:4.17.0")
+    implementation("org.seleniumhq.selenium:selenium-java:4.20.0")
     implementation("org.seleniumhq.selenium:selenium-http-jdk-client:4.13.0")
 
-    implementation("io.github.bonigarcia:webdrivermanager:5.6.3")
+    implementation("io.github.bonigarcia:webdrivermanager:5.8.0")
 
     // TestFX (headless GUI)
     implementation("org.testfx:testfx-core:4.0.18")
     implementation("org.testfx:testfx-junit5:4.0.18")
-    implementation("org.testfx:openjfx-monocle:17.0.10")
+    implementation("org.testfx:openjfx-monocle:21.0.2")
 
     // Dokka
-    implementation("org.jetbrains.dokka:dokka-gradle-plugin:1.9.10")
+    implementation("org.jetbrains.dokka:dokka-gradle-plugin:1.9.20")
 
     // Charts
     implementation("eu.hansolo.fx:charts:21.0.7")
 
     // Logging
-    implementation("io.github.oshai:kotlin-logging-jvm:6.0.3")
+    implementation("io.github.oshai:kotlin-logging-jvm:6.0.9")
     runtimeOnly("org.slf4j:slf4j-api:2.0.7")
-    implementation("ch.qos.logback:logback-classic:1.4.14")
+    implementation("ch.qos.logback:logback-classic:1.5.6")
 
     // Pretty printing (debug)
     implementation("com.tylerthrailkill.helpers:pretty-print:2.0.2")
@@ -147,7 +146,7 @@ dependencies {
     testImplementation(kotlin("test"))
     testImplementation(kotlin("test-junit5"))
     testImplementation("org.junit.jupiter:junit-jupiter:5.10.2")
-    testImplementation("io.mockk:mockk:1.13.9")
+    testImplementation("io.mockk:mockk:1.13.10")
     testImplementation("com.github.stefanbirkner:system-lambda:1.2.1")
     testImplementation(kotlin("reflect"))
 }
@@ -156,19 +155,18 @@ fun runtimeArgs(exec: Any) {
     val arguments =
         listOf(
             GARBAGE_COLLECTOR,
-//        ENABLE_PREVIEW,
-            "--add-exports",
-            "javafx.graphics/com.sun.glass.ui=ALL-UNNAMED",
-            "--add-exports",
-            "javafx.graphics/com.sun.glass.utils=ALL-UNNAMED",
-            "--add-exports",
-            "javafx.graphics/com.sun.javafx.util=ALL-UNNAMED",
-            "--add-exports",
-            "javafx.base/com.sun.javafx.logging=ALL-UNNAMED",
-            "--add-opens",
-            "javafx.graphics/com.sun.glass.ui=ALL-UNNAMED",
-            "--add-opens",
-            "javafx.graphics/com.sun.glass.utils=ALL-UNNAMED"
+//            "--add-exports",
+//            "javafx.graphics/com.sun.glass.ui=ALL-UNNAMED",
+//            "--add-exports",
+//            "javafx.graphics/com.sun.glass.utils=ALL-UNNAMED",
+//            "--add-exports",
+//            "javafx.graphics/com.sun.javafx.util=ALL-UNNAMED",
+//            "--add-exports",
+//            "javafx.base/com.sun.javafx.logging=ALL-UNNAMED",
+//            "--add-opens",
+//            "javafx.graphics/com.sun.glass.ui=ALL-UNNAMED",
+//            "--add-opens",
+//            "javafx.graphics/com.sun.glass.utils=ALL-UNNAMED"
         )
     when (exec) {
         is JavaExec -> exec.jvmArgs(arguments)
@@ -226,7 +224,7 @@ tasks tasks@{
 
 fun pkg(name: String) = "${group}.${name}Kt"
 application {
-    applicationDefaultJvmArgs = listOf(ENABLE_PREVIEW)
+//    applicationDefaultJvmArgs = listOf(ENABLE_PREVIEW)
 //    println("Current exec dir: $executableDir")
     mainClass.set(pkg("Main"))
 //    mainModule.set("com.enniovisco.webmonitor") // TODO: investigate, this seems to brake javafx deps
