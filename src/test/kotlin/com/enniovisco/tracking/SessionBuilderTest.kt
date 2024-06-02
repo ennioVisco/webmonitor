@@ -11,7 +11,7 @@ import java.net.*
 
 internal class SessionBuilderTest {
 
-    @Disabled("Broken")
+    @Disabled("Broken") // TODO: Restore test
     @Test
     fun `browser session is initialized correctly`() {
         val url = URI.create("https://google.com").toURL()
