@@ -18,7 +18,7 @@ group = PROJECT_GROUP
 plugins {
     // Environment
     id("me.filippov.gradle.jvm.wrapper") version "0.14.0"
-    kotlin("jvm") version "2.0.0-RC2"
+    kotlin("jvm") version "2.0.0"
 
     // GUI
     id("org.openjfx.javafxplugin") version "0.1.0"

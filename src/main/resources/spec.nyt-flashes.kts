@@ -30,6 +30,6 @@ val stocksHidden = Spec.atoms[0]
 // Final formula
 Spec.formula = screen and not(stocksHidden) implies
         not(
-            eventually(stocksHidden) within (Interval(0, 1))
-                    and (eventually(not(stocksHidden)) within (Interval(0, 1)))
+            eventually(stocksHidden) within Interval(0, 1)
+                    and (eventually(not(stocksHidden)) within Interval(0, 1))
         )
