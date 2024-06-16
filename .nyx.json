@@ -58,10 +58,10 @@
         "collapsedVersionQualifier": "beta",
         "description": "{{#replace from=\"# Changelog\" to=\"\"}}{{#fileContent}}CHANGELOG.md{{/fileContent}}{{/replace}}",
         "gitCommit": "false",
-        "gitPush": "false",
+        "gitPush": "true",
         "publishPreRelease": "true",
         "releaseName": "{{version}} ({{#timeFormat format=\"2006-01-02\"}}{{timestamp}}{{/timeFormat}})",
-        "gitTag": "false",
+        "gitTag": "true",
         "publish": "true",
         "identifiers": [
           {
