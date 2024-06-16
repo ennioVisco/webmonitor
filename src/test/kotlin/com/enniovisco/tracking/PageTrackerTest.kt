@@ -29,7 +29,7 @@ class PageTrackerTest {
         assertTrue { tracker.isRecordingAt(event) }
     }
 
-    @Disabled("Broken") // TODO: Restore test
+//    @Disabled("Broken") // TODO: Restore test
     @Test
     fun `trivial session runs`() {
         val tracker = trackerStub()

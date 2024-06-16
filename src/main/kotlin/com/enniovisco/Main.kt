@@ -12,7 +12,8 @@ private typealias ResultData = List<Map<String, String>>
 private typealias Metadata = Map<String, String>
 
 fun main(args: Array<String>, preloaded: Boolean = false) {
-    Cli(args, toFile = true, preloaded = preloaded) {
+    println("Running....")
+    Cli(args, toFile = true, toConsole = true, preloaded = preloaded) {
         it.title("Tracking")
         val snapshots = tracking(it)
 
