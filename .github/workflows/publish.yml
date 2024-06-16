@@ -48,7 +48,7 @@ jobs:
           restore-keys: ${{ runner.os }}-gradle
       - name: Change wrapper permissions
         run: chmod +x gradlew
-      - name: Run gradle publish
+      - name: Run gradle publish (MavenCentral)
         run: ./gradlew publishAllPublicationsToMavenCentralRepository --no-configuration-cache
         env:
           ORG_GRADLE_PROJECT_projectVersion: ${{ needs.infer-version.outputs.version }}
@@ -56,7 +56,7 @@ jobs:
           ORG_GRADLE_PROJECT_signingInMemoryKey: ${{ secrets.SIGNING_KEY }}
           ORG_GRADLE_PROJECT_mavenCentralUsername: ${{ secrets.SONATYPE_USERNAME }}
           ORG_GRADLE_PROJECT_mavenCentralPassword: ${{ secrets.SONATYPE_PASSWORD }}
-      - name: Nyx publish
+      - name: Nyx publish (Github Release)
         uses: mooltiverse/nyx-github-action@main
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
