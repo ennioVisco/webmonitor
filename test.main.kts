@@ -1,17 +1,17 @@
 #!/usr/bin/env kotlin
 
-@file:DependsOn("com.enniovisco:webmonitor:v1.2.0-beta.2")
-//@file:DependsOn("org.jetbrains.kotlinx:kotlinx-html-jvm:0.8.0")
-
-//import kotlinx.html.*; import kotlinx.html.stream.*; import kotlinx.html.attributes.*
+@file:DependsOn("com.enniovisco:webmonitor:v1.2.0-beta.3")
 
 import com.enniovisco.*
+import com.enniovisco.dsl.*
 
 webSource {
     screenWidth = 100
 }
 
 val addressee = "World"
+
+println(WebSource.screenWidth)
 
 //print(
 //    createHTML().html {
