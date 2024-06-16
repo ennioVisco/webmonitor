@@ -9,7 +9,7 @@ class Cli(
     toFile: Boolean = false,
     exec: Cli.(Reporter) -> Unit
 ) {
-    val report = Reporter(toConsole, toFile)
+    private val report = Reporter(toConsole, toFile)
     private val log = io.github.oshai.kotlinlogging.KotlinLogging.logger {}
 
     init {
