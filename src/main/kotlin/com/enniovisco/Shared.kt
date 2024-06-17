@@ -1,6 +1,7 @@
 package com.enniovisco
 
 import com.enniovisco.dsl.*
+import com.enniovisco.tracking.Browser
 import io.github.moonlightsuite.moonlight.core.formula.*
 import io.github.moonlightsuite.moonlight.formula.*
 import io.github.moonlightsuite.moonlight.formula.classic.*
@@ -8,10 +9,6 @@ import io.github.moonlightsuite.moonlight.offline.signal.*
 
 internal typealias GridSignal = SpatialTemporalSignal<Boolean>
 
-/**
- * Enum of the supported browsers.
- */
-typealias Browser = com.enniovisco.tracking.Browser
 
 /**
  * Singleton object used to define the general settings of the browser session.

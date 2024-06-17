@@ -2,7 +2,6 @@ package com.enniovisco.tracking
 
 import com.enniovisco.tracking.commands.*
 import io.github.oshai.kotlinlogging.*
-import org.apache.commons.io.*
 import org.openqa.selenium.*
 import org.openqa.selenium.devtools.*
 import org.openqa.selenium.remote.*
@@ -73,6 +72,7 @@ class SnapshotBuilder(
     private fun takeScreenshot(id: Int) {
         val screenshotFile = driver.getScreenshotAs(OutputType.FILE)
         val outputFile = File("./output/snap_${id}.png")
-        FileUtils.copyFile(screenshotFile, outputFile)
+        screenshotFile.copyTo(outputFile, overwrite = true)
+//        FileUtils.copyFile(screenshotFile, outputFile)
     }
 }

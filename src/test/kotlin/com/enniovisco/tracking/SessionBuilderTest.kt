@@ -1,17 +1,18 @@
 package com.enniovisco.tracking
 
-import io.github.bonigarcia.wdm.*
-import io.mockk.*
-import org.junit.jupiter.api.*
-import org.junit.jupiter.api.Assertions.*
-import org.openqa.selenium.*
-import org.openqa.selenium.chrome.*
-import java.net.*
+import io.mockk.mockk
+import org.junit.jupiter.api.Assertions.assertEquals
+import org.junit.jupiter.api.Assertions.assertInstanceOf
+import org.junit.jupiter.api.Test
+import org.junit.jupiter.api.fail
+import org.openqa.selenium.Dimension
+import org.openqa.selenium.chrome.ChromeDriver
+import java.net.URI
 
 
 internal class SessionBuilderTest {
 
-    @Disabled("Broken") // TODO: Restore test
+//    @Disabled("Broken") // TODO: Restore test
     @Test
     fun `browser session is initialized correctly`() {
         val url = URI.create("https://google.com").toURL()
@@ -25,14 +26,6 @@ internal class SessionBuilderTest {
             }
         } catch (e: Exception) {
             fail("Are you sure the Chrome browser is installed?", e)
-        }
-    }
-
-    companion object {
-        @JvmStatic
-        @BeforeAll
-        fun setupClass() {
-            WebDriverManager.chromedriver().setup()
         }
     }
 }

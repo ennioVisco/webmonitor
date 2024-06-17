@@ -9,7 +9,7 @@ jobs:
       version: ${{ steps.nyx-infer.outputs.version }}
       newRelease: ${{ steps.nyx-infer.outputs.newRelease }}
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4
         with:
           fetch-depth: 0
       - name: Run nyx Infer
@@ -46,17 +46,22 @@ jobs:
           path: ~/.gradle/caches
           key: ${{ runner.os }}-gradle-${{ hashFiles('**/*.gradle') }}
           restore-keys: ${{ runner.os }}-gradle
+      - name: Strip the 'v' character from the version number
+        id: strip
+        run: |
+          stripped=$(echo "${{ needs.infer-version.outputs.version }}" | cut -c 2-)
+          echo "stripped=$stripped" >> "$GITHUB_OUTPUT"
       - name: Change wrapper permissions
         run: chmod +x gradlew
-      #      - name: Run gradle publish
-      #        run: ./gradlew publishAllPublicationsToMavenCentralRepository --no-configuration-cache
-      #        env:
-      #          ORG_GRADLE_PROJECT_projectVersion: ${{ needs.infer-version.outputs.version }}
-      #          ORG_GRADLE_PROJECT_signingInMemoryKeyPassword: ${{ secrets.SIGNING_PASSWORD }}
-      #          ORG_GRADLE_PROJECT_signingInMemoryKey: ${{ secrets.SIGNING_KEY }}
-      #          ORG_GRADLE_PROJECT_mavenCentralUsername: ${{ secrets.SONATYPE_USERNAME }}
-      #          ORG_GRADLE_PROJECT_mavenCentralPassword: ${{ secrets.SONATYPE_PASSWORD }}
-      - name: Nyx publish
+      - name: Run gradle publish (MavenCentral)
+        run: ./gradlew publishAllPublicationsToMavenCentralRepository --no-configuration-cache
+        env:
+          ORG_GRADLE_PROJECT_projectVersion: ${{ steps.strip.outputs.stripped }}
+          ORG_GRADLE_PROJECT_signingInMemoryKeyPassword: ${{ secrets.SIGNING_PASSWORD }}
+          ORG_GRADLE_PROJECT_signingInMemoryKey: ${{ secrets.SIGNING_KEY }}
+          ORG_GRADLE_PROJECT_mavenCentralUsername: ${{ secrets.SONATYPE_USERNAME }}
+          ORG_GRADLE_PROJECT_mavenCentralPassword: ${{ secrets.SONATYPE_PASSWORD }}
+      - name: Nyx publish (Github Release)
         uses: mooltiverse/nyx-github-action@main
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}

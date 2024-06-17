@@ -1,6 +1,5 @@
 package com.enniovisco.tracking
 
-import io.github.bonigarcia.wdm.*
 import org.openqa.selenium.*
 import org.openqa.selenium.chrome.*
 import org.openqa.selenium.devtools.*
@@ -40,7 +39,6 @@ class SessionBuilder(
     }
 
     private fun initFirefoxSettings(): FirefoxDriver {
-        WebDriverManager.firefoxdriver().setup()
         return FirefoxDriver()
     }
 
@@ -49,7 +47,6 @@ class SessionBuilder(
         headless: Boolean
     ): ChromeDriver {
         reduceDriverVerbosity()
-        WebDriverManager.chromedriver().setup()
         val options = ChromeOptions()
         options.addArguments("--force-device-scale-factor=2.75")
 
@@ -67,7 +64,6 @@ class SessionBuilder(
             options.addArguments("--no-sandbox")
             options.addArguments("--disable-dev-shm-usage")
         }
-        options.addArguments("--remote-allow-origins=*")
 
         return ChromeDriver(options)
     }

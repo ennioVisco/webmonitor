@@ -7,14 +7,17 @@ class Cli(
     args: Array<String>,
     toConsole: Boolean = false,
     toFile: Boolean = false,
+    preloaded: Boolean = false,
     exec: Cli.(Reporter) -> Unit
 ) {
-    val report = Reporter(toConsole, toFile)
+    private val report = Reporter(toConsole, toFile)
     private val log = io.github.oshai.kotlinlogging.KotlinLogging.logger {}
 
     init {
         report.use {
-            validateArgs(args)
+            if(!preloaded) {
+                validateArgs(args)
+            }
             exec(it)
         }
     }

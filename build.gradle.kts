@@ -118,10 +118,11 @@ dependencies {
     implementation("io.github.moonlightsuite:moonlight-engine:0.3.0")
 
     // Selenium
-    implementation("org.seleniumhq.selenium:selenium-java:4.20.0")
-    implementation("org.seleniumhq.selenium:selenium-http-jdk-client:4.13.0")
+    implementation("org.seleniumhq.selenium:selenium-java:4.21.0")
+//    implementation("org.seleniumhq.selenium:selenium-http-jdk-client:4.13.0")
+    testImplementation("org.seleniumhq.selenium:selenium-java:4.21.0")
 
-    implementation("io.github.bonigarcia:webdrivermanager:5.8.0")
+//    implementation("io.github.bonigarcia:webdrivermanager:5.8.0")
 
     // TestFX (headless GUI)
     implementation("org.testfx:testfx-core:4.0.18")
@@ -135,7 +136,7 @@ dependencies {
     implementation("eu.hansolo.fx:charts:21.0.7")
 
     // Logging
-    implementation("io.github.oshai:kotlin-logging-jvm:6.0.9")
+    implementation("io.github.oshai:kotlin-logging-jvm:7.0.0")
     runtimeOnly("org.slf4j:slf4j-api:2.0.7")
     implementation("ch.qos.logback:logback-classic:1.5.6")
 
@@ -146,7 +147,7 @@ dependencies {
     testImplementation(kotlin("test"))
     testImplementation(kotlin("test-junit5"))
     testImplementation("org.junit.jupiter:junit-jupiter:5.10.2")
-    testImplementation("io.mockk:mockk:1.13.10")
+    testImplementation("io.mockk:mockk:1.13.11")
     testImplementation("com.github.stefanbirkner:system-lambda:1.2.1")
     testImplementation(kotlin("reflect"))
 }
