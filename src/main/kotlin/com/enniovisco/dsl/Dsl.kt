@@ -11,8 +11,8 @@ import com.enniovisco.main
 typealias Browser = com.enniovisco.tracking.Browser
 
 class WebMonitor {
-    val toFile = true
-    val toConsole = false
+    var toFile = true
+    var toConsole = false
 
     fun webSource(init: WebSource.() -> Unit): WebSource {
         WebSource.init()

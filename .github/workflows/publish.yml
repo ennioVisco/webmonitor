@@ -48,7 +48,7 @@ jobs:
           restore-keys: ${{ runner.os }}-gradle
       - name: Strip the 'v' character from the version number
         id: strip
-        run: echo "${{ needs.infer-version.outputs.version }}" | cut -c 2-
+        run: echo "stripped=${{ needs.infer-version.outputs.version }}" | cut -c 2- >> "$GITHUB_OUTPUT
         shell: bash
         env:
           OUTPUT: ${{ needs.infer-version.outputs.version }}
