@@ -119,9 +119,10 @@ dependencies {
 
     // Selenium
     implementation("org.seleniumhq.selenium:selenium-java:4.21.0")
-    implementation("org.seleniumhq.selenium:selenium-http-jdk-client:4.13.0")
+//    implementation("org.seleniumhq.selenium:selenium-http-jdk-client:4.13.0")
+    testImplementation("org.seleniumhq.selenium:selenium-java:4.21.0")
 
-    implementation("io.github.bonigarcia:webdrivermanager:5.8.0")
+//    implementation("io.github.bonigarcia:webdrivermanager:5.8.0")
 
     // TestFX (headless GUI)
     implementation("org.testfx:testfx-core:4.0.18")
