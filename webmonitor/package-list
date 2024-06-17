@@ -36,8 +36,7 @@ $dokka.location:com.enniovisco.checking/TraceBuilder/useElements/#kotlin.collect
 $dokka.location:com.enniovisco.checking/TraceBuilder/useMetadata/#/PointingToDeclaration/webmonitor/com.enniovisco.checking/-trace-builder/use-metadata.html
 $dokka.location:com.enniovisco.cli////PointingToDeclaration/webmonitor/com.enniovisco.cli/index.html
 $dokka.location:com.enniovisco.cli/Cli///PointingToDeclaration/webmonitor/com.enniovisco.cli/-cli/index.html
-$dokka.location:com.enniovisco.cli/Cli/Cli/#kotlin.Array[kotlin.String]#kotlin.Boolean#kotlin.Boolean#kotlin.Function2[com.enniovisco.cli.Cli,com.enniovisco.reporting.Reporter,kotlin.Unit]/PointingToDeclaration/webmonitor/com.enniovisco.cli/-cli/-cli.html
-$dokka.location:com.enniovisco.cli/Cli/report/#/PointingToDeclaration/webmonitor/com.enniovisco.cli/-cli/report.html
+$dokka.location:com.enniovisco.cli/Cli/Cli/#kotlin.Array[kotlin.String]#kotlin.Boolean#kotlin.Boolean#kotlin.Boolean#kotlin.Function2[com.enniovisco.cli.Cli,com.enniovisco.reporting.Reporter,kotlin.Unit]/PointingToDeclaration/webmonitor/com.enniovisco.cli/-cli/-cli.html
 $dokka.location:com.enniovisco.dsl////PointingToDeclaration/webmonitor/com.enniovisco.dsl/index.html
 $dokka.location:com.enniovisco.dsl//Spec/#/PointingToDeclaration/webmonitor/com.enniovisco.dsl/-spec.html
 $dokka.location:com.enniovisco.dsl//after/#kotlin.Function0[kotlin.String]/PointingToDeclaration/webmonitor/com.enniovisco.dsl/after.html
@@ -48,6 +47,7 @@ $dokka.location:com.enniovisco.dsl//every/#kotlin.Int/PointingToDeclaration/web
 $dokka.location:com.enniovisco.dsl//everywhere/#io.github.moonlightsuite.moonlight.core.formula.Formula/PointingToDeclaration/webmonitor/com.enniovisco.dsl/everywhere.html
 $dokka.location:com.enniovisco.dsl//globally/#io.github.moonlightsuite.moonlight.core.formula.Formula/PointingToDeclaration/webmonitor/com.enniovisco.dsl/globally.html
 $dokka.location:com.enniovisco.dsl//implies/io.github.moonlightsuite.moonlight.core.formula.Formula#io.github.moonlightsuite.moonlight.core.formula.Formula/PointingToDeclaration/webmonitor/com.enniovisco.dsl/implies.html
+$dokka.location:com.enniovisco.dsl//monitor/#kotlin.Function1[com.enniovisco.dsl.WebMonitor,kotlin.Unit]/PointingToDeclaration/webmonitor/com.enniovisco.dsl/monitor.html
 $dokka.location:com.enniovisco.dsl//not/#io.github.moonlightsuite.moonlight.core.formula.Formula/PointingToDeclaration/webmonitor/com.enniovisco.dsl/not.html
 $dokka.location:com.enniovisco.dsl//or/io.github.moonlightsuite.moonlight.core.formula.Formula#io.github.moonlightsuite.moonlight.core.formula.Formula/PointingToDeclaration/webmonitor/com.enniovisco.dsl/or.html
 $dokka.location:com.enniovisco.dsl//parsePixels/#kotlin.String/PointingToDeclaration/webmonitor/com.enniovisco.dsl/parse-pixels.html
@@ -60,6 +60,7 @@ $dokka.location:com.enniovisco.dsl//until/io.github.moonlightsuite.moonlight.cor
 $dokka.location:com.enniovisco.dsl//within/io.github.moonlightsuite.moonlight.formula.temporal.EventuallyFormula#io.github.moonlightsuite.moonlight.core.formula.Interval/PointingToDeclaration/webmonitor/com.enniovisco.dsl/within.html
 $dokka.location:com.enniovisco.dsl//within/io.github.moonlightsuite.moonlight.formula.temporal.GloballyFormula#io.github.moonlightsuite.moonlight.core.formula.Interval/PointingToDeclaration/webmonitor/com.enniovisco.dsl/within.html
 $dokka.location:com.enniovisco.dsl//within/io.github.moonlightsuite.moonlight.formula.temporal.UntilFormula#io.github.moonlightsuite.moonlight.core.formula.Interval/PointingToDeclaration/webmonitor/com.enniovisco.dsl/within.html
+$dokka.location:com.enniovisco.dsl/Browser///PointingToDeclaration/webmonitor/com.enniovisco.dsl/-browser/index.html
 $dokka.location:com.enniovisco.dsl/Color///PointingToDeclaration/webmonitor/com.enniovisco.dsl/-color/index.html
 $dokka.location:com.enniovisco.dsl/Color/Color/#kotlin.Int#kotlin.Int#kotlin.Int/PointingToDeclaration/webmonitor/com.enniovisco.dsl/-color/-color.html
 $dokka.location:com.enniovisco.dsl/Color/blue/#/PointingToDeclaration/webmonitor/com.enniovisco.dsl/-color/blue.html
@@ -93,6 +94,12 @@ $dokka.location:com.enniovisco.dsl/Selector/queryString/#/PointingToDeclaration/
 $dokka.location:com.enniovisco.dsl/Selector/read/#kotlin.String/PointingToDeclaration/webmonitor/com.enniovisco.dsl/-selector/read.html
 $dokka.location:com.enniovisco.dsl/Selector/state/#/PointingToDeclaration/webmonitor/com.enniovisco.dsl/-selector/state.html
 $dokka.location:com.enniovisco.dsl/Selector/toString/#/PointingToDeclaration/webmonitor/com.enniovisco.dsl/-selector/to-string.html
+$dokka.location:com.enniovisco.dsl/WebMonitor///PointingToDeclaration/webmonitor/com.enniovisco.dsl/-web-monitor/index.html
+$dokka.location:com.enniovisco.dsl/WebMonitor/WebMonitor/#/PointingToDeclaration/webmonitor/com.enniovisco.dsl/-web-monitor/-web-monitor.html
+$dokka.location:com.enniovisco.dsl/WebMonitor/spec/#kotlin.Function1[com.enniovisco.Spec,kotlin.Unit]/PointingToDeclaration/webmonitor/com.enniovisco.dsl/-web-monitor/spec.html
+$dokka.location:com.enniovisco.dsl/WebMonitor/toConsole/#/PointingToDeclaration/webmonitor/com.enniovisco.dsl/-web-monitor/to-console.html
+$dokka.location:com.enniovisco.dsl/WebMonitor/toFile/#/PointingToDeclaration/webmonitor/com.enniovisco.dsl/-web-monitor/to-file.html
+$dokka.location:com.enniovisco.dsl/WebMonitor/webSource/#kotlin.Function1[com.enniovisco.WebSource,kotlin.Unit]/PointingToDeclaration/webmonitor/com.enniovisco.dsl/-web-monitor/web-source.html
 $dokka.location:com.enniovisco.dsl/interval///PointingToDeclaration/webmonitor/com.enniovisco.dsl/interval/index.html
 $dokka.location:com.enniovisco.reporting////PointingToDeclaration/webmonitor/com.enniovisco.reporting/index.html
 $dokka.location:com.enniovisco.reporting/Plotter///PointingToDeclaration/webmonitor/com.enniovisco.reporting/-plotter/index.html
@@ -163,8 +170,7 @@ $dokka.location:com.enniovisco.tracking/SnapshotBuilder///PointingToDeclaration/
 $dokka.location:com.enniovisco.tracking/SnapshotBuilder/SnapshotBuilder/#org.openqa.selenium.remote.RemoteWebDriver#kotlin.collections.List[kotlin.String]#kotlin.Boolean/PointingToDeclaration/webmonitor/com.enniovisco.tracking/-snapshot-builder/-snapshot-builder.html
 $dokka.location:com.enniovisco.tracking/SnapshotBuilder/collect/#kotlin.Int/PointingToDeclaration/webmonitor/com.enniovisco.tracking/-snapshot-builder/collect.html
 $dokka.location:com.enniovisco////PointingToDeclaration/webmonitor/com.enniovisco/index.html
-$dokka.location:com.enniovisco//main/#kotlin.Array[kotlin.String]/PointingToDeclaration/webmonitor/com.enniovisco/main.html
-$dokka.location:com.enniovisco/Browser///PointingToDeclaration/webmonitor/com.enniovisco/-browser/index.html
+$dokka.location:com.enniovisco//main/#kotlin.Array[kotlin.String]#kotlin.Boolean#kotlin.Boolean#kotlin.Boolean/PointingToDeclaration/webmonitor/com.enniovisco/main.html
 $dokka.location:com.enniovisco/Spec///PointingToDeclaration/webmonitor/com.enniovisco/-spec/index.html
 $dokka.location:com.enniovisco/Spec/atoms/#/PointingToDeclaration/webmonitor/com.enniovisco/-spec/atoms.html
 $dokka.location:com.enniovisco/Spec/atoms/#kotlin.Array[com.enniovisco.dsl.Selector]/PointingToDeclaration/webmonitor/com.enniovisco/-spec/atoms.html
