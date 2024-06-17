@@ -46,12 +46,18 @@ jobs:
           path: ~/.gradle/caches
           key: ${{ runner.os }}-gradle-${{ hashFiles('**/*.gradle') }}
           restore-keys: ${{ runner.os }}-gradle
+#      - name: Strip the 'v' character from the version number
+#        id: strip
+#        run: echo "stripped={ echo ${{ needs.infer-version.outputs.version }} | cut -c 2- }" >> "$GITHUB_OUTPUT
+#        shell: bash
+#        env:
+#          OUTPUT: ${{ needs.infer-version.outputs.version }}
       - name: Strip the 'v' character from the version number
-        id: strip
-        run: echo "stripped={ ${{ needs.infer-version.outputs.version }}" | cut -c 2- } >> "$GITHUB_OUTPUT
-        shell: bash
-        env:
-          OUTPUT: ${{ needs.infer-version.outputs.version }}
+        run: |
+          STRIPPED_OUTPUT=$(echo "${{ needs.infer-version.outputs.version }}" | cut -c 2-)
+          echo "Stripped Output: $STRIPPED_OUTPUT"
+#        env:
+#          STRIPPED_OUTPUT: ${{ steps.strip.outputs.stripped }}
       - name: Change wrapper permissions
         run: chmod +x gradlew
       - name: Run gradle publish (MavenCentral)
