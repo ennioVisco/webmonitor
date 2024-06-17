@@ -56,7 +56,7 @@ jobs:
         id: strip
         run: |
           stripped=$(echo "${{ needs.infer-version.outputs.version }}" | cut -c 2-)
-          echo "Stripped Output: $stripped"
+          echo "stripped=$stripped" >> "$GITHUB_OUTPUT"
 #        env:
 #          STRIPPED_OUTPUT: ${{ steps.strip.outputs.stripped }}
       - name: Change wrapper permissions
