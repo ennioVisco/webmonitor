@@ -62,9 +62,7 @@ jobs:
       - name: Change wrapper permissions
         run: chmod +x gradlew
       - name: Run gradle publish (MavenCentral)
-        run: |
-          echo "Stripped version: ${{ steps.strip.outputs.stripped }}"
-          ./gradlew publishAllPublicationsToMavenCentralRepository --no-configuration-cache
+        run: ./gradlew publishAllPublicationsToMavenCentralRepository --no-configuration-cache
         env:
           ORG_GRADLE_PROJECT_projectVersion: ${{ steps.strip.outputs.stripped }}
           ORG_GRADLE_PROJECT_signingInMemoryKeyPassword: ${{ secrets.SIGNING_PASSWORD }}
