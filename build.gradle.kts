@@ -118,9 +118,9 @@ dependencies {
     implementation("io.github.moonlightsuite:moonlight-engine:0.3.0")
 
     // Selenium
-    implementation("org.seleniumhq.selenium:selenium-java:4.21.0")
+    implementation("org.seleniumhq.selenium:selenium-java:4.23.1")
 //    implementation("org.seleniumhq.selenium:selenium-http-jdk-client:4.13.0")
-    testImplementation("org.seleniumhq.selenium:selenium-java:4.21.0")
+    testImplementation("org.seleniumhq.selenium:selenium-java:4.23.1")
 
 //    implementation("io.github.bonigarcia:webdrivermanager:5.8.0")
 
