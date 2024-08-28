@@ -1,3 +1,6 @@
+# Kotlin
+.kotlin
+
 # Gradle cache
 .gradle
 
@@ -34,3 +37,7 @@ output/
 gradle.properties
 .nyx-state.json
 .nyx-summary.txt
+
+
+# Webdriver
+chrome/

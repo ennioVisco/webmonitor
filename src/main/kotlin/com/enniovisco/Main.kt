@@ -11,6 +11,10 @@ import java.net.*
 private typealias ResultData = List<Map<String, String>>
 private typealias Metadata = Map<String, String>
 
+fun main(args: Array<String>) {
+    main(args, preloaded = false, toFile = true, toConsole = false)
+}
+
 fun main(args: Array<String>, preloaded: Boolean = false, toFile : Boolean = true, toConsole: Boolean = false) {
     println("Running....")
     Cli(args, toFile = toFile, toConsole = toConsole, preloaded = preloaded) {

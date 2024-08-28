@@ -220,6 +220,10 @@ tasks tasks@{
             jvmTarget.set(org.jetbrains.kotlin.gradle.dsl.JvmTarget.JVM_21)
         }
     }
+
+//    withType<Test>().configureEach {
+//        maxParallelForks = (Runtime.getRuntime().availableProcessors() / 2).coerceAtLeast(1)
+//    }
 }
 
 
