@@ -6,7 +6,6 @@ monitor {
     webSource {
         screenWidth = 393 // px
         screenHeight = 851 // px
-        // To date Google Chrome is the browser with the most stable APIs
         browser = Browser.CHROME_HEADLESS // Alternatively Browser.FIREFOX, Browser.EDGE or Browser.CHROME
         wait = 0
         maxSessionDuration = 5_000 // ms
