@@ -4,12 +4,6 @@ import com.enniovisco.Spec
 import com.enniovisco.WebSource
 import com.enniovisco.main
 
-
-/**
- * Enum of the supported browsers.
- */
-typealias Browser = com.enniovisco.tracking.Browser
-
 class WebMonitor {
     var toFile = true
     var toConsole = false

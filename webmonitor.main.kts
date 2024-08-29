@@ -6,7 +6,7 @@ command -v kscript >/dev/null 2>&1 || source /dev/stdin <<< "$(curl -L https://g
 exec kscript $0 "$@"
 \*** IMPORTANT: Any code including imports and annotations must come after this line ***/
 
-@file:DependsOn("com.enniovisco:webmonitor:1.2.0")
+@file:DependsOn("com.enniovisco:webmonitor:1.3.0")
 
 import com.enniovisco.dsl.*
 

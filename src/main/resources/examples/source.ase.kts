@@ -1,5 +1,5 @@
 import com.enniovisco.*
-import com.enniovisco.tracking.Browser
+import com.enniovisco.dsl.Browser
 
 // Unfortunately, the frame-size is browser-specific.
 // Typically, all browsers have only a vertical frame,

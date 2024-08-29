@@ -156,18 +156,18 @@ fun runtimeArgs(exec: Any) {
     val arguments =
         listOf(
             GARBAGE_COLLECTOR,
-//            "--add-exports",
-//            "javafx.graphics/com.sun.glass.ui=ALL-UNNAMED",
-//            "--add-exports",
-//            "javafx.graphics/com.sun.glass.utils=ALL-UNNAMED",
-//            "--add-exports",
-//            "javafx.graphics/com.sun.javafx.util=ALL-UNNAMED",
-//            "--add-exports",
-//            "javafx.base/com.sun.javafx.logging=ALL-UNNAMED",
-//            "--add-opens",
-//            "javafx.graphics/com.sun.glass.ui=ALL-UNNAMED",
-//            "--add-opens",
-//            "javafx.graphics/com.sun.glass.utils=ALL-UNNAMED"
+            "--add-exports",
+            "javafx.graphics/com.sun.glass.ui=ALL-UNNAMED",
+            "--add-exports",
+            "javafx.graphics/com.sun.glass.utils=ALL-UNNAMED",
+            "--add-exports",
+            "javafx.graphics/com.sun.javafx.util=ALL-UNNAMED",
+            "--add-exports",
+            "javafx.base/com.sun.javafx.logging=ALL-UNNAMED",
+            "--add-opens",
+            "javafx.graphics/com.sun.glass.ui=ALL-UNNAMED",
+            "--add-opens",
+            "javafx.graphics/com.sun.glass.utils=ALL-UNNAMED"
         )
     when (exec) {
         is JavaExec -> exec.jvmArgs(arguments)

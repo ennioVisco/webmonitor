@@ -1,4 +1,4 @@
-package com.enniovisco.tracking
+package com.enniovisco.dsl
 
 /**
  * Allowed browsers for webpages tracking

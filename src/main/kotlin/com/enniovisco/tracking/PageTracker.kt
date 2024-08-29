@@ -1,5 +1,6 @@
 package com.enniovisco.tracking
 
+import com.enniovisco.dsl.Browser
 import io.github.oshai.kotlinlogging.*
 import org.openqa.selenium.*
 import org.openqa.selenium.devtools.events.*

@@ -1,5 +1,6 @@
 package com.enniovisco.tracking
 
+import com.enniovisco.dsl.Browser
 import org.openqa.selenium.*
 import org.openqa.selenium.chrome.*
 import org.openqa.selenium.devtools.*
@@ -49,6 +50,7 @@ class SessionBuilder(
         reduceDriverVerbosity()
         val options = ChromeOptions()
         options.addArguments("--force-device-scale-factor=2.75")
+        options.addArguments("--disable-search-engine-choice-screen")
 
         if (dims?.width!! < 500 || dims.height < 400) {
             initMobileChrome(options, "iPhone 5/SE")

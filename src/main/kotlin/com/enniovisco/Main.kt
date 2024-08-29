@@ -21,6 +21,9 @@ fun main(args: Array<String>, preloaded: Boolean = false, toFile : Boolean = tru
         it.title("Tracking")
         val snapshots = tracking(it)
 
+        if(snapshots.isEmpty()) {
+            throw IllegalStateException("Unable to start the browser session.")
+        }
         val grid = generateSpatialModel(snapshots[0])
 
         it.title("Checking")

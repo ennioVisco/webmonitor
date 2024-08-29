@@ -1,5 +1,5 @@
 import com.enniovisco.*
-import com.enniovisco.tracking.Browser
+import com.enniovisco.dsl.Browser
 
 WebSource.screenWidth = 800 // px
 WebSource.screenHeight = 400 // px

@@ -1,7 +1,7 @@
 package com.enniovisco
 
 import com.enniovisco.dsl.*
-import com.enniovisco.tracking.Browser
+import com.enniovisco.dsl.Browser
 import io.github.moonlightsuite.moonlight.core.formula.*
 import io.github.moonlightsuite.moonlight.formula.*
 import io.github.moonlightsuite.moonlight.formula.classic.*
