@@ -2,6 +2,30 @@
 
 A formal approach to monitoring web pages as spatio-temporal traces.
 
+## Academic Citation
+If you appreciate the concept for academic research, a citation would be appreciated:
+```tex
+@article{10.1145/3708512,
+author = {Visconti, Ennio and Tsigkanos, Christos and Nenzi, Laura},
+title = {Automated Monitoring of Web User Interfaces},
+year = {2025},
+issue_date = {May 2025},
+publisher = {Association for Computing Machinery},
+address = {New York, NY, USA},
+volume = {19},
+number = {2},
+issn = {1559-1131},
+url = {https://doi.org/10.1145/3708512},
+doi = {10.1145/3708512},
+abstract = {Application development for the modern web involves sophisticated engineering workflows—including user interface (UI) aspects. Such user interfaces comprise web elements that are typically created with HTML/CSS markup and JavaScript-like languages, yielding web documents. Their testing entails performing checks to examine visual and structural parts of the resulting UI software against requirements such as usability, accessibility, performance, or, increasingly, compliance with standards. However, current techniques are largely ad hoc and tailor-made to specific classes of requirements or web technologies and extensively require human-in-the-loop qualitative evaluations. Web UI evaluation so far has lacked formal foundations, which would provide assurances of compliance with requirements in an automatic manner. To this end, we devise a methodology and accompanying technical framework for web UIs. In our approach, requirements are formally specified in a spatio-temporal logic able to capture both the layout of visual components as well as how they change over time, as a user interacts with them. The technique we advocate is independent of the underlying technologies a web application may be developed with, as well as the browser and operating system used. To concretely support the specification and evaluation of UI requirements, our framework is grounded on open source tools for instrumenting, analyzing, and reporting spatio-temporal behaviors in webpages. We demonstrate our approach in practice over web accessibility standards posing challenges for automated verification.},
+journal = {ACM Trans. Web},
+month = mar,
+articleno = {10},
+numpages = {27},
+keywords = {User interface testing, automated testing, monitoring, spatio-temporal logic, selenium webdriver}
+}
+```
+
 ## Quick Overview (on YouTube 🎥)
 
 [![WebMonitor Demo - With Live Coding 💻](https://i.ytimg.com/vi/hqVw0JU3k9c/hqdefault.jpg)](https://youtu.be/hqVw0JU3k9c "WebMonitor Demo - With Live Coding 💻")
