@@ -1,4 +1,4 @@
-import com.enniovisco.*
+import com.enniovisco.dsl.*
 
 // We are targeting the Pixel 5 resolution
 WebSource.screenWidth = 375 // px

@@ -1,7 +1,9 @@
-import com.enniovisco.*
+import com.enniovisco.dsl.*
 
 // We are targeting the Pixel 5 resolution
-WebSource.screenWidth = 393 // px
+monitor.webSource {
+    screenWidth = 393 // px
+}
 WebSource.screenHeight = 851 // px
 
 // To date Google Chrome is the browser with the most stable APIs

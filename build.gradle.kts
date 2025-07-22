@@ -237,14 +237,13 @@ application {
 
 val jarsDir: Provider<Directory> = layout.buildDirectory.dir("jars")
 
-task("copyDependencies", Copy::class) {
-
+tasks.register("copyDependencies", Copy::class, fun Copy.() {
     from(configurations.runtimeClasspath).into(jarsDir)
-}
+})
 
-task("copyJar", Copy::class) {
+tasks.register("copyJar", Copy::class, fun Copy.() {
     from(tasks.jar).into(jarsDir)
-}
+})
 
 
 tasks.jpackage {

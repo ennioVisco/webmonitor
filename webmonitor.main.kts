@@ -1,20 +1,11 @@
-#!/bin/bash
-
-//usr/bin/env echo '
-/**** BOOTSTRAP kscript ****\'>/dev/null
-command -v kscript >/dev/null 2>&1 || source /dev/stdin <<< "$(curl -L https://git.io/fpF1K)"
-exec kscript $0 "$@"
-\*** IMPORTANT: Any code including imports and annotations must come after this line ***/
-
-@file:DependsOn("com.enniovisco:webmonitor:1.3.0")
-
+#!/usr/bin/env kotlin
+@file:DependsOn("com.enniovisco:webmonitor:1.3.1")
 import com.enniovisco.dsl.*
 
 monitor {
     webSource {
         screenWidth = 393 // px
         screenHeight = 851 // px
-        // To date Google Chrome is the browser with the most stable APIs
         browser = Browser.CHROME_HEADLESS // Alternatively Browser.FIREFOX, Browser.EDGE or Browser.CHROME
         wait = 0
         maxSessionDuration = 5_000 // ms

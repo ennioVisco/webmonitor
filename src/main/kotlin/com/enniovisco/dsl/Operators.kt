@@ -1,5 +1,6 @@
 package com.enniovisco.dsl
 
+import com.enniovisco.Spec
 import io.github.moonlightsuite.moonlight.core.base.*
 import io.github.moonlightsuite.moonlight.core.formula.*
 import io.github.moonlightsuite.moonlight.formula.classic.*
